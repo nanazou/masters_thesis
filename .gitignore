@@ -1,0 +1,24 @@
+# LaTeX temporary files
+*.aux
+*.log
+*.synctex.gz
+*.toc
+*.out
+*.fdb_latexmk
+*.fls
+*.bbl
+*.blg
+*.bcf
+*.xml
+
+# Dynare/MATLAB generated files
++*/
+*_static.m
+*_dynamic.m
+*_set_auxiliary_variables.m
+*_steadystate.m
+clt_model.m
+clt_model_zlb.m
+
+# MATLAB temporary
+*.asv
