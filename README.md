@@ -30,24 +30,20 @@
 
 1. **GNU Octave 9.4:**
    `octave-9.4.0-w64-installer.exe` をダウンロードする。
-
-   https://mirrors.ustc.edu.cn/gnu/octave/windows
+   <br>https://mirrors.ustc.edu.cn/gnu/octave/windows
 
 2. **Dynare 6.3:**
    `dynare-6.3-win.exe` をダウンロードする。
-
-   https://www.dynare.org/release/windows/
+   <br>https://www.dynare.org/release/windows/
 
 3. **Occbin_update:**
    以下のページで **Code** タブを選択し、緑の **Code** ボタンから **Download ZIP** を選択する。
-
-   https://github.com/JohannesPfeifer/Occbin_update
+   <br>https://github.com/JohannesPfeifer/Occbin_update
 
 
 ## 3. 本リポジトリのダウンロード手順
 以下のページで **Code** タブを選択し、緑の **Code** ボタンから **Download ZIP** を選択する。
-
-https://github.com/nanazou/masters_thesis
+<br>https://github.com/nanazou/masters_thesis
 
 
 ## 4. シミュレーションコード実行手順
