@@ -1,0 +1,264 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_insulation_effect.tex
+
+\chapter{遮断効果を生みだす方程式系の導出}
+\label{chap:appendix_insulation_effect}
+
+本稿のモデルにおいては自国でショックが起こった際に自国金融政策が外国に関連する以下の変数に影響を与えない。
+\( \{ \lambda_t^{H/*}, \lambda_t^{F/*}, p_t^{F*}, i_t^F, c_t^{H \to F}, c_t^{F \to F}, y_t^F, l_t^F, \bar{p}_t^{F*}, \pi_t^{F*}, \widetilde{p}_t^{F*}, v_t^F, w_t^F, t_t^{F*}, b_t^H, \Delta_t^F \} \)
+このような現象は \textcite{ColeObstfeld1991} の遮断効果として知られている。
+遮断効果の要因は上記の変数が外国の方程式群のみによって決定されることによる。
+そこでまずこれらの外国の方程式を列挙し、それらのみによって上記の変数が決定されることを示す。
+
+議論の見通しを良くするため証明で用いる変数を定義しておく。
+\begin{itemize}
+    \item \textbf{自国の外国通貨所得の限界効用：} \( \lambda_t^{H/*} \equiv e_t \lambda_t^H \) \\
+    これは自国の外国通貨所得の限界効用、すなわち 1 単位の外国通貨で消費することにより自国代表的個人が得られる効用を意味する。
+\end{itemize}
+
+\section{外国のコア方程式系と独立性の証明}
+
+まず、外国の主要な内生変数を決定するコア方程式系を導出する。
+
+\paragraph{1. 外国財市場の均衡式}
+
+まず、外国財市場の実質需給均衡式を出発点とする。
+\[
+y_t^F = c_t^{F \to F} + \frac{N}{M} c_t^{H \to F}
+\]
+この両辺に外国財価格 \( p_t^{F*} \) を乗じ、外国通貨建ての名目額に変形する。
+\begin{equation}
+    p_t^{F*} y_t^F = p_t^{F*} c_t^{F \to F} + \frac{N}{M} p_t^{F*} c_t^{H \to F}
+    \label{eq:appendix_insulation_effect_nominal_market_clearing_step1}
+\end{equation}
+右辺に代表的家計の反映需要関数を代入する。さらに、消費の最適化条件より成立する名目総消費支出の関係式 \( p_{t}^{F \to W*} c_{t}^{F \to W} = 1/\lambda_t^{F/*} \) および \( p_{t}^{H \to W} c_{t}^{H \to W} = 1/\lambda_t^H \) を適用し、自国の外国通貨所得の限界効用 \( \lambda_t^{H/*} \equiv e_t \lambda_t^H \) を用いて一気に整理すると、以下のようになる。
+
+\begin{align*}
+p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{F \to W} \right) + \frac{N}{M} p_t^{F*} \left( (1-\alpha^H) \frac{p_t^{H \to W}}{e_t p_t^{F*}} c_t^{H \to W} \right) \\
+&= \alpha^F (p_t^{F \to W*} c_t^{F \to W}) + \frac{N}{M} \frac{1-\alpha^H}{e_t} (p_t^{H \to W} c_t^{H \to W}) \\
+&= \alpha^F \frac{1}{\lambda_t^{F/*}} + \frac{N}{M} \frac{1-\alpha^H}{e_t \lambda_t^H} \\
+&= \alpha^F \frac{1}{\lambda_t^{F/*}} + \frac{N}{M} \frac{1-\alpha^H}{\lambda_t^{H/*}}
+\end{align*}
+
+これにより、以下の外国名目総生産の決定式が得られる。
+\begin{equation}
+    p_t^{F*} y_t^F = \alpha^F \frac{1}{\lambda_t^{F/*}} + \frac{N}{M} \frac{1-\alpha^H}{\lambda_t^{H/*}} \tag{L.1}
+    \label{eq:appendix_insulation_effect_foreign_nom_demand_final}
+\end{equation}
+
+\paragraph{2. 外国のオイラー方程式}
+
+外国家計の異時点間の最適化条件より、
+\begin{equation}
+\lambda_t^{F/*} = \beta_t^F (1+i_t^F) E_t [ \lambda_{t+1}^{F/*} ] \tag{L.2}
+\label{eq:appendix_insulation_effect_foreign_euler_final}
+\end{equation}
+
+\paragraph{3. 外国のフィリップス曲線群}
+
+外国企業の価格設定行動を記述する非線形方程式群である。
+
+まず、外国最適価格 \( \widetilde{p}_t^{F*} \) の決定式：
+\begin{equation}
+    (\widetilde{p}_t^{F*})^{1+\theta^F} = \frac{\theta^F}{\theta^F-1} \frac{v_t^F}{w_t^F} \tag{L.3}
+\end{equation}
+次に、補助変数 \( v_t^F \) の再帰式：
+\begin{equation}
+    v_t^F = \phi^F \frac{(y_t^F)^2 \Delta_t^F}{(a_t^F)^2} (p_t^{F*})^{2\theta^F} + \beta_t^F \xi^F E_t [v_{t+1}^F] \tag{L.4}
+\end{equation}
+続いて、補助変数 \( w_t^F \) の再帰式：
+\begin{equation}
+    w_t^F = \lambda_t^{F/*} (1-\tau_t^F) y_t^F (p_t^{F*})^{\theta^F} + \beta_t^F \xi^F E_t [w_{t+1}^F] \tag{L.5}
+\end{equation}
+そして価格分散 \( \Delta_t^F \) の動学式：
+\begin{equation}
+    \Delta_t^F = (1-\xi^F) M \left( \frac{\widetilde{p}_t^{F*}}{p_t^{F*}} \right)^{-\theta^F} + \xi^F \left( \frac{p_t^{F*}}{p_{t-1}^{F*}} \right)^{\theta^F} \Delta_{t-1}^F \tag{L.6}
+\end{equation}
+そして物価指数の動学：
+\begin{equation}
+    (p_t^{F*})^{1-\theta^F} = (1-\xi^F) M (\widetilde{p}_t^{F*})^{1-\theta^F} + \xi^F (p_{t-1}^{F*})^{1-\theta^F} \tag{L.7}
+\end{equation}
+
+\paragraph{4. 外国の金融政策式}
+
+外国中央銀行の政策ルール
+\begin{equation}
+    i_t^F = i_{ss}^F + \phi_{\pi}^F (\pi_t^{F*} - \pi_{ss}^{F*}) + \varepsilon_{t}^{i,F}
+\end{equation}
+において、 \( \pi_t^{F*} \) と \( \pi_{ss}^F \) を \( p_t^{F*} \) と \( p_{ss}^{F*} \) で展開すると以下が得られる。
+\begin{equation}
+    i_t^F = i_{ss}^F + \phi_{\pi}^F \left( \frac{p_t^{F*}}{p_{t-1}^{F*}} - 1 \right) + \varepsilon_{t}^{i,F} \tag{L.8}
+\end{equation}
+
+\paragraph{5. 修正UIP条件}
+
+市場均衡式（ L.1 ）に現れた自国の外国通貨所得の限界効用 \( \lambda_t^{H/*} \) がどのように決定されるかを示す。
+自国の UIP 条件：
+\begin{equation}
+    \lambda_t^H e_t = (1+i_t^F) \beta_t^H E_t [ \lambda_{t+1}^H e_{t+1} ]
+    \tag{\ref{eq:uip_condition_home}}
+\end{equation}
+を出発点とする。
+この左辺は定義により \( \lambda_t^{H/*} \) であり、右辺の期待値の中身は \( \lambda_{t+1}^{H/*} \) である。したがって、以下の決定式が得られる。
+\begin{equation}
+    \lambda_t^{H/*} = \beta_t^H (1+i_t^F) E_t [\lambda_{t+1}^{H/*}] \tag{L.9}
+    \label{eq:appendix_insulation_effect_modified_final_uip_H}
+\end{equation}
+
+この方程式系に含まれる変数のうち \( \lambda_t^{F/*}, v_t^F, w_t^F, \lambda_t^{H/*} \) の4つは
+将来の期待値に依存して現在の値が決定されるジャンプ変数（ 前向きな変数 ）である。
+具体的には外国のオイラー方程式 \( \lambda_t^{F/*} = \beta_t^F (1+i_t^F) E_t [ \lambda_{t+1}^{F/*} ] \)
+のように次期の期待値が含まれることで現在の行動が規定される性質をもつ。
+対照的に、価格分散 \( \Delta_t^F \) のように過去の履歴に拘束される変数は状態変数と呼ばれる。
+
+9つの外国関連変数はこれら9本の方程式系において決定される。
+そこであらためてこの9本の方程式系に現れる変数をすべて列挙すると、まず9つの外国関連変数
+\( \{ \lambda_t^{H/*}, \lambda_t^{F/*}, p_t^{F*}, i_t^F,
+ \widetilde{p}_t^{F*}, v_t^F, w_t^F, y_t^F, \Delta_t^F \} \)
+パラメータ
+ \( \{ \alpha^H, \alpha^F, N, M, \theta^F, \xi^F, \phi^F, i_{ss}^F, \phi_{\pi}^F, \pi_{ss}^F \} \)
+そして外生ショック
+\( \{ \beta_t^H, \beta_t^F, a_t^F, \tau_t^F, \varepsilon_t^{i,F} \} \)
+である。
+したがって9つの外国関連変数は \( \beta_t^H \) などの影響は受けるが
+自国の金融政策 \( i_t^H \) や自国の生産者物価指数 \( p_t^H \) 、自国の生産 \( y_t^H \) といった
+自国の内生変数の影響は受けないことがわかる。
+このように9本の方程式系が閉じていることが遮断効果を生んでいる。
+
+\section{その他外国関連変数の決定}
+上記で決定された9つの外国関連変数
+\( \{ \lambda_t^{H/*}, \lambda_t^{F/*}, p_t^{F*}, i_t^F,
+ \widetilde{p}_t^{F*}, v_t^F, w_t^F, y_t^F, \Delta_t^F \} \)
+よりさらに残りの外国関連変数が決定される。
+
+\paragraph{6. 自国の外国財消費 \( c_t^{H \to F} \) の決定}
+\label{subsec:appendix_insulation_effect_home_consumption_HF}
+
+次に自国家計による外国財の消費 \( c_t^{H \to F} \) （ 外国にとっては輸出需要 ）を考える。
+自国家計の消費の最適化条件より、自国通貨建ての名目総消費支出は、自国の所得の限界効用の逆数と等しくなる。
+\[
+p_t^{H \to W} c_t^{H \to W} = \frac{1}{\lambda_t^{H}}
+\]
+一方、代表的家計の需要関数（ 式 \eqref{eq:model_demand_HF} ）の両辺に \( p_t^F \) を乗じると、自国の外国財への名目支出額（ 自国通貨建て ）が得られる。
+\[
+p_t^F c_t^{H \to F} = (1-\alpha^H) (p_t^{H \to W} c_t^{H \to W}) = \frac{1-\alpha^H}{\lambda_t^H}
+\]
+一物一価の法則 \( p_t^F = e_t p_t^{F*} \) を用いて左辺を書き換え、さらに両辺を \( e_t \) で割ることで外国通貨建てに変換する。
+\[
+p_t^{F*} c_t^{H \to F} = \frac{1-\alpha^H}{e_t \lambda_t^H}
+\]
+ここで自国の外国通貨所得の限界効用の定義 \( \lambda_t^{H/*} \equiv e_t \lambda_t^H \) を用いると、右辺は連結変数のみで表現できる。
+\[
+p_t^{F*} c_t^{H \to F} = \frac{1-\alpha^H}{\lambda_t^{H/*}}
+\]
+この式を \( c_t^{H \to F} \) について解くと、以下の決定式が得られる。
+\begin{equation}
+    c_t^{H \to F} = \frac{1-\alpha^H}{p_t^{F*} \lambda_t^{H/*}} \tag{L.10}
+\end{equation}
+右辺の \( p_t^{F*} \) はコア方程式系から、 \( \lambda_t^{H/*} \) は自国の外国通貨所得の限界効用の決定式（ 式（ L.9 ） ）から、それぞれ自国政策とは独立に決定済みである。したがって、自国の外国財消費 \( c_t^{H \to F} \) もまた、自国金融政策の影響を受けない。
+
+\paragraph{7. 外国の外国財消費 \( c_t^{F \to F} \) の決定}
+\label{subsec:appendix_insulation_effect_foreign_consumption_FF}
+
+まず、外国家計による外国財の消費 \( c_t^{F \to F} \) を考える。
+外国家計の消費の最適化条件より、外国通貨建ての名目総消費支出は、所得の限界効用の逆数と等しくなる。
+\[
+p_t^{F \to W*} c_t^{F \to W} = \frac{1}{\lambda_t^{F/*} }
+\]
+一方、代表的家計の需要関数（ 式 \eqref{eq:model_demand_FF} ）の両辺に \( p_t^{F*} \) を乗じると、外国財への名目支出額が得られる。
+\[
+p_t^{F*} c_t^{F \to F} = \alpha^F (p_t^{F \to W*} c_t^{F \to W})
+\]
+これら 2 式を結合すると、外国財への名目支出額は、所得の限界効用のみによって決定されることがわかる。
+\[
+p_t^{F*} c_t^{F \to F} = \frac{\alpha^F}{\lambda_t^{F/*}}
+\]
+この式を \( c_t^{F \to F} \) について解くと、以下の決定式が得られる。
+\begin{equation}
+    c_t^{F \to F} = \frac{\alpha^F}{p_t^{F*} \lambda_t^{F/*}} \tag{L.11}
+\end{equation}
+右辺の \( p_t^{F*} \) および \( \lambda_t^{F/*} \) は、コアとなる方程式系（ 式（ L.1 ）〜（ L.9 ） ）において既に自国政策から独立して決定された変数である。したがって、外国財消費 \( c_t^{F \to F} \) もまた、自国金融政策の影響を受けずに一意に定まる。
+
+\paragraph{8. 外国の労働 \( l_t^F \) の決定}
+\label{subsec:appendix_insulation_effect_foreign_labor}
+
+続いて、外国の労働を考える。
+個別生産関数の集計式を \( l_t^F \) について逆算することで、以下の決定式が得られる。
+\begin{equation}
+    l_t^F = \frac{y_t^F \Delta_t^F}{a_t^F} \tag{L.12}
+\end{equation}
+ここで、 \( y_t^F \) （ 生産 ）と \( \Delta_t^F \) （ 価格分散 ）はコア方程式系で決定済みの変数であり、 \( a_t^F \) は外生変数である。したがって、労働 \( l_t^F \) も独立して決定される。
+
+\paragraph{9. 外国の正規化物価指数の決定}
+外国の正規化された物価指数（ PPI ） \( \bar{p}_t^{F*} \) は、正規化された物価指数と通常の物価指数の関係式 \( p_t^{F*} = M^{\frac{1}{1-\theta^F}} \bar{p}_t^{F*} \) より決定される。
+\begin{equation}
+    \bar{p}_t^{F*} = M^{-\frac{1}{1-\theta^F}} p_t^{F*} \tag{L.13}
+\end{equation}
+なお、右辺の \( p_t^{F*} \) はコア方程式系ですでに決定されている。
+
+\paragraph{10. 外国のインフレ率の決定}
+外国のグロス・インフレ率 \( \pi_t^{F*} \) は、定義より以下のように決定される。
+\[
+\pi_t^{F*} = \frac{\bar{p}_t^{F*}}{\bar{p}_{t-1}^{F*}}
+\]
+
+\paragraph{11. 外国の一括移転 \( t_t^{F*} \) の決定}
+\label{subsec:appendix_insulation_effect_foreign_transfer}
+
+最後に、外国政府から家計への一括移転 \( t_t^{F*} \) を考える。
+外国政府の予算制約式より、移転額は名目 GDP と税率によって決定される。
+\begin{equation}
+    t_t^{F*} = \tau_t^F p_t^{F*} y_t^F \tag{L.14}
+\end{equation}
+\( p_t^{F*} \) と \( y_t^F \) は決定済みであり、税率 \( \tau_t^F \) は外生的な確率過程に従う。したがって、一括移転 \( t_t^{F*} \) も自国政策から独立している。
+
+\paragraph{12. 自国対外純資産 \( b_t^H \) の決定と独立性}
+
+最後に、自国対外純資産 \( b_t^H \) の決定について考察する。
+自国の資源制約式は以下の通りである。
+\begin{equation}
+    p_t^{H \to W} c_t^{H \to W} + b_{t+1}^H = p_t^H y_t^H + (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} b_t^H \tag{L.15}
+    \label{eq:appendix_insulation_effect_budget_home_proof}
+\end{equation}
+この式の両辺に、自国の所得の限界効用 \( \lambda_t^H (= 1 / (p_t^{H \to W} c_t^{H \to W})) \) を乗じる。左辺第 1 項は 1 となり、右辺の資産収益項は定義 \( \lambda_t^{H/*} \equiv e_t \lambda_t^H \) を用いて変形できる。
+\[
+\begin{split}
+1 + \lambda_t^H b_{t+1}^H &= \lambda_t^H p_t^H y_t^H + (1+i_{t-1}^F) \frac{e_t \lambda_t^H}{e_{t-1}} b_t^H \\
+&= \lambda_t^H p_t^H y_t^H + (1+i_{t-1}^F) \frac{\lambda_t^{H/*}}{e_{t-1}} b_t^H
+\end{split}
+\]
+ここで、右辺第 2 項を、前期の \( \lambda_{t-1}^{H/*} \equiv e_{t-1} \lambda_{t-1}^H \) を用いて書き換えると、
+\[
+\frac{\lambda_t^{H/*}}{e_{t-1}} b_t^H = \frac{\lambda_t^{H/*}}{\lambda_{t-1}^{H/*}} (\lambda_{t-1}^H b_t^H)
+\]
+となる。
+
+また、右辺第 1 項の自国名目所得（ 効用評価額 ） \( \lambda_t^H p_t^H y_t^H \) については、式（ L.1 ）の導出過程と同様に、コブ＝ダグラス型選好の下では以下の手順で導出される。
+\begin{align*}
+\lambda_t^H p_t^H y_t^H &= \lambda_t^H p_t^H (c_t^{H \to H} + \frac{M}{N} c_t^{F \to H}) \\
+&= \lambda_t^H p_t^H \left( \alpha^H \frac{p_t^{H \to W}}{p_t^H} c_t^{H \to W} \right) + \lambda_t^H p_t^H \frac{M}{N} \left( (1-\alpha^F) \frac{p_t^{F \to W*}}{p_t^{H*}} c_t^{F \to W} \right) \\
+&= \lambda_t^H \alpha^H (p_t^{H \to W} c_t^{H \to W}) + \lambda_t^H p_t^H \frac{M}{N} (1-\alpha^F) \frac{p_t^{F \to W*}}{p_t^H/e_t} c_t^{F \to W} \\
+&= \alpha^H + \frac{M}{N} (1-\alpha^F) e_t \lambda_t^H (p_t^{F \to W*} c_t^{F \to W}) \\
+&= \alpha^H + \frac{M}{N} (1-\alpha^F) \lambda_t^{H/*} \frac{1}{\lambda_t^{F/*}} \\
+&= \alpha^H + \frac{M}{N} (1-\alpha^F) \frac{\lambda_t^{H/*}}{\lambda_t^{F/*}}
+\end{align*}
+
+これらを合わせると、貯蓄の効用価値を表す変数 \( X_t \equiv \lambda_t^H b_{t+1}^H \) に関する以下の差分方程式が得られる。
+\begin{equation}
+    1 + X_t = \left[ \alpha^H + \frac{M}{N} (1-\alpha^F) \frac{\lambda_t^{H/*}}{\lambda_t^{F/*}} \right] + \left[ (1+i_{t-1}^F) \frac{\lambda_t^{H/*}}{\lambda_{t-1}^{H/*}} \right] X_{t-1} \tag{L.16}
+    \label{eq:appendix_insulation_effect_budget_transformed}
+\end{equation}
+この式（ L.16 ）の右辺にあるすべての項は、前項までに証明した通り、すべて自国金融政策 \( i^H \) から独立して決定される変数である。したがって、 \( X_t \) の経路は自国金融政策の影響を受けない。
+
+さらに、定常状態近傍での線形近似を考えると、定常状態で \( b_{ss}^H = 0 \) であるため、 \( X_{ss} = 0 \) となる。
+変数 \( X_t = \lambda_t^H b_{t+1}^H \) を定常状態周りで 1 次近似（ テイラー展開 ）すると、
+\[
+X_t \approx X_{ss} + \lambda_{ss}^H (b_{t+1}^H - b_{ss}^H) + b_{ss}^H (\lambda_t^H - \lambda_{ss}^H)
+\]
+となる。ここで \( X_{ss} = 0, b_{ss}^H = 0 \) を代入すると、
+\[
+X_t \approx \lambda_{ss}^H b_{t+1}^H
+\]
+という関係が得られる。 \( \lambda_{ss}^H \) は正の定数であるため、 \( X_t \) が政策不変であれば、自国対外純資産 \( b_{t+1}^H \) の経路もまた、自国金融政策の影響を受けないことが証明される。
+
+このように、外国経済のすべての実質変数および名目変数は、自国の金融政策変数 \( i_t^H \) を含む方程式系から構造的に切り離されており、影響を受けないことが確認できる。

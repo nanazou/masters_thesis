@@ -1,0 +1,465 @@
+% !TeX root = ../../main.tex
+% sections/chap5/sec_results_a_shock.tex
+
+\section{ \( a \) ショックのシミュレーション結果 }
+\label{sec:results_a_shock}
+前節までは、需要ショック（ （ \( \beta^H \) ） の上昇 ）に対して名目総消費水準目標（ NCLT ）が優れた安定化効果を持つことを論じてきた。本節では、負の供給ショックとして自国の生産性（ （ \( a_t^H \) ） ）の一時的な低下ショックが発生した場合の経済変動を分析し、各政策ルールの「頑健性（ Robustness ）」を検証する。
+
+
+\subsection{厚生評価}
+\label{sec:results_a_shock_welfare_eval}
+まず、各政策ルール下の厚生を確認する。図 \ref{fig:results_a_shock_utility_without_delta} （ 価格分散コスト調整なし ）および図 \ref{fig:results_a_shock_utility_with_delta} （ 調整済み ）は、供給ショックに対する各政策の評価を示している。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_utility_H_without_delta.png}
+    \caption{自国の効用（ （ \( \text{utility}^H \) ） ）と厚生（ （ \( \Delta \) 無し ） ）}
+    \label{fig:results_a_shock_utility_without_delta}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_utility_H_with_delta.png}
+    \caption{自国の効用（ （ \( \text{utility}^H \) ） ）と厚生（ （ \( \Delta \) 有り ） ）}
+    \label{fig:results_a_shock_utility_with_delta}
+\end{figure}
+
+（ \( \Delta \) ） の考慮を加えたときの厚生の落ち込みは、たしかに物価を目標に含む政策群の方が小さいが、その差はごくわずかである。これは （ \( a \) ） ショックが起きたときの物価変動圧力が小さいためであり、本ショックにおける厚生の序列は、実体経済の安定性、すなわち所得の限界効用 （ \( \lambda_t^H \) ） の安定性に支配されている。特に後述する POLT 等の下では、不適切な需要抑制により所得の限界効用が突出して上昇しており、これが深刻な厚生損失を招いていることが確認できる。
+
+
+\subsection{遮断効果}
+\label{sec:results_a_shock_insulation_effect}
+前節では外国関連主要変数が自国金融政策の影響を受けないことを確認した。それらの外国関連主要変数は （ \( \beta \) ） ショック自体の影響は受けたが、ここでは対照的に生産性 （ \( a \) ） ショックの影響は受けないことをみる。ただし、完全伸縮物価（ （ \( IT-PPI \) ） ）ケースについては、遮断効果を構成する方程式系の中に価格硬直性パラメータそのものが含まれているため、他の政策群とは異なる推移を示す点に留意が必要である。それら外国関連変数を決定する方程式群には自国内生変数が含まれていないことを説明したが、加えて生産性を表す変数 （ \( a \) ） も含まれていないため （ \( a \) ） ショックの影響は受けないことになる（ 付録 \ref{chap:appendix_insulation_effect} を参照 ）。シミュレーション結果においてもこのことを確認するため、以下に変動する名目為替レートとこれら外国関連主要変数のグラフを表示する。
+
+グラフ描画領域の左上に （ \( 10^{-15} \) ） などときわめて小さな単位が書かれている場合、グラフの変動はコンピュータによる計算誤差と考えられ、理論的には変動がないことを示している。このことより外国関連主要変数のグラフはいずれも理論的な変動がないことがわかる。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_e_slash_star.png}
+    \caption{自国通貨建て名目為替レート（ （ \( e^{/*} \) ） ）}
+    \label{fig:results_a_shock_exchange_rate}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \phantomcaption % 図番号を確保
+    \label{fig:results_a_shock_foreign_vars}
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_lambda_H_slash_star.png}
+                \caption{自国の外国通貨建て所得の限界効用（ （ \( \lambda^{H/*} \) ） ）}
+                \label{fig:results_a_shock_lambda_H_slash_star}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_lambda_F_slash_star.png}
+                \caption{外国の所得の限界効用（ （ \( \lambda^{F/*} \) ） ）}
+                \label{fig:results_a_shock_lambda_F_slash_star}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_p_F_star.png}
+                \caption{外国の生産者物価指数（ PPI ）（ （ \( p^{F*} \) ） ）}
+                \label{fig:results_a_shock_p_F_star_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_i_F.png}
+                \caption{外国の名目利子率（ （ \( i^F \) ） ）}
+                \label{fig:results_a_shock_i_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_c_H_F.png}
+                \caption{自国の外国財消費指数（ （ \( c^{H \to F} \) ） ）}
+                \label{fig:results_a_shock_c_H_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_c_F_F.png}
+                \caption{外国の外国財消費指数（ （ \( c^{F \to F} \) ） ）}
+                \label{fig:results_a_shock_c_F_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_y_F.png}
+                \caption{外国の生産（ （ \( y^F \) ） ）}
+                \label{fig:results_a_shock_y_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_l_F.png}
+                \caption{外国の労働（ （ \( l^F \) ） ）}
+                \label{fig:results_a_shock_l_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_p_F_star_bar.png}
+                \caption{外国の正規化された生産者物価指数（ PPI ）（ （ \( \bar{p}^{F*} \) ） ）}
+                \label{fig:results_a_shock_p_F_star_bar_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_pi_F_star.png}
+                \caption{外国の正規化された生産者物価指数を用いたグロス・インフレ率（ （ \( \pi^{F*} \) ） ）}
+                \label{fig:results_a_shock_pi_F_star_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_p_F_star_tilde.png}
+                \caption{外国の最適生産者物価（ （ \( \widetilde{p}^{F*} \) ） ）}
+                \label{fig:results_a_shock_p_F_star_tilde_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_v_F.png}
+                \caption{外国の最適生産者物価の補助変数1（ （ \( v^F \) ） ）}
+                \label{fig:results_a_shock_v_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_w_F.png}
+                \caption{外国の最適生産者物価の補助変数2（ （ \( w^F \) ） ）}
+                \label{fig:results_a_shock_w_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_t_F.png}
+                \caption{外国の一括移転（ （ \( t^F \) ） ）}
+                \label{fig:results_a_shock_t_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_b_H.png}
+                \caption{自国の対外純資産（ （ \( b^H \) ） ）}
+                \label{fig:results_a_shock_b_H_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/a_shock/a_shock_Delta_F.png}
+                \caption{外国の価格分散（ （ \( \Delta^F \) ） ）}
+                \label{fig:results_a_shock_delta_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+    % 最後にまとめてキャプションを表示
+    \caption{外国経済変数のインパルス応答関数（ 全政策で不変 ）}
+\end{figure}
+
+
+\subsection{AS-AD分析}
+\label{sec:results_a_shock_asad_analysis}
+次にインパルス応答のグラフを示し、金融政策ごとにAS-AD分析をおこなう。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_utility_H_with_delta.png}
+    \caption{自国の効用（ （ \( \text{utility}^H \) ） ）と厚生（ （ \( \Delta \) 無し ） ）}
+    \label{fig:results_a_shock_utility_with_delta_asad}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_y_H.png}
+    \caption{自国の生産（ （ \( y^H \) ） ）}
+    \label{fig:results_a_shock_y_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_l_H.png}
+    \caption{自国の労働（ （ \( l^H \) ） ）}
+    \label{fig:results_a_shock_l_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_c_H_W.png}
+    \caption{自国の総消費指数（ （ \( c^{H \to W} \) ） ）}
+    \label{fig:results_a_shock_c_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_p_H.png}
+    \caption{自国の生産者物価指数（PPI）（ \( p^H \) ） }
+    \label{fig:results_a_shock_p_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_p_H_W.png}
+    \caption{自国の消費者物価指数（ （ \( p^{H \to W} \) ） ）}
+    \label{fig:results_a_shock_p_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_p_H_bar.png}
+    \caption{自国の正規化された生産者物価指数（ （ \( \bar{p}^H \) ） ）}
+    \label{fig:results_a_shock_p_H_bar}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_pi_H.png}
+    \caption{自国の正規化された生産者物価指数を用いたグロス・インフレ率（ （ \( \pi^H \) ） ）}
+    \label{fig:results_a_shock_pi_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_lambda_H.png}
+    \caption{自国の所得の限界効用（ （ \( \lambda^H \) ） ）}
+    \label{fig:results_a_shock_lambda_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_p_H_W_c_H_W.png}
+    \caption{自国の名目総消費（ （ \( p^{H \to W} c^{H \to W} \) ） ）}
+    \label{fig:results_a_shock_p_H_W_c_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_p_H_bar_y_H.png}
+    \caption{自国の名目GDP（ （ \( \bar{p}^H y^H \) ） ）}
+    \label{fig:results_a_shock_p_H_bar_y_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_polt_y_H_and_y_H_potential.png}
+    \caption{自国の生産と潜在生産（ （ \( y^H \) and \( y^{H,pot} \) ） ）（ 潜在生産水準目標 ）}
+    \label{fig:results_a_shock_polt_y_H_and_y_H_potential}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_i_H.png}
+    \caption{自国の名目利子率（ （ \( i^H \) ） ）}
+    \label{fig:results_a_shock_i_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/a_shock/a_shock_gamma_H.png}
+    \caption{自国の目標未達分の累積（ （ \( \gamma^H \) ） ）}
+    \label{fig:results_a_shock_gamma_H}
+\end{figure}
+
+負の供給ショック（ 生産性 （ \( a_t^H \) ） の低下 ）に対する各政策の挙動は、AS-AD フレームワークを用いることで視覚的に理解できる 。
+本モデルの価格硬直性（ （ \( \kappa^H = 0 \) ） ）の下では、AS 曲線 \eqref{eq:results_asad_as_curve} は （ \( y, p \) ） 平面において水平である。
+生産性の低下は企業の限界費用を押し上げるため、水平な AS 曲線は上方（ 物価上昇方向 ）へとシフトする。
+この供給制約に対し、AD 曲線 \eqref{eq:results_asad_ad_curve} がどのように反応するかが政策の成否を分ける。
+
+\begin{itemize}
+    \item \textbf{ショックを緩和できない政策群：} 生産者物価水準目標（ PPLT ）、潜在生産水準目標（ POLT ）
+    \item \textbf{ショックを緩和できる政策群：} 消費者物価水準目標（ CPLT ）、名目総消費水準目標（ NCLT ）、名目GDP水準目標（ NGDPLT ）、生産水準目標（ OLT ）、インフレ目標（ IT ）
+\end{itemize}
+
+\paragraph{1. ショックを緩和できない政策（ グループ1 ）の挙動}
+グループ1が不況を増幅させる理由は、AS 曲線の上方シフトに対し、ターゲットを維持するために AD 曲線を強力に左方へシフトさせてしまう点にある。物価水準を一定に保とうとする PPLT や、生産を下落した潜在水準へ合わせようとする POLT は、利子率を引き上げて需要を抑制する。しかし、AS 曲線が水平であるため、この需要抑制は物価を下げる効果を持たず、生産 （ \( y_t^H \) ） の大幅な減少と所得の限界効用 （ \( \lambda_t^H \) ） の急騰を招く。
+
+\paragraph{2. ショックを緩和できる政策（ グループ2 ）の挙動}
+対照的に、NCLT を含むグループ2は、供給制約を物価と生産のトレードオフとして柔軟に処理する。名目支出の維持を目標とするこれらの政策は、生産減少に伴う物価の上昇を許容することで、AD 曲線（ 直角双曲線 ）をほぼ元の位置に固定する。物価の上昇と実質支出の減少が名目額において相殺されるため、所得の限界効用 （ \( \lambda_t^H \) ） は安定し、グループ1のような深刻な不況を回避できる。
+
+\subsubsection{各政策の分析}
+
+\paragraph{A. 生産者物価水準目標（ PPLT ）}
+負の生産性ショック（ （ \( a_t^H \) ） の低下 ）に対する PPLT （ 水色点線 ）の反応を検討する。本モデルの価格硬直性（ （ \( \kappa^H = 0 \) ） ）の下では、生産性の低下は企業の限界費用を直接的に押し上げるため、水平な AS 曲線は （ \( y, p \) ） 平面において上方へとシフトする。
+
+図 \ref{fig:results_a_shock_p_H} が示す通り、PPLT は物価の上昇を全政策中で最小限に抑え込み、最も速やかに定常状態へと収束させている。ただし、自国の価格粘着性パラメータを実証データに基づき極めて高く設定（ （ \( \xi^H = 0.99 \) ） ）しているため 、供給ショックによる自国財価格 （ \( p_t^H \) ） の実際の上昇幅は、他の政策を含め全体として極めて微小なものに留まっている点には留意が必要である。
+
+ここで注目すべきは、図 \ref{fig:results_a_shock_i_H} において政策利子率 （ \( i_t^H \) ） が定常状態付近に留まっているにもかかわらず、PPLT が強力な物価抑制を実現できている点である。このメカニズムは、AS 曲線における将来の価格期待 （ \( E_t [ p_{t+1}^H ] \) ） のアンカー効果によって説明される。
+
+\begin{enumerate}
+    \item \textbf{期待を通じた抑制}： AS 曲線によれば、現在の価格水準は将来の価格期待に強く依存する。PPLT は物価の「水準」を目標とするため、ショックによって物価がわずかに上昇した際、中央銀行は将来それを打ち消すためにデフレ的な政策をとることを自動的にコミットすることになる。この「将来は物価が下落する」という家計・企業の期待が、現在の物価上昇圧力を事前に相殺するため、実際の利子率を大きく引き上げるまでもなく、期待形成のみによって物価水準が強固に安定化される。
+    \item \textbf{実体経済への影響}： 以上の物価抑制プロセスは、実体経済にとっては需要の過度な抑制として作用する。物価上昇を許容しないためには、AD 曲線 \eqref{eq:results_asad_ad_curve} を大幅に左方へシフトさせ、需要を生産性の低下に見合う以上に押し下げる必要がある。その結果、図 \ref{fig:results_a_shock_c_H_W} および図 \ref{fig:results_a_shock_y_H} が示す通り、消費と生産の初期の落ち込みは POLT に次いで深刻なものとなっている。
+\end{enumerate}
+
+なお、需要ショック（ （ \( \beta \) ） ショック ）においては政策によって物価の動く方向がまちまちであったが、生産性ショックにおいては全政策で物価上昇圧力が一貫して確認される。これは、 （ \( \beta \) ） ショックが需要側を直接叩く（ AD 曲線のシフト ）性質を持つのに対し、 （ \( a \) ） ショックは供給側のコストを直接引き上げる（ AS 曲線のシフト ）という構造的な差に由来する。PPLT はこの供給側からのコストプッシュ圧力に対し、実体経済を犠牲にすることで物価目標を死守する挙動を示したと結論付けられる。
+
+\paragraph{B. 潜在生産水準目標（ POLT ）}
+負の生産性ショック（ （ \( a_t^H \) ） の低下 ）に対する POLT （ 黒破線 ）の動態を検討する。本モデルにおける POLT の政策ルールは、実際の生産 （ \( y_t^H \) ） を、価格が伸縮的な場合の効率的な生産水準である潜在生産 （ \( y_t^{H,pot} \) ） に一致させるよう機能する 。
+
+図 \ref{fig:results_a_shock_polt_y_H_and_y_H_potential} において、生産 （ \( y_t^H \) ） と潜在生産 （ \( y_t^{H,pot} \) ） の推移が完全に重なり、かつ初期において大幅な負の値をとっている点は、本ショックの性質と政策目的を端的に示している。
+
+\begin{enumerate}
+    \item \textbf{潜在生産の低下とターゲットの移動}： 生産性ショック（ （ \( a_t^H \) ） の低下 ）が発生すると、経済の供給能力そのものが減退するため、自然な生産水準である （ \( y_t^{H,pot} \) ） は即座に低下する。需要ショック（ （ \( \beta \) ） ショック ）時に潜在生産が上昇していたのとは対照的であり、これは供給側の制約が経済の実力を直接的に引き下げたことを意味する。
+    \item \textbf{厳格なターゲット追随}： 図において生産が潜在生産と一致しているのは、政策ルールにおける乖離への反応係数 （ \( \phi_{gap}^H \) ） が十分に機能し、実際の生産を低下した潜在水準へと強制的に誘導しているためである。
+\end{enumerate}
+
+このターゲット追随を実現するための手段が、図 \ref{fig:results_a_shock_i_H} に見られる名目利子率 （ \( i_t^H \) ） の急激な上昇である。他の政策群がゼロ金利制約（ ZLB ）に直面、あるいは低金利を維持して需要を下支えしようとするのに対し、POLT のみが利子率を大幅に引き上げている。これは、供給能力が低下した経済において過剰需要（ インフレ圧力 ）が発生するのを防ぐため、中央銀行がオイラー方程式を通じて意図的に現在の消費・生産を押し下げていることを示している。利子率の急騰と生産の急落が鏡像関係にあるのは、この「需要抑制」による潜在生産への強制的な適応が、POLT の安定化メカニズムそのものであるからである。
+
+物価水準 （ \( p_t^H \) ） については、図 \ref{fig:results_a_shock_p_H} が示す通り、供給ショックに伴うコストプッシュ圧力により上昇している。ただし、 （ \( \xi^H = 0.99 \) ） という高い価格粘着性の下では、実際の上昇幅は極めて微小に留まっている。POLT は生産ギャップを一定に保つことで、実体経済側からの追加的なインフレ圧力を排除しているため、インフレ率は時間の経過とともに速やかに定常状態へと収束していく。
+
+以上の分析から、POLT は供給能力の低下という負のショックに対し、需要を自ら抑制することで均衡を図る政策であると言える。実体経済を潜在水準に一致させるという点では論理的に一貫しているが、図 \ref{fig:results_a_shock_c_H_W} が示す通り、全政策中で最も深刻な消費の落ち込みと所得の限界効用 （ \( \lambda_t^H \) ） の急騰を招いている。社会的厚生の観点からは、この過度な需要抑制が損失を拡大させ、実体経済を適度に維持する NCLT 等に比べて低い評価に留まる結果となっている。
+
+\paragraph{C. 消費者物価水準目標（ CPLT ）}
+「ショックを緩和できる政策群」の一つとして、消費者物価水準目標（ CPLT、マゼンタ実線 ）の動態を分析する。CPLT は自国の消費者物価指数（ CPI, （ \( p_t^{H \to W} \) ） ）を目標変数とするルールであり、その政策式は以下のように記述される 。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln p_t^{H \to W} - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_a_shock_analysis_cplt_rule}
+\end{equation}
+
+図 \ref{fig:results_a_shock_p_H_W} において、CPLT の下で消費者物価指数が定常状態の線上で完璧に固定されている点は、需要ショック時と同様、ターゲット変数の動学的な制御が極めて容易であることを示している。このメカニズムを、以下の 3 つの視点から解明する。
+
+\begin{enumerate}
+    \item \textbf{消費者物価指数（ CPI ）の制御容易性}： 消費者物価指数の定義式 \( \ln p_t^{H \to W} = \alpha^H \ln p_t^H + (1-\alpha^H) ( \ln e_t^{/*} + \ln p_t^{F*} ) \)  に基づき、物価の安定化プロセスを検討する。生産性ショック（ （ \( a \) ） ショック ）により自国の生産コストが上昇すると、自国財価格 （ \( p_t^H \) ） には上昇圧力がかかる（ 図 \ref{fig:results_a_shock_p_H} ）。このとき、中央銀行はジャンプ変数である名目為替レート （ \( e_t^{/*} \) ） を増価（ 低下 ）させることで、輸入物価の下落を通じて国内価格の上昇分を相殺し、CPI の値を目標値に保つ。図 \ref{fig:results_a_shock_exchange_rate} で為替レートが負の方向に膨らんでいる（ 通貨高 ）のは、まさにこの相殺メカニズムの結果である。
+    \item \textbf{外国財価格 （ \( p_t^{F*} \) ） に関する遮断効果の再確認}： 図 \ref{fig:results_a_shock_p_F_star_sub} において外国財価格が政策によって微動しているように見えるが、縦軸の単位が （ \( 10^{-15} \) ） である点に注目する必要がある。付録 B.2 で証明した通り 、自国の内生変数は外国の変数群から構造的に切り離されている（ 遮断効果 ）。したがって、マクロ経済学的な意味において、この変動は計算機上の誤差に過ぎず、理論的には外国財価格が不変に維持されていると解釈される。この遮断効果により、自国の中央銀行は外国の物価変動を考慮することなく、為替レートのみを調整手段として CPI を制御することが可能となっている。
+    \item \textbf{利子率の安定性と期待管理}： 図 \ref{fig:results_a_shock_i_H} において、CPLT の名目利子率が定常状態の線上でほぼ一直線であるにもかかわらず為替レートを誘導できている理由は、本モデルにおける高い価格粘着性（ （ \( \xi^H = 0.99 \) ） ）に由来する。供給ショック下でも自国財価格の実際の上昇幅が極めて微小であるため、これを相殺するために必要な為替の調整幅も必然的に小さくなる。結果として、UIP 条件を通じた将来の為替期待をアンカーするだけで十分であり、現行の名目利子率を定常状態から大きく動かす必要がないのである。
+\end{enumerate}
+
+以上の分析から、CPLT は自国財価格 （ \( p_t^H \) ） の上昇を為替の増価によって打ち消すことで、名目的な CPI の安定を達成したと言える。自国財価格の水準維持を優先して需要を直接抑制する PPLT に対し、CPLT は為替レートをクッションとして利用できるため、図 \ref{fig:results_a_shock_y_H} における生産の落ち込みは PPLT や POLT よりも緩和されている。このように、CPLT は供給ショックに際して一定の柔軟性を発揮する政策であると評価できる。
+
+\paragraph{D. 名目総消費水準目標（ NCLT ）}
+「ショックを緩和できる政策群」の核心である名目総消費水準目標（ NCLT、青実線 ）を、負の生産性ショック（ （ \( a_t^H \) ） の低下 ）の下で分析する。NCLT は名目総消費支出 （ \( p_t^{H \to W} c_t^{H \to W} \) ） をターゲットとしており、その政策ルールは以下の通りである 。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln p_t^{H \to W} + \ln c_t^{H \to W} - \ln \chi_t^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_a_shock_analysis_nclt_policy}
+\end{equation}
+
+図 \ref{fig:results_a_shock_p_H_W_c_H_W} が示す通り、NCLT の下で名目総消費支出は定常状態の線上で完璧に固定されている。これは、供給側の制約（ 生産性の低下 ）によるコストプッシュ圧力に対し、NCLT が名目支出の枠組みを通じて極めて安定的な制御を行っていることを意味する。
+
+本分析において特筆すべきは、供給ショック下における NCLT と名目GDP水準目標（ NGDPLT ）の同値性である。
+
+\begin{enumerate}
+    \item \textbf{理論的同値性}： 本モデルのように自国と外国の主観的割引因子が等しい供給ショック下では、為替レートの調整を介して自国の名目総消費支出と名目GDPは恒等的に一致する（ （ \( p_t^H y_t^H = p_t^{H \to W} c_t^{H \to W} \) ） ）ことが数学的に証明される。図 \ref{fig:results_a_shock_c_H_W} （ 実質消費 ）、図 \ref{fig:results_a_shock_y_H} （ 実質生産 ）、図 \ref{fig:results_a_shock_i_H} （ 名目利子率 ）、および図 \ref{fig:results_a_shock_lambda_H} （ 所得の限界効用 ）において、NCLT と NGDPLT が完全に一致して重なっている点は、この数理的な性質を実証している。
+    \item \textbf{所得の限界効用の安定化}： 生産性が低下しても、名目支出を一定に保つことで所得の限界効用 （ \( \lambda_t^H \) ） は定常状態（ 対数水準で 0 ）に維持される。その結果、家計は消費を抑制する必要がなく、供給側の負のショックが実体経済の不況（ 需要の減退 ）へと波及する経路がほぼ完全に遮断されている。
+\end{enumerate}
+
+物価指数の挙動については、図 \ref{fig:results_a_shock_p_H} および図 \ref{fig:results_a_shock_p_H_W} が示す通り、全政策で共通してわずかな上昇が確認される。これは生産性の低下が企業の限界費用を押し上げ、水平な AS 曲線 \eqref{eq:results_asad_as_curve} を上方へシフトさせるためである。しかし、自国の価格粘着性が極めて高い（ （ \( \xi^H = 0.99 \) ） ）設定下では、実際の上昇幅は 0.001 未満と極めて低水準に抑えられている。NCLT はこの微小な物価上昇を許容することで AD 曲線 \eqref{eq:results_asad_ad_curve} をほぼ元の位置に固定し、実質変数への悪影響を最小限に食い止め、不況の深刻化を防いでいる。
+
+以上の分析から、名目総消費水準目標（ NCLT ）は、供給ショックに際して名目GDP水準目標（ NGDPLT ）と同様の頑健性を発揮し、実体経済の安定を維持する極めて有効な政策枠組みであることが確認された。
+
+\paragraph{E. 名目GDP水準目標（ NGDPLT ）}
+「ショックを緩和できる政策群」の三つ目として、名目GDP水準目標（ NGDPLT、緑一点鎖線 ）の動態を分析する。NGDPLT は自国財価格（ PPI, （ \( \bar{p}^H_t \) ） ）と実質生産 （ \( y_t^H \) ） の積をターゲットとするルールであり、その政策式は以下のように記述される 。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln \bar{p}_t^H + \ln y_t^H - \ln \chi_t^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_a_shock_analysis_ngdplt_rule}
+\end{equation}
+
+生産性ショック（ （ \( a \) ） ショック ）下における NGDPLT の挙動は、前節で述べた名目総消費水準目標（ NCLT ）と極めて高い整合性を示す。この特徴を以下の 2 つの視点から整理する。
+
+\begin{enumerate}
+    \item \textbf{名目支出の恒等的な一致と理論的同値性}： 本モデルにおいて、自国と外国の主観的割引因子が等しい状況下で生産性ショックが発生した場合、為替レートの調整を通じて自国の名目総消費支出と名目GDPは以下の通り恒等的に一致する。
+    \begin{equation}
+    p_t^{H \to W} c_t^{H \to W} = p_t^H y_t^H \label{eq:results_a_shock_nominal_expenditure_identity}
+    \end{equation}
+    この関係式の詳細な導出については、付録 \ref{chap:appendix_exchange_rate} を参照されたい。この数理的な性質により、生産性ショックにおいて NGDPLT は NCLT と完全に同値な政策として機能し、高い厚生を実現している。
+    \item \textbf{シミュレーション結果の整合性}： 図 \ref{fig:results_a_shock_p_H_W_c_H_W} （ 名目総支出 ）および図 \ref{fig:results_a_shock_p_H_bar_y_H} （ 名目GDP ）のグラフを比較すると、両政策のパスは完全に定常状態の線上で重なっている。また、実質消費 （ \( c_t^{H \to W} \) ） （ 図 \ref{fig:results_a_shock_c_H_W} ）、実質生産 （ \( y_t^H \) ） （ 図 \ref{fig:results_a_shock_y_H} ）、所得の限界効用 （ \( \lambda_t^H \) ） （ 図 \ref{fig:results_a_shock_lambda_H} ）といった主要な実体経済変数においても、NCLT と NGDPLT は一致した軌跡を辿っている。これは、本モデルの均衡決定メカニズムが、ショックの種類に応じて両政策を理論通り同一の解へと収束させていることを実証している。
+\end{enumerate}
+
+以上の通り、名目GDP水準目標（ NGDPLT ）は、生産性ショックに際して名目総消費水準目標（ NCLT ）と同様の優れた安定化能力を発揮する。名目額の安定を通じて所得の限界効用を一定に保つメカニズムは、供給側のショックが実体経済の深刻な不況を招くのを防ぐ上で、有効な障壁として機能していると言える。
+
+\paragraph{F. 生産水準目標（ OLT ）}
+「ショックを緩和できる政策群」の一つとして、生産水準目標（ OLT、黄一点鎖線 ）の動態を分析する。OLT は実質生産 （ \( y_t^H \) ） のみをターゲットとする政策ルールであり、次のように定義される 。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln y_t^H - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_a_shock_analysis_olt_policy}
+\end{equation}
+
+図 \ref{fig:results_a_shock_y_H} において、OLT 下の生産パスは負の生産性ショックに対しても定常状態の線上でほぼ完璧に固定されている。これは、本政策が生産水準の維持において極めて強力な制御能力を持っていることを示している。この挙動の背後には、以下のメカニズムが存在する。
+
+\begin{enumerate}
+    \item \textbf{ターゲットの直接制御}： OLT は生産 （ \( y_t^H \) ） の目標からの乖離を直接的な操作対象としている。生産性ショック（ （ \( a_t^H \) ） の低下 ）は企業の限界費用を押し上げ、生産を減少させる方向に働くが、中央銀行は式 \eqref{eq:results_a_shock_analysis_olt_policy} に基づき、生産のわずかな落ち込みに対しても敏感に反応する。その結果、生産は定常状態から殆ど乖離することなく維持される。
+    \item \textbf{物価の上昇とインフレの収束}： 図 \ref{fig:results_a_shock_p_H} において、自国財価格 （ \( p_t^H \) ） はインフレ目標（ IT ）と並び、全政策の中で最も高い上昇を示している。生産性低下によって供給能力が落ちているにもかかわらず、OLT が需要を抑制せずに生産を旧来の水準で維持しようとするため、経済には過剰な需要圧力が生じ、それが物価を押し上げる。ただし、自国の価格粘着性が極めて高い設定であるため、物価の絶対的な上昇幅は 0.001 未満と非常に小さく抑えられている。また、時間の経過とともにインフレ率が 0 に収束しているのは、水準目標としての性質により、物価が新たな均衡水準へと緩やかに落ち着いていくためである。
+    \item \textbf{利子率の安定性}： 図 \ref{fig:results_a_shock_i_H} において、OLT の名目利子率 （ \( i_t^H \) ） がほぼ一直線になっているのは、生産 （ \( y_t^H \) ） の制御が極めて高い精度で行われている結果である。ターゲットである生産が殆ど 0 から動かないため、政策ルール内のギャップ項や累積項に大きな乖離が発生せず、名目利子率を大きく動かす必要が生じない。
+\end{enumerate}
+
+以上の通り、OLT は生産性ショック下においても実体経済を定常状態に留める上で非常に有効な政策である。しかし、潜在生産が低下している中で無理に生産を維持するため、物価水準が恒久的に高い位置へシフトする「物価のドリフト」を許容している。社会的厚生の観点からは、この物価上昇がもたらす価格分散コストが、NCLT などの名目支出目標に一歩及ばない要因となっている。
+
+\paragraph{G. インフレ目標（ IT ）}
+生産性ショック（ （ \( a \) ） ショック ）における最後の政策として、インフレ目標（ IT、赤点線 ）の動態を分析する 。IT はインフレ率の定常状態からの乖離にのみ反応するルールであり、次のように定義される 。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{\pi}^H ( \ln \pi_t^H - \ln \pi_{ss}^H ) + \epsilon_t^{i,H} \label{eq:results_a_shock_analysis_it_policy}
+\end{equation}
+
+需要ショック（ （ \( \beta \) ） ショック ）において、IT は期待のアンカーに失敗し厚生を著しく損なう結果となったが、生産性ショック下においては、一転して良好なパフォーマンスを示している。この対照的な挙動の背景には、本モデルの高い価格粘着性が深く関わっている。
+
+\begin{enumerate}
+    \item \textbf{インフレ率の極小な変動}： 図 \ref{fig:results_a_shock_pi_H} によれば、自国のグロス・インフレ率 （ \( \pi_t^H \) ） は全政策を通じて極めて微小な変動に留まっている。これは、自国の価格粘着性が極めて高いため、生産性低下による限界費用の増大が実際の価格改定に結びつきにくい「水平な AS 曲線」の性質を反映している。
+    \item \textbf{受動的な利子率操作と実体経済の維持}： IT ルール \eqref{eq:results_a_shock_analysis_it_policy} は、インフレ率が動かない限り政策利子率を変更しない。図 \ref{fig:results_a_shock_i_H} が示す通り、IT 下の名目利子率は定常状態の線上でほぼ一直線となっており、中央銀行が積極的な引き締めを行っていないことがわかる。物価水準を一定に保とうとして需要を無理に抑制する PPLT や POLT とは異なり、IT は物価が動き出さない限り需要を叩かないという受動的なスタンスをとる。このため、図 \ref{fig:results_a_shock_y_H} において生産 （ \( y_t^H \) ） は定常状態付近で極めて安定しており、不必要な不況の発生を回避できている。
+    \item \textbf{物価水準のシフト（ ドリフト ）}： 一方で、図 \ref{fig:results_a_shock_p_H} において、自国財価格 （ \( p_t^H \) ） は OLT と並んで全政策中で最も高い上昇を示している。IT はインフレ率（ 変化率 ）のみを凝視し、過去の上昇分を埋め合わせる水準の概念を持たない。そのため、供給ショックによって一度上方へシフトした物価水準を元の位置（ 0 ）へ引き戻す力が働かず、高い位置に留まることを許容する。しかし、供給ショック時においては、この「物価を無理に戻さない」という柔軟さが、結果として生産の安定を支える要因となっている。
+\end{enumerate}
+
+以上の分析から、生産性ショック下におけるインフレ目標（ IT ）は、価格硬直性が極めて高いという条件下において、事実上の利子率据え置きに近い効果をもたらし、それが実体経済の安定化に寄与したと言える。社会的厚生の観点からは、物価の上昇幅がごくわずかであるため、価格分散コストの影響も限定的であり、NCLT や OLT と並んで高い評価を得る結果となった。
+
+\paragraph{生産性ショックにおける厚生の総括：名目アンカーのトレードオフと今後の課題}
+本節の締めくくりとして、負の生産性ショック（ （ \( a \) ） ショック ）における各政策の厚生評価を総括する。図 \ref{fig:results_a_shock_utility_with_delta} が示す通り、本シミュレーションの条件下では IT、OLT、CLT が NCLT を僅差で上回る結果となった。この結果の解釈と、そこから導出される理論的な課題について以下に整理する。
+
+\begin{enumerate}
+    \item \textbf{物価と消費の負の相関による「静観」のメカニズム}： 生産性低下に伴うコストプッシュ圧力により物価が上昇する一方、実体経済には下落圧力がかかる供給ショック下では、物価（ （ \( p \) ） ）と実質消費（ （ \( c \) ） ）は負の相関を持つ。このとき、名目総消費支出（ （ \( p \cdot c \) ） ）をターゲットとする NCLT の下では、物価の上昇と実質支出の減少が名目額において相殺されるため、中央銀行は利子率を大きく操作せず経済の動態を静観するスタンスをとる。本シミュレーションにおいて NCLT の厚生評価が実質変数目標（ OLT, CLT ）に一歩譲った主因は、この名目支出の維持という枠組みが、物価上昇を許容する代償として実質消費のわずかな減退を容認した点にある。
+    \item \textbf{物価安定化による厚生改善の可能性}： しかし、NCLT によるこうした静観的な対応は、自国財価格の際限のない上昇を抑え込む名目アンカーとしても機能している。社会的厚生の観点からは、物価変動の抑制は価格分散コスト（ （ \( \Delta^H \) ） ）を減少させ、資源配分の歪みを是正するプラスの側面を持つ。本モデルの設定（ （ \( \xi^H = 0.99 \) ） ）では物価の変動圧力が極めて小さいため、価格分散によるペナルティが殆ど発生せず、実質値を固定した OLT 等が相対的に有利な結果となった。しかし、もし供給ショックによって物価がより大きく動くような経済環境であれば、NCLT による物価安定化の恩恵が実質消費抑制のコストを上回り、NCLT が実質変数目標を凌駕する可能性は十分に考えられる。
+    \item \textbf{頑健性の評価と今後の課題}： 以上の分析から、NCLT は需要ショックにおいて圧倒的な優位性を示す一方で、供給ショック下では「物価の安定」と「実体経済の維持」の間に複雑なトレードオフを抱えていることが明らかになった。本稿の結果のみを以て供給ショック下で NCLT が実質変数目標に劣ると断定することはできず、両者の優劣はショックの性質や価格粘着性の度合いに強く依存すると推察される。したがって、生産性ショックによる価格変動がより激しいケースや、異なるパラメータ条件下での厚生への影響を詳細に検証することは、名目総消費水準目標の更なる頑健性を明らかにする上での今後の重要な研究課題である。
+\end{enumerate}
+
+以上の比較分析を総合すると、名目総消費水準目標（ NCLT ）は、需要・供給の両ショックに直面する現実の経済環境において、致命的な厚生損失を回避しつつ、経済を安定軌道に留めることができる極めてバランスの良い政策体系であると評価できる。

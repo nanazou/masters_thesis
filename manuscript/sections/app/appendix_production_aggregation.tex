@@ -1,0 +1,52 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_production_aggregation.tex
+
+\chapter{生産関数の集計と価格分散}
+\label{chap:appendix_production_aggregation}
+
+本付録では、個々の家計の生産関数から出発し、価格の異質性が存在する経済における国全体の集計生産関数を導出する。
+
+\section*{定理 5：価格分散を考慮した集計生産関数}
+
+個人の生産関数が \( y_t^h = a_t^H l_t^h \) であり、個別財への需要が \( y_t^h = ( p_t^h / p_t^H )^{-\theta^H} Y_t^H \) で与えられる経済において、国全体の集計生産関数は以下のように表される。
+\[
+Y_t^H = \frac{a_t^H L_t^H}{\Delta_t^H}
+\]
+ここで、 \( L_t^H \) は総労働投入量 \( \sum_{h \in H} l_t^h \) であり、 \( \Delta_t^H \) は経済全体の非効率性を示す価格分散項であり、次式で定義される。
+\[
+\Delta_t^H \equiv \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}
+\]
+
+\section*{証明}
+
+この定理を証明するために、総労働投入量 \( L_t^H \) の定義式から出発し、集計生産関数を導出する。
+
+\subsection*{1. 総労働の定義式からの展開}
+国全体の総労働投入量 \( L_t^H \) は、全ての家計の労働投入量の合計である。
+\[
+L_t^H = \sum_{h \in H} l_t^h
+\]
+この式に、個人の生産関数 \( y_t^h = a_t^H l_t^h \) を \( l_t^h \) について解いた \( l_t^h = y_t^h / a_t^H \) を代入する。国全体の生産性 \( a_t^H \) は全ての家計で共通であるため、総和の外に出すことができる。
+\begin{align*}
+L_t^H &= \sum_{h \in H} \frac{y_t^h}{a_t^H} \\
+&= \frac{1}{a_t^H} \sum_{h \in H} y_t^h
+\end{align*}
+次に、個別財への需要関数 \( y_t^h = \left( p_t^h / p_t^H \right)^{-\theta^H} Y_t^H \) を代入する。集計産出量 \( Y_t^H \) は個々の家計 \( h \) に依存しないため、これも総和の外に出すことができる。
+\begin{align*}
+L_t^H &= \frac{1}{a_t^H} \sum_{h \in H} \left[ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} Y_t^H \right] \\
+&= \frac{Y_t^H}{a_t^H} \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}
+\end{align*}
+
+\subsection*{2. 価格分散項の定義と結論}
+ここで、総和の部分を価格分散項 \( \Delta_t^H \) として定義する。
+\[
+\Delta_t^H \equiv \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}
+\]
+この定義をステップ 1 で得られた式に代入すると、総労働 \( L_t^H \) と総生産 \( Y_t^H \) の間に以下の厳密な関係式が成立する。
+\[
+L_t^H = \frac{Y_t^H}{a_t^H} \Delta_t^H
+\]
+この式を \( Y_t^H \) について解くことで、定理で示された集計生産関数が得られる（ 証明終 ）。
+\[
+Y_t^H = \frac{a_t^H L_t^H}{\Delta_t^H}
+\]

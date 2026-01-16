@@ -1,0 +1,30 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_equilibriums.tex
+
+\section{市場均衡}
+\label{sec:model_equilibriums}
+
+\subsection{財市場の均衡}
+\label{subsec:model_goods_market}
+\paragraph{自国財市場}
+家計 \( h \) が生産する財の市場は \( t \) 期におけるその財の生産 \( y_t^h \) が
+全世界からの総需要と等しくなることで均衡する。
+\begin{equation}
+y_t^h = \sum_{h' \in H} c_t^{h' \to h} + \sum_{f \in F} c_t^{f \to h}
+\label{eq:individual_goods_market_equilibrium_repeat}
+\end{equation}
+
+\paragraph{外国財市場}
+同様に外国財市場の均衡は以下の関係式で記述される。
+\begin{equation}
+y_t^f = \sum_{h \in H} c_t^{h \to f} + \sum_{f' \in F} c_t^{f' \to f}
+\label{eq:individual_goods_market_equilibrium_foreign}
+\end{equation}
+
+\subsection{一物一価の法則}
+\label{subsec:model_lop}
+国際間の財価格は名目為替レート \( e_t^{/*} \) を通じて以下の一物一価の法則が成立すると仮定する。
+\begin{equation}
+p_t^h = e_t^{/*} p_t^{h*} \quad , \quad p_t^f = e_t^{/*} p_t^{f*}
+\label{eq:lop}
+\end{equation}

@@ -1,0 +1,13 @@
+Welfare Calculations (beta_shock):
+
+--- with Price Dispersion Cost (Delta included) ---
+welfare_H_with_delta_pie (ZLB): -1.41201424
+welfare_H_with_delta_lin (Non-ZLB): -1.12386647
+welfare_F_with_delta_pie (ZLB): 0.67834050
+welfare_F_with_delta_lin (Non-ZLB): 1.02955300
+
+--- without Price Dispersion Cost (Delta = 0) ---
+welfare_H_without_delta_pie (ZLB): -1.41122166
+welfare_H_without_delta_lin (Non-ZLB): -1.12386597
+welfare_F_without_delta_pie (ZLB): 0.68506962
+welfare_F_without_delta_lin (Non-ZLB): 1.03628213

@@ -1,0 +1,607 @@
+% !TeX root = ../../main.tex
+% sections/chap5/sec_results_beta_shock.tex
+
+\section{ \( \beta \) ショックのシミュレーション結果}
+\label{sec:results_beta_shock}
+本節では主要なマクロ経済変数のインパルス応答グラフを順に示し各金融政策の効果を比較する。
+
+\subsection{効用と厚生}
+\label{sec:results_beta_shock_welfare_eval}
+結果のグラフを見るにあたり、各金融政策の効果を評価する指標となる厚生の計算手法について解説する。
+本稿のシミュレーションは Dynare と Occbin により1次近似を用いておこなわれ、
+その際に2次以上の項は消失してしまう。
+そのため2次の項である価格分散（ \( \Delta_t \) ）も消えてしまい、
+価格分散の厚生に与える影響が考慮されなくなってしまう。
+しかし価格分散の厚生に与える影響は重要であるため \textcite{Woodford2003} にならいこれを手計算で復活させる。
+そこで付録 \ref{chap:appendix_welfare_correction} のように補正をおこなうと
+効用の定常状態からの水準乖離が以下のように得られる。
+
+\begin{equation}
+    U(c_t, l_t) - U(c_{ss}, l_{ss}) \approx \hat{c}_t^{H \to W} - \phi^H (l_{ss}^H)^2 (\hat{y}_t^H - \hat{a}_t^H) - \phi^H (l_{ss}^H)^2 \left( \xi^H \hat{\Delta}_{t-1}^H + \frac{\theta^H \xi^H}{2(1-\xi^H)} (\hat{\pi}_t^H)^2 \right) \label{eq:results_beta_shock_period_utility}
+\end{equation}
+
+ここで右辺第3項の括弧内が手計算により復元した価格分散である。
+厚生 （ \( W \) ） は、この期間効用の乖離を、変動する主観的割引因子 （ \( \beta_t^H \) ） を用いて
+将来にわたって割り引き、その期待値を合計することで算出される。
+本稿では第3章の生涯効用関数 \eqref{eq:lifetime_utility_home_original} の定義に基づき、
+\( t=0 \) から \( t=100 \) までの合計値を以下の式で計算する。
+
+\begin{equation}
+    W = E_0 \sum_{t=0}^{100} \left( \prod_{k=0}^{t-1} \beta_{k}^H \right) \left[ U(c_t^{H \to W}, l_t^H) - U(c_{ss}^{H \to W}, l_{ss}^H) \right] \label{eq:results_beta_shock_social_welfare}
+\end{equation}
+ここで、 \( t=0 \) 期における割引項は \(\prod_{k=0}^{-1} \beta_k^H = 1\) と定義される。
+
+\( \beta \) ショックにおける効用のグラフと厚生の数値を以下に表示する。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_utility_H_without_delta.png}
+    \caption{自国の効用（ \( \text{utility}^H \) ）と厚生（ \( \Delta \) 無し）}
+    \label{fig:results_beta_shock_utility_without_delta}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_utility_H_with_delta.png}
+    \caption{自国の効用（ \( \text{utility}^H \) ）と厚生（ \( \Delta \) 有り）}
+    \label{fig:results_beta_shock_utility_with_delta}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_Delta_H.png}
+    \caption{自国の価格分散（ \( \Delta^H \) ） }
+    \label{fig:results_beta_shock_delta_H}
+\end{figure}
+
+\paragraph{価格分散コストの影響と政策評価の構造変化}
+図 \ref{fig:results_beta_shock_utility_without_delta} （ \( \Delta \) なし）と
+図 \ref{fig:results_beta_shock_utility_with_delta} （ \( \Delta \) あり）を比較すると、
+価格分散（ \( \Delta_t \) ）の導入が各政策の評価にどのような影響を与えるかがわかる。
+まずグラフから読み取れるように、
+すべての政策において \( \Delta \) ありの場合の厚生は \( \Delta \) なしの場合よりも低下している。
+価格分散 \( \Delta_t \) は定義上 1 以上の値をとり大きいほど生産効率を悪化させる機能するため、
+これを考慮すれば厚生は必ず押し下げられるためである。
+しかし重要なのはその低下の程度が政策によって大きく異なる点である。
+この違いを分析するために各政策を以下の2つの政策群に分類して考察する。
+
+\begin{enumerate}
+    \item \textbf{物価を目標に含めない政策群：} 実質消費水準目標（CLT）、生産水準目標（OLT）、潜在生産水準目標（POLT） 
+    \item \textbf{物価を目標に含める政策群：} 消費者物価水準目標（CPLT）、インフレ目標（IT）、名目総消費水準目標（NCLT）、名目GDP水準目標（NGDPLT）、生産者物価水準目標（PPLT） 
+\end{enumerate}
+
+物価を目標に含めない政策（CLT, OLT, POLT）ではインフレ率の変動幅が大きくなり、
+それにしたがい価格分散 \( \Delta_t \) も大きくなる。
+そのため厚生も低下も大きくなる。
+物価を目標に含める政策（CPLT、IT、NCLT、NGDPLT、PPLT）ではインフレ率が抑制される。
+その結果、相対的に厚生の低下は軽微となる。
+\( \beta^H \) ショックにおいてNCLTが高い評価を得た理由の一つは
+実質消費を支えつつも物価を目標に組み込むことにより、
+この価格分散を小さく抑えることに成功している点にある。
+
+\subsection{遮断効果}
+\label{sec:results_beta_shock_insulation_effect}
+次に国際的な波及効果について考察する。
+本稿のシミュレーションにおいては
+自国の金融政策の違いが主要な外国関連変数 \( \{ \lambda_t^{H/*}, \lambda_t^{F/*}, p_t^{F*}, i_t^F, c_t^{H \to F}, c_t^{F \to F}, y_t^F, l_t^F, \bar{p}_t^{F*}, \pi_t^{F*}, \widetilde{p}_t^{F*}, v_t^F, w_t^F, t_t^{F*}, b_t^H, \Delta_t^F \} \) 
+にまったく影響を与えないという結果が得られた。
+これは遮断効果として知られている。
+ただし完全伸縮物価（ \( IT-PPI \) ）についてはグラフが異なっている点に注意する。
+これは遮断効果のもととなる方程式系の中に価格硬直性パラメータが含まれており、
+そのパラメータの値が他の政策群とは異なるためである。
+遮断効果の詳しい説明は付録 \ref{chap:appendix_insulation_effect} に記す。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_e_slash_star.png}
+    \caption{自国通貨建て名目為替レート（ \( e^{/*} \) ） }
+    \label{fig:results_beta_shock_exchange_rate}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \phantomcaption % 図番号を確保
+    \label{fig:results_beta_shock_foreign_vars}
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_lambda_H_slash_star.png}
+                \caption{自国の外国通貨建て所得の限界効用（ \( \lambda^{H/*} \) ） }
+                \label{fig:results_beta_shock_lambda_H_slash_star}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_lambda_F_slash_star.png}
+                \caption{外国の所得の限界効用（ \( \lambda^{F/*} \) ） }
+                \label{fig:results_beta_shock_lambda_F_slash_star}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_p_F_star.png}
+                \caption{外国の生産者物価指数（PPI）（ \( p^{F*} \) ） }
+                \label{fig:results_beta_shock_p_F_star_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_i_F.png}
+                \caption{外国の名目利子率（ \( i^F \) ） }
+                \label{fig:results_beta_shock_i_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_c_H_F.png}
+                \caption{自国の外国財消費指数（ \( c^{H \to F} \) ） }
+                \label{fig:results_beta_shock_c_H_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_c_F_F.png}
+                \caption{外国の外国財消費指数（ \( c^{F \to F} \) ） }
+                \label{fig:results_beta_shock_c_F_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_y_F.png}
+                \caption{外国の生産（ \( y^F \) ） }
+                \label{fig:results_beta_shock_y_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_l_F.png}
+                \caption{外国の労働（ \( l^F \) ） }
+                \label{fig:results_beta_shock_l_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_p_F_star_bar.png}
+                \caption{外国の正規化された生産者物価指数（PPI）（ \( \bar{p}^{F*} \) ） }
+                \label{fig:results_beta_shock_p_F_star_bar_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_pi_F_star.png}
+                \caption{外国の正規化された生産者物価指数（PPI）を用いたグロス・インフレ率（ \( \pi^{F*} \) ） }
+                \label{fig:results_beta_shock_pi_F_star_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_p_F_star_tilde.png}
+                \caption{外国の最適生産者物価（ \( \widetilde{p}^{F*} \) ） }
+                \label{fig:results_beta_shock_p_F_star_tilde_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_v_F.png}
+                \caption{外国の最適生産者物価の補助変数1（ \( v^F \) ） }
+                \label{fig:results_beta_shock_v_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_w_F.png}
+                \caption{外国の最適生産者物価の補助変数2（ \( w^F \) ） }
+                \label{fig:results_beta_shock_w_F_sub}
+            \end{subfigure}
+            \hfill
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_t_F.png}
+                \caption{外国の一括移転（ \( t^F \) ） }
+                \label{fig:results_beta_shock_t_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+\end{figure}
+
+\begin{figure}[H]
+    \ContinuedFloat
+    \centering
+    \makebox[\textwidth][c]{
+        \begin{minipage}{1.2\textwidth}
+            \centering
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_b_H.png}
+                \caption{自国の対外純資産（ \( b^H \) ） }
+                \label{fig:results_beta_shock_b_H_sub}
+            \end{subfigure}
+            \begin{subfigure}{0.48\linewidth}
+                \includegraphics[width=\linewidth]{comparison_graphs/beta_shock/beta_shock_Delta_F.png}
+                \caption{外国の価格分散（ \( \Delta^F \) ） }
+                \label{fig:results_beta_shock_delta_F_sub}
+            \end{subfigure}
+        \end{minipage}
+    }
+    % 最後にまとめてキャプションを表示
+    \caption{外国経済変数のインパルス応答関数（ 全政策で不変 ） }
+\end{figure}
+
+なお価格分散（ \( \Delta^F \) ）のグラフにおいて縦軸の左上に \( 10^{-13} \) という表記がある。
+これはグラフの変動幅が極めて微小な計算誤差レベルであることを示しており、
+各金融政策について価格分散（ \( \Delta^F \) ）グラフは同一であるとみなせる。
+
+\subsection{AS-AD分析}
+\label{sec:results_beta_shock_asad_analysis}
+本節では効用や為替レートも含む主要な自国関連変数のグラフを掲載し、
+各金融政策についてその効果をAS-AD分析により解釈する。
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_utility_H_with_delta.png}
+    \caption{自国の効用（ \( \text{utility}^H \) ）と厚生（ \( \Delta \) 有り） }
+    \label{fig:results_beta_shock_utility_with_delta_asad}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_y_H.png}
+    \caption{自国の生産（ \( y^H \) ） }
+    \label{fig:results_beta_shock_y_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_l_H.png}
+    \caption{自国の労働（ \( l^H \) ） }
+    \label{fig:results_beta_shock_l_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_c_H_W.png}
+    \caption{自国の総消費指数（ \( c^{H \to W} \) ） }
+    \label{fig:results_beta_shock_c_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_p_H_W.png}
+    \caption{自国の消費者物価指数（ \( p^{H \to W} \) ） }
+    \label{fig:results_beta_shock_p_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_p_H.png}
+    \caption{自国の生産者物価指数（PPI）（ \( p^H \) ） }
+    \label{fig:results_beta_shock_p_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_pi_H.png}
+    \caption{自国の生産者物価指数（PPI）を用いたグロス・インフレ率（ \( \pi^H \) ） }
+    \label{fig:results_beta_shock_pi_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_p_H_bar.png}
+    \caption{自国の正規化された生産者物価指数（PPI）（ \( \bar{p}^H \) ） }
+    \label{fig:results_beta_shock_p_H_bar}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_lambda_H.png}
+    \caption{自国の所得の限界効用（ \( \lambda^H \) ） }
+    \label{fig:results_beta_shock_lambda_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_p_H_W_c_H_W.png}
+    \caption{自国の名目総消費（ \( p^{H \to W} c^{H \to W} \) ） }
+    \label{fig:results_beta_shock_p_H_W_c_H_W}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_p_H_bar_y_H.png}
+    \caption{自国の名目GDP（ \( \bar{p}^H y^H \) ） }
+    \label{fig:results_beta_shock_p_H_bar_y_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_polt_y_H_and_y_H_potential.png}
+    \caption{自国の生産と潜在生産（ \( y^H \) and \( y^{H,pot} \) ）（ 潜在生産水準目標 ） }
+    \label{fig:results_beta_shock_y_H_potential}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_i_H.png}
+    \caption{自国の名目利子率（ \( i^H \) ） }
+    \label{fig:results_beta_shock_i_H}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{comparison_graphs/beta_shock/beta_shock_gamma_H.png}
+    \caption{自国の目標未達分の累積（ \( \gamma^H \) ） }
+    \label{fig:results_beta_shock_gamma_H}
+\end{figure}
+
+\subsubsection{政策群に分けてのAS-AD分析}
+まず各政策をショックを緩和できるか否かによって以下の2つの群に分けて全体の分析をおこなう。
+\begin{itemize}
+    \item \textbf{ショックを緩和できない政策群：} 消費者物価水準目標（CPLT）、生産者物価水準目標（PPLT）、インフレ目標（IT）
+    \item \textbf{ショックを緩和できる政策群：} 実質消費水準目標（CLT）、名目総消費水準目標（NCLT）、名目GDP水準目標（NGDPLT）、生産水準目標（OLT）、潜在生産水準目標（POLT）
+\end{itemize}
+このような政策の成否は以下の2点が合わさったことにより生じている。
+\begin{enumerate}
+    \item 価格の硬直性が極めて高いこと
+    \item ショックを緩和できない政策群は物価指数のみを目標に入れているのに対し、
+    緩和できる政策群は実質変数も目標に入れていること
+\end{enumerate}
+\ref{sec:preparation_parameters}節で設定したとおり
+本稿のモデルでは価格の硬直性が \( \xi^H = 0.99 \) と極めて高い。
+\( \beta \) ショックが発生すると家計は現在の消費よりも将来の消費を評価するようになり
+生産 \( y_t^H \) が減少する。
+このときもし物価が伸縮的であれば生産者物価指数 \( p_t^H \) が下落し生産 \( y_t^H \) の下落は緩和されるが、
+物価が極めて高い本稿のモデルではこの価格調整原理が機能せず、
+ショックは生産 \( y_t^H \) の大幅な減少によってのみ吸収される。
+このとき緩和できない政策は物価のみを目標としているため変数が目標から乖離しない。
+したがって中央銀行は動くことがなく図 \ref{fig:results_beta_shock_y_H} などが示すとおり
+経済が大きく落ち込む。
+対照的に緩和できる政策は目標に消費や生産などの実質変数を含んでいる。
+そのため物価が動かなくとも経済の落ち込みを実質変数の目標からの乖離として検知できる。
+それにより中央銀行は名目利子率を下げ、またこうした緩和に対する期待も醸成されることにより
+経済の落ち込みが抑えられた。
+
+
+以上の説明をAS-AD分析により整理する。
+正の \( \beta \) ショックが発生するとAD曲線\eqref{eq:results_asad_ad_curve}は分母が大きくなるため
+左下へ移動する。
+AS曲線\eqref{eq:results_asad_as_curve}は水平であったから、
+生産者物価指数 \( p_t^H \) は変わらず生産 \( y_t^H \) は大きく減少する。
+またこのように生産者物価指数 \( p_t^H \) は変わらないため
+期待生産者物価指数 \( E_t [p_{t+1}^H] \) も上昇せずAS曲線はそのままの位置で固定される。
+このとき緩和できない政策群は物価指数のみを目標としているため利子率を動かすことはなく
+AD曲線\eqref{eq:results_asad_ad_curve}はその場にとどまる。
+そのため図 \ref{fig:results_beta_shock_y_H} などが示すとおり経済は大きく落ち込んでいる。
+対照的に緩和できる政策は目標に消費や生産などの実質変数を含んでいるため利子率を下げることとなり、
+AD曲線\eqref{eq:results_asad_ad_curve}は分母が小さくなるため
+
+
+\subsubsection{各政策の分析}
+以下では各政策について詳しいAS-AD分析をおこなう。
+
+\paragraph{A. 消費者物価水準目標（CPLT）}
+「ショックを緩和できない政策群」に属するCPLTは
+図 \ref{fig:results_beta_shock_p_H_W} において
+消費者物価指数 \( p_t^{H \to W} \) を定常状態の線上で完璧に固定している。
+この極めて高い制御性の背景には目標を構成する各変数の動学的な性質の差がある。
+まず目標である消費者物価指数は次のように定義される。
+
+\begin{equation}
+\ln p_t^{H \to W} = \alpha^H \ln p_t^H + (1-\alpha^H) (\ln e_t^{/*} + \ln p_t^{F*}) \label{eq:results_beta_shock_analysis_cpi_final}
+\end{equation}
+
+ここで、国内財価格 \( p_t^H \) および外国財価格 \( p_t^{F*} \) は過去の蓄積によって決まる\textbf{状態変数}であり、ショックが発生した直後の \( t=0 \) においては定常状態から動くことはない。CPLT のターゲットはこれら「動きの遅い」状態変数を主たる構成要素としているため、ショック発生の瞬間には目標からの乖離が生じず、結果として名目利子率 \( i_t^H \) も定常状態の \( i_{ss}^H \) から始動することになる（図 \ref{fig:results_beta_shock_i_H}）。
+
+一方で、名目為替レート \( e_t^{/*} \) は以下の UIP（等価利回り）条件に従う\textbf{ジャンプ変数}である。
+
+\begin{equation}
+1 + i_t^H = (1 + i_t^F) E_t [ e_{t+1}^{/*} / e_t^{/*} ] \label{eq:results_beta_shock_analysis_uip_final}
+\end{equation}
+
+式 \eqref{eq:results_beta_shock_analysis_uip_final} が示す通り、為替レートは名目利子率操作に対して即座に反応する性質を持つ。時間が経過し、状態変数である \( p_t^H \) や \( p_t^{F*} \) が低下し始めると、中央銀行はそれを検知して名目利子率操作を行う。このとき、反応の遅い物価の下落圧力に対し、反応の極めて速い為替レートを対置させることで、式 \eqref{eq:results_beta_shock_analysis_cpi_final} の合計値を常に一定に保つような精密な相殺が可能となる。これが、CPLT において消費者物価指数のグラフが一直線になる数理的な理由である。
+
+しかし、この制御の容易さは実体経済の安定を意味しない。AD 曲線を右上へ復元させ、需要の蒸発を防ぐためには、ショック直後の \( t=0 \) における大胆な名目利子率低下と為替のジャンプが必要である。物価という遅行指標のみをターゲットとする CPLT は、初動において「まだ物価は動いていない」と判断して緩和シグナルを発することができない。結果として、物価の数字上の安定と引き換えに、ジャンプ変数である実質消費 \( c_t^{H \to W} \) の深刻な急落を放置することになり、厚生を大きく損なう結果となっている。
+
+\paragraph{B. 生産者物価水準目標（PPLT）}
+「ショックを緩和できない政策群」の二つ目として、生産者物価水準目標（PPLT、水色点線）の挙動を分析する。PPLT は自国財価格指数 \( p_t^H \) のみをターゲットとする政策ルールであり、その式は以下のように記述される。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln p_t^H - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_plt_policy}
+\end{equation}
+
+PPLT において特筆すべきは、図 \ref{fig:results_beta_shock_i_H} に示される通り、名目利子率 \( i_t^H \) がショック直後の \( t=0 \) においてジャンプせず定常状態から始動し、その後も他の緩和的な政策群（NCLT 等）とは対照的に、ゼロ名目利子率制約（ZLB）に達するほどの強力な緩和を行っていない点である。この不十分な初動の背景には、ターゲット変数の「純粋な状態変数性」がある。
+
+先述の CPLT のターゲット（CPI）にはジャンプ変数である為替レート \( e^{/*} \) が含まれていたが、PPLT が凝視する自国財価格 \( p_t^H \) は、為替の影響すら受けない純粋な\textbf{状態変数}である。本モデルのように価格粘着性が極めて高い設定下では、物価はショック直後には一切動かず、時間の経過とともに極めて緩やかに低下していく。式 \eqref{eq:results_beta_shock_analysis_plt_policy} に基づけば、ターゲットである \( p_t^H \) が \( t=0 \) で動かない以上、中央銀行はショックの直撃を検知できず、名目利子率を引き下げる根拠を持たない。
+
+この「初動の遅れ」は、AD 曲線の復元において決定的な足かせとなる。
+
+\begin{enumerate}
+    \item 為替の不在： CPLT では為替レート \( e^{/*} \) を操作することで CPI の数値を「無理やり」固定できたが、PPLT のターゲットには為替が含まれない。そのため、名目利子率操作が為替を動かしても、それが直接ターゲットの安定に寄与せず、むしろ物価が実際に下落し始めるのを待つしかない。
+    \item 需要の放置： オイラー方程式において、名目利子率 \( i_t^H \) が十分に低下せず、かつ将来の価格上昇へのコミットメントも物価が動き出すまで発動しないため、AD 曲線は左方に沈んだままとなる。これが、図 \ref{fig:results_beta_shock_y_H} 等で示される深刻な生産の落ち込みを招く。
+\end{enumerate}
+
+図 \ref{fig:results_beta_shock_p_H} が示す通り、PPLT は「水準目標」としての歴史依存性を持つため、長期的には物価を定常状態へ戻す能力において全政策中で最も高い精度を見せる。しかし、価格という「極めて動きの遅い敵」が動き出すのを待ってからしか反応できないという性質上、ショック初期の数年間においては実体経済を深刻な不況にさらすこととなる。厚生の観点からは、長期的な物価の正確な復元よりも、初動でのジャンプによる需要の下支えが重要であり、PPLT が CPLT 同様に低い評価に留まる理由はここにある。
+
+\paragraph{C. インフレ目標（IT）}
+「ショックを緩和できない政策群」の中で、最も深刻な景気後退を招いたのがインフレ目標（IT、赤点線）である。図 \ref{fig:results_beta_shock_pi_H} が示す通り、IT 下でのインフレ率は初期に全政策の中で最も大きく下落している。「物価の安定（インフレの維持）」を掲げる政策が、皮肉にも最も深刻なデフレを許容してしまった理由は、本モデルの動学的な構造から次のように説明できる。
+
+まず、自国財のグロス・インフレ率 \( \pi_t^H \) の定義を確認する。自国の全企業が同一の価格設定を行う本モデルの設定下では、インフレ率は自国財価格を用いて次のように記述される。
+
+\begin{equation}
+\ln \pi_t^H = \ln p_t^H - \ln p_{t-1}^H \label{eq:results_beta_shock_analysis_it_pi_def}
+\end{equation}
+
+図 \ref{fig:results_beta_shock_pi_H} においてインフレ率の絶対的な変動幅が極めて小さいのは、価格粘着性が極端に高い（ \( \xi^H = 0.99 \) ）ために、その原資である国内物価指数 \( p_t^H \) の動き自体が抑制されているためである。
+
+IT においてインフレ率が全政策で最も低くなった原因は、水準目標が持つ「歴史依存性」の欠如にある。AS 曲線（フィリップス曲線）に基づけば、現在のインフレ率は将来のインフレ期待 \( E_t [ \pi_{t+1}^H ] \) に強く依存する。
+
+\begin{enumerate}
+    \item 期待の崩壊： NCLT や PPLT のような水準目標は、ショックで物価が下がれば、将来それを埋め合わせるために「目標を上回るインフレ」を生成することを約束する。しかし、IT は過去の未達分を考慮しないため、需要ショックに直面した家計は「物価は下がったままで、将来も中央銀行が物価を押し戻すことはない」と予想する。この期待インフレ率の低下が、現在のインフレ率をさらに押し下げるという負のスパイラルを生んでいる。
+    \item 不十分な名目利子率反応： IT の政策ルールは現在のインフレ率のみに反応する。
+    \begin{equation}
+    i_{t, notional}^H = i_{ss}^H + \phi_{\pi}^H ( \ln \pi_t^H - \ln \pi_{ss}^H ) \label{eq:results_beta_shock_analysis_it_policy}
+    \end{equation}
+    図 \ref{fig:results_beta_shock_i_H} が示す通り、IT 下の名目利子率は初期にわずかに低下するものの、水準目標群のようにゼロ名目利子率制約（ZLB）に張り付くほどの大胆な緩和を見せない。これは、ターゲットであるインフレ率が「水準（Level）」に比べて変化率として小さく見えるため、中央銀行が危機の深刻さを過小評価してしまうからである。
+\end{enumerate}
+
+最終的にインフレ率が定常状態に向かって回復しているのは、需要ショック \( \beta_t^H \) 自体が時間とともに減衰するという外生的な要因によるものであり、政策の力ではない。オイラー方程式を通じて将来の物価上昇をコミットできない IT は、実質利子率の高止まりを許容し、AD 曲線 \eqref{eq:results_asad_ad_curve} を左方に放置し続ける。これが、厚生を全政策で最も悪化させた数理的な帰結である。
+
+\paragraph{D. 実質消費水準目標（CLT）}
+「ショックを緩和できる政策群」の筆頭として、実質消費水準目標（CLT、オレンジ点線）の動学的な挙動を分析する。CLT は、物価等の名目変数ではなく、家計の効用に直結する実質総消費指数 \( c_t^{H \to W} \) そのものをターゲットとする政策ルールである。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln c_t^{H \to W} - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_clt_policy}
+\end{equation}
+
+図 \ref{fig:results_beta_shock_c_H_W} および図 \ref{fig:results_beta_shock_i_H} が示す通り、CLT は需要ショックに対して極めて迅速かつ強力な回復力を示している。この「初動の速さ」と「復元の早さ」は、ターゲットである消費 \( c_t^{H \to W} \) が\textbf{ジャンプ変数}であることに起因する。
+
+\begin{enumerate}
+    \item 即時の ZLB 到達（初動の強さ）：
+    前述の CPLT や PPLT がターゲットとしていた「状態変数（物価）」とは異なり、実質消費 \( c_t^{H \to W} \) はショックが発生した瞬間に将来の予測を織り込んで即座にジャンプする性質を持つ。需要ショックの直撃により消費が急落しようとした瞬間、式 \eqref{eq:results_beta_shock_analysis_clt_policy} はその乖離を \( t=0 \) の時点で直ちに検知する。その結果、図 \ref{fig:results_beta_shock_i_H} の通り、名目利子率 \( i_t^H \) はショック発生と同時にゼロ名目利子率制約（ZLB）まで一気にジャンプする。この初動の速さが、AD 曲線を即座に右上へと押し戻し、消費の初期落ち込みを最小限に留めている。
+    \item 期待を通じた AD 曲線の復元：
+    CLT の下では、中央銀行が「実質消費の水準」を維持することを家計にコミットしている。家計は、現在の消費が落ち込んでも中央銀行がそれを必ず元の水準へ戻すと確信するため、オイラー方程式における将来の所得の限界効用の期待値 \( E_t [ \lambda_{t+1}^H ] \) が低下（将来の期待消費が潤沢になると予想）する。この期待のアンカーが、名目利子率の ZLB 継続と相まって、図 \ref{fig:results_beta_shock_c_H_W} に見られるような急速な V 字回復を実現させている。
+    \item 最速の ZLB 出口（目標達成の早さ）：
+    図 \ref{fig:results_beta_shock_i_H} において、CLT は 80 期付近で他の政策よりも早くゼロ名目利子率を脱却している。これは、ターゲットである実質消費 \( c_t^{H \to W} \) が物価のような遅行指標（状態変数）ではなく、政策に対して最も感応度の高いジャンプ変数であるため、目標とする定常状態への復帰が早期に完了したことを意味する。
+\end{enumerate}
+
+以上の分析から、CLT は実体経済の痛みを直接検知し、ジャンプ変数としての消費の性質を活かして AD 曲線に強力な復元力を与える、極めて有効なショック緩和策であることが確認できる。しかし、CLT は物価をターゲットに含んでいないため、物価の安定性やそれに伴う価格分散コストの抑制という観点では、次に述べる NCLT に対して一歩譲ることになる。
+
+\paragraph{E. 名目総消費水準目標（NCLT）}
+本稿の厚生評価において最良の結果を得た名目総消費水準目標（NCLT、青実線）のメカニズムを、AS-AD フレームワークおよび各変数の動学的な性質から分析する。NCLT は名目総消費支出 \( p_t^{H \to W} c_t^{H \to W} \) をターゲットとしており、その政策ルールは次のように記述される。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln p_t^{H \to W} + \ln c_t^{H \to W} - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_nclt_policy}
+\end{equation}
+
+図 \ref{fig:results_beta_shock_p_H_W_c_H_W} （名目総消費）において、NCLT は CLT に次ぐ高い復元力を見せつつ、定常状態への収束速度においては CLT を上回る極めて優れた安定性を示している。この挙動の背後には、名目支出をターゲットにすることによる「価格と実質の高度なバランス」が存在する。
+
+\begin{enumerate}
+    \item 為替レートを介した消費者物価（ \( p_t^{H \to W} \) ）の即時ジャンプ：
+    図 \ref{fig:results_beta_shock_p_H_W} において、NCLT はショック直後の \( t=0 \) で消費者物価指数を即座に上昇させている。これは、ターゲットにジャンプ変数である実質消費 \( c_t^{H \to W} \) が含まれているため、中央銀行が初動で大胆な名目利子率引き下げ（ZLB への突入）を行い、それに応答して名目為替レート \( e^{/*} \) が即座に減価（上昇）した結果である。式 \eqref{eq:results_beta_shock_analysis_cpi_final} で示した通り、状態変数である国内価格が動かない初動において、ジャンプ変数である為替が「名目支出」を下支えする役割を果たしている。
+    \item \( \lambda_t^H \) と名目支出の反転関係：
+    所得の限界効用 \( \lambda_t^H \) は、定義により名目総消費支出 \( p_t^{H \to W} c_t^{H \to W} \) の逆数となる。図 \ref{fig:results_beta_shock_lambda_H} において CLT の方が \( \lambda_t^H \) を低く抑えられている（＝実質消費をより拡大させている）ように見えるが、これは CLT が物価の安定を完全に度外視して実質変数のみを強力に押し戻しているためである。しかし、この CLT の「過剰な」復元力は、図 \ref{fig:results_beta_shock_y_H} における大きなオーバーシュート（生産の過熱）を招く。
+    \item 生産のオーバーシュートと負効用の抑制：
+    図 \ref{fig:results_beta_shock_y_H} を見ると、CLT は復興期において NCLT よりも高く生産（＝労働供給）を跳ね上げている。これは家計にとって過度な労働による負効用の増大を意味する。NCLT は、ターゲットに「価格」が含まれていることで、実質変数の過剰な拡大に伴うインフレ圧力を自動的に検知し、ブレーキをかける機能を持つ。このため、NCLT は CLT よりもオーバーシュートを小さく抑え、生産と労働をより安定的に定常状態へと帰還させている。
+    \item 物価のドリフト防止（名目アンカーの効果）：
+    図 \ref{fig:results_beta_shock_p_H} （自国財価格）において、CLT や OLT といった物価を目標に含まない政策は、物価水準が定常状態から離れていく「ドリフト」現象を起こしやすくなる。これに対し、NCLT は名目支出を目標に据えることで、長期的には物価を定常状態付近へと引き戻す強力な名目アンカーとして機能する。
+\end{enumerate}
+
+以上の分析から、NCLT がなぜ最高評価を得たのかが明らかになる。NCLT は、CLT のような「実体経済への素早い初動（ジャンプ変数の活用）」を維持しつつも、名目支出という枠組みを通じて「過剰な労働供給の抑制」と「長期的な物価の安定（名目アンカー）」を同時に達成しているのである。この「実質と名目のハイブリッドな安定化能力」こそが、価格分散コストと実体経済の乖離の両面を最小化し、厚生を最大化させた本質的な要因である。
+
+\paragraph{F. 名目GDP水準目標（NGDPLT）}
+「ショックを緩和できる政策群」の三つ目として、名目GDP水準目標（NGDPLT、緑一点鎖線）の分析を行う。NGDPLT は国内財価格（PPI） \( \bar{p}_t^H \) と実質生産 \( y_t^H \) の積をターゲットとするルールであり、次のように定義される。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln \bar{p}_t^H + \ln y_t^H - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_ngdplt_policy}
+\end{equation}
+
+図 \ref{fig:results_beta_shock_p_H_bar_y_H} 等に示される通り、NGDPLT は NCLT や CLT と並んで強力な復元力を示すが、それらと比較して「オーバーシュートが小さく、定常状態への収束が早い」という穏やかな動学特性を持つ。この差異は、ターゲットに含まれる変数の構成、特に「物価指数の範囲」と「実数項の定義」の違いに由来する。
+
+\begin{enumerate}
+    \item ターゲット変数の感度の差：
+    NCLT がターゲットとする名目消費には、ジャンプ変数である為替レート \( e^{/*} \) が CPI を通じて直接含まれている。一方、NGDPLT のターゲットである名目 GDP（ \( \bar{p}_t^H y_t^H \) ）に含まれる国内価格は、為替の影響を直接受けない純粋な状態変数である。このため、NGDPLT は NCLT に比べてショック直後のターゲットの変動が抑制され、それが政策利子率の早期脱却（図 \ref{fig:results_beta_shock_i_H}）と、復興期における景気過熱（オーバーシュート）の回避につながっている。
+    \item 消費者物価指数の乖離に関するパラドックス：
+    図 \ref{fig:results_beta_shock_p_H_W} において、NCLT の方が NGDPLT よりも消費者物価指数の定常状態からのプラスジャンプが大きくなっている。これは、NCLT が「CPI を含む名目支出」の維持を至上命題としているため、需要ショックによる実質消費の減少を相殺すべく、大胆に名目利子率を下げて為替を減価させ、CPI を強く押し上げている結果である。対して NGDPLT は国内指標を重視するため、為替を介した輸入物価の押し上げには相対的に消極的であり、その結果として CPI のジャンプ幅が小さく留まっている。
+    \item 収束の早さと安定性：
+    NGDPLT が全政策中で最も早く定常状態へ収束している点は注目に値する。これは、国内生産 \( y_t^H \) をターゲットに据えることで、国内の需給バランスを直接的にアンカーしているためである。消費 \( c_t^{H \to W} \) は異時点間の最適化によって大きく変動しやすい性質を持つが、生産 \( y_t^H \) は経済全体の安定化を図る上では名目 GDP を指標とする方が、動学的な揺れを最小限に抑えやすい傾向がある。
+\end{enumerate}
+
+以上の比較分析から、NGDPLT は NCLT ほどの需要回復力は持たないものの、実体経済の過熱を抑制し、最も安定的かつ早期に経済を平時へと帰還させる能力に長けていると言える。この性質が、厚生評価において NCLT に次ぐ高い評価を支える要因となっている。
+
+\paragraph{G. 生産水準目標（OLT）}
+「ショックを緩和できる政策群」の一つである生産水準目標（OLT、黄一点鎖線）の挙動を分析する。OLT は実質生産 \( y_t^H \) のみをターゲットとする政策ルールであり、次のように定義される。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln y_t^H - \ln \chi^H ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_olt_policy}
+\end{equation}
+
+図 \ref{fig:results_beta_shock_y_H} において、OLT の生産パスは名目GDP水準目標（NGDPLT）とほぼ重なる軌道を描いている。この類似性は、本稿の重要な設定である価格の硬直性（ \( \kappa^H = 0 \) ）に起因する。NGDPLT がターゲットとする名目GDPにおいて、国内財価格 \( p_t^H \) が極めて安定しているため、名目値の変化は実質生産の変化とほぼ同義となり、結果として OLT と NGDPLT は近似的に同一の政策として機能している。
+
+OLT の動学特性における注目点は、物価の「上昇ドリフト」と「利子率の早期脱却」である。
+
+\begin{enumerate}
+    \item 名目アンカーの欠如による物価の推移：
+    図 \ref{fig:results_beta_shock_p_H} において、国内財価格 \( p_t^H \) は定常状態から乖離し、右肩上がりの上昇傾向を見せる。需要ショック自体は本来物価に下落圧力をかけるが、OLT の下では中央銀行が生産の回復を最優先し、強力な金融緩和を継続する。OLT は物価水準をターゲットに含んでいないため、実体経済を回復させる過程で生じたインフレ期待を抑制する「ブレーキ」が働かない。その結果、AS 曲線が将来の物価上昇期待 \( E_t [ \hat{p}_{t+1}^H ] \) によって上方へシフトし続け、物価水準が定常状態から離れていくドリフト現象が生じている。
+    \item 目標達成の早さと名目利子率の挙動：
+    図 \ref{fig:results_beta_shock_i_H} において、OLT は実質消費水準目標（CLT）に次いで早い時期にゼロ名目利子率制約（ZLB）から離脱している。これは、OLT が実質生産 \( y_t^H \) を直接の目標としているため、ショックによって左方へシフトした AD 曲線 \eqref{eq:results_asad_ad_curve} を元の位置へ復元させる力が、ターゲット変数に対して最もダイレクトに作用したためである。
+\end{enumerate}
+
+以上の通り、OLT は生産の安定化において非常に強力な能力を発揮する。しかし、ターゲットに名目変数（物価や名目支出）を一切含まないため、長期的な物価水準を一定に保つ能力（名目アンカー効果）を欠いている。この「物価の放任」が、回復期において生産のオーバーシュートを招き、厚生の評価を NCLT 等に譲る要因となっている。
+
+\paragraph{H. 潜在生産水準目標（POLT）}
+「ショックを緩和できる政策群」の最後として、潜在生産水準目標（POLT、黒破線）の動態を分析する。POLT は実際の生産 \( y_t^H \) と潜在生産 \( y_t^{H,pot} \) との乖離（生産ギャップ）をターゲットとするルールであり、次のように記述される。
+
+\begin{equation}
+i_{t, notional}^H = i_{ss}^H + \phi_{gap}^H ( \ln y_t^H - \ln y_t^{H,pot} ) + \phi_{level}^H \gamma_t^H \label{eq:results_beta_shock_analysis_polt_policy}
+\end{equation}
+
+POLT の挙動において最も特徴的な点は、ターゲットである潜在生産自体が外生ショックに反応して動いている点である。
+
+\begin{enumerate}
+    \item ターゲットの動的変化と生産ギャップの拡大：
+    図 \ref{fig:results_beta_shock_y_H_potential} に示される通り、需要ショックが発生した直後、家計の貯蓄選好の高まりを反映して潜在生産 \( y_t^{H,pot} \) は上昇する。一方で、実際の生産 \( y_t^H \) は価格硬直性により需要の減退を直接受け、大幅に下落する。つまり、POLT では目標（潜在生産）が上がり、実態（実際の生産）が下がるという二重の乖離が発生する。この巨大な生産ギャップの発生が、強力な緩和圧力を生む原動力となっている。
+    \item 最長のゼロ名目利子率継続と履歴依存性の役割：
+    図 \ref{fig:results_beta_shock_i_H} において、POLT は 90 期付近までゼロ名目利子率制約（ZLB）を継続しており、全政策の中で最も出口が遅い。式 \eqref{eq:results_beta_shock_analysis_polt_policy} に含まれる累計乖離項 \( \gamma_t^H \) が、初期に蓄積された巨大な負のギャップの記憶を保持しているため、過去の未達分を相殺するために生産が潜在水準を上回る「過熱状態」を長期間維持する必要が生じ、これが ZLB の継続をもたらしている。
+    \item 物価の著しい上昇ドリフト：
+    図 \ref{fig:results_beta_shock_p_H} において、国内財価格 \( p_t^H \) は全政策で最も高い上昇を見せている。これは、上述の長期間にわたる過剰な金融緩和が将来の物価上昇期待を強力に押し上げ、水平な AS 曲線 \eqref{eq:results_asad_as_curve} を絶え間なく上方へシフトさせた結果である。
+\end{enumerate}
+
+以上の分析から、POLT は実体経済の過熱と物価の不安定化を招きやすい性質を持つことがわかる。厚生の観点からは、この過剰な労働供給と物価上昇に伴う価格分散コストがペナルティとなり、実体経済を適度に制御しつつ名目アンカーを維持する NCLT に評価を譲る結果となっている。
+
+
+\subsection{厚生の決定要因：価格分散と実体経済のトレードオフ}
+\label{sec:results_beta_shock_welfare_factors}
+本節の締めくくりとして、なぜ名目総消費水準目標（NCLT）が厚生において最高評価を得たのかを、図 \ref{fig:results_beta_shock_delta_H} の価格分散（ \( \Delta^H \) ）の視点を交えて総括する。各政策のパフォーマンスは、以下の 3 つの要因のバランスによって決定されている。
+
+\begin{enumerate}
+    \item \textbf{初動の速さ（ジャンプ変数の活用）}：
+    IT や CPLT、PPLT といった「ショックを緩和できない政策群」は、ターゲットが状態変数（物価）のみ、あるいは期待のアンカーを欠いているため、ショック直後の \( t=0 \) で名目利子率を十分に下げられない。これに対し、NCLT や CLT はジャンプ変数である実質消費をターゲットに含むことで、ショックと同時に名目利子率を ZLB までジャンプさせ、不況の深刻化を未然に防いでいる。
+    \item \textbf{名目アンカーによる物価ドリフトの抑制}：
+    CLT、OLT、POLT といった実質変数のみを追う政策は、実体経済を強力に回復させる一方で、物価水準を定常状態へ戻す力が弱い。図 \ref{fig:results_beta_shock_p_H} に見られる物価の上昇ドリフトは、長期的には経済の不確実性を高める要因となる。NCLT は名目支出をターゲットとすることで、不況期には強力な緩和を行いながらも、回復期には物価上昇を検知して適切にブレーキをかけ、物価を定常状態へと収束させている。
+    \item \textbf{価格分散コスト（ \( \Delta^H \) ）の最小化}：
+    厚生を最も大きく損なう要因の一つが、インフレ率の変動に伴う価格分散である。図 \ref{fig:results_beta_shock_delta_H} を見ると、IT（インフレ目標）が突出して高い価格分散を記録している。これは IT が水準目標を持たないためにデフレ期待のアンカーに失敗し、物価の大きな下落とその後の揺り戻しを許容してしまったためである。
+    対照的に、NCLT は図 \ref{fig:results_beta_shock_delta_H} において最も低い水準で \( \Delta^H \) を安定させている。これは、将来の名目支出を保証することで期待インフレ率を一定に保ち、実際のインフレ率の変動幅を最小限に抑え込んだ結果である。
+\end{enumerate}
+
+以上の分析から、 NCLT の優位性は、(1) 消費というジャンプ変数を検知する「鋭い初動」、(2) 名目支出という枠組みによる「物価の安定（名目アンカー）」、および (3) それらがもたらす「価格分散コストの抑制」という 3 点を、単一のルールで最も高次元にバランスさせた点にあると結論付けられる。

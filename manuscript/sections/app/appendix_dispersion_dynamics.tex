@@ -1,0 +1,57 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_dispersion_dynamics.tex
+
+\chapter{価格分散の動学方程式の導出}
+\label{chap:appendix_dispersion_dynamics}
+
+本付録では、本文中で用いられる価格分散項 \( \Delta_t^H \) が従う動学方程式を、カルボ・プライシングの仮定から厳密に導出する。
+
+\section*{定理 6：価格分散の動学}
+カルボ・プライシングの仮定の下で、経済全体の価格分散項 \( \Delta_t^H \) は、以下の再帰的な方程式に従う。
+\[
+\Delta_t^H = (1-\xi_H)N \left( \frac{\tilde{p}_t^H}{p_t^H} \right)^{-\theta^H} + \xi_H \left( \frac{p_t^H}{p_{t-1}^H} \right)^{\theta^H} \Delta_{t-1}^H
+\]
+
+\section*{証明}
+
+この定理を証明するため、価格分散項の定義式から出発し、価格改定を行う家計と行わない家計のグループに分けて計算を進める。
+
+\subsection*{1. カルボ・プライシングによる総和の分割}
+価格分散項 \( \Delta_t^H \) の定義は以下の通りである。
+\[
+\Delta_t^H \equiv \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}
+\]
+カルボ・プライシングの仮定に従い、時点 \( t \) における全ての家計の集合 \( H \) を、価格を改定する \( (1-\xi_H) \) の割合の家計（ 改定組 ）と、価格を据え置く \( \xi_H \) の割合の家計（ 非改定組 ）に分割する。
+\[
+\Delta_t^H = \underbrace{\sum_{h \in \text{改定組}} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}}_{\text{第 1 項：価格改定グループ}} + \underbrace{\sum_{h \in \text{非改定組}} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}}_{\text{第 2 項：価格非改定グループ}}
+\]
+
+\subsection*{2. 価格改定グループの計算}
+価格改定の機会を得た家計は、全て同じ新しい最適価格 \( \tilde{p}_t^H \) を設定する。このグループに属する家計の数は \( (1-\xi_H)N \) であるため、第 1 項の合計は以下のようになる。
+\[
+\sum_{h \in \text{改定組}} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} = (1-\xi_H)N \left( \frac{\tilde{p}_t^H}{p_t^H} \right)^{-\theta^H}
+\]
+
+\subsection*{3. 価格非改定グループの計算}
+価格を改定しない家計は、前期の価格 \( p_{t-1}^h \) をそのまま維持するため、 \( p_t^h = p_{t-1}^h \) である。したがって、第 2 項は以下のように変形できる。
+\begin{align*}
+\sum_{h \in \text{非改定組}} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} &= \sum_{h \in \text{非改定組}} \left( \frac{p_{t-1}^h}{p_t^H} \right)^{-\theta^H} \\
+&= \sum_{h \in \text{非改定組}} \left( \frac{p_{t-1}^h}{p_{t-1}^H} \frac{p_{t-1}^H}{p_t^H} \right)^{-\theta^H} \\
+&= \left( \frac{p_t^H}{p_{t-1}^H} \right)^{\theta^H} \sum_{h \in \text{非改定組}} \left( \frac{p_{t-1}^h}{p_{t-1}^H} \right)^{-\theta^H}
+\end{align*}
+ここで、カルボ・プライシングの重要な仮定、すなわち「 今期、価格を改定しない家計 」は、「 前期に存在した全家計の中から、割合 \( \xi_H \) で無作為に選び出された標本（ サンプル ）」であるという点を用いる。大数の法則によれば、家計の数 \( N \) が十分に大きい場合、この無作為抽出されたサンプルの合計値は、母集団（ 前期の全家計 ）の合計値のほぼ \( \xi_H \) 倍となる。
+\[
+\underbrace{\sum_{h \in \text{非改定組}} \left( \frac{p_{t-1}^h}{p_{t-1}^H} \right)^{-\theta^H}}_{\text{サンプル（ 非改定組 ）の合計}} \approx \xi_H \times \underbrace{\sum_{h \in \text{全家計}} \left( \frac{p_{t-1}^h}{p_{t-1}^H} \right)^{-\theta^H}}_{\text{母集団（ 前期の全家計 ）の合計}}
+\]
+右辺の「 母集団の合計 」は、まさしく前期の価格分散 \( \Delta_{t-1}^H \) の定義そのものである。したがって、以下の近似が成立する。
+\[
+\sum_{h \in \text{非改定組}} \left( \frac{p_{t-1}^h}{p_{t-1}^H} \right)^{-\theta^H} \approx \xi_H \Delta_{t-1}^H
+\]
+これを代入すると、第 2 項は \( \xi_H (p_t^H / p_{t-1}^H)^{\theta^H} \Delta_{t-1}^H \) と近似できる。
+
+\subsection*{4. 方程式の再結合と結論}
+ステップ 2 とステップ 3 の結果を結合することで、定理で示された \( \Delta_t^H \) の動学方程式が得られる。
+\[
+\Delta_t^H = (1-\xi_H)N \left( \frac{\tilde{p}_t^H}{p_t^H} \right)^{-\theta^H} + \xi_H \left( \frac{p_t^H}{p_{t-1}^H} \right)^{\theta^H} \Delta_{t-1}^H
+\]
+（ 証明終 ）

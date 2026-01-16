@@ -1,0 +1,44 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_resource_constraints.tex
+
+\section{国全体の資源制約式}
+\label{sec:model_resource_constraints} % labelを微調整
+
+\paragraph{自国の資源制約}
+任意の \( t \) 期において成立するすべての自国家計（\( h \in H \)）の予算制約式を足し合わせ、
+自国の債券市場と政府部門の均衡条件を適用することで国全体の集計的な資源制約式が得られる
+（導出の詳細は付録A.7参照）。
+\begin{equation}
+p_t^{H \to W} C_t^{H \to W} + B_{t+1}^{H} = p_t^H Y_t^H + (1+i_{t-1}^F) \frac{e_t^{/*}}{e_{t-1}^{/*}} B_t^{H}
+\label{eq:aggregate_resource_constraint_H}
+\end{equation}
+ここで
+\begin{equation}
+C_t^{H \to W} = N c_t^{H \to W}
+\label{eq:aggregate_consumption_def_H}
+\end{equation}
+は国全体の総消費、
+\begin{equation}
+B_t^{H} = N b_t^{H}
+\label{eq:aggregate_assets_def_H}
+\end{equation}
+は国全体の対外純資産（自国通貨建て）である。
+この式は国の消費と対外純資産の増加が国の生産と既存の対外資産からの収益によって賄われることを示している。
+
+\paragraph{外国の資源制約（外国通貨建て）}
+同様に外国の資源制約式は以下のように記述される。
+\begin{equation}
+p_t^{F \to W*} C_t^{F \to W} + B_{t+1}^{F*} = p_t^{F*} Y_t^F + (1+i_{t-1}^H) \frac{e_{t-1}^{/*}}{e_t^{/*}} B_t^{F*}
+\label{eq:aggregate_resource_constraint_F}
+\end{equation}
+ここで
+\begin{equation}
+C_t^{F \to W} = M c_t^{F \to W}
+\label{eq:aggregate_consumption_def_F}
+\end{equation}
+は外国の総消費、
+\begin{equation}
+B_t^{F*} = M b_t^{F*}
+\label{eq:aggregate_assets_def_F}
+\end{equation}
+は外国の対外純資産（外国通貨建て）である。

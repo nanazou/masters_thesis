@@ -1,0 +1,58 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_aggregate_output.tex
+
+\chapter{集計産出量と名目所得の関係}
+\label{chap:appendix_aggregate_output}
+
+本付録の目的は、総名目生産額が、集計産出量と真の価格指数の単純な積で表せること、そしてその関係を担保するために集計産出量が必然的にCES集計の形でなければならないことを証明することである。
+
+\section*{定理4：総名目所得の分解と集計産出量の整合性}
+
+財市場の均衡において、ある時点 \( t \) で、以下の 2 つの関係が成立する。
+\begin{enumerate}
+    \item 国全体の総名目所得は、集計産出量 \( Y_t^H \) と真の価格指数 \( p_t^H \) の積に等しい。
+    \[ \sum_{h \in H} p_t^h y_t^h = p_t^H Y_t^H \]
+    \item 上記の関係式が成立するためには、集計産出量 \( Y_t^H \) は、個々の財の生産量 \( y_t^h \) のCES集計関数でなければならない。
+    \[ Y_t^H = \left[ \sum_{h \in H} (y_t^h)^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \]
+\end{enumerate}
+
+\section*{証明}
+
+\subsection*{1. 個別生産量と集計量の関係式の導出}
+まず、個別財 \( h \) の生産量 \( y_t^h \) と集計産出量 \( Y_t^H \) の間の関係を厳密に導出する。財市場の均衡では、個別財 \( h \) の生産量（ 供給 ）は、その財への全世界からの総需要と等しい。
+\[ y_t^h = \sum_{h' \in H} c_t^{h' \to h} + \sum_{f \in F} c_t^{f \to h} \]
+ここに、各消費者（ 国内家計 \( h' \)、外国の家計 \( f \) ）の個別財への需要関数を代入する。買い手が国内か国外かに関わらず、彼らが直面する自国財の価格体系は共通であるため、需要関数 \( c_t^{\cdot \to h} = (p_t^h/p_t^H)^{-\theta^H} c_t^{\cdot \to H} \) の価格に関する項は共通となる。
+\begin{align*}
+y_t^h &= \sum_{h' \in H} \left[ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} c_t^{h' \to H} \right] + \sum_{f \in F} \left[ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} c_t^{f \to H} \right] \\
+&= \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} \left[ \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \right]
+\end{align*}
+ここで、大括弧の中の項は「 世界全体からの国内財バスケットへの総需要 」を意味する。財市場全体の均衡において、これは国内財の集計産出量 \( Y_t^H \) と定義上一致する。
+\[ Y_t^H \equiv \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \]
+したがって、以下の厳密な関係式が導かれる。
+\[ y_t^h = \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} Y_t^H \]
+
+\subsection*{2. 総名目所得の計算}
+次に、総名目所得 \( \sum_{h \in H} p_t^h y_t^h \) を計算する。ステップ 1 で導出した関係式を代入する。
+\begin{align*}
+    \sum_{h \in H} p_t^h y_t^h &= \sum_{h \in H} p_t^h \left[ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} Y_t^H \right] \\
+    &= Y_t^H (p_t^H)^{\theta^H} \sum_{h \in H} (p_t^h)^{1-\theta^H}
+\end{align*}
+ここで、付録 \ref{chap:appendix_cost_minimization} で導出した真の価格指数 \( p_t^H \) の定義式の両辺を \( 1-\theta^H \) 乗すると、 \( \sum_{h \in H} (p_t^h)^{1-\theta^H} = (p_t^H)^{1-\theta^H} \) という関係が得られる。これを上式に代入する。
+\begin{align*}
+    \sum_{h \in H} p_t^h y_t^h &= Y_t^H (p_t^H)^{\theta^H} (p_t^H)^{1-\theta^H} \\
+    &= p_t^H Y_t^H
+\end{align*}
+これにより、定理の項目 1 が証明された。
+
+\subsection*{3. 集計産出量 \( Y_t^H \) の定義の整合性}
+最後に、この関係式が成り立つために、集計産出量 \( Y_t^H \) が必然的にCES集計の形でなければならないことを示す。ステップ 1 の関係式の両辺を \( \frac{\theta^H-1}{\theta^H} \) 乗し、全ての \( h \) について合計を取る。
+\begin{align*}
+\sum_{h \in H} (y_t^h)^{\frac{\theta^H-1}{\theta^H}} &= \sum_{h \in H} \left[ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} Y_t^H \right]^{\frac{\theta^H-1}{\theta^H}} \\
+&= \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{1-\theta^H} (Y_t^H)^{\frac{\theta^H-1}{\theta^H}} \\
+&= \frac{(Y_t^H)^{\frac{\theta^H-1}{\theta^H}}}{(p_t^H)^{1-\theta^H}} \sum_{h \in H} (p_t^h)^{1-\theta^H}
+\end{align*}
+再び価格指数の定義 \( (p_t^H)^{1-\theta^H} = \sum_{h \in H} (p_t^h)^{1-\theta^H} \) を使うと、右辺の価格項は相殺される。
+\[
+\sum_{h \in H} (y_t^h)^{\frac{\theta^H-1}{\theta^H}} = (Y_t^H)^{\frac{\theta^H-1}{\theta^H}}
+\]
+この両辺の \( \frac{\theta^H}{\theta^H-1} \) 乗を取ると、 \( Y_t^H \) が定理の項目 2 で示されたCES集計関数でなければならないことが示される（ 証明終 ）。

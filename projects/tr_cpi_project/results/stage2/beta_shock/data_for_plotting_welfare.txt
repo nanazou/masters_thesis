@@ -1,0 +1,13 @@
+Welfare (Utility) Calculations (Stage 2 Sticky - Scenario: beta):
+
+--- with Price Dispersion Cost (Delta included) ---
+welfare_H_with_delta_pie (ZLB): -1.37676582
+welfare_H_with_delta_lin (Non-ZLB): -1.37391091
+welfare_F_with_delta_pie (ZLB): 0.75743360
+welfare_F_with_delta_lin (Non-ZLB): 0.76100118
+
+--- without Price Dispersion Cost (Delta = 0) ---
+welfare_H_without_delta_pie (ZLB): -1.34650913
+welfare_H_without_delta_lin (Non-ZLB): -1.34359019
+welfare_F_without_delta_pie (ZLB): 0.76416272
+welfare_F_without_delta_lin (Non-ZLB): 0.76773030

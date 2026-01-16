@@ -1,0 +1,73 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_cost_minimization.tex
+
+\chapter{費用最小化問題からの需要関数と価格指数の導出（ 第 1 段階 ）}
+\label{chap:appendix_cost_minimization}
+
+本付録の目的は、総名目生産額が、集計産出量と真の価格指数の単純な積で表せること、そしてその関係を担保するために集計産出量が必然的にCES集計の形でなければならないことを証明することである。
+
+\section*{定理 2：個別財への需要関数と真の価格指数}
+
+家計 \( h \) が、ある時点 \( t \) において、所与の量の国内財バスケット \( c_t^{h \to H} = \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \) を、個別財の価格 \( \{p_t^{h'}\} \) の下で費用最小化的に購入するとき、以下の関係が成立する。
+\begin{enumerate}
+    \item 家計 \( h \) の個別財 \( h' \) への需要関数は、次式で与えられる。
+    \[ c_t^{h \to h'} = \left( \frac{p_t^{h'}}{p_t^H} \right)^{-\theta^H} c_t^{h \to H} \]
+    \item 上記の需要関数に現れる \( p_t^H \) は、国内財バスケットの「 真の価格指数 」であり、個々の財価格から以下のように定義される。この値は全ての国内家計で共通である。
+    \[ p_t^H = \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} \]
+\end{enumerate}
+
+\section*{証明}
+
+この定理を、自国家計 \( h \) の場合について証明する。外国の家計 \( f \) についても全く対称的な手順で証明可能である。
+
+\subsection*{1. 費用最小化問題の設定}
+家計が直面する問題は、時点 \( t \) において、所与の国内財バスケット \( c_t^{h \to H} \) を達成するための総費用を最小化することである。
+\begin{itemize}
+    \item \textbf{最小化対象}:
+    \[ \min_{\{c_t^{h \to h'}\}_{h' \in H}} \sum_{h' \in H} p_t^{h'} c_t^{h \to h'} \]
+    \item \textbf{制約条件}:
+    \[ c_t^{h \to H} = \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \]
+\end{itemize}
+
+\subsection*{2. ラグランジュ関数と一階の条件（ FOC ）}
+この問題を解くために、ラグランジュ関数 \( \mathcal{L}^{h \to H} \) を設定する。ラグランジュ乗数を \( \mu_t^{h \to H} \) とする。
+\[
+\mathcal{L}^{h \to H} = \sum_{h' \in H} p_t^{h'} c_t^{h \to h'} - \mu_t^{h \to H} \left( \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} - c_t^{h \to H} \right)
+\]
+このラグランジュ関数を、任意の個別財 \( c_t^{h \to h'} \) で偏微分し、ゼロと置くことで一階の条件（ FOC ）が得られる。
+\begin{align*}
+\frac{\partial \mathcal{L}^{h \to H}}{\partial c_t^{h \to h'}} = p_t^{h'} - \mu_t^{h \to H} \cdot \frac{\theta^H}{\theta^H-1} \left[ \sum_{i \in H} (c_t^{h \to i})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}-1} \cdot \frac{\theta^H-1}{\theta^H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}-1} &= 0 \\
+p_t^{h'} &= \mu_t^{h \to H} \cdot \left( c_t^{h \to H} \right)^{\frac{1}{\theta^H}} \cdot (c_t^{h \to h'})^{-\frac{1}{\theta^H}} \\
+p_t^{h'} &= \mu_t^{h \to H} \left( \frac{c_t^{h \to H}}{c_t^{h \to h'}} \right)^{\frac{1}{\theta^H}}
+\end{align*}
+
+\subsection*{3. FOC からの需要関数の導出}
+上記で得られた FOC を、個別財への需要量 \( c_t^{h \to h'} \) について解く。
+\begin{align*}
+    \frac{p_t^{h'}}{\mu_t^{h \to H}} &= \left( \frac{c_t^{h \to H}}{c_t^{h \to h'}} \right)^{\frac{1}{\theta^H}} \\
+    \left(\frac{p_t^{h'}}{\mu_t^{h \to H}}\right)^{\theta^H} &= \frac{c_t^{h \to H}}{c_t^{h \to h'}}
+\end{align*}
+これにより、ラグランジュ乗数 \( \mu_t^{h \to H} \) を含む需要関数が導出される。
+\[ c_t^{h \to h'} = \left( \frac{p_t^{h'}}{\mu_t^{h \to H}} \right)^{-\theta^H} c_t^{h \to H} \]
+
+\subsection*{4. 真の価格指数 \( p_t^H \) の導出}
+次に、ラグランジュ乗数 \( \mu_t^{h \to H} \) の具体的な形を導出する。ステップ 3 で得た需要関数を、制約条件である CES 集計式に代入する。
+\[
+c_t^{h \to H} = \left[ \sum_{h' \in H} \left( \left( \frac{p_t^{h'}}{\mu_t^{h \to H}} \right)^{-\theta^H} c_t^{h \to H} \right)^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}}
+\]
+式を整理していく。
+\begin{align*}
+    c_t^{h \to H} &= \left[ \sum_{h' \in H} \left( \frac{p_t^{h'}}{\mu_t^{h \to H}} \right)^{1-\theta^H} (c_t^{h \to H})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \\
+    &= \left[ (c_t^{h \to H})^{\frac{\theta^H-1}{\theta^H}} (\mu_t^{h \to H})^{\theta^H-1} \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{\theta^H}{\theta^H-1}} \\
+    &= (c_t^{h \to H}) \cdot (\mu_t^{h \to H})^{\theta^H} \cdot \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{\theta^H}{\theta^H-1}}
+\end{align*}
+両辺の \( c_t^{h \to H} \) を消去し、 \( \mu_t^{h \to H} \) について解く。
+\begin{align*}
+    1 &= (\mu_t^{h \to H})^{\theta^H} \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{\theta^H}{\theta^H-1}} \\
+    (\mu_t^{h \to H})^{-\theta^H} &= \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{\theta^H}{\theta^H-1}} \\
+    \mu_t^{h \to H} &= \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}}
+\end{align*}
+このラグランジュ乗数 \( \mu_t^{h \to H} \) は、個々の家計 \( h \) に依存しない共通の価格リストのみで決定されるため、全ての国内家計で共通の値をとる。
+本稿では、この家計が直面する真の価格指数を \( p_t^H \) と定義する。
+\[ p_t^H \equiv \mu_t^{h \to H} = \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} \]
+この \( p_t^H \) をステップ 3 の需要関数に代入することで、定理の項目 1 が証明される（ 証明終 ）。

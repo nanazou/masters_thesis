@@ -1,0 +1,72 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_equivalence.tex
+
+\chapter{効用最大化問題と 2 段階最適化の等価性}
+\label{chap:appendix_equivalence}
+
+本付録では、本稿のモデル構築において採用している「 個別財の費用最小化問題を解き、そこで得られた価格指数を用いて効用最大化問題を解く 」という 2 段階の最適化アプローチが、全ての個別財の消費量を一度に選択するという単一の効用最大化問題と数学的に完全に等価であることを証明する。
+
+
+
+\section*{定理 1：最適化問題の等価性}
+
+家計 \( h \) が、ある時点 \( t \) において所与の総支出額 \( E_t^h \) の下で、全ての個別財 \( \{c_t^{h \to h'}\} \), \( \{c_t^{h \to f'}\} \) の消費量を直接選択する単一の効用最大化問題は、以下の 2 段階の最適化問題と等価である。
+\begin{enumerate}
+    \item \textbf{第 1 段階（ 費用最小化 ）}: 所与の財バスケット量 \( c_t^{h \to H} \), \( c_t^{h \to F} \) を達成するための最小費用と、その際の個別財への需要を求める。この過程で、真の価格指数 \( p_t^H \), \( p_t^{F*} \) が導出される。
+    \item \textbf{第 2 段階（ 効用最大化 ）}: 第 1 段階で導出された価格指数を所与として、予算制約 \( p_t^H c_t^{h \to H} + e_t p_t^{F*} c_t^{h \to F} = E_t^h \) の下で、財バスケット \( c_t^{h \to H} \), \( c_t^{h \to F} \) の最適な組み合わせを選択し、効用を最大化する。
+\end{enumerate}
+
+\section*{証明}
+
+この定理を証明するために、出発点となる厳密な単一の効用最大化問題を、数学的に等価な変形を施すことで、 2 段階の最適化問題へと帰着させる。
+
+\subsection*{1. 出発点：単一の効用最大化問題}
+厳密な問題設定は、時点 \( t \) において、以下の通りである。
+\begin{itemize}
+    \item \textbf{最大化対象}:
+    \[
+    \max_{\{c_t^{h \to h'}\}, \{c_t^{h \to f'}\}} \ln(c_t^{h \to W})
+    \]
+    ただし、 \( c_t^{h \to W} \), \( c_t^{h \to H} \), \( c_t^{h \to F} \) は各個別財消費量の関数である。
+
+    \item \textbf{制約条件}:
+    \[
+    \sum_{h' \in H} p_t^{h'} c_t^{h \to h'} + \sum_{f' \in F} p_t^{f'} c_t^{h \to f'} = E_t^h
+    \]
+\end{itemize}
+
+\subsection*{2. 問題の分解}
+この最大化問題は、総支出 \( E_t^h \) を国内財への支出 \( E_t^{h \to H} \) と海外財への支出 \( E_t^{h \to F} \) に分割する、以下のネストした（ 入れ子構造の ）問題と等価である。
+\[
+\max_{E_t^{h \to H}, E_t^{h \to F}} \left( \max_{\{c_t^{h \to h'}\}, \{c_t^{h \to f'}\}} \ln(c_t^{h \to W}) \quad \text{s.t.} \sum p_t^{h'}c_t^{h \to h'} = E_t^{h \to H}, \sum p_t^{f'}c_t^{h \to f'} = E_t^{h \to F} \right)
+\]
+\[
+\text{subject to} \quad E_t^{h \to H} + E_t^{h \to F} = E_t^h
+\]
+
+\subsection*{3. 双対性（ Duality ）の利用}
+ここで、内側の最大化問題に注目する。例えば国内財については、「 所与の支出 \( E_t^{h \to H} \) で、バスケット \( c_t^{h \to H} \) の量を最大化する問題 」である。
+\[
+\max_{\{c_t^{h \to h'}\}} c_t^{h \to H}(\{c_t^{h \to h'}\}) \quad \text{s.t.} \quad \sum_{h' \in H} p_t^{h'}c_t^{h \to h'} = E_t^{h \to H}
+\]
+ミクロ経済学の双対性（ duality ）の原理により、この問題は、「 所与のバスケット量 \( \bar{c}_t^{h \to H} \) を、最小の費用で達成する問題 」と完全に等価である。
+\[
+\min_{\{c_t^{h \to h'}\}} \sum_{h' \in H} p_t^{h'}c_t^{h \to h'} \quad \text{s.t.} \quad c_t^{h \to H}(\{c_t^{h \to h'}\}) = \bar{c}_t^{h \to H}
+\]
+この費用最小化問題こそが、 2 段階アプローチにおける第 1 段階に他ならない。本稿の付録 \ref{chap:appendix_cost_minimization} で示したように、この問題を解くことで、所与のバスケット量 \( c_t^{h \to H} \) を達成するための最小費用（ 支出関数 ）は \( p_t^H c_t^{h \to H} \) となることが導かれる。同様に、外国財バスケットの最小費用は \( e_t p_t^{F*} c_t^{h \to F} \) となる。
+
+\subsection*{4. 問題の再定式化と結論}
+この支出関数の関係 \( E_t^{h \to H} = p_t^H c_t^{h \to H} \) と \( E_t^{h \to F} = e_t p_t^{F*} c_t^{h \to F} \) を、ステップ 2 で分解した問題に代入する。すると、問題は以下のように書き換えられる。
+\begin{itemize}
+    \item \textbf{最大化}:
+    \[
+    \max_{c_t^{h \to H}, c_t^{h \to F}} \ln \left( \frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \right)
+    \]
+    \item \textbf{制約条件}:
+    \[
+    p_t^H c_t^{h \to H} + e_t p_t^{F*} c_t^{h \to F} = E_t^h
+    \]
+\end{itemize}
+この書き換えられた問題は、まさしく 2 段階アプローチにおける第 2 段階そのものである。
+
+以上により、厳密な単一の効用最大化問題が、本稿で採用した 2 段階の最適化アプローチと数学的に完全に等価であることが証明された（ 証明終 ）。

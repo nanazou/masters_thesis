@@ -1,0 +1,117 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_policies.tex
+
+\section{政府と金融政策}
+\label{sec:model_policies} % labelを微調整
+
+\subsection{財政政策}
+\label{subsec:model_fiscal_policy} % labelを微調整
+\paragraph{自国の財政政策}
+政府は均衡予算を達成し税収のすべてを家計への一括移転 \( t_t^H \) として還元する。
+所得税率 \( \tau_t^H \) はその定常状態の値 \( \tau_{ss}^H \) の対数周囲での外生的な確率過程に従う。
+\begin{equation}
+\log(\tau_t^H) = (1-\rho_{\tau}^H)\log(\tau_{ss}^H) + \rho_{\tau}^H \log(\tau_{t-1}^H) + \varepsilon_t^{\tau,H}
+\label{eq:tax_rule_H}
+\end{equation}
+政府の予算制約式は \( N t_t^H = \sum_{h \in H} \tau_t^H p_t^h y_t^h \) である。
+ここで付録A.4（定理4）において証明されるように総名目所得は以下の関係式で表すことができる。
+\begin{equation}
+\sum_{h \in H} p_t^h y_t^h = p_t^H Y_t^H
+\label{eq:nominal_income_identity}
+\end{equation}
+これらより集計レベルの予算制約式は以下のように決定される。
+\begin{equation}
+N t_t^H = \tau_t^H p_t^H Y_t^H
+\label{eq:final_gov_budget_agg}
+\end{equation}
+これより一人当たり移転額は以下のように決定される。
+\begin{equation}
+t_t^H = \tau_t^H \frac{p_t^H Y_t^H}{N}
+\label{eq:transfer_H}
+\end{equation}
+
+\paragraph{外国の財政政策}
+同様に外国政府の税率 \( \tau_t^F \) は外生的な確率過程に従い、一人当たり移転額は以下のように決定される。
+\begin{equation}
+t_t^{F*} = \tau_t^F \frac{p_t^{F*} Y_t^F}{M}
+\label{eq:transfer_F}
+\end{equation}
+\begin{equation}
+\log(\tau_t^F) = (1-\rho_{\tau}^F)\log(\tau_{ss}^{F*}) + \rho_{\tau}^F \log(\tau_{t-1}^F) + \varepsilon_t^{\tau,F}
+\label{eq:tax_rule_F}
+\end{equation}
+
+\subsection{金融政策}
+\label{subsec:model_monetary_policy} % labelを微調整
+中央銀行は利子率を \( i_t^H \) を操作する。
+本稿ではシミュレーションにおいて自国が従う以下の3つの政策ルールを比較分析する。
+すべての変数は一人当たりの変数で記述される。
+
+本稿の分析においてハット（ \( \hat{} \) ）付き変数はその変数の対数をとったものと
+その変数の定常状態での対数値との乖離（対数乖離）を表す
+（例：\( \hat{y}_t^H = \log(y_t^H) - \log(y_{ss}^H) \)）。
+この対数乖離は、乖離が微小である場合に限り
+その変化率（ \( (y_t^H - y_{ss}^H) / y_{ss}^H \) ）の良い近似となるため広く用いられる。
+
+特にグロス・インフレ率（\( \pi_t^H \equiv \bar{p}_t^H / \bar{p}_{t-1}^H \)）の
+（対数）乖離 \( \hat{\pi}_t^H \) は、\( \log(\pi_t^H) - \log(\pi_{ss}^H) \) で定義される。
+定常状態においてはネット・インフレ率は 0\%（すなわちグロス・インフレ率 \( \pi_{ss}^H = 1 \)）となるため
+\begin{align*}
+\hat{\pi}_t^H &\equiv \log(\pi_t^H) - \log(\pi_{ss}^H) && \text{（ハットの定義）} \\
+&= \log(\pi_t^H) - \log(1) && \text{（グロス・インフレ率 \(\pi_{ss}^H = 1\) を代入）} \\
+&= \log(\pi_t^H) && \text{（\(\log(1) = 0\) のため）}
+\end{align*}
+と計算される。
+最後にグロス・インフレ率の定義と対数の性質（\(\log(A/B) = \log(A) - \log(B)\)）を用いると、
+インフレ・ギャップの式が導出される。
+\begin{equation}
+\hat{\pi}_t^H = \log\left(\frac{\bar{p}_t^H}{\bar{p}_{t-1}^H}\right) = \log(\bar{p}_t^H) - \log(\bar{p}_{t-1}^H)
+\label{eq:pi_hat_dynamics_def}
+\end{equation}
+
+\paragraph{1. インフレ目標 (IT)}
+利子率はグロス・インフレ率（\( \pi_t^H \)）の定常状態からの乖離に反応する。
+\begin{equation}
+i_t^H = i_{ss}^H + \phi_{\pi}^H (\pi_t^H - \pi_{ss}^H) + \varepsilon_{t}^{i,H}
+\label{eq:mp_it_H}
+\end{equation}
+
+\paragraph{2. 名目GDP水準目標 (NGDPLT)}
+利子率は一人当たりの名目GDP \( \bar{p}_t^H y_t^H \) のあらかじめ定められた目標パス \( \chi_t^H \) からの
+対数乖離（\( \log(\bar{p}_t^H y_t^H) - \log(\chi_t^H) \)）に反応し、
+また過去の乖離の累積 \( \gamma_t^H \) にも反応する。
+ここで \( i_{ss}^H \) は利子率の定常状態の値である。
+\begin{align}
+i_t^H &= i_{ss}^H + \phi_{gap} ( \log(\bar{p}_t^H y_t^H) - \log(\chi_t^H) ) + \phi_{level} \gamma_t^H \label{eq:mp_ngdplt_1} \\
+\gamma_t^H &= \gamma_{t-1}^H + ( \log(\bar{p}_{t-1}^H y_{t-1}^H) - \log(\chi_{t-1}^H) ) \label{eq:mp_ngdplt_2}
+\end{align}
+目標パス \( \chi_t^H \) はその定常状態の値 \( \chi_{ss}^H \) の対数周囲での外生的な確率過程に従う。
+\begin{equation}
+\log(\chi_t^H) = (1-\rho_{\chi}^H)\log(\chi_{ss}^H) + \rho_{\chi}^H \log(\chi_{t-1}^H) + \varepsilon_{t}^{\chi,H}
+\label{eq:mp_ngdplt_3}
+\end{equation}
+
+\paragraph{3. 名目消費水準目標 (NCLT)}
+利子率は一人当たりの名目総消費 \( p_t^{H \to W} c_t^{H \to W} \) の
+目標パス \( \chi_t^H \) からの対数乖離（\( \log(p_t^{H \to W} c_t^{H \to W}) - \log(\chi_t^H) \)）
+に反応する。
+\begin{align}
+i_t^H &= i_{ss}^H + \phi_{gap} ( \log(p_t^{H \to W} c_t^{H \to W}) - \log(\chi_t^H) ) + \phi_{level} \gamma_t^H \label{eq:mp_nclt_1} \\
+\gamma_t^H &= \gamma_{t-1}^H + ( \log(p_{t-1}^{H \to W} c_{t-1}^{H \to W}) - \log(\chi_{t-1}^H) ) \label{eq:mp_nclt_2}
+\end{align}
+目標パス \( \chi_t^H \) は名目GDP水準目標と同様の確率過程に従う。
+\begin{equation}
+\log(\chi_t^H) = (1-\rho_{\chi}^H)\log(\chi_{ss}^H) + \rho_{\chi}^H \log(\chi_{t-1}^H) + \varepsilon_{t}^{\chi,H}
+\label{eq:mp_nclt_3}
+\end{equation}
+
+\paragraph{外国の金融政策}
+外国の中央銀行は本稿の分析を通じて正規化された生産者物価指数を用いたインフレ目標（IT PPI）に従うものと仮定する。
+シミュレーションで比較するのは自国の政策ルールのみである。
+外国の利子率 \( i_t^F \) は、以下の形式に従う。
+\begin{equation}
+i_t^F = i_{ss}^F + \phi_{\pi}^F (\pi_t^{F*} - \pi_{ss}^{F*}) + \varepsilon_{t}^{i,F}
+\label{eq:mp_it_F}
+\end{equation}
+ここで \( \pi_t^{F*} \) は外国のグロス・インフレ率であり \( i_{ss}^F \) と \( \pi_{ss}^{F*} \) は
+それぞれの定常状態の値である。

@@ -1,0 +1,537 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_households.tex
+
+\section{家計}
+\label{sec:model_households}
+本節では自国の家計 \( h \in H \) の最適化行動を記述する。
+外国の家計 \( f \in F \) の行動も対称的に定式化される。
+
+\subsection{最適化問題}
+\label{subsec:model_optimization_problem}
+
+家計が直面する問題はマクロ経済全体の不確実性（状態 \( j \)）と
+価格改定の可否に関する個人的な不確実性（状態 \( \Xi \)）の同時確率分布の下で
+生涯効用を最大化する問題として厳密に定式化される。
+しかしこれを一度に解こうとすると記述が複雑になるため、
+本稿では多くの先行研究にならいこの問題を「価格以外の変数の決定問題」と「価格の決定問題」の2つに分割して分析する。
+このように分割しても問題として同値であることは付録A「効用最大化問題と2段階最適化の等価性」で示される。
+
+\subsubsection{価格以外の変数の決定問題}
+まず価格 \( p_t^h \) を所与とした上で家計の最適化問題を考える。
+家計 \( h \) は各期において以下の名目予算制約の下で生涯効用関数を最大化する。
+本稿では \textcite{GarinLesterSims2016} など多くの先行研究にならい
+この生涯効用関数の値を家計 \( h \) の厚生と定義する。
+このとき操作変数は消費 \( c_t^{h \to h'}, c_t^{h \to f} \)、労働 \( l_t^h \)、
+および各種債権の保有量 \( d_{t+1}^{h \to H}, b_{t+1}^{h \to F} \) である。
+
+\paragraph{自国家計の生涯効用関数:}
+\begin{equation}
+\operatorname{E}_s \sum_{t=s}^{\infty} \left( \prod_{k=0}^{t-s-1} \beta_{s+k}^H \right) \left( \log \left( \frac{\left( \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \right)^{\alpha^H} \left( \left[ \sum_{f \in F} (c_t^{h \to f})^{\frac{\theta^F-1}{\theta^F}} \right]^{\frac{\theta^F}{\theta^F-1}} \right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \right) - \frac{\phi^H}{2}(l_t^h)^2 \right)
+\label{eq:lifetime_utility_home_original}
+\end{equation}
+
+\paragraph{自国家計の名目予算制約:}
+\begin{equation}
+\begin{split}
+& \sum_{j' \in J} q_{t, t+1}(j') d_{t+1}^{h \to H}(j') + b_{t+1}^{h \to F} + \sum_{h' \in H} p_t^{h'} c_t^{h \to h'} + \sum_{f \in F} p_t^{f} c_t^{h \to f} \\
+& \qquad = d_t^{h \to H} + (1+i_{t-1}^F) \frac{e_t^{/*}}{e_{t-1}^{/*}} b_t^{h \to F} + (1-\tau_t^H) p_t^h y_t^h + t_t^H
+\end{split}
+\label{eq:nominal_budget_home_original}
+\end{equation}
+
+この最適化問題は家計が多種多様な個別財の消費 \( c_t^{h \to h'}, c_t^{h \to f} \) をすべて同時に
+選択しなければならないため非常に複雑である。
+そこでこの問題をより扱いやすくするために標準的な方法である2段階の最適化に問題を分割する。
+これは元の問題と同値であり、家計の最適化を
+「①所与の総消費指数（log の引数全体。のちに \( c_t^{h \to W} \) をこの値に一致するように定義する）を
+どのような消費を組み合わせて最小費用で実現するか」という期内の問題と
+「②どのように総消費指数 \( c_t^{h \to W} \)、労働供給 \( l_t^h \)、
+および各種債権の保有量 \( d_{t+1}^{h \to H}, b_{t+1}^{h \to F} \) を組み合わせて
+名目予算制約のもと生涯効用関数を最大化するか」という期をまたぐ問題に分けて考えることに相当する。
+この同値性の証明は付録A「効用最大化問題と2段階最適化の等価性」に譲る。
+
+\paragraph{外国家計の最適化問題}
+同様に外国家計 \( f \) は外国通貨建ての名目予算制約の下で生涯効用関数を最大化する。
+
+\paragraph{外国家計の生涯効用関数:}
+\begin{equation}
+\operatorname{E}_s \sum_{t=s}^{\infty} \left( \prod_{k=0}^{t-s-1} \beta_{s+k}^F \right) \left( \log \left( \frac{\left( \left[ \sum_{f' \in F} (c_t^{f \to f'})^{\frac{\theta^F-1}{\theta^F}} \right]^{\frac{\theta^F}{\theta^F-1}} \right)^{\alpha^F} \left( \left[ \sum_{h' \in H} (c_t^{f \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \right)^{1-\alpha^F}}{(\alpha^F)^{\alpha^F} (1-\alpha^F)^{1-\alpha^F}} \right) - \frac{\phi^F}{2}(l_t^f)^2 \right)
+\label{eq:lifetime_utility_foreign_original}
+\end{equation}
+
+\paragraph{外国家計の名目予算制約 (外国通貨建て):}
+\begin{equation}
+\begin{split}
+& \sum_{j' \in J} q_{t, t+1}^*(j') d_{t+1}^{f \to F*}(j') + b_{t+1}^{f \to H*} + \sum_{f' \in F} p_t^{f'*} c_t^{f \to f'} + \sum_{h' \in H} p_t^{h'*} c_t^{f \to h'} \\
+& \qquad = d_t^{f \to F*} + (1+i_{t-1}^H) \frac{e_{t-1}^{/*}}{e_t^{/*}} b_t^{f \to H*} + (1-\tau_t^F) p_t^{f*} y_t^f + t_t^{F*}
+\end{split}
+\label{eq:nominal_budget_foreign_original}
+\end{equation}
+
+\subsection{消費指数と物価指数}
+\label{subsec:model_consumption_baskets}
+本節では上記の2段階最適化法で用いる各種の消費指数とそれに対応する物価指数を定義していく。
+家計が多様な財から効用を得る構造をモデル化するため各財の消費をもとに消費指数と呼ばれる集計量を定義する。
+この消費指数を定義するCES（Constant Elasticity of Substitution）関数は
+家計の選好に含まれる2種類のパラメータ \( \alpha \) と \( \theta \) の役割を理解する上で中心的な役割を果たす。
+
+一般にCES型関数は、2財の場合、次のように書かれる。
+\begin{equation}
+U = \left( \alpha_1 c_1^{\frac{\theta-1}{\theta}} + \alpha_2 c_2^{\frac{\theta-1}{\theta}} \right)^{\frac{\theta}{\theta-1}}
+\label{eq:ces_general_form_households}
+\end{equation}
+
+ここで \( \alpha \) は財への根源的な好みの度合い（バイアス）を示し　\( \theta \) は
+代替の弾力性を示すパラメータである。
+内側の指数 \( \frac{\theta-1}{\theta} \) の値は財の代替のしやすさを決定する。
+指数が小さい（\( \theta \)が1に近い）場合、ある財の限界的な効用の減少が早いため、
+各財に消費を分散させる方が効用が高まり代替が難しい状況となる。
+逆に指数が大きい（\( \theta \)が大きい）場合、限界効用の減少が緩やかであるため各財は代替が容易な状況となる。
+なお全体にかかっている外側の指数 \( \frac{\theta}{\theta-1} \) は
+内側の指数による数学的な変換を元に戻す調整項である。
+これにより、集計量である消費指数が元の消費という経済的に意味のある単位を維持することが保証される。
+具体的には、消費の単位を「単位」とすると
+\begin{equation}
+\left[ (\text{単位})^{\frac{\theta-1}{\theta}} \right]^{\frac{\theta}{\theta-1}} = \text{単位}^{(\frac{\theta-1}{\theta}) \cdot (\frac{\theta}{\theta-1})} = \text{単位}^1
+\label{eq:unit_consistency_ces}
+\end{equation}
+となり消費指数は元の消費と同じ次元をもつ。
+
+このCES型関数から限界代替率（\( MRS_{1,2} \)）が次のように導かれる。
+\begin{equation}
+MRS_{1,2} = \frac{\alpha_1}{\alpha_2} \left( \frac{c_1}{c_2} \right)^{-1/\theta}
+\label{eq:mrs_ces_households}
+\end{equation}
+
+\( MRS_{1,2} \)は特定の消費時点において財1が財2の何倍の価値があるかを表すため、
+1財の代替のしにくさを表す指標と考えることができる。
+この\( MRS_{1,2} \)の水準は式の通り \( \alpha_1, \alpha_2, c_1, c_2, \theta \) によって決定される。
+しかし \( \alpha_1, \alpha_2, \theta \) は家計の選好を表す固定されたパラメータである。
+そこで \( \alpha \)の影響を取り除き、
+変動する変数である消費の比率（\( c_2/c_1 \)）と\( MRS_{1,2} \) の純粋な関係を分析する必要が生じる。
+
+その際に変化率の関係、すなわち弾力性を考えることで2つの変数の関係を分析することができる。
+具体的には \( MRS_{1,2} \) の変化の割合が消費の比率 \( c_2/c_1 \) の変化の割合の何倍かは一定値となり、
+それが代替の弾力性 \( \theta \) となる。
+
+以下では、家計 \( h \) の効用の源となる総消費指数を合成する。
+この総消費指数の対数（log）をとったものが \( h \) が消費から得られる効用となる。
+総消費指数を合成するため、まずそのもととなる自国財消費指数と外国財消費指数を定義する。
+これらの消費指数はすべて先ほど説明したCES型関数の特殊なものである。
+どのように特殊であるかといえば、
+自国財および外国財消費指数は個別財の消費を\( \alpha \)を均一化（対称性を仮定）して
+CES型関数により合成したものである。
+また総消費指数は自国財および外国財消費指数を\( \theta=1 \)としてCES型関数により合成したものである。
+以上の設計思想は以下の表のようにまとめられる。
+
+\begin{table}[H]
+\centering
+\caption{消費指数の設計思想の比較}
+\begin{tabular}{lll}
+\toprule
+ & 自国財および外国財消費指数 (\( c_t^{h \to H}, c_t^{h \to F} \)) & 総消費指数 (\( c_t^{h \to W} \)) \\
+\midrule
+\(\alpha\)の扱い & 対称性を仮定するため不要 & 非対称性（ホームバイアス）のため残す \\
+\(\theta\)の扱い & パラメータとして残す & \(\theta=1\)に固定（コブ＝ダグラス型） \\
+分析の主役 & \(\theta\) (代替の弾力性) & \(\alpha^H\) (ホームバイアス) \\
+\bottomrule
+\end{tabular}
+\label{tab:consumption_index_philosophy}
+\end{table}
+
+このモデルの設計が持つ意義は分析の焦点を明確に分離している点にある。
+自国財および外国財消費指数においては個別財間の代替の弾力性 \( \theta \) が
+生産者の価格設定行動や物価の粘着性を左右する。
+この \( \theta \) を分析の主役とするため各財好みを表す \( \alpha \) は平準化して消去する。
+一方で総消費指数においては2国間の消費・貿易の基本的なパターン
+（どれだけ輸入し、どれだけ国内で消費するか）を決定するのは
+家計の根源的な内外財への選好の偏り、すなわちホームバイアス \( \alpha^H \) である。
+代替の弾力性 \( \theta \) は為替レートの変化などに対する反応の仕方を決めるが、
+それは \( \alpha^H \) が設定した基本的な貿易パターン上での変動に過ぎない。
+したがって国際的なパターンを分析する上では \( \alpha^H \) がより根源的なパラメータであると考え、
+この \( \alpha \) を分析の主役とするため \( \theta=1 \) という
+「最も普通の」場合を考えて \( \theta \) を消去する。
+
+以降の節でこれらの消費指数の厳密な定義とそこから導かれる関係式を詳述する。
+
+\subsubsection{個別財消費から自国財・外国財消費指数への集計}
+\label{subsubsec:model_consumption_stage1a}
+ここでは2段階最適化の第1段階（期内費用最小化）のうち、さらに1つ目のステップを考える。
+まず自国家計 \( h \) が消費する自国財 \( c_t^{h \to h'} \) を集計して
+自国財消費指数 \( c_t^{h \to H} \) を定義する。
+これは各個別財への選好が対称的である (すべての\( h' \in H \)について\(\alpha_{h'}=1 \)) 
+としたCES関数の形をとる。
+\begin{equation}
+c_t^{h \to H} \equiv \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}}
+\label{eq:domestic_basket_def_households}
+\end{equation}
+
+同様に外国財を集計した外国財消費指数 \( c_t^{h \to F} \) も定義される。
+\begin{equation}
+c_t^{h \to F} \equiv \left[ \sum_{f \in F} (c_t^{h \to f})^{\frac{\theta^F-1}{\theta^F}} \right]^{\frac{\theta^F}{\theta^F-1}}
+\label{eq:foreign_basket_def_households}
+\end{equation}
+
+\paragraph{費用最小化と需要関数（自国家計 \(\to\) 自国財消費指数）}
+家計 \( h \) が所与の自国財消費指数 \( c_t^{h \to H} \) を達成するために
+各個別財 \( c_t^{h \to h'} \) の購入費用 \( \sum_{h'} p_t^{h'} c_t^{h \to h'} \) を最小化する問題を考える。
+この問題のラグランジアンは以下のように記述される。
+\begin{equation}
+\mathcal{L}^{h \to H} = \sum_{h' \in H} p_t^{h'} c_t^{h \to h'} + \mu_t^{h \to H} \left( c_t^{h \to H} - \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \right)
+\label{eq:lagrangian_domestic_basket}
+\end{equation}
+ここでラグランジュ乗数 \( \mu_t^{h \to H} \) は
+家計 \( h \) にとっての自国財消費指数 \( c_t^{h \to H} \) の限界価格（生産者物価指数（PPI））を表す。
+
+この費用最小化問題から家計 \( h' \) が生産する個別財への需要関数が導出される。
+\begin{equation}
+c_t^{h \to h'} = \left( \frac{p_t^{h'}}{\mu_t^{h \to H}} \right)^{-\theta^H} c_t^{h \to H}
+\label{eq:demand_individual_home_good}
+\end{equation}
+
+この需要関数を名目自国財消費 \( \sum_{h'} p_t^{h'} c_t^{h \to h'} \) に
+代入して計算すると \( \sum_{h'} p_t^{h'} c_t^{h \to h'} = \mu_t^{h \to H} c_t^{h \to H} \) という
+関係が得られる（詳細は付録A参照）。
+これは \( \mu_t^{h \to H} \) が自国財消費指数の限界価格であることから予想された結果である。
+
+この最適化問題を解く過程で、限界価格 \( \mu_t^{h \to H} \) は
+個々の財価格のみで構成される以下の形で決定される（詳細は付録A参照）。
+\begin{equation}
+\mu_t^{h \to H} = \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}}
+\label{eq:mu_h_H_definition}
+\end{equation}
+この式からわかるように \( \mu_t^{h \to H} \) は個々の財価格 \( p_t^{h'} \) のみで決定され、
+家計 \( h \) 自身の選択（\( c_t^{h \to h'} \) など）には依存しない。
+したがって \( \mu_t^{h \to H} \) はすべての自国家計で共通の値をとる。
+
+\paragraph{他の物価指数（\(\mu\)）の導出}
+上記と全く同様の費用最小化問題を以下の3つのケースについて考えることで
+それぞれの消費指数に対応する物価指数（ラグランジュ乗数）が導出される。
+
+\begin{enumerate}
+    \item \textbf{自国家計 \( h \) が外国財消費指数 \( c_t^{h \to F} \) を最小費用で達成する問題}: \\
+    この問題から自国家計が直面する外国財消費指数の生産者物価指数（PPI、自国通貨建て）
+    \( \mu_t^{h \to F} \) が以下のように導かれる。
+    \begin{equation}
+    \mu_t^{h \to F} \equiv \left[ \sum_{f' \in F} (p_t^{f'})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}}
+    \label{eq:mu_h_F_definition}
+    \end{equation}
+    (ここで \( p_t^{f' } \) は外国財 \( f' \) の自国通貨建て価格) 
+
+    \item \textbf{外国家計 \( f \) が外国財消費指数 \( c_t^{f \to F} \) を最小費用で達成する問題}: \\
+    この問題から外国家計が直面する外国財消費指数の生産者物価指数（PPI、外国通貨建て）
+    \( \mu_t^{f \to F} \) が以下のように導かれる。
+    \begin{equation}
+    \mu_t^{f \to F} \equiv \left[ \sum_{f' \in F} (p_t^{f' *})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}}
+    \label{eq:mu_f_F_definition}
+    \end{equation}
+    (ここで \( p_t^{f' *} \) は外国財 \( f' \) の外国通貨建て価格) 
+
+    \item \textbf{外国家計 \( f \) が自国財消費指数 \( c_t^{f \to H} \) を最小費用で達成する問題}: \\
+    この問題から外国家計が直面する自国財消費指数の生産者物価指数（PPI、外国通貨建て）
+    \( \mu_t^{f \to H} \) が以下のように導かれる。
+    \begin{equation}
+    \mu_t^{f \to H} \equiv \left[ \sum_{h' \in H} (p_t^{h' *})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}}
+    \label{eq:mu_f_H_definition}
+    \end{equation}
+    (ここで \( p_t^{h' *} \) は自国財 \( h' \) の外国通貨建て価格) 
+\end{enumerate}
+
+一物一価の法則（\( p_t^h = e_t^{/*} p_t^{h*} \) および \( p_t^f = e_t^{/*} p_t^{f*} \)）を用いると、
+異なる通貨建ての物価指数間に以下の厳密な関係が導出される。
+\begin{equation}
+\mu_t^{h \to H} = \left[ \sum (e_t^{/*} p_t^{h'*})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} = e_t^{/*} \left[ \sum (p_t^{h'*})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} = e_t^{/*} \mu_t^{f \to H}
+\label{eq:price_relation_mu_h_f_H}
+\end{equation}
+
+同様に
+\begin{equation}
+\mu_t^{h \to F} = \left[ \sum (e_t^{/*} p_t^{f'*})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}} = e_t^{/*} \left[ \sum (p_t^{f'*})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}} = e_t^{/*} \mu_t^{f \to F}
+\label{eq:price_relation_mu_h_f_F}
+\end{equation}
+
+したがって自国通貨建ての生産者物価指数（PPI）は
+外国通貨建ての生産者物価指数（PPI）に名目為替レートを乗じたものと一致する。
+
+\paragraph{記法の簡略化とマクロ物価指数}
+今後の記述を簡潔にするため、家計が直面する2つの基本的な生産者物価指数（PPI）を
+以下のように \( p_t^H \) と \( p_t^{F*} \) で表記する。
+\begin{align}
+p_t^H &\equiv \mu_t^{h \to H} \quad \text{（自国財の自国通貨建て生産者物価指数（PPI）}
+\label{eq:define_pH} \\
+p_t^{F*} &\equiv \mu_t^{f \to F} \quad \text{（外国財の外国通貨建て生産者物価指数（PPI）}
+\label{eq:define_pFstar}
+\end{align}
+
+この記法を用いると4つの物価指数の関係は
+ \( \mu_t^{h \to H} = p_t^H \),
+ \( \mu_t^{h \to F} = p_t^{F} \),
+ \( \mu_t^{f \to F} = p_t^{F*} \),
+ \( \mu_t^{f \to H} = p_t^{H*} \) と整理される。
+
+これらは家計が意思決定で直面する生産者物価指数（PPI）である。
+これとは別にマクロ分析のため経済規模の影響（\( N, M \)）を取り除いた
+「正規化された」生産者物価指数（PPI）
+ \( \bar{p}_t^H \) と \( \bar{p}_t^{F*} \) を以下のように定義する。
+\begin{align}
+\bar{p}_t^H &\equiv \left[ \frac{1}{N} \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} = N^{-\frac{1}{1-\theta^H}} p_t^H
+\label{eq:define_pbarH} \\
+\bar{p}_t^{F*} &\equiv \left[ \frac{1}{M} \sum_{f' \in F} (p_t^{f'*})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}} = M^{-\frac{1}{1-\theta^F}} p_t^{F*}
+\label{eq:define_pbarFstar}
+\end{align}
+
+\paragraph{費用最小化に対応する需要関数}
+各費用最小化問題から導出される個別財への需要関数は上記の記法を用いると以下のように整理される。
+\begin{itemize}
+    \item 自国家計による自国財 \( h' \) への需要:
+    \begin{equation}
+    c_t^{h \to h'} = \left( \frac{p_t^{h'}}{p_t^H} \right)^{-\theta^H} c_t^{h \to H}
+    \label{eq:demand_h_h_prime}
+    \end{equation}
+    \item 自国家計による外国財 \( f' \) への需要:
+    \begin{equation}
+    c_t^{h \to f'} = \left( \frac{p_t^{f'}}{p_t^{F}} \right)^{-\theta^F} c_t^{h \to F}
+    \label{eq:demand_h_f_prime}
+    \end{equation}
+    \item 外国家計による外国財 \( f' \) への需要:
+    \begin{equation}
+    c_t^{f \to f'} = \left( \frac{p_t^{f'*}}{p_t^{F*}} \right)^{-\theta^F} c_t^{f \to F} \label{eq:demand_f_f_prime}
+    \end{equation}
+    \item 外国家計による自国財 \( h' \) への需要:
+    \begin{equation}
+    c_t^{f \to h'} = \left( \frac{p_t^{h'*}}{p_t^{H*}} \right)^{-\theta^H} c_t^{f \to H} \label{eq:demand_f_h_prime}
+    \end{equation}
+\end{itemize}
+
+また各最小化問題における名目消費と消費指数の関係は以下の通りである。
+\begin{itemize}
+    \item \begin{equation} \sum_{h'} p_t^{h'} c_t^{h \to h'} = p_t^H c_t^{h \to H} \label{eq:nominal_domestic_consumption_households} \end{equation}
+    \item \begin{equation} \sum_{f'} p_t^{f'} c_t^{h \to f'} = p_t^{F} c_t^{h \to F} \label{eq:nominal_foreign_consumption_households} \end{equation}
+    \item \begin{equation} \sum_{f'} p_t^{f'*} c_t^{f \to f'} = p_t^{F*} c_t^{f \to F} \label{eq:nominal_foreign_consumption_foreign_households} \end{equation}
+    \item \begin{equation} \sum_{h'} p_t^{h'*} c_t^{f \to h'} = p_t^{H*} c_t^{f \to H} \label{eq:nominal_domestic_consumption_foreign_households} \end{equation}
+\end{itemize}
+
+\subsubsection{自国・外国財消費指数から総消費指数への集計}
+\label{subsubsec:model_consumption_stage1b}
+次に2段階最適化の第1段階（期内費用最小化）のうち2つ目のステップを考える。
+総消費指数 \( c_t^{h \to W} \) は
+自国財消費指数 \( c_t^{h \to H} \) と外国財消費指数 \( c_t^{h \to F} \) から合成される。
+これはCES型指数において代替の弾力性パラメータ \( \theta \) が1である特別な場合（コブ＝ダグラス型）に対応する。
+
+\paragraph{自国家計の費用最小化}
+総消費指数は以下のように定義される。
+\begin{equation}
+c_t^{h \to W} \equiv \frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}}
+\label{eq:world_consumption_index_def}
+\end{equation}
+
+この定義はパラメータ \( \alpha^H \) を用いた加重幾何平均の形をとる。
+この形式がもつ一つの重要な含意は単位の整合性である。
+仮に消費指数の単位を「単位」とすると
+\begin{equation}
+(\text{単位})^{\alpha^H} \times (\text{単位})^{1-\alpha^H} = \text{単位}^{\alpha^H + 1-\alpha^H} = \text{単位}^1
+\label{eq:unit_consistency_world_basket}
+\end{equation}
+となり総消費指数 \( c_t^{h \to W} \) はその構成要素と同じ次元を持つ。
+これにより \( c_t^{h \to W} \) は家計の総体的な消費水準を示す指標として成立する。
+
+\( 1 / \left( (\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H} \right) \) という定数項は
+総消費指数 \( c_t^{h \to W} \) を調整するための正規化項である。
+モデルの式中では消費者物価指数 \( p_t^{H \to W} \) が多用されるため、
+その定義式が簡潔になるよう、あらかじめ \( c_t^{h \to W} \) の定義にこの項を入れておくのが一般的である。
+この正規化により後続する消費者物価指数 \( p_t^{H \to W} \) の定義式から
+定数項 \( (\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H} \) が消え、
+\( p_t^{H \to W} = (p_t^H)^{\alpha^H} (p_t^{F})^{1-\alpha^H} \) という簡潔な形で表現される。
+
+次に家計 \( h \) は所与の総消費指数 \( c_t^{h \to W} \) を達成するために
+自国財消費指数 \( c_t^{h \to H} \) と外国財消費指数 \( c_t^{h \to F} \) の
+組み合わせ費用 \( p_t^H c_t^{h \to H} + p_t^{F} c_t^{h \to F} \) を最小化する問題を考える。
+この問題のラグランジアンは以下のように書ける。
+\begin{equation}
+\mathcal{L}^{h \to W} = p_t^H c_t^{h \to H} + p_t^{F} c_t^{h \to F} + \eta_t^h \left( c_t^{h \to W} - \frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \right)
+\label{eq:lagrangian_world_basket}
+\end{equation}
+
+ここでラグランジュ乗数 \( \eta_t^h \) は
+家計 \( h \) にとっての総消費指数 \( c_t^{h \to W} \) の限界価格を表す。
+
+この費用最小化問題の一階条件から各消費指数への需要関数は \( \eta_t^h \) を用いて以下のように導かれる。
+\begin{align}
+p_t^H c_t^{h \to H} &= \alpha^H \eta_t^h c_t^{h \to W}
+\label{eq:demand_domestic_basket_pre_nominal} \\
+p_t^{F} c_t^{h \to F} &= (1-\alpha^H) \eta_t^h c_t^{h \to W}
+\label{eq:demand_foreign_basket_pre_nominal}
+\end{align}
+
+この結果を名目総消費 \( p_t^H c_t^{h \to H} + p_t^{F} c_t^{h \to F} \) に代入すると
+\begin{equation}
+p_t^H c_t^{h \to H} + p_t^{F} c_t^{h \to F} = \alpha^H \eta_t^h c_t^{h \to W} + (1-\alpha^H) \eta_t^h c_t^{h \to W} = \eta_t^h c_t^{h \to W}
+\label{eq:nominal_total_expenditure_relation_pre}
+\end{equation}
+という関係が得られる。
+これは第1段階と同様に \( \eta_t^h \) が総消費指数の限界価格であることから予想された結果である。
+
+この最適化問題を解く過程で限界価格 \( \eta_t^h \) は以下の形で決定される（詳細は付録A参照）。
+\begin{equation}
+\eta_t^h = (p_t^H)^{\alpha^H} (p_t^{F})^{1-\alpha^H}
+\label{eq:marginal_price_world_index}
+\end{equation}
+
+この式からわかるように \( \eta_t^h \) は各国の生産者物価指数 \( p_t^H, p_t^{F} \) のみで決定され
+家計 \( h \) 自身の選択には依存しない。
+したがって \( \eta_t^h \) はすべての家計で共通の値をとる。
+この共通の限界価格を \( p_t^{H \to W} \) と定義し本稿では消費者物価指数 (CPI) と呼ぶ。
+\begin{equation}
+p_t^{H \to W} \equiv \eta_t^h = (p_t^H)^{\alpha^H} (p_t^{F})^{1-\alpha^H}
+\label{eq:cpi_definition}
+\end{equation}
+
+これとは別にマクロ分析のため経済規模の影響（\( N, M \)）を取り除いた
+「正規化された」消費者物価指数 \( \bar{p}_t^{H \to W} \) を次のように定義する。
+\begin{equation}
+\bar{p}_t^{H \to W} \equiv (\bar{p}_t^H)^{\alpha^H} (\bar{p}_t^F)^{1-\alpha^H}
+\label{eq:normalized_cpi_definition}
+\end{equation}
+この \( \bar{p}_t^{H \to W} \) は個々の企業の価格を直接集計した統計上の消費者物価指数に相当する。
+中央銀行が消費者物価指数インフレ目標を採用する場合、
+目標とするインフレ率はこの正規化された消費者物価指数 \( \bar{p}_t^{H \to W} \) の変化率として算出される。
+
+この関係 \( \eta_t^h = p_t^{H \to W} \) を式
+\eqref{eq:demand_domestic_basket_pre_nominal} と
+\eqref{eq:demand_foreign_basket_pre_nominal} に代入し、
+\( c_t^{h \to H} \) と \( c_t^{h \to F} \) について解くことで最終的な需要関数が得られる。
+\begin{align}
+c_t^{h \to H} &= \alpha^H \frac{p_t^{H \to W}}{p_t^H} c_t^{h \to W}
+\label{eq:demand_domestic_basket} \\
+c_t^{h \to F} &= (1-\alpha^H) \frac{p_t^{H \to W}}{p_t^{F}} c_t^{h \to W}
+\label{eq:demand_foreign_basket}
+\end{align}
+
+ここで定義上は集計の際の重みとして導入されたパラメータ \( \alpha^H \) が
+家計の最適化の結果として支出シェアという経済学的な意味を持つことを示す。
+式\eqref{eq:demand_domestic_basket_pre_nominal} は
+自国財消費指数への名目支出額 \( p_t^H c_t^{h \to H} \) が総消費指数への名目総支出額
+ \( \eta_t^h c_t^{h \to W} = p_t^{H \to W} c_t^{h \to W} \) の \( \alpha^H \) 倍に等しくなることを
+直接的に示している。
+同様に式\eqref{eq:demand_foreign_basket_pre_nominal} は
+外国財消費指数への名目支出額 \( p_t^{F} c_t^{h \to F} \) が
+名目総支出額の \( (1-\alpha^H) \) 倍になることを示している。
+したがって家計が最適な消費の組み合わせを選択した結果、
+定義における重みパラメータ \( \alpha^H \) と \( 1-\alpha^H \) は
+必然的に総支出に占める自国財消費指数と外国財消費指数それぞれへの支出シェアと一致する。
+また名目総消費と指数の間には
+ \( p_t^H c_t^{h \to H} + p_t^{F} c_t^{h \to F} = p_t^{H \to W} c_t^{h \to W} \) という関係が成り立つ。
+
+\paragraph{外国家計の費用最小化}
+同様に外国家計 \( f \) は所与の総消費指数 \( c_t^{f \to W} \) を達成するために
+外国財消費指数 \( c_t^{f \to F} \) と自国消費指数 \( c_t^{f \to H} \) の組み合わせ費用
+ \( p_t^{F*} c_t^{f \to F} + p_t^{H*} c_t^{f \to H} \) を最小化する。
+ この結果、外国の消費者物価指数 (CPI, 外国通貨建て) \( p_t^{F \to W*} \) が
+ ラグランジュ乗数 \( \eta_t^f \) と等しいものとして以下のように定義される。
+\begin{equation}
+p_t^{F \to W*} \equiv \eta_t^f = (p_t^{F*})^{\alpha^F} (p_t^{H*})^{\alpha^F}
+\label{eq:cpi_foreign_definition}
+\end{equation}
+
+これとは別にマクロ分析のため経済規模の影響（\( N, M \)）を取り除いた
+「正規化された」外国の消費者物価指数 \( \bar{p}_t^{F \to W*} \) を次のように定義する。
+\begin{equation}
+\bar{p}_t^{F \to W*} \equiv (\bar{p}_t^{F*})^{\alpha^F} (\bar{p}_t^{H*})^{1-\alpha^F}
+\label{eq:normalized_cpi_foreign_definition}
+\end{equation}
+この \( \bar{p}_t^{F \to W*} \) は個々の企業の価格を直接集計した統計上の消費者物価指数に相当する。
+中央銀行が消費者物価指数インフレ目標を採用する場合、
+目標とするインフレ率はこの正規化された消費者物価指数 \( \bar{p}_t^{F \to W*} \) の変化率として算出される。
+
+また外国家計の各消費指数への需要関数は以下の通りである。
+\begin{align}
+c_t^{f \to F} &= \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{f \to W}
+\label{eq:demand_foreign_basket_f} \\
+c_t^{f \to H} &= (1-\alpha^F) \frac{p_t^{F \to W*}}{p_t^{H*}} c_t^{f \to W}
+\label{eq:demand_domestic_basket_f}
+\end{align}
+名目総消費と指数の間には \( p_t^{F*} c_t^{f \to F} + p_t^{H*} c_t^{f \to H} = p_t^{F \to W*} c_t^{f \to W} \) という関係が成り立つ。
+
+\subsubsection{最適化の一階条件（期をまたぐ問題）}
+ここからは2段階最適化の第2段階、すなわち期をまたぐ最適化問題を扱う。
+第一段階である期内費用最小化の結果、
+家計の名目総支出 \( \sum_{h'} p_t^{h'} c_t^{h \to h'} + \sum_{f} p_t^f c_t^{h \to f} \) は
+最終財の物価指数 \( p_t^{H \to W} \) と消費指数 \( c_t^{h \to W} \) の積で簡潔に表現できることがわかる
+（証明は付録Aに譲る）。
+\begin{equation}
+\sum_{h'} p_t^{h'} c_t^{h \to h'} + \sum_{f} p_t^f c_t^{h \to f} = p_t^{H \to W} c_t^{h \to W}
+\label{eq:nominal_total_expenditure_identity}
+\end{equation}
+
+また生涯効用関数の \( \log \) の引数全体も \( c_t^{h \to W} \) に一致する。
+\begin{equation}
+\frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} = c_t^{h \to W}
+\label{eq:world_index_equivalence}
+\end{equation}
+
+これらの関係を用いることで、3.2.1節で提示した複雑な予算制約を持つ問題は
+より単純な操作変数を用いた問題に書き換えることができる。
+この第2段階の問題のラグランジアンは以下のように記述される。
+ここでの操作変数は、総消費指数 \( c_t^{h \to W} \)、労働供給 \( l_t^h \)、
+および各種債権の保有量 \( d_{t+1}^{h \to H}, b_{t+1}^{h \to F} \) である。
+\begin{equation}
+\begin{aligned}
+\mathcal{L}^h = & \operatorname{E}_s \Biggl[ \sum_{t=s}^{\infty} \left( \prod_{k=0}^{t-s-1} \beta_{s+k}^H \right) \Biggl\{ \left( \log c_t^{h \to W} - \frac{\phi^H}{2}(l_t^h)^2 \right) \\
+& \quad + \lambda_t^h \biggl( \Bigl( d_{t}^{h \to H} + (1+i_{t-1}^{F}) \frac{e_t^{/*}}{e_{t-1}^{/*}} b_{t}^{h \to F} + (1 - \tau_t^H) p_t^{h} y_t^{h} + t_t^H \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t, t+1}(j') d_{t+1}^{h \to H}(j') + b_{t+1}^{h \to F} + p_t^{H \to W} c_t^{h \to W} \Bigr) \biggr) \Biggr\} \Biggr]
+\end{aligned}
+\label{eq:lagrangian_intertemporal_households}
+\end{equation}
+
+このラグランジアンから以下の主要な一階の条件（FOC）が導かれる。
+導出の厳密な過程（状態 \( j \) に依存した変数での偏微分、反復期待値の法則の適用、係数除去の論理）は付録Aに譲る。
+
+\paragraph{自国家計のFOC}
+総消費指数 \( c_t^{h \to W} \) に関するFOCから時点 \( t \) における
+所得の限界効用 \( \lambda_t^h \) は以下のように決定される。
+\begin{equation}
+\lambda_t^h = \frac{1}{p_t^{H \to W} c_t^{h \to W}}
+\label{eq:foc_consumption_home}
+\end{equation}
+
+国内コンティンジェント債券 \( d_{t+1}^{h \to H} \) に関するFOCを集計することで
+国内の異時点間の最適化条件（オイラー方程式）が得られる。
+\begin{equation}
+\lambda_t^h = \beta_t^H (1+i_t^H) \operatorname{E}_t [ \lambda_{t+1}^h ]
+\label{eq:euler_domestic_home}
+\end{equation}
+ここで \( i_t^H \) は国内の無リスク名目金利である。
+
+国際リスクフリー債券 \( b_{t+1}^{h \to F*} \) に関するFOCから
+国際的な資産選択の条件であるUIP条件が導かれる。
+\begin{equation}
+\lambda_t^h e_t^{/*} = (1+i_t^F) \beta_t^H \operatorname{E}_t \left[ \lambda_{t+1}^h e_{t+1}^{/*} \right]
+\label{eq:uip_condition_home}
+\end{equation}
+ここで \( i_t^F \) は外国の無リスク名目金利である。
+
+\paragraph{外国家計のFOC}
+同様に外国家計 \( f \) のラグランジアン（簡略化版）から以下の一階の条件が導かれる。
+\begin{equation}
+\begin{aligned}
+\mathcal{L}^f = & \operatorname{E}_s \Biggl[ \sum_{t=s}^{\infty} \left( \prod_{k=0}^{t-s-1} \beta_{s+k}^F \right) \Biggl\{ \left( \log c_t^{f \to W} - \frac{\phi^F}{2}(l_t^f)^2 \right) \\
+& \quad + \lambda_t^{f/*} \biggl( \Bigl( d_{t}^{f \to F*} + (1+i_{t-1}^{H}) \frac{e_{t-1}^{/*}}{e_t^{/*}} b_{t}^{f \to H*} + (1 - \tau_t^F) p_t^{f*} y_t^f + t_t^{F*} \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t, t+1}^*(j') d_{t+1}^{f \to F*}(j') + b_{t+1}^{f \to H*} + p_t^{F \to W*} c_t^{f \to W} \Bigr) \biggr) \Biggr\} \Biggr]
+\end{aligned}
+\label{eq:lagrangian_intertemporal_foreign_households}
+\end{equation}
+
+\begin{equation}
+\lambda_t^{f/*} = \frac{1}{p_t^{F \to W*} c_t^{f \to W}}
+\label{eq:foc_consumption_foreign}
+\end{equation}
+
+\begin{equation}
+\lambda_t^{f/*} = \beta_t^F (1+i_t^F) \operatorname{E}_t [ \lambda_{t+1}^{f/*} ]
+\label{eq:euler_foreign}
+\end{equation}
+
+\begin{equation}
+\frac{\lambda_t^{f/*}}{e_t^{/*}} = (1+i_t^H) \beta_t^F \operatorname{E}_t \left[ \lambda_{t+1}^{f/*} \frac{1}{e_{t+1}^{/*}} \right]
+\label{eq:uip_condition_foreign}
+\end{equation}

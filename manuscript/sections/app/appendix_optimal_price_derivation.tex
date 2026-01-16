@@ -1,0 +1,256 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_optimal_price_derivation.tex
+
+\chapter{ニューケインジアン・フィリップス曲線の詳細な導出}
+\label{chap:appendix_optimal_price_derivation}
+
+本付録では、本文第 \ref{chap:results} 章で用いたニューケインジアン・フィリップス曲線を一切の省略なく導出する。
+
+\section{価格決定家計のラグランジアンと最適化の前提}
+\label{sec:appendix_optimal_price_derivation_lagrangian}
+
+価格改定の機会を得た家計は、任意の時点 \( t \) において以下の目的関数を最大化する価格 \( \widetilde{p}_t^h \) を選択する。
+
+\[
+\begin{aligned}
+\max_{\widetilde{p}_t^h} & \Biggl[ \left( \log c_t^{h \to W} - \frac{\phi^H}{2}(l_t^{h})^2 \right) \\
+& \quad + \lambda_{t}^{H} \biggl( \Bigl( d_{t}^{h \to H} + (1+i_{t-1}^F)e_t^{/*} b_{t}^{h \to F} + (1 - \tau_{t}^{H}) \widetilde{p}_t^h y_{t}^{h} + t_{t}^{H} \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t,t+1}(j') d_{t+1}^{h \to H}(j') + e_{t}^{/*} b_{t+1}^{h \to F} + p_t^{H \to W} c_t^{h \to W} \Bigr) \biggr) \Biggr] \\
+& + E_t \Biggl[ \sum_{k=1}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \Biggl\{ \left( \log c_{t+k}^{h \to W} - \frac{\phi^H}{2}(l_{t+k}^{h})^2 \right) \\
+& \quad + \lambda_{t+k}^{H} \biggl( \Bigl( d_{t+k}^{h \to H} + (1+i_{t+k-1}^F)e_{t+k}^{/*} b_{t+k}^{h \to F} + (1 - \tau_{t+k}^{H}) \widetilde{p}_t^h y_{t+k}^{h} + t_{t+k}^{H} \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t+k,t+k+1}(j') d_{t+k+1}^{h \to H}(j') + e_{t+k}^{/*} b_{t+k+1}^{h \to F} + p_{t+k}^{H \to W} c_{t+k}^{h \to W} \Bigr) \biggr) \Biggr\} \Biggr]
+\end{aligned}
+\]
+
+この目的関数を \( \widetilde{p}_t^h \) について偏微分し、 1 階の条件を求める際に、以下の点を考慮する。
+
+\begin{itemize}
+    \item 個別家計 \( h \) の価格 \( \widetilde{p}_t^h \) がマクロ変数（ \( p_{t+k}^{H \to W}, \lambda_{t+k}^H, \bar{p}_{t+k}^H \) など ）に与える影響は無視できるほど小さいと仮定する。
+    \item 価格 \( \widetilde{p}_t^h \) が所得を通じて消費 \( c_{t+k}^{h \to W} \) に与える影響は、予算制約として織り込まれているため、効用関数内の \( c_{t+k}^{h \to W} \) は \( \widetilde{p}_t^h \) から独立しているものとして扱う。
+    \item 一方で、制約 \( l_{t+k}^h = y_{t+k}^h / a_{t+k}^H \) と \( y_{t+k}^h = (\frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H})^{-\theta^H} y_{t+k}^H \) は、効用関数内の労働 \( l_{t+k}^h \) と所得項の生産 \( y_{t+k}^h \) に反映される。これにより \( l_{t+k}^h \) と \( y_{t+k}^h \) は \( \widetilde{p}_t^h \) の関数となり、微分対象になる。
+\end{itemize}
+
+これらの仮定のもとで 1 階の条件を計算すると、効用関数の \( \log c_{t+k}^{h \to W} \) の項と、予算制約の大部分の項の微分がゼロとなり、労働の非効用と収入の項のみが残る。
+
+\section{時点 \( t \) における価格 \( \widetilde{p}_t^h \) の最適化条件の導出}
+\label{sec:appendix_optimal_price_derivation_foc}
+
+カルボ型の価格設定では、価格改定家計は、一度設定した価格が将来全ての期間にわたり有効であり続ける可能性を考慮し、期待効用の割引現在価値の合計を最大化する単一の価格 \( \widetilde{p}_t^h \) を選択する。
+
+この最適化問題の 1 階の条件は、目的関数を \( \widetilde{p}_t^h \) で偏微分し、ゼロと置くことで得られる。
+\[
+E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \frac{\partial}{\partial \widetilde{p}_t^h} \left\{ \left( - \frac{\phi^H}{2}(l_{t+k}^h)^2 \right) + \lambda_{t+k}^H \left( (1 - \tau_{t+k}^H) \widetilde{p}_t^h y_{t+k}^h \right) \right\} \right] = 0
+\]
+
+次に、中括弧内の各項の偏微分を、前提となる関係式を用いて詳細に計算する。
+
+\subsection*{前提となる関係式}
+\begin{itemize}
+    \item \textbf{生産関数}: \( y_{t+k}^h = a_{t+k}^H l_{t+k}^h \implies l_{t+k}^h = y_{t+k}^h / a_{t+k}^H \)
+    \item \textbf{需要関数}: \( y_{t+k}^h = \left( \frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H} \right)^{-\theta^H} y_{t+k}^H \)
+\end{itemize}
+
+\subsection*{ステップ 1：第 1 項（ 労働の非効用 ）の偏微分}
+連鎖律（ chain rule ）を用いると、
+\[
+\frac{\partial}{\partial \widetilde{p}_t^h} \left( - \frac{\phi^H}{2}(l_{t+k}^h)^2 \right) = -\phi^H l_{t+k}^h \frac{\partial l_{t+k}^h}{\partial \widetilde{p}_t^h}
+\]
+ここで、 \( \frac{\partial l_{t+k}^h}{\partial \widetilde{p}_t^h} \) を求めるために、前提となる関係式から順に計算する。
+
+\begin{enumerate}
+    \item まず、生産関数の関係から、 \( l_{t+k}^h \) の \( \widetilde{p}_t^h \) に関する偏微分は次のようになる。
+    \[
+    \frac{\partial l_{t+k}^h}{\partial \widetilde{p}_t^h} = \frac{1}{a_{t+k}^H} \frac{\partial y_{t+k}^h}{\partial \widetilde{p}_t^h}
+    \]
+
+    \item 次に、需要関数を \( \widetilde{p}_t^h \) で偏微分する。
+    \[
+    \begin{aligned}
+    \frac{\partial y_{t+k}^h}{\partial \widetilde{p}_t^h} &= (-\theta^H) \left( \frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H} \right)^{-\theta^H-1} \cdot \frac{1}{\bar{p}_{t+k}^H} \cdot y_{t+k}^H \\
+    &= -\frac{\theta^H}{\widetilde{p}_t^h} \cdot \left( \frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H} \right)^{-\theta^H} \cdot y_{t+k}^H \\
+    &= -\theta^H \frac{y_{t+k}^h}{\widetilde{p}_t^h} \quad （ \because \text{元の需要関数の定義より} ）
+    \end{aligned}
+    \]
+\end{enumerate}
+
+上記 2 つの関係を組み合わせると、 \( \frac{\partial l_{t+k}^h}{\partial \widetilde{p}_t^h} \) は以下のように求められる。
+\[
+\frac{\partial l_{t+k}^h}{\partial \widetilde{p}_t^h} = \frac{1}{a_{t+k}^H} \left( -\theta^H \frac{y_{t+k}^h}{\widetilde{p}_t^h} \right) = -\theta^H \frac{l_{t+k}^h}{\widetilde{p}_t^h} \quad （ \because y_{t+k}^h/a_{t+k}^H = l_{t+k}^h ）
+\]
+これを最初の式に代入すると、第 1 項の偏微分は、
+\[
+-\phi^H l_{t+k}^h \left( -\theta^H \frac{l_{t+k}^h}{\widetilde{p}_t^h} \right) = \frac{\phi^H \theta^H (l_{t+k}^h)^2}{\widetilde{p}_t^h}
+\]
+となる。
+
+\subsection*{ステップ 2：第 2 項（ 所得 ）の偏微分}
+積の微分法則（ product rule ）を用いると、
+\[
+\frac{\partial}{\partial \widetilde{p}_t^h} \left( \widetilde{p}_t^h y_{t+k}^h \right) = 1 \cdot y_{t+k}^h + \widetilde{p}_t^h \frac{\partial y_{t+k}^h}{\partial \widetilde{p}_t^h}
+\]
+ステップ 1 で求めた需要関数の微分 \( \frac{\partial y_{t+k}^h}{\partial \widetilde{p}_t^h} = -\theta^H \frac{y_{t+k}^h}{\widetilde{p}_t^h} \) を代入すると、
+\[
+y_{t+k}^h + \widetilde{p}_t^h \left( -\theta^H \frac{y_{t+k}^h}{\widetilde{p}_t^h} \right) = y_{t+k}^h - \theta^H y_{t+k}^h = (1-\theta^H)y_{t+k}^h
+\]
+したがって、第 2 項の偏微分は、
+\[
+\lambda_{t+k}^H (1 - \tau_{t+k}^H) (1-\theta^H) y_{t+k}^h
+\]
+となる。
+
+\subsection*{ステップ 3： 1 階の条件式と共通最適価格 \( \widetilde{p}_t^H \) の定義}
+
+ステップ 1 とステップ 2 で求めた偏微分を元の 1 階の条件式に代入し、結合すると以下のようになる。
+\[
+E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \frac{\phi^H \theta^H (l_{t+k}^h)^2}{\widetilde{p}_t^h} + \lambda_{t+k}^H (1 - \tau_{t+k}^H) (1-\theta^H) y_{t+k}^h \right] = 0
+\]
+この 1 階の条件式を \( \widetilde{p}_t^h \) について解くと、個々の家計 \( h \) の最適価格が得られる。
+\[
+\widetilde{p}_t^h = \frac{\theta^H}{\theta^H-1} \frac{ E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \phi^H (l_{t+k}^{h})^2 \right] }{ E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \lambda_{t+k}^H (1 - \tau_{t+k}^{H}) y_{t+k}^{h} \right] }
+\]
+右辺に含まれる個別変数 \( l_{t+k}^h \) と \( y_{t+k}^h \) を、需要関数と生産関数の関係式を用いて \( \widetilde{p}_t^h \) の関数として展開する。
+
+\begin{itemize}
+    \item \( y_{t+k}^h = \left( \frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H} \right)^{-\theta^H} y_{t+k}^H \)
+    \item \( l_{t+k}^h = y_{t+k}^h / a_{t+k}^H = \frac{1}{a_{t+k}^H} \left( \frac{\widetilde{p}_t^h}{\bar{p}_{t+k}^H} \right)^{-\theta^H} y_{t+k}^H \)
+\end{itemize}
+
+これらを代入して \( \widetilde{p}_t^h \) の項を整理すると、以下の関係式が得られる。
+\[
+(\widetilde{p}_t^h)^{1+\theta^H} = \frac{\theta^H}{\theta^H-1} \frac{ E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \phi^H \frac{(y_{t+k}^H)^2}{(a_{t+k}^H)^2} (\bar{p}_{t+k}^H)^{2\theta^H} \right] }{ E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \lambda_{t+k}^H (1 - \tau_{t+k}^{H}) y_{t+k}^H (\bar{p}_{t+k}^H)^{\theta^H} \right] }
+\]
+この式の右辺に出てくる全ての変数は、価格改定を行う全ての家計 \( h \) にとって共通である（ 完備市場の仮定より \( \lambda_{t+k}^h = \lambda_{t+k}^H \) ）。
+
+したがって、この方程式の解である \( \widetilde{p}_t^h \) も、全ての価格改定を行う家計 \( h \) にとって完全に同一の値となる。この全ての家計にとって共通の最適価格を \( \widetilde{p}_t^H \) と表記する。
+
+\subsection*{ステップ 4：最適価格式の再帰形式への変換（ 詳細導出 ）}
+
+分子と分母の無限和の部分をそれぞれ新しい補助変数 \( v_t \) と \( w_t \) で定義する。
+
+\paragraph{分子 \( v_t \) の再帰式の導出}
+
+\begin{enumerate}
+    \item \textbf{定義式から出発する。}
+    \[ v_t = E_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \phi^H \frac{(y_{t+k}^H)^2}{(a_{t+k}^H)^2} (\bar{p}_{t+k}^H)^{2\theta^H} \right] \]
+    \item \textbf{無限和を「 今日の項（ k = 0 ） 」と「 明日以降の項（ k \ge 1 ） 」に分解する。}
+    （ \( k=0 \) のとき、 \( \prod \) の部分は空積なので 1 となる ）
+    \[ v_t = \underbrace{\phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H}}_{k=0 \text{の項}} + E_t \underbrace{\sum_{k=1}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \dots \right]}_{k \ge 1 \text{の項}} \]
+    \item \textbf{明日以降の項の和から、共通の因子である \( \beta_t^H \xi^H \) を外に出す。}
+    \[ v_t = \phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H} + E_t \left[ \xi^H \beta_t^H \sum_{k=1}^{\infty} (\xi^H)^{k-1} \left(\prod_{j=1}^{k-1} \beta_{t+j}^H \right) \left[ \dots \right] \right] \]
+    \item \textbf{総和の添え字を \( k' = k-1 \) と置き換える。} すると \( k=1 \) は \( k'=0 \) に対応し、累積積も \( \prod_{j=1}^{k-1} \beta_{t+j}^H = \prod_{j'=0}^{k'-1} \beta_{t+1+j'}^H \) となる。
+    \[ v_t = \phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H} + \xi^H E_t \left[ \beta_t^H \sum_{k'=0}^{\infty} (\xi^H)^{k'} \left(\prod_{j'=0}^{k'-1} \beta_{t+1+j'}^H \right) \left[ \dots \right]_{t+1+k'} \right] \]
+    \item \textbf{期待値の法則（ Law of Iterated Expectations ）を適用する。}
+    時点 \( t \) の期待値の中にある \( \beta_t^H \) と明日以降の項の和は、 \( t+1 \) 時点の期待値 \( E_{t+1} \) で書き換えられる。
+    \[ v_t = \phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H} + \xi^H E_t \left[ \beta_t^H E_{t+1} \left[ \sum_{k'=0}^{\infty} (\xi^H)^{k'} \left( \dots \right) \right] \right] \]
+    \( \beta_t^H \) は \( t \) 期の情報なので \( E_t \) の外に出せ、また \( E_t[E_{t+1}[\cdot]] = E_t[\cdot] \) なので、角括弧の中身は \( v_{t+1} \) の定義そのものになる。
+    \[ v_t = \phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H} + \beta_t^H \xi^H E_t[v_{t+1}] \]
+\end{enumerate}
+
+\paragraph{分母 \( w_t \) の再帰式の導出}
+
+\begin{enumerate}
+    \item \textbf{定義式から出発し、「 今日の項 」と「 明日以降の項 」に分解する。}
+    \[ w_t = \lambda_{t}^H (1 - \tau_{t}^{H}) y_{t}^H (\bar{p}_{t}^H)^{\theta^H} + E_t \sum_{k=1}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \dots \right] \]
+    \item \textbf{分子と同様の手順で、共通因子 \( \beta_t^H \xi^H \) の括り出しと添え字の変換を行う。}
+    \[ w_t = \lambda_{t}^H (1 - \tau_{t}^{H}) y_{t}^H (\bar{p}_{t}^H)^{\theta^H} + \beta_t^H \xi^H E_t \left[ \sum_{k'=0}^{\infty} (\xi^H)^{k'} \left(\prod_{j'=0}^{k'-1} \beta_{t+1+j'}^H \right) \left[ \dots \right]_{t+1+k'} \right] \]
+    \item \textbf{角括弧の中身を \( w_{t+1} \) に置き換える。}
+    \[ w_t = \lambda_t^H (1 - \tau_t^{H}) y_t^H (\bar{p}_t^H)^{\theta^H} + \beta_t^H \xi^H E_t[w_{t+1}] \]
+\end{enumerate}
+
+以上の詳細な導出により、最適価格は以下の 3 本の連立方程式に集約される。
+\begin{align}
+(\widetilde{p}_t^H)^{1+\theta^H} &= \frac{\theta^H}{\theta^H-1} \frac{v_t}{w_t} \\
+v_t &= \phi^H \frac{(y_t^H)^2}{(a_t^H)^2} (\bar{p}_t^H)^{2\theta^H} + \beta_t^H \xi^H E_t[v_{t+1}] \\
+w_t &= \lambda_t^H (1 - \tau_t^{H}) y_t^H (\bar{p}_t^H)^{\theta^H} + \beta_t^H \xi^H E_t[w_{t+1}]
+\end{align}
+
+\section{対数線形化の手法：定義と一般法則}
+\label{sec:appendix_optimal_price_derivation_log_linearization_rules}
+
+\subsection*{1. ハット変数の定義}
+ある変数 \( x_t \) の定常状態の値を \( x_{ss} \) とするとき、対数乖離 \( \hat{x}_t \) を次のように定義する。
+\[ \hat{x}_t \equiv \log(x_t) - \log(x_{ss}) = \log\left(\frac{x_t}{x_{ss}}\right) \]
+ \( x=0 \) の周りでの \( \log(1+x) \approx x \) というマクローリン展開を用いることで、乖離が小さい場合にはパーセント乖離率とほぼ等しくなる。
+\[ \hat{x}_t = \log\left(1 + \frac{x_t - x_{ss}}{x_{ss}}\right) \approx \frac{x_t - x_{ss}}{x_{ss}} \]
+
+\subsection*{2. 対数線形化の一般法則}
+\begin{itemize}
+    \item \textbf{積のルール}: \( z_t = x_t y_t \implies \hat{z}_t = \hat{x}_t + \hat{y}_t \)
+    \item \textbf{商のルール}: \( z_t = x_t / y_t \implies \hat{z}_t = \hat{x}_t - \hat{y}_t \)
+    \item \textbf{べき乗のルール}: \( z_t = x_t^a \implies \hat{z}_t = a \hat{x}_t \)
+    \item \textbf{定数倍のルール}: \( z_t = a x_t \implies \hat{z}_t = \hat{x}_t \)
+    \item \textbf{和のルール}: \( z_t = a x_t + b y_t \implies z_{ss} \hat{z}_t = a x_{ss} \hat{x}_t + b y_{ss} \hat{y}_t \)
+\end{itemize}
+
+\section{最適価格式の対数線形化}
+\label{sec:appendix_optimal_price_derivation_optimal_price_log_linearization}
+
+\subsection*{ステップ 1：出発点となる方程式群}
+前章の方程式を、一般法則を用いてそれぞれ対数線形化する。
+
+\begin{enumerate}
+    \item \textbf{最適価格の定義式の対数線形化}
+    \[ (1+\theta^H) \hat{\widetilde{p}}_t^H = \hat{v}_t - \hat{w}_t \]
+
+    \item \textbf{\( v_t \) の再帰式の対数線形化}
+    和のルールを適用する。定常状態では \( v_{flow,ss} = (1-\beta_{ss}^H \xi^H)v_{ss} \), \( v_{stock,ss} = \beta_{ss}^H \xi^H v_{ss} \) の関係があるため、
+    \[ \hat{v}_t = (1-\beta_{ss}^H \xi^H) \left( 2\hat{y}_t^H - 2\hat{a}_t^H + 2\theta^H \hat{\bar{p}}_t^H \right) + \beta_{ss}^H \xi^H \left( \hat{\beta}_t^H + E_t[\hat{v}_{t+1}] \right) \]
+
+    \item \textbf{\( w_t \) の再帰式の対数線形化}
+    \[ \hat{w}_t = (1-\beta_{ss}^H \xi^H) \left( \hat{\lambda}_t^H + \widehat{(1-\tau_t^H)} + \hat{y}_t^H + \theta^H \hat{\bar{p}}_t^H \right) + \beta_{ss}^H \xi^H \left( \hat{\beta}_t^H + E_t[\hat{w}_{t+1}] \right) \]
+\end{enumerate}
+
+\subsection*{ステップ 2：式の結合と最終的な関係式の導出}
+
+\begin{enumerate}
+    \item \textbf{\( \hat{v}_t - \hat{w}_t \) を計算し、最適価格 \( \hat{\widetilde{p}}_t^H \) を代入する}
+    \[ (1+\theta^H) \hat{\widetilde{p}}_t^H = (1-\beta_{ss}^H \xi^H) \left[ \dots \right] + \beta_{ss}^H \xi^H E_t[(1+\theta^H) \hat{\widetilde{p}}_{t+1}^H] \]
+    ここで \( \left[ \dots \right] \) の部分は、 \( \hat{v}_t \) のフロー部分から \( \hat{w}_t \) のフロー部分を引いた、以下の駆動項 \( \hat{\psi}_t \) となる。
+    \[ \hat{\psi}_t = \hat{y}_t^H - 2\hat{a}_t^H + \theta^H \hat{\bar{p}}_t^H - \hat{\lambda}_t^H - \widehat{(1-\tau_t^H)} \]
+
+    \item \textbf{最終的な関係式}
+    両辺を \( 1+\theta^H \) で割ることで、以下の式が導かれる。
+    \[ \hat{\widetilde{p}}_t^H = \frac{1-\beta_{ss}^H \xi^H}{1+\theta^H} \hat{\psi}_t + \beta_{ss}^H \xi^H E_t[\hat{\widetilde{p}}_{t+1}^H] \]
+\end{enumerate}
+
+\section{価格設定の導出（ 詳細解説 ）}
+\label{sec:appendix_optimal_price_derivation_pricing_dynamics}
+
+\subsection*{ステップ 1：全体の物価指数の対数線形化}
+物価指数 PPI の動学を表す次式を対数線形化する。
+\[ (\bar{p}_t^H)^{1-\theta^H} = (1-\xi^H)(\widetilde{p}_t^H)^{1-\theta^H} + \xi^H(\bar{p}_{t-1}^H)^{1-\theta^H} \]
+和のルールとべき乗のルールを適用し整理すると、以下の関係が得られる。
+\[ \hat{\bar{p}}_t^H = (1-\xi^H) \hat{\widetilde{p}}_t^H + \xi^H \hat{\bar{p}}_{t-1}^H \]
+
+\textbf{インフレと相対価格の関係式の導出：}
+インフレ率 \( \hat{\pi}_t^H \equiv \hat{\bar{p}}_t^H - \hat{\bar{p}}_{t-1}^H \) について変形する。まず、両辺から \( \hat{\bar{p}}_{t-1}^H \) を引く。
+\[ \hat{\bar{p}}_t^H - \hat{\bar{p}}_{t-1}^H = (1-\xi^H) \hat{\widetilde{p}}_t^H + \xi^H \hat{\bar{p}}_{t-1}^H - \hat{\bar{p}}_{t-1}^H \]
+右辺を整理し \( \hat{\bar{p}}_{t-1}^H = \hat{\bar{p}}_t^H - \hat{\pi}_t^H \) を代入する。
+\[ \hat{\pi}_t^H = (1-\xi^H)(\hat{\widetilde{p}}_t^H - (\hat{\bar{p}}_t^H - \hat{\pi}_t^H)) \]
+項を整理し、インフレ \( \hat{\pi}_t^H \) の項を左辺にまとめると、以下の関係式が得られる。
+\[ (1-(1-\xi^H)) \hat{\pi}_t^H = (1-\xi^H)(\hat{\widetilde{p}}_t^H - \hat{\bar{p}}_t^H) \]
+\[ \xi^H \hat{\pi}_t^H = (1-\xi^H)(\hat{\widetilde{p}}_t^H - \hat{\bar{p}}_t^H) \quad \text{--- （ 式 A ）} \]
+
+\subsection*{ステップ 2： 2 つの式の結合と整理}
+最適価格設定のルールを \( \hat{\widetilde{p}}_t^H = (1-\beta_{ss}^H \xi^H) \hat{\psi}_t' + \beta_{ss}^H \xi^H E_t[\hat{\widetilde{p}}_{t+1}^H] \) （ ただし \( \hat{\psi}_t' = \frac{\hat{\psi}_t}{1+\theta^H} \) ）とする。
+
+\paragraph{手順 A：式の準備}
+式 A を変形して得られる相対価格の式を代入できるよう、最適価格ルールの両辺から \( \hat{\bar{p}}_t^H \) を引く。
+\[ \hat{\widetilde{p}}_t^H - \hat{\bar{p}}_t^H = (1-\beta_{ss}^H \xi^H) \hat{\psi}_t' - \hat{\bar{p}}_t^H + \beta_{ss}^H \xi^H E_t[\hat{\widetilde{p}}_{t+1}^H] \]
+
+\paragraph{手順 B：期待値の展開}
+右辺の期待値 \( E_t[\hat{\widetilde{p}}_{t+1}^H] \) に \( E_t[\hat{\bar{p}}_{t+1}^H] \) を足して引く。
+\[ \hat{\widetilde{p}}_t^H - \hat{\bar{p}}_t^H = (1-\beta_{ss}^H \xi^H) \hat{\psi}_t' - \hat{\bar{p}}_t^H + \beta_{ss}^H \xi^H E_t\left[(\hat{\widetilde{p}}_{t+1}^H - \hat{\bar{p}}_{t+1}^H) + \hat{\bar{p}}_{t+1}^H\right] \]
+ \( \hat{\bar{p}}_{t+1}^H = \hat{\bar{p}}_t^H + \hat{\pi}_{t+1}^H \) を代入し、 \( \hat{\bar{p}}_t^H \) は時点 \( t \) で既知であるため期待値の外に出す。
+\[ \hat{\widetilde{p}}_t^H - \hat{\bar{p}}_t^H = (1-\beta_{ss}^H \xi^H) \hat{\psi}_t' - \hat{\bar{p}}_t^H + \beta_{ss}^H \xi^H E_t\left[\hat{\widetilde{p}}_{t+1}^H - \hat{\bar{p}}_{t+1}^H\right] + \beta_{ss}^H \xi^H(\hat{\bar{p}}_t^H + E_t[\hat{\pi}_{t+1}^H]) \]
+
+\paragraph{手順 C：式の整理}
+相対価格をインフレ率で書き換え、期待値の項をまとめる。
+\[ \frac{\xi^H}{1-\xi^H} \hat{\pi}_t^H = (1-\beta_{ss}^H \xi^H)(\hat{\psi}_t' - \hat{\bar{p}}_t^H) + \frac{\beta_{ss}^H \xi^H}{1-\xi^H} E_t[\hat{\pi}_{t+1}^H] \]
+両辺に \( \frac{1-\xi^H}{\xi^H} \) を掛けることで、インフレの方程式が得られる。
+\[ \hat{\pi}_t^H = \beta_{ss}^H E_t[\hat{\pi}_{t+1}^H] + \frac{(1-\xi^H)(1-\beta_{ss}^H \xi^H)}{\xi^H}(\hat{\psi}_t' - \hat{\bar{p}}_t^H) \]
+
+\subsection*{最終ステップ：ニューケインジアン・フィリップス曲線の導出}
+中間式に \( \hat{\psi}_t' \) および \( \hat{\psi}_t \) の定義を代入し、係数 \( \kappa^H = \frac{(1-\xi^H)(1-\beta_{ss}^H \xi^H)}{\xi^H(1+\theta^H)} \) を定義して整理すると、最終的なフィリップス曲線が得られる。
+\[ \hat{\pi}_t^H = \beta_{ss}^H E_t[\hat{\pi}_{t+1}^H] + \kappa^H \left( \hat{y}_t^H - 2\hat{a}_t^H - \hat{\bar{p}}_t^H - \hat{\lambda}_t^H - \widehat{(1-\tau_t^H)} \right) \]
+（ 証明終 ）

@@ -1,24 +1,25 @@
-# LaTeX temporary files
-*.aux
-*.log
-*.synctex.gz
-*.toc
-*.out
+# LaTeX 補助・一時ファイル
+*.bbl
+*.bcf
+*.blg
 *.fdb_latexmk
 *.fls
-*.bbl
-*.blg
-*.bcf
+*.log
+*.out
 *.xml
+*.gz
+*.toc
+*.xmpi
 
-# Dynare/MATLAB generated files
-+*/
-*_static.m
-*_dynamic.m
-*_set_auxiliary_variables.m
-*_steadystate.m
-clt_model.m
-clt_model_zlb.m
+# エラーログ関連
+*ERROR
+*.err
+*.stderr
 
-# MATLAB temporary
-*.asv
+# その他の一時ファイル
+*.aux
+*.synctex.gz
+*.run.xml
+
+# projects フォルダ内の各プロジェクトの src 以下の全フォルダを除外
+projects/*_project/src/*/

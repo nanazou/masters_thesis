@@ -1,0 +1,271 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_variable_definitions.tex
+
+\section{変数の定義}
+\label{sec:model_variable_definitions}
+
+\subsection*{表記の規則と確率変数の扱い}
+
+本稿では、不確実性を伴う変数の表記について以下の規則を採用する。
+
+\begin{enumerate}
+    \item \textbf{確率変数と実現値の同一視:} \\
+    本章で記述される方程式（予算制約式、市場均衡条件、最適化条件など）は特段の断りがないかぎり、時点 \( t \) における情報集合 \( I_t \)（時点 \( t \) までのショックの実現値を含む）が所与とされた下での関係式を表す。
+    したがって式中の変数（例：\( c_t, p_t \)）は、その時点 \( t \) における確定した実現値として記述する。状態 \( j \) への依存を示す表記（\( (j) \)）は記述の煩雑さを避けるため省略する。
+    
+    \item \textbf{期待値:} \\
+    将来の変数（例：\( c_{t+1} \)）は、時点 \( t \) から見て不確実な確率変数である。これらを含む項については、時点 \( t \) の情報集合に基づく条件付き期待値演算子 \( E_t[\cdot] \) を用いて記述する。
+    
+    \item \textbf{通貨建て (Currency):} \\
+    アスタリスク * の有無で示す。
+    \begin{itemize}
+        \item もともと自国通貨建てである変数は * をつけず \( x_t \) のように表す。
+        \item もともと外国通貨建てである変数は * をつけ \( x_t^* \) のように表す。
+        \item もともと自国通貨建てである変数 \( x_t \) について、\( x_t^* \equiv (1/e_t^{/*}) x_t \) により \( x_t^* \) を定義する。
+        \item もともと外国通貨建てである変数 \( x_t^* \) について、\( x_t \equiv e_t^{/*} x_t^* \) により \( x_t \) を定義する。
+    \end{itemize}
+    ここで \( e_t^{/*} \) は名目為替レート（自国通貨/外国通貨）である。（例: \( \bar{p}_t^{F*}, b_t^{h \to F} \)）
+\end{enumerate}
+
+\subsection*{内生変数}
+
+\subsubsection*{家計の変数}
+\begin{itemize}
+    \item \( c_t^{h \to h'} \) ：家計 \( h \) による、家計 \( h' \) が生産する財の消費。
+    \item \( l_t^h \) ：家計 \( h \) の労働。
+    \item \( y_t^h \) ：家計 \( h \) の財の生産。
+    \item \( p_t^h \) ：家計 \( h \) の財の価格。
+    \item \( \widetilde{p}_t^h \) ：価格改定機会を得た家計 \( h \) が設定する最適価格。
+    \item \( v_t, w_t \) : 最適価格の補助変数。
+    \item \( d_{t+1}^{h \to H} \) ：家計 \( h \) が時点 \( t \) に購入する、\( t+1 \) 期の状態に依存する国内コンティンジェント債券の数量。
+    \item \( b_{t+1}^{h \to F} \) ：家計 \( h \) が時点 \( t \) に保有する、外国リスクフリー債券の自国通貨建ての保有額（名目値）。
+    \item \( \lambda_t^h \) ：家計 \( h \) の予算制約に関するラグランジュ乗数（所得の限界効用）。
+    \item (外国も同様に \( c_t^{f \to f'}, l_t^f, y_t^f, p_t^{f*}, \widetilde{p}_t^{f*}, v_t^F, w_t^F, d_{t+1}^{f \to F*}, b_{t+1}^{f \to H*}, \lambda_t^{f/*} \) が定義される。)
+\end{itemize}
+
+\subsubsection*{消費指数}
+\begin{itemize}
+    \item \( c_t^{h \to H} \) ：家計 \( h \) の自国財消費指数。
+    \begin{equation}
+    c_t^{h \to H} \equiv \left[ \sum_{h' \in H} (c_t^{h \to h'})^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}}
+    \label{eq:def_domestic_consumption_index}
+    \end{equation}
+    \item \( c_t^{h \to F} \) ：家計 \( h \) の外国財消費指数。
+    \begin{equation}
+    c_t^{h \to F} \equiv \left[ \sum_{f \in F} (c_t^{h \to f})^{\frac{\theta^F-1}{\theta^F}} \right]^{\frac{\theta^F}{\theta^F-1}}
+    \label{eq:def_foreign_consumption_index}
+    \end{equation}
+    \item \( c_t^{h \to W} \) ：家計 \( h \) の総消費指数。
+    \begin{equation}
+    c_t^{h \to W} \equiv \frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}}
+    \label{eq:def_world_consumption_index}
+    \end{equation}
+    \item (外国も同様に \( c_t^{f \to F}, c_t^{f \to H}, c_t^{f \to W} \) が定義される。)
+\end{itemize}
+
+\subsubsection*{国全体の変数}
+\begin{itemize}
+    \item \( q_{t, t+1} \) : 時点 \( t \) における、\( t+1 \) 期の状態コンティンジェント債券の価格（確率的割引因子）。
+    \item \( e_t^{/*} \) : 名目為替レート（自国通貨/外国通貨）。
+    \item \( p_t^H \) ：自国の生産者物価指数 (PPI)。
+    \begin{equation}
+    p_t^H \equiv \left[ \sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}}
+    \label{eq:def_price_index_H_unnorm}
+    \end{equation}
+    \item \( \bar{p}_t^H \) ：自国の正規化された生産者物価指数 (PPI)。
+    \begin{equation}
+    \bar{p}_t^H \equiv \left[ \frac{1}{N}\sum_{h' \in H} (p_t^{h'})^{1-\theta^H} \right]^{\frac{1}{1-\theta^H}} = N^{-\frac{1}{1-\theta^H}} p_t^H
+    \label{eq:def_ppi_H}
+    \end{equation}
+    \item \( p_t^{F*} \) ：外国の生産者物価指数 (PPI, 外国通貨建て)。
+    \begin{equation}
+    p_t^{F*} \equiv \left[ \sum_{f' \in F} (p_t^{f'*})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}}
+    \label{eq:def_price_index_F_unnorm}
+    \end{equation}
+    \item \( \bar{p}_t^{F*} \) ：外国の正規化された生産者物価指数 (PPI, 外国通貨建て)。
+    \begin{equation}
+    \bar{p}_t^{F*} \equiv \left[ \frac{1}{M}\sum_{f' \in F} (p_t^{f'*})^{1-\theta^F} \right]^{\frac{1}{1-\theta^F}} = M^{-\frac{1}{1-\theta^F}} p_t^{F*}
+    \label{eq:def_ppi_F}
+    \end{equation}
+    \item \( p_t^{H \to W} \) ：自国の消費者物価指数 (CPI)。
+    \begin{equation}
+    p_t^{H \to W} \equiv (p_t^H)^{\alpha^H} (p_t^F)^{1-\alpha^H}
+    \label{eq:def_cpi_H}
+    \end{equation}
+    \item \( \bar{p}_t^{H \to W} \) ：自国の正規化された消費者物価指数 (CPI)。
+    \begin{equation}
+    \bar{p}_t^{H \to W} \equiv (\bar{p}_t^H)^{\alpha^H} (\bar{p}_t^F)^{1-\alpha^H}
+    \label{eq:def_norm_cpi_H}
+    \end{equation}
+    \item \( p_t^{F \to W*} \) ：外国の消費者物価指数 (CPI, 外国通貨建て)。
+    \begin{equation}
+    p_t^{F \to W*} \equiv (p_t^{F*})^{\alpha^F} (p_t^{H*})^{1-\alpha^F}
+    \label{eq:def_cpi_F}
+    \end{equation}
+    \item \( \bar{p}_t^{F \to W*} \) ：外国の正規化された消費者物価指数 (CPI, 外国通貨建て)。
+    \begin{equation}
+    \bar{p}_t^{F \to W*} \equiv (\bar{p}_t^{F*})^{\alpha^F} (\bar{p}_t^{H*})^{1-\alpha^F}
+    \label{eq:def_norm_cpi_F}
+    \end{equation}
+    \item \( \pi_t^H \) : 自国の生産者物価指数グロス・インフレ率 (\( \bar{p}_t^H / \bar{p}_{t-1}^H \))。
+    \item \( \pi_t^{F*} \) : 外国の生産者物価指数グロス・インフレ率 (\( \bar{p}_t^{F*} / \bar{p}_{t-1}^{F*} \))。
+    \item \( \pi_t^{H \to W} \) : 自国の消費者物価指数グロス・インフレ率 (\( \bar{p}_t^{H \to W} / \bar{p}_{t-1}^{H \to W} \))。
+    \item \( \pi_t^{F \to W*} \) : 外国の消費者物価指数グロス・インフレ率 (\( \bar{p}_t^{F \to W*} / \bar{p}_{t-1}^{F \to W*} \))。
+    \item \( Y_t^H \) ：自国全体の総生産指数。
+    \begin{equation}
+    Y_t^H \equiv \left[ \sum_{h \in H} (y_t^h)^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}}
+    \label{eq:def_output_index_H}
+    \end{equation}
+    \item \( L_t^H \) ：自国全体の総労働。
+    \begin{equation}
+    L_t^H \equiv \sum_{h \in H} l_t^h
+    \label{eq:def_total_labor_H}
+    \end{equation}
+    \item \( C_t^{H \to W} \) ：自国全体の総消費。
+    \begin{equation}
+    C_t^{H \to W} \equiv \sum_{h \in H} c_t^{h \to W}
+    \label{eq:def_total_consumption_H}
+    \end{equation}
+    \item \( B_t^{H} \) ：自国全体の対外純資産（自国通貨建て）。
+    \begin{equation}
+    B_t^{H} \equiv \sum_{h \in H} b_t^{h \to F}
+    \label{eq:def_total_assets_H}
+    \end{equation}
+    \item \( B_t^{F*} \) ：自国全体の対外純資産（外国通貨建て）。
+    \begin{equation}
+    B_t^{F*} \equiv -(N/M)(B_t^H / e_t^{/*})
+    \label{eq:def_total_assets_F}
+    \end{equation}
+    （世界全体の債券市場均衡 \( N b_t^{h \to F} + M e_t^{/*} b_t^{f \to F*} = 0 \) より導出される定義）
+    \item \( \Delta_t^H \) ：自国全体の総価格分散。
+    \begin{equation}
+    \Delta_t^H \equiv \sum_{h \in H} \left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
+    \label{eq:def_total_dispersion_H}
+    \end{equation}
+    \item (外国も同様に \( Y_t^F, L_t^F, C_t^{F \to W}, \Delta_t^F, p_t^{F*}, \bar{p}_t^{F*}, p_t^{F \to W*}, \pi_t^{F*} \) などが定義される。)
+\end{itemize}
+
+\subsubsection*{代表的家計の変数}
+3.4節のリスク共有の議論に基づき、代表的家計の変数（\( H \) 付きなど）を以下のように定義する。
+\begin{itemize}
+    \item \( c_t^{H \to W} \) ：代表的家計の総消費指数。
+    \begin{equation}
+    c_t^{H \to W} \equiv c_t^{h \to W} \quad (\text{※3.4節より全家計で共通のため})
+    \label{eq:def_ra_consumption_world}
+    \end{equation}
+    \item \( c_t^{H \to H} \) ：代表的家計の自国財消費指数。
+    \begin{equation}
+    c_t^{H \to H} \equiv c_t^{h \to H} \quad (\text{※3.4節より全家計で共通のため})
+    \label{eq:def_ra_consumption_domestic}
+    \end{equation}
+    \item \( c_t^{H \to F} \) ：代表的家計の外国財消費指数。
+    \begin{equation}
+    c_t^{H \to F} \equiv c_t^{h \to F} \quad (\text{※3.4節より全家計で共通のため})
+    \label{eq:def_ra_consumption_foreign}
+    \end{equation}
+    \item \( l_t^H \) ：代表的家計の労働。
+    \begin{equation}
+    l_t^H \equiv \frac{1}{N} \sum_{h \in H} l_t^h
+    \label{eq:def_ra_labor}
+    \end{equation}
+    \item \( y_t^H \) ：代表的家計の生産指数。
+    \begin{equation}
+    y_t^H \equiv Y_t^H / N
+    \label{eq:def_ra_output}
+    \end{equation}
+    \item \( \lambda_t^H \) ：所得の限界効用。
+    \begin{equation}
+    \lambda_t^H \equiv \lambda_t^h \quad (\text{※3.4節より全家計で共通のため})
+    \label{eq:def_ra_marginal_utility}
+    \end{equation}
+    \item \( b_t^{H} \) ：代表的家計の対外純資産。
+    \begin{equation}
+    b_t^{H} \equiv B_t^{H} / N
+    \label{eq:def_ra_assets}
+    \end{equation}
+    \item \( \widetilde{p}_t^H \) ：代表的家計の最適価格。
+    \begin{equation}
+    \widetilde{p}_t^H \equiv \widetilde{p}_t^h \quad (\text{※3.5.2節より全価格改定家計で共通のため})
+    \label{eq:def_ra_optimal_price}
+    \end{equation}
+    \item (外国も同様に \( c_t^{F \to W}, c_t^{F \to F}, c_t^{F \to H}, l_t^F, y_t^F, \lambda_t^{F/*}, b_t^{F*}, \widetilde{p}_t^{F*} \) が定義される。)
+\end{itemize}
+
+\subsubsection*{政策変数}
+\begin{itemize}
+    \item \( i_t^H, i_t^F \) : 自国と外国の政策金利（無リスク名目金利）。
+    \item \( \tau_t^H, \tau_t^F \) : 自国と外国の所得税率。
+    \item \( t_t^H, t_t^{F*} \) : 自国と外国の一括移転。
+    \item \( \gamma_t^H, \gamma_t^F \) : 水準目標政策における過去の目標乖離の累積項。
+\end{itemize}
+
+\subsection*{外生変数（ショック）}
+\begin{itemize}
+    \item \( a_t^H, a_t^F \) : 生産性（技術水準）。
+    \item \( \beta_t^H, \beta_t^F \) : 時間割引因子。
+    \item \( \chi_t^H, \chi_t^F \) : 金融政策の目標パス。
+    \item \( \varepsilon_t^{\tau,H}, \varepsilon_{t}^{i,H}, \dots \) : 各外生変数の確率過程に従うショック項。（外国も同様に \( \varepsilon_t^{\tau,F}, \varepsilon_{t}^{i,F} \) など）
+\end{itemize}
+
+\subsection*{パラメータ}
+\subsubsection*{家計の選好}
+\begin{itemize}
+    \item \( \phi^H, \phi^F \) : 労働の非効用の重み。
+    \item \( \alpha^H, \alpha^F \) : 消費バスケットにおける自国財（内需）への嗜好の強さ（ホームバイアス）。
+\end{itemize}
+
+\subsubsection*{生産と価格設定}
+\begin{itemize}
+    \item \( \theta^H, \theta^F \) : 個別財間の代替の弾力性。
+    \item \( \xi^H, \xi^F \) : 価格を改定できない企業の割合（カルボ・パラメータ）。
+\end{itemize}
+
+\subsubsection*{政策ルール}
+\begin{itemize}
+    \item \( \phi_{\pi}, \phi_{y}, \phi_{gap}, \phi_{level} \) : 金融政策ルールにおける各目標への反応係数。（自国・外国共通の場合もあるが、区別する場合は \( \phi_{\pi}^H, \phi_{\pi}^F \) などとする。）
+    \item \( \rho_i, \rho_{\tau}, \dots \) : 各外生変数の確率過程における自己回帰係数。（自国・外国共通の場合もあるが、区別する場合は \( \rho_i^H, \rho_i^F \) などとする。）
+\end{itemize}
+
+\subsubsection*{その他}
+\begin{itemize}
+    \item \( N, M \) : 自国と外国の人口（家計の数）。
+\end{itemize}
+
+\subsection*{不確実性の源泉と確率変数}
+\label{subsec:model_stochastic_nature}
+本節で定義した変数のうち、どれが確率変数となり、なぜそうなるのかをここで明記する。
+
+\paragraph{1. 不確実性の源泉}
+本稿のモデルにおけるすべての不確実性は、「外生変数（ショック）」の節で定義された変数
+（例：生産性 $a_t^H$, 割引因子 $\beta_t^H$, 税率 $\tau_t^H$ など）から生じる。
+これらの外生変数は第4章などで定義されるAR(1)（1次自己回帰）のような確率過程に従う。
+たとえば $\beta_t^H$ は
+\begin{equation}
+\log(\beta_t^H) = (1-\rho_{\beta}^H)\log(\beta_{ss}^H) + \rho_{\beta}^H \log(\beta_{t-1}^H) + \epsilon_t^{\beta,H}
+\label{eq:stochastic_process_beta_ra}
+\end{equation}
+のように記述される。
+この式の最後にある $\epsilon_t^{\beta,H}$ が毎期新たにランダムに発生する新規ショックであり、
+これが不確実性の唯一の源泉である。
+
+\paragraph{2. 確率の仮定}
+本稿ではすべての新規ショック項（$\epsilon_t^{\beta,H}, \epsilon_t^{a,H}, \epsilon_t^{\tau,H}, ...$）を
+まとめたベクトル $\boldsymbol{\epsilon}_t$ は時間を通じて独立かつ同一の分布（i.i.d.）に従うと仮定する。
+この仮定は $t$ 期において、次期 $t+1$ にいかなる新規ショック $\boldsymbol{\epsilon}_{t+1}$ が発生する確率も、
+現在および過去の状態やそこに至る経路には一切依存しないこと（経路非依存性）を意味する。
+
+\paragraph{3. 確率変数となる変数}
+上記の仮定から、確率変数となるのは以下の2種類である。
+\begin{itemize}
+    \item \textbf{外生変数（ショック変数）:}
+    $\epsilon_t$ がランダムであるため、$\epsilon_t$ に依存する $a_t^H$, $\beta_t^H$, $\tau_t^H$ などの
+    外生変数が確率変数となる。
+    
+    \item \textbf{すべての内生変数:}
+    モデルのすべての内生変数（例：消費 $c_t^H$, 生産 $y_t^H$, 所得の限界効用 $\lambda_t^H$,
+    価格 $p_t^H$, 為替レート $e_t^{/*}$ など）はモデルの方程式系（第3.8節）を通じて
+    確率的な外生変数の現在値と期待される将来経路の関数として決定される。
+    したがって入力（外生変数）が確率変数であるため、その出力であるすべての解（内生変数）もまた確率変数となる。
+\end{itemize}
+このため家計や企業は将来の確率変数（例：$\lambda_{t+1}^H$, $e_{t+1}$ など）の値を
+現時点 $t$ で正確に知ることはできず、その期待値（$E_t[\cdot]$）にもとづいて最適化行動をとる必要がある。

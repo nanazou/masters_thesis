@@ -1,0 +1,215 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_welfare_correction.tex
+
+\chapter{厚生評価における近似の整合性と補正項の導出}
+\label{chap:appendix_welfare_correction}
+
+本付録では、本稿のシミュレーション分析で採用している「 1 次近似（ 対数線形近似 ）による動学算出 」と「 2 次近似的視点に基づく厚生評価 」の間の論理的整合性、および具体的な補正ロジックについて詳述する。
+
+\section{近似による情報の欠落と整合性の問題}
+\label{sec:appendix_welfare_correction_consistency}
+
+本稿のシミュレーションは対数線形近似（ 1 次近似 ）を用いているが、この手法で得られた結果を厚生評価に用いる際には、「 非線形な関数 」と「 近似された変数 」の取り扱いに細心の注意が必要である。なぜなら、\textbf{「 非線形な関数 」に「 1 次近似された変数 」をそのまま代入して計算すると、計算の整合性が取れなくなる（ 偽の精度が生じる ）}からである。
+
+この問題を理解するために、簡単な「 A + B 」の例を考えてみよう。
+ある真の値 \( X \) が、主要な変動成分である「 1 次の項 \( A \) 」と、微細な補正成分である「 2 次の項 \( B \) 」から成るとする（ \( X = A + B \) ）。
+一方、評価したい関数が \( F(X) = X + X^2 \) という非線形（ 2 次 ）の関数だとする。
+
+真の値をこの関数に入力して、 2 次の精度まで正しく計算すると、以下のようになる（ 3 次以上の微小項は無視する ）。
+\[
+\begin{aligned}
+F(A+B) &= (A+B) + (A+B)^2 \\
+&= A + B + (A^2 + 2AB + B^2) \\
+&\approx A + B + A^2
+\end{aligned}
+\]
+ここで重要なのは、\textbf{「 入力に含まれる 2 次の項 \( B \) 」と「 関数によって生成される 2 次の項 \( A^2 \) 」の両方が、計算結果として残る}という点である。
+
+しかし、もしシミュレーションが 1 次近似で行われていたらどうなるだろうか。シミュレーション結果 \( X^{sim} \) は、微細な \( B \) を無視して \( X^{sim} \approx A \) と出力される。これをそのまま非線形関数に代入してしまうと、
+\[
+F(X^{sim}) = A + A^2
+\]
+となる。一見もっともらしい値が出るが、ここには重大な欠陥がある。本来足されるべきだった \textbf{「 入力由来の 2 次の項 \( B \) 」が欠落している一方で、「 関数由来の 2 次の項 \( A^2 \) 」だけが計算されている}のである。同じ重要度を持つはずの要素のうち、片方だけを計算し、片方を無視するのは、計算として不整合であり、結果の信頼性を損なう。
+
+本稿の分析においても、これと全く同じ問題が発生する。
+
+\paragraph{① 指数関数によるレベル変数の復元を行ってはならない理由}
+シミュレーション結果として得られる対数乖離 \( \hat{x}_t \) から、レベル変数 \( x_t \) を復元する際、定義式である指数関数 \( x_t = x_{ss}\exp(\hat{x}_t) \) を用いて計算してはいけない。
+なぜなら、\textbf{非線形な指数関数をマクローリン展開すると} \( x_{ss}(1 + \hat{x}_t + \frac{1}{2}\hat{x}_t^2 + \dots) \) となり、\textbf{2 次以上の項が含まれる}からである。入力である \( \hat{x}_t \) 自体が 2 次の情報（ 上例の \( B \) ）を欠落させているにも関わらず、計算式だけで 2 次以上の項を生成するのは、上述の不整合を引き起こす。
+
+\paragraph{② 線形復元した変数を非線形な効用関数に代入してはならない理由}
+では、 2 次以上の項が出ないように \( x_t = x_{ss}(1 + \hat{x}_t) \) と線形で復元すればよいかというと、それも不十分である。
+もし、そうして復元した \( x_t \) （ すなわち \( c_t, l_t \) ）を、以下のような対数や二乗を含む非線形な効用関数
+\[
+U(c_t^{H\to W}, l_t^H) = \ln c_t^{H\to W} - \frac{\phi^H}{2}(l_t^H)^2
+\]
+に直接代入してしまえば、結局は効用関数側が 2 次以上の項（ \( A^2 \) など ）を生成することになり、入力情報の欠落（ \( B \) の無視 ）との不整合が生じるからである。
+
+\paragraph{③ 正しい対処法：効用関数自体の線形近似}
+整合性を保つための正しい手順は、変数を代入する前に、まず効用関数 \( U \) 自体を定常状態近傍で 1 次近似（ 線形化 ）し、その式に出てくる \( \hat{c}_t, \hat{l}_t \) に、シミュレーションで得られた 1 次近似値 \( \hat{c}_t, \hat{l}_t \) を代入することである。
+このように関数を線形化しておけば、「 線形 」対「 線形 」の対応となり、整合性が保たれる。
+
+\paragraph{④ 価格分散コスト \( \Delta \) の手動補正}
+ただし、この線形化の手順をとると、本来は 2 次以上の項として評価されるべき重要な要素、すなわち「 価格分散コスト \( \Delta_t \) 」が式から消滅してしまう（ 1 次近似の世界では \( \Delta_t \approx 0 \) となるため ）。
+そこで本稿では、この消えてしまったコスト \( \Delta_t \) を、 \textcite{Woodford2003} にならい別途手計算で導出し、線形近似された厚生の値から事後的に差し引くという補正を行う。これにより、シミュレーションの整合性を保つとともに、価格のばらつきによる経済的損失を正確に評価に反映させることが可能となる。
+
+次節より、その具体的な導出過程を示す。
+
+\section{価格分散コストの補正式の導出}
+\label{sec:appendix_welfare_correction_derivation}
+
+補正の根拠は、線形近似モデルにおいてゼロとなる価格分散の影響を、効用関数の計算に復元することにある。以下にその導出過程を示す。
+
+\paragraph{1. 効用関数の線形近似}
+
+まず、前節で示した期間効用関数 \( U(c_t^{H \to W}, l_t^H) \) を再掲する。
+\begin{equation}
+    U(c_t^{H \to W}, l_t^H) = \ln c_t^{H \to W} - \frac{\phi^H}{2}(l_t^H)^2
+\end{equation}
+この関数の値が、定常状態 \( (c_{ss}^{H \to W}, l_{ss}^H) \) からどの程度乖離するかを、 1 次テイラー展開（ 線形近似 ）を用いて評価する。
+多変数関数の近似公式を適用すると、効用の変動部分は以下のように記述できる。
+\begin{align}
+    U(c_t^{H \to W}, l_t^H) - U(c_{ss}^{H \to W}, l_{ss}^H) &\approx \frac{\partial U}{\partial c_t^{H \to W}}(c_{ss}^{H \to W}, l_{ss}^H) \cdot (c_t^{H \to W} - c_{ss}^{H \to W}) \nonumber \\
+    &\quad + \frac{\partial U}{\partial l_t^H}(c_{ss}^{H \to W}, l_{ss}^H) \cdot (l_t^H - l_{ss}^H)
+\end{align}
+ここで、定常状態における各偏微分係数は以下の通りである。
+\begin{align}
+    \frac{\partial U}{\partial c_t^{H \to W}}(c_{ss}^{H \to W}, l_{ss}^H) &= \frac{1}{c_{ss}^{H \to W}} \\
+    \frac{\partial U}{\partial l_t^H}(c_{ss}^{H \to W}, l_{ss}^H) &= -\phi^H l_{ss}^H
+\end{align}
+また、ここでの変数 \( \hat{x}_t \) を定常状態からの乖離 \( \hat{x}_t = \frac{x_t - x_{ss}}{x_{ss}} \) と定義すると、レベル変数の乖離は \( x_t - x_{ss} = x_{ss} \hat{x}_t \) と変換できる。
+これらを上式に代入して整理すると、以下の線形近似された効用の変動式が得られる。
+\begin{align}
+    U(c_t^{H \to W}, l_t^H) - U(c_{ss}^{H \to W}, l_{ss}^H) &\approx \frac{1}{c_{ss}^{H \to W}} \cdot (c_{ss}^{H \to W} \hat{c}_t^{H \to W}) + (-\phi^H l_{ss}^H) \cdot (l_{ss}^H \hat{l}_t^H) \nonumber \\
+    &= \hat{c}_t^{H \to W} - \phi^H (l_{ss}^H)^2 \hat{l}_t^H \label{eq:appendix_welfare_correction_utility_base}
+\end{align}
+
+\paragraph{2. 労働投入量の近似と補正項の導出}
+
+次に、労働投入量 \( \hat{l}_t^H \) を生産関数から導出する。
+第 3 章で示した集計生産関数 \( y_t^H = a_t^H l_t^H / \Delta_t^H \) を、まず労働投入量 \( l_t^H \) について解く。
+\begin{equation}
+    l_t^H = \frac{y_t^H \Delta_t^H}{a_t^H}
+\end{equation}
+この式の両辺について定常状態からの乖離（ ハット変数 ）をとると、以下の関係が得られる。
+\begin{equation}
+    \hat{l}_t^H = \hat{y}_t^H - \hat{a}_t^H + \hat{\Delta}_t^H \label{eq:appendix_welfare_correction_labor_approx}
+\end{equation}
+
+この式 \eqref{eq:appendix_welfare_correction_labor_approx} を、そのまま式 \eqref{eq:appendix_welfare_correction_utility_base} に代入すると、以下の式が得られる。
+\begin{align}
+    U(c_t^{H \to W}, l_t^H) - U(c_{ss}^{H \to W}, l_{ss}^H) &\approx \hat{c}_t^{H \to W} - \phi^H (l_{ss}^H)^2 (\hat{y}_t^H - \hat{a}_t^H + \hat{\Delta}_t^H) \nonumber \\
+    &= \hat{c}_t^{H \to W} - \phi^H (l_{ss}^H)^2 (\hat{y}_t^H - \hat{a}_t^H) - \phi^H (l_{ss}^H)^2 \hat{\Delta}_t^H \label{eq:appendix_welfare_correction_utility_combined}
+\end{align}
+
+シミュレーションにおいては、この第 3 項 \( -\phi^H (l_{ss}^H)^2 \hat{\Delta}_t^H \) が重要な役割を果たす。標準的な線形近似モデルではこの項が欠落してしまうため、本分析では特別に 2 次近似を用いて \( \hat{\Delta}_t^H \) を導出し、手動で厚生計算に反映させる。
+
+以下に、その導出過程を記述する。
+
+\paragraph{価格分散の関数の定義と近似方針}
+
+まず、第 3 章で導出した\textbf{物価指数の動学}（ 式 \ref{eq:final_price_index_dynamics_H} ）と\textbf{価格分散の動学}（ 式 \ref{eq:final_dispersion_dynamics_H} ）を出発点とする。ここで議論を簡潔にするため人口を \( N=1 \) とする。
+\begin{equation}
+    1 = (1-\xi^H) \left( \frac{\widetilde{p}_t^H}{p_t^H} \right)^{1-\theta^H} + \xi^H (\pi_t^H)^{\theta^H-1} \label{eq:appendix_welfare_correction_pi_dynamics}
+\end{equation}
+\begin{equation}
+    \Delta_t^H = (1-\xi^H) \left( \frac{\widetilde{p}_t^H}{p_t^H} \right)^{-\theta^H} + \xi^H (\pi_t^H)^{\theta^H} \Delta_{t-1}^H \label{eq:appendix_welfare_correction_delta_dynamics}
+\end{equation}
+式 \eqref{eq:appendix_welfare_correction_pi_dynamics} を相対価格 \( \widetilde{p}_t^H / p_t^H \) について解き、それを式 \eqref{eq:appendix_welfare_correction_delta_dynamics} に代入して相対価格を消去すると、価格分散 \( \Delta_t^H \) はインフレ率 \( \pi_t^H \) と前期の分散 \( \Delta_{t-1}^H \) のみの関数として、以下のように定義できる。
+\begin{equation}
+    \Delta_t^H = (1-\xi^H)^{\frac{1}{1-\theta^H}} \left( 1 - \xi^H (\pi_t^H)^{\theta^H-1} \right)^{\frac{\theta^H}{\theta^H-1}} + \xi^H (\pi_t^H)^{\theta^H} \Delta_{t-1}^H \label{eq:appendix_welfare_correction_delta_combined}
+\end{equation}
+
+この関数を、定常状態 \( (\pi_{ss}^H, \Delta_{ss}^H) = (1, 1) \) の周りで 2 次テイラー展開（ 近似 ）する。
+一般に、 2 変数関数 \( f(x, y) \) の点 \( (x_0, y_0) \) 周りでの 2 次近似公式は以下のように記述される。
+\begin{align}
+    f(x, y) &\approx f(x_0, y_0) + \frac{\partial f}{\partial x}(x_0, y_0)(x - x_0) + \frac{\partial f}{\partial y}(x_0, y_0)(y - y_0) \nonumber \\
+    &\quad + \frac{1}{2} \left[ \frac{\partial^2 f}{\partial x^2}(x_0, y_0)(x - x_0)^2 + 2\frac{\partial^2 f}{\partial x \partial y}(x_0, y_0)(x - x_0)(y - y_0) + \frac{\partial^2 f}{\partial y^2}(x_0, y_0)(y - y_0)^2 \right]
+\end{align}
+この公式を本モデルに適用する。ここで、インフレ率と価格分散の定常状態値は \( \pi_{ss}^H = 1, \Delta_{ss}^H = 1 \) であるため、レベル変数の乖離 \( x_t - 1 \) は、対数乖離 \( \hat{x}_t \) と以下のように一致する。
+\begin{equation}
+    x_t - 1 = \frac{x_t - 1}{1} = \frac{x_t - x_{ss}}{x_{ss}} = \hat{x}_t
+\end{equation}
+また、変数 \( \pi_t^H \) と \( \Delta_{t-1}^H \) は第 2 項において分離した形（ 積の形 ）で入っており、第 2 項は \( \Delta_{t-1}^H \) について 1 次式であるため、 \( \Delta_{t-1}^H \) に関する 2 階微分はゼロとなる。また交差項 \( \hat{\pi}_t^H \hat{\Delta}_{t-1}^H \) は 3 次の微小量となるため無視できる。
+
+したがって、求める近似式は以下の形となる。
+\begin{equation}
+    \hat{\Delta}_t^H \approx \frac{\partial \Delta_t^H}{\partial \Delta_{t-1}^H}(1, 1) \hat{\Delta}_{t-1}^H + \frac{\partial \Delta_t^H}{\partial \pi_t^H}(1, 1) \hat{\pi}_t^H + \frac{1}{2} \frac{\partial^2 \Delta_t^H}{\partial (\pi_t^H)^2}(1, 1) (\hat{\pi}_t^H)^2
+\end{equation}
+
+\paragraph{偏微分係数の導出}
+
+まず、式 \eqref{eq:appendix_welfare_correction_delta_combined} に基づき、全ての偏導関数を計算する。
+
+\textbf{1. \( \Delta_{t-1}^H \) に関する 1 階偏微分} \\
+第 2 項のみを微分する。
+\begin{equation}
+    \frac{\partial \Delta_t^H}{\partial \Delta_{t-1}^H} = \xi^H (\pi_t^H)^{\theta^H}
+\end{equation}
+
+\textbf{2. \( \pi_t^H \) に関する 1 階偏微分} \\
+合成関数の微分公式を用いて計算する。
+\begin{align}
+    \frac{\partial \Delta_t^H}{\partial \pi_t^H} &= (1-\xi^H)^{\frac{1}{1-\theta^H}} \frac{\theta^H}{\theta^H-1} \left( 1 - \xi^H (\pi_t^H)^{\theta^H-1} \right)^{\frac{\theta^H}{\theta^H-1}-1} \left( -\xi^H (\theta^H-1) (\pi_t^H)^{\theta^H-2} \right) \nonumber \\
+    &\quad + \xi^H \theta^H (\pi_t^H)^{\theta^H-1} \Delta_{t-1}^H \nonumber \\
+    &= -\theta^H \xi^H (1-\xi^H)^{\frac{1}{1-\theta^H}} \left( 1 - \xi^H (\pi_t^H)^{\theta^H-1} \right)^{\frac{1}{\theta^H-1}} (\pi_t^H)^{\theta^H-2} \nonumber \\
+    &\quad + \xi^H \theta^H (\pi_t^H)^{\theta^H-1} \Delta_{t-1}^H
+\end{align}
+
+\textbf{3. \( \pi_t^H \) に関する 2 階偏微分} \\
+上記の 1 階偏微分をさらにもう一度 \( \pi_t^H \) で微分する。第 1 項には積の微分公式を適用する。
+\begin{align}
+    \frac{\partial^2 \Delta_t^H}{\partial (\pi_t^H)^2} &= -\theta^H \xi^H (1-\xi^H)^{\frac{1}{1-\theta^H}} \Bigg[ \frac{1}{\theta^H-1} \left( 1 - \xi^H (\pi_t^H)^{\theta^H-1} \right)^{ \frac{1}{\theta^H-1}-1} (-\xi^H (\theta^H-1) (\pi_t^H)^{\theta^H-2}) \cdot (\pi_t^H)^{\theta^H-2} \nonumber \\
+    &\quad + \left( 1 - \xi^H (\pi_t^H)^{\theta^H-1} \right)^{\frac{1}{\theta^H-1}} \cdot (\theta^H-2)(\pi_t^H)^{\theta^H-3} \Bigg] \nonumber \\
+    &\quad + \xi^H \theta^H (\theta^H-1) (\pi_t^H)^{\theta^H-2} \Delta_{t-1}^H
+\end{align}
+
+次に、計算したこれらの偏導関数を定常状態 \( (\pi_{ss}^H, \Delta_{ss}^H) = (1, 1) \) で評価する。
+
+\textbf{1. ラグ項の係数の評価}
+\begin{equation}
+    \frac{\partial \Delta_t^H}{\partial \Delta_{t-1}^H}(1, 1) = \xi^H (1)^{\theta^H} = \xi^H
+\end{equation}
+
+\textbf{2. 1 次の係数の評価}
+\begin{align}
+    \frac{\partial \Delta_t^H}{\partial \pi_t^H}(1, 1) &= -\theta^H \xi^H (1-\xi^H)^{\frac{1}{1-\theta^H}} \left( 1 - \xi^H \right)^{\frac{1}{\theta^H-1}} (1) + \xi^H \theta^H (1) (1) \nonumber \\
+    &= -\theta^H \xi^H (1-\xi^H)^{\frac{1}{1-\theta^H} + \frac{1}{\theta^H-1}} + \xi^H \theta^H \nonumber \\
+    &= -\theta^H \xi^H (1-\xi^H)^0 + \xi^H \theta^H \nonumber \\
+    &= -\theta^H \xi^H + \theta^H \xi^H = 0
+\end{align}
+
+\textbf{3. 2 次の係数の評価}
+\begin{align}
+    \frac{\partial^2 \Delta_t^H}{\partial (\pi_t^H)^2}(1, 1) &= -\theta^H \xi^H (1-\xi^H)^{\frac{1}{1-\theta^H}} \Bigg[ -\xi^H (1-\xi^H)^{\frac{1}{\theta^H-1}-1} (1) + (1-\xi^H)^{\frac{1}{\theta^H-1}} (\theta^H-2) \Bigg] \nonumber \\
+    &\quad + \xi^H \theta^H (\theta^H-1) (1) (1) \nonumber \\
+    &= \theta^H (\xi^H)^2 (1-\xi^H)^{-1} - \theta^H \xi^H (\theta^H-2) (1) + \xi^H \theta^H (\theta^H-1) \nonumber \\
+    &= \frac{\theta^H (\xi^H)^2}{1-\xi^H} + \theta^H \xi^H \left[ -(\theta^H-2) + (\theta^H-1) \right] \nonumber \\
+    &= \frac{\theta^H (\xi^H)^2}{1-\xi^H} + \theta^H \xi^H \nonumber \\
+    &= \theta^H \xi^H \left( \frac{\xi^H}{1-\xi^H} + 1 \right) = \frac{\theta^H \xi^H}{1-\xi^H}
+\end{align}
+
+\paragraph{結論：価格分散の 2 次近似式と線形モデルでの含意}
+
+以上の計算結果を近似式に代入することで、以下の最終的な関係式が得られる。
+\begin{align}
+    \hat{\Delta}_t^H &\approx \xi^H \hat{\Delta}_{t-1}^H + 0 \cdot \hat{\pi}_t^H + \frac{1}{2} \left( \frac{\theta^H \xi^H}{1-\xi^H} \right) (\hat{\pi}_t^H)^2 \nonumber \\
+    &= \xi^H \hat{\Delta}_{t-1}^H + \frac{\theta^H \xi^H}{2(1-\xi^H)} (\hat{\pi}_t^H)^2
+    \label{eq:appendix_welfare_correction_delta_approx_final}
+\end{align}
+これが最終的な価格分散の 2 次近似式である。
+
+この結果（ 式 \ref{eq:appendix_welfare_correction_delta_approx_final} ）は、線形近似モデルにおいて価格分散項がゼロとなることの数学的な証明となっている。具体的には、上式の導出過程で確認した通り、インフレ率 \( \hat{\pi}_t^H \) に関する 1 次の係数（ 偏微分係数 ）は計算の結果ちょうど \( 0 \) となる。したがって、もし方程式系全体を 1 次のオーダーで近似（ 線形化 ）した場合、 2 次以上の微小量である右辺第 2 項（ \( (\hat{\pi}_t^H)^2 \) を含む項 ）は無視され、式は以下のように退化する。
+\[
+    \hat{\Delta}_t^H \approx \xi^H \hat{\Delta}_{t-1}^H
+\]
+定常状態から出発する場合、初期値は \( \hat{\Delta}_0^H = 0 \) であるため、この再帰式に従えば、将来にわたり常に \( \hat{\Delta}_t^H = 0 \) となる。これが、標準的な線形近似シミュレーションにおいて価格分散による厚生ロスが消失してしまう理由である。
+
+\paragraph{厚生計算に用いる最終的な効用関数}
+
+最後に、導出された価格分散の近似式 \eqref{eq:appendix_welfare_correction_delta_approx_final} を、先述の効用の近似式 \eqref{eq:appendix_welfare_correction_utility_combined} に代入することで、本分析のプログラムにおいて実際に計算される最終的な効用関数の式が得られる。
+
+\begin{equation}
+    U(c_t^{H \to W}, l_t^H) - U(c_{ss}^{H \to W}, l_{ss}^H) \approx \hat{c}_t^{H \to W} - \phi^H (l_{ss}^H)^2 (\hat{y}_t^H - \hat{a}_t^H) - \phi^H (l_{ss}^H)^2 \left( \xi^H \hat{\Delta}_{t-1}^H + \frac{\theta^H \xi^H}{2(1-\xi^H)} (\hat{\pi}_t^H)^2 \right)
+    \label{eq:appendix_welfare_correction_final_utility}
+\end{equation}

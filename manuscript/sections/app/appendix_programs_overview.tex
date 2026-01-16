@@ -1,0 +1,43 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_programs_overview.tex
+
+\chapter{数値計算プログラムの構成と実行環境}
+\label{chap:appendix_programs_overview}
+
+本付録では名目総消費水準目標のシミュレーションに使用したプログラムを提示する。
+なお本稿のシミュレーションにおいて用いたプログラムの全体は以下のリポジトリにおいて公開している。
+
+\url{https://github.com/nanazou/masters_thesis}
+
+\section*{数値計算の実行環境とアルゴリズム}
+
+シミュレーションの実行にあたっては、Dynare 6.3 および Octave 9.4.0 を使用した。特に、名目金利のゼロ金利制約（ ZLB ）を厳密に考慮するため、Guerrieri and Iacoviello (2015) によって開発された \texttt{Occbin} ツールキットを導入し、レジームスイッチングを伴う非線形動学を算出している。
+
+なお、Octave 上で Dynare 等のパスを通すためのセットアップ・スクリプト（ \texttt{env\_setup} 等 ）を実行する場合は、まずコマンドウィンドウ上で該当するスクリプトが保存されているフォルダーまでカレントディレクトリを移動してから実行することに留意されたい。
+
+\section*{プログラムの構成とディレクトリ構造}
+
+本プロジェクト（ \texttt{nclt\_project} ）の主要なプログラムのディレクトリ構造は以下の通りである。なお、Dynare が自動生成する中間ファイルやシミュレーション結果の出力データについては、記述の簡潔さのため省略している。
+
+\begin{verbatim}
+nclt_project/
+├── nclt_main.m                   % メイン・実行制御スクリプト
+├── nclt_find_optimal_params.m    % 最適政策パラメータ探索スクリプト
+└── src/                          % モデル定義・ソルバー関連
+    ├── nclt_model.mod            % Dynareモデル定義（通常時）
+    ├── nclt_model_zlb.mod        % Dynareモデル定義（ZLB考慮時）
+    ├── nclt_model_declarations.inc      % 変数・パラメータの宣言
+    ├── nclt_model_equations_common.inc  % モデルの共通方程式
+    └── nclt_solve_core.m         % 均衡解法およびシミュレーション基幹部
+\end{verbatim}
+
+\section*{ソースコードの依存関係}
+
+提示するプログラムは、以下の 3 つの役割に大別される。
+\begin{enumerate}
+    \item \textbf{モデル定義と共通方程式}: \texttt{src/} フォルダ内の \texttt{.mod} ファイルおよび \texttt{.inc} ファイルに、第 3 章で導出した非線形方程式体系を記述している。
+    \item \textbf{シミュレーション実行スクリプト}: \texttt{nclt\_main.m} を通じて \texttt{nclt\_solve\_core.m} を呼び出し、Dynare を用いて各ショックに対するインパルス応答関数（ IRF ）を算出する。
+    \item \textbf{政策パラメータの最適化}: \texttt{nclt\_find\_optimal\_params.m} を用い厚生を最大化する最適な政策パラメータの値をグリッドサーチによって特定する。
+\end{enumerate}
+
+次節以降に、各ソースコードの具体的内容を順次掲載する。

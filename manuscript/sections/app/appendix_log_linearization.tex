@@ -1,0 +1,98 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_log_linearization.tex
+
+\chapter{対数線形近似の定義と幾何学的解釈}
+\label{chap:appendix_log_linearization}
+
+本付録では、動学的確率的一般均衡（ DSGE ）モデルの標準的な手法に従い、非線形の方程式系を定常状態近傍で対数線形近似（ Log-linear approximation ）することで、線形の連立差分方程式系へと変換する手法について詳述する。本節では、本稿で用いるハット変数（ \( \hat{x}_t \) ）の定義と、その数学的・幾何学的な意味について補足する。
+
+\section{対数線形化の目的と定義}
+\label{sec:appendix_log_linearization_purpose}
+
+経済モデルの均衡条件は、通常、コブ＝ダグラス型生産関数 \( Y_t = A_t K_t^\alpha L_t^{1-\alpha} \) のように、変数の積や冪乗を含む非線形方程式として記述される。これらの式をそのまま解くことは困難であるため、対数変換を行うことで乗算を加算（ 線形 ）の形に変換し、計算上の便宜を図ることが対数線形化の主たる目的である。
+
+本稿では、ある変数 \( x_t \) の定常状態の値を \( x \) とするとき、定常状態からの対数乖離 \( \hat{x}_t \) を以下のように定義する。
+\begin{equation}
+    \hat{x}_t \equiv \ln x_t - \ln x
+    \label{eq:appendix_log_linearization_hat_definition}
+\end{equation}
+ここで、 \( \ln x_t \) という値そのものには、具体的な経済学的単位（ 円や数量など ）としての意味はない。これはあくまで、積の形を和の形に変換するために導入された数学的な操作上の値に過ぎない。
+しかし、この定義式に対して定常状態近傍での 1 次近似（ テイラー展開 ）を適用することで、 \( \hat{x}_t \) に具体的な経済学的意味（ 変化率 ）が付与される。
+
+\section{変化率との関係}
+\label{sec:appendix_log_linearization_rate}
+
+関数 \( f(z) = \ln z \) を定常状態 \( z = x \) の周りで 1 次テイラー展開すると、以下の近似式が得られる。
+\begin{equation}
+    f(x_t) \approx f(x) + f'(x)(x_t - x)
+\end{equation}
+ \( f(z) = \ln z \) より \( f'(z) = 1/z \) であるため、上式は以下のように書き換えられる。
+\begin{equation}
+    \ln x_t \approx \ln x + \frac{1}{x}(x_t - x)
+\end{equation}
+これを変形すると、対数乖離 \( \hat{x}_t \) と変化率の関係が導かれる。
+\begin{equation}
+    \underbrace{\ln x_t - \ln x}_{\hat{x}_t} \approx \frac{x_t - x}{x}
+    \label{eq:appendix_log_linearization_approx_formula}
+\end{equation}
+右辺は「 定常状態からの変化率（ ％ ） 」そのものである。したがって、本稿における \( \hat{x}_t \) は、数学的には対数の差であるが、経済学的には「 定常状態からのパーセント乖離 」として解釈される。
+
+\section{幾何学的解釈：曲線と接線の高さ}
+\label{sec:appendix_log_linearization_geometry}
+
+式 \eqref{eq:appendix_log_linearization_approx_formula} の両辺が近似的に等しい（ \( \approx \) ）ことの意味は、幾何学的には「 曲線の高さ 」と「 接線の高さ 」の関係として理解できる。
+
+
+
+横軸に変数 \( z \)、縦軸に \( y = \ln z \) をとったグラフを考える。
+\begin{itemize}
+    \item \textbf{左辺（ \( \ln x_t - \ln x \) ）：}
+    これは、対数曲線 \( y = \ln z \) 上における、定常状態 \( x \) から \( x_t \) までの\textbf{「 実際の高さ（ 縦軸 ）の変化量 」}を表している。
+    
+    \item \textbf{右辺（ \( \frac{x_t - x}{x} \) ）：}
+    これは、定常状態 \( x \) において曲線に引いた\textbf{「 接線 」上での高さの変化量}を表している。
+    接線の傾きは \( f'(x) = 1/x \) であるため、横方向の変化量 \( (x_t - x) \) に対する縦方向の変化量は、
+    \[
+    \text{縦の変化} = \text{傾き} \times \text{横の変化} = \frac{1}{x} \times (x_t - x)
+    \]
+    となる。
+\end{itemize}
+
+すなわち、対数線形近似とは、定常状態の近傍において「 対数曲線上の高さの変化（ 左辺 ） 」を「 接線上の高さの変化（ 右辺 ） 」で代用することに他ならない。
+ \( x_t \) が \( x \) に十分に近ければ、曲線と接線はほぼ重なり合うため、この近似の精度は保たれる。シミュレーションにおいては、この近似関係を等号として扱うことで、巨大な連立方程式系を行列演算によって効率的に解くことが可能となる。
+
+\section{積の線形化（ \( \widehat{x_t y_t} = \hat{x}_t + \hat{y}_t \) の導出 ）}
+\label{sec:appendix_log_linearization_product}
+
+変数の積 \( x_t y_t \) の対数線形近似が、それぞれのハット変数の和 \( \hat{x}_t + \hat{y}_t \) となることは、前述のハット変数の定義を用いることで、以下のように計算できる。
+
+\begin{enumerate}
+    \item \textbf{積の変数の定義：}
+    まず、積の変数 \( x_t y_t \) について、その対数乖離 \( \widehat{x_t y_t} \) を定義に従って記述する。対数線形モデルにおいては、これを線形近似した厳密な等号として扱う。
+    \begin{equation}
+        \widehat{x_t y_t} = \ln(x_t y_t) - \ln(xy)
+    \end{equation}
+    
+    \item \textbf{個別の変数の定義：}
+    同様に、個別の変数 \( x_t, y_t \) についても、それぞれの対数乖離を定義する。
+    \begin{align}
+        \hat{x}_t &= \ln x_t - \ln x \\
+        \hat{y}_t &= \ln y_t - \ln y
+    \end{align}
+
+    \item \textbf{展開と代入：}
+    第 1 式の右辺に対し、対数の性質 \( \ln(AB) = \ln A + \ln B \) を適用して展開する。
+    \begin{equation}
+        \widehat{x_t y_t} = (\ln x_t + \ln y_t) - (\ln x + \ln y)
+    \end{equation}
+    項を並べ替えて整理する。
+    \begin{equation}
+        \widehat{x_t y_t} = (\ln x_t - \ln x) + (\ln y_t - \ln y)
+    \end{equation}
+    ここに第 2 項の個別変数の定義を代入すると、以下の関係が得られる。
+    \begin{equation}
+        \widehat{x_t y_t} = \hat{x}_t + \hat{y}_t
+    \end{equation}
+\end{enumerate}
+
+このように、対数線形近似を用いることで、変数の乗算（ 非線形 ）の関係式は、ハット変数の加算（ 線形 ）の関係式へと変換される。

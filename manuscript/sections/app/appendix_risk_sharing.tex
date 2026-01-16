@@ -1,0 +1,59 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_risk_sharing.tex
+
+\chapter{完備市場における消費の共通化と貯蓄の個別化}
+\label{chap:appendix_risk_sharing}
+
+本付録では、国内完備市場とカルボ型価格設定を仮定したモデルにおいて、なぜ全ての家計の消費が共通化される一方、貯蓄（ 資産ポートフォリオ ）は家計ごとに個別化されるのかを厳密に証明する。
+
+\section*{定理 9：リスク共有の結果}
+
+国内金融市場が完備である経済において、以下の関係が成立する。
+\begin{enumerate}
+    \item 全ての国内家計 \( h \in H \) の所得の限界効用は、いかなる時点 \( t \) 、いかなる状態 \( j \) においても常に一致する。
+    \[ \lambda_t^h = \lambda_t^{h'} \quad \forall h, h' \in H \]
+    \item 全ての国内家計 \( h \in H \) の総消費指数は、常に一致する。
+    \[ c_t^{h \to W} = c_t^{h' \to W} \quad \forall h, h' \in H \]
+    \item 各家計が購入する次期のための資産ポートフォリオの総価値は、家計が当期に価格改定の機会を得たか否かによって異なるため、一般に一致しない。
+\end{enumerate}
+
+\section*{証明}
+
+\subsection*{1. 所得の限界効用 \( \lambda_t \) の一致（ 定理 9-1 の証明 ）}
+
+\paragraph{ステップ A：限界効用の比率の不変性}
+家計の最適化行動は全ての時点・状態で成立するため、任意の 2 つの国内家計 \( h \) と \( h' \) の国内コンティンジェント債券に関する一階の条件（ FOC ）は、常に成立する。
+\[
+\begin{aligned}
+\lambda_t^h q_{t+1} &= \beta_t^H \pi \lambda_{t+1}^h \\
+\lambda_t^{h'} q_{t+1} &= \beta_t^H \pi \lambda_{t+1}^{h'}
+\end{aligned}
+\]
+これら 2 式の比を取ると共通項が消去され、以下の関係が得られる。
+\[
+\frac{\lambda_t^h}{\lambda_t^{h'}} = \frac{\lambda_{t+1}^h}{\lambda_{t+1}^{h'}} = k
+\]
+この比率 \( k \) は、時間や状態に依存しない普遍的な定数である。
+
+\paragraph{ステップ B：定数 \( k \) の値の特定}
+第 \ref{sec:model_overview} 節で定義した「 事前的対称性 」の仮定を用いる。初期時点 \( s \) において、全ての家計は同一の選好をもち、かつ初期貯蓄がゼロ（ \( d_s^h = d_s^{h'} = 0 \) ）である。このとき、各家計が直面する最適化問題は数学的に完全に同一であるため、初期の所得の限界効用は全ての家計で一致しなければならない。
+\[
+\lambda_s^h = \lambda_s^{h'} \quad \Longrightarrow \quad k = \frac{\lambda_s^h}{\lambda_s^{h'}} = 1
+\]
+
+\paragraph{ステップ C：結論}
+普遍的な定数が \( k=1 \) であることから、将来のすべての時点・すべての状態において \( \lambda_t^h = \lambda_t^{h'} \) が成立する。
+
+\subsection*{2. 総消費指数 \( c_t^{h \to W} \) の一致（ 定理 9-2 の証明 ）}
+全ての家計の \( \lambda_t \) が一致するという結果を、消費に関する FOC（ 式 \ref{eq:model_foc_consumption_home} ）に適用する。
+\[
+\lambda_t = \frac{1}{p_t^{H \to W} c_t^{h \to W}}
+\]
+左辺の \( \lambda_t \) と右辺の物価指数 \( p_t^{H \to W} \) は全ての家計で共通であるため、総消費指数 \( c_t^{h \to W} \) もまた、全ての家計間で完全に一致しなければならない。
+
+\subsection*{3. ポートフォリオ購入総額の個別化（ 定理 9-3 の証明 ）}
+家計 \( h \) の予算制約式を、次期のために購入する資産ポートフォリオの総価値 \( v_{t+1}^h \equiv \sum_{j'} q_{t+1} d_{t+1}^{h \to H} + e_t b_{t+1}^{h \to F*} \) について整理する。
+\[
+v_{t+1}^h = \underbrace{\left( d_t^{h \to H} + (1+i_{t-1}^F)e_t b_t^{h \to F*} + (1 - \tau_t^H) p_t^h y_t^h + t_t^H \right)}_{\text{当期の総収入}} - \underbrace{p_t^{H \to W} c_t^{h \to W}}_{\text{当期の消費支出}}
+\]
+定理 9-2 より消費支出は共通であるが、当期の総収入、特に労働所得 \( (1 - \tau_t^H) p_t^h y_t^h \) はカルボ型の価格設定（ \( p_t^h \) の異質性 ）によって家計ごとに異なる。支出が共通で収入が異なる以上、その差額を埋める資産保有額 \( v_{t+1}^h \) は、各家計が直面したショックに応じて個別化される。（ 証明終 ）

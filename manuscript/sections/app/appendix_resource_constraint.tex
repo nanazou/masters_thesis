@@ -1,0 +1,68 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_resource_constraint.tex
+
+\chapter{国全体の資源制約式の導出}
+\label{chap:appendix_resource_constraint}
+
+本付録では、個々の家計の予算制約式を集計し、国内市場の均衡条件を適用することで、国全体の資源制約式を導出する。
+
+\section*{定理 7：国全体の資源制約式}
+
+国内金融市場が完備であり、政府が均衡予算を達成する経済において、全ての個人の予算制約式を集計すると、以下の国全体の資源制約式が得られる。
+\[
+p_t^{H \to W} C_t^{H \to W} + B_{t+1}^{H} = p_t^H Y_t^H + (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} B_t^{H}
+\]
+ここで、 \( C_t^{H \to W} \) は国全体の総消費、 \( Y_t^H \) は集計産出量、 \( B_{t+1}^{H} \) は期末の対外純資産（ 自国通貨建て ）を表す。
+
+\section*{証明}
+
+\subsection*{1. 国全体での集計}
+まず、家計 \( h \) の期ごとの名目予算制約式を、国内の全ての家計 \( h \in H \) について足し合わせる（ \( \sum_{h \in H} \) ）。全ての変数は時点 \( t \) に依存する。
+\[
+\begin{split}
+    & \sum_{h \in H} \left( \sum_{j' \in J} q_{t+1}(j') d_{t+1}^{h \to H}(j') + b_{t+1}^{h \to F} + p_t^{H \to W} c_t^{h \to W} \right) \\
+    & \qquad = \sum_{h \in H} \left( d_t^{h \to H} + (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} b_t^{h \to F} + (1-\tau_t^H) p_t^h y_t^h + t_t^H \right)
+\end{split}
+\]
+
+\subsection*{2. 国内取引の相殺}
+次に、国全体で集計するとゼロになる国内完結の取引を相殺する。
+
+\paragraph{国内債券市場の均衡}
+国内で取引される状態コンティンジェント債券は、国内の誰かの負債が他の誰かの資産となるゼロサム取引であるため、純供給はゼロである。
+\[ \sum_{h \in H} d_{t}^{h \to H} = 0 \quad \text{and} \quad \sum_{h \in H} \sum_{j'} q_{t+1}(j') d_{t+1}^{h \to H}(j') = 0 \]
+これにより、集計した式から国内債券に関する項（ \( d \) ）はすべて消去される。
+
+\paragraph{政府部門の予算制約}
+政府は均衡予算を達成し、税収のすべてを家計への移転に使うため、移転の総額と税収の総額は一致する。
+\[
+\sum_{h \in H} t_t^H = \sum_{h \in H} \tau_t^H p_t^h y_t^h
+\]
+この関係を用いると、集計後の予算制約式の右辺にある移転項 \( \sum t_t^H \) は、所得項の一部である税金部分 \( \sum \tau_t^H p_t^h y_t^h \) と相殺される。
+
+\subsection*{3. 集計変数への書き換え}
+国内取引が相殺された結果、式に残るのは以下の項のみである。
+\[
+\sum_{h \in H} \left( b_{t+1}^{h \to F} + p_t^{H \to W} c_t^{h \to W} \right) = \sum_{h \in H} \left( (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} b_t^{h \to F} + p_t^h y_t^h \right)
+\]
+この式を、国全体の集計変数（ 大文字の変数 ）を使って書き換える。
+
+\paragraph{消費と対外資産の集計}
+価格指数 \( p_t^{H \to W} \) は全ての家計で共通であるため、総和 \( \sum_{h \in H} \) の外に出すことができる。
+\[
+\sum_{h \in H} p_t^{H \to W} c_t^{h \to W} = p_t^{H \to W} \sum_{h \in H} c_t^{h \to W} \equiv p_t^{H \to W} C_t^{H \to W}
+\]
+対外純資産（ 自国通貨建て ）については、単純な総和として定義される。
+\[
+\sum_{h \in H} b_{t+1}^{h \to F} \equiv B_{t+1}^{H}
+\]
+同様に、前期からの対外資産の償還額も \( (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} B_t^{H} \) となる。
+
+\paragraph{名目総生産の集計}
+付録 \ref{chap:appendix_aggregate_output} で証明した通り、総名目所得は \( \sum_{h \in H} p_t^h y_t^h = p_t^H Y_t^H \) という関係が厳密に成立する。
+
+\subsection*{4. 結論}
+以上の集計結果をまとめると、定理で示された国全体の資源制約式が導出される（ 証明終 ）。
+\[
+p_t^{H \to W} C_t^{H \to W} + B_{t+1}^{H} = p_t^H Y_t^H + (1+i_{t-1}^F) \frac{e_t}{e_{t-1}} B_t^{H}
+\]

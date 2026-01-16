@@ -1,0 +1,199 @@
+% !TeX root = ../../main.tex
+% sections/chap3/sec_model_producers.tex
+
+\section{生産者}
+\label{sec:model_producers}
+本モデルはヨーマン・ファーマ・モデルのため家計は生産者でもある。
+本節では生産と価格設定の側面を記述する。
+まず \( t \) 期における個別財の生産 \( y_t^h \) と労働 \( l_t^h \) の関係、
+および個別財の市場均衡について記述する。
+
+\paragraph{個別生産関数}
+家計 \( h \) が生産する個別財の生産 \( y_t^h \) は
+国全体の生産性 \( a_t^H \) と個人の労働 \( l_t^h \) を用いて以下のように定義される。
+\begin{equation}
+y_t^h = a_t^H l_t^h
+\label{eq:individual_production_function}
+\end{equation}
+同様に外国の家計 \( f \) の個別生産関数は以下のように定義される。
+\begin{equation}
+y_t^f = a_t^F l_t^f
+\label{eq:individual_production_function_foreign}
+\end{equation}
+
+\paragraph{個別財の市場均衡}
+家計 \( h \) が生産する財 \( y_t^h \) への総需要は
+自国家計 \( h' \) からの需要と外国家計 \( f \) からの需要の合計である。
+財市場均衡では、この総需要が生産と一致する。
+\begin{equation}
+y_t^h = \sum_{h' \in H} c_t^{h' \to h} + \sum_{f \in F} c_t^{f \to h}
+\label{eq:individual_goods_market_equilibrium}
+\end{equation}
+この均衡条件に個別の需要関数 \eqref{eq:demand_h_h_prime} と \eqref{eq:demand_f_h_prime} を代入し
+共通項 \( (p_t^h/p_t^H)^{-\theta^H} \) で括ると個別生産 \( y_t^h \) は以下のように表される。
+\begin{equation}
+y_t^h = \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} \left[ \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \right]
+\label{eq:demand_relation_yh_world_demand}
+\end{equation}
+ここで大括弧の中は世界全体からの自国消費指数への総需要を表す。
+
+同様に外国財 \( f \) への需要にもとづき個別生産は以下のように表される。
+\begin{equation}
+y_t^f = \left( \frac{p_t^{f*}}{p_t^{F*}} \right)^{-\theta^F} \left[ \sum_{h \in H} c_t^{h \to F} + \sum_{f' \in F} c_t^{f' \to F} \right]
+\label{eq:demand_relation_yf_world_demand}
+\end{equation}
+
+\subsection{生産関数と価格分散}
+\label{subsec:model_production_dispersion}
+本節では3.3節の冒頭で記述した個別レベルの関係式を集計しマクロレベルの生産関数を導出する。
+
+\paragraph{マクロ生産関数の導出と集計量}
+国全体の総労働 \( L_t^H \equiv \sum_{h \in H} l_t^h \) の定義から出発する。
+\begin{enumerate}
+    \item 個別生産関数 \eqref{eq:individual_production_function} を \( l_t^h \) について解き
+    総労働の定義に代入する。
+    \[
+    L_t^H = \sum_{h \in H} \frac{y_t^h}{a_t^H} = \frac{1}{a_t^H} \sum_{h \in H} y_t^h
+    \]
+    \item 個別財の均衡式 \eqref{eq:demand_relation_yh_world_demand} を \( \sum y_t^h \) に代入する。
+    \begin{align*}
+    L_t^H &= \frac{1}{a_t^H} \sum_{h \in H} \left\{ \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} \left[ \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \right] \right\} \\
+    &= \frac{1}{a_t^H} \left[ \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \right] \sum_{h \in H} \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H}
+    \end{align*}
+    \item 価格の非効率性を表す価格分散項 \( \Delta_t^H \) を以下のように定義する。
+    \begin{equation}
+    \Delta_t^H \equiv \sum_{h \in H} \left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H} \label{eq:dispersion_definition_home}
+    \end{equation}
+    \item これにより、総労働 \( L_t^H \)、世界総需要 \( [\sum c + \sum c] \)、
+    価格分散 \( \Delta_t^H \) のあいだに以下の関係式が導かれる。
+    \begin{equation}
+    L_t^H = \frac{1}{a_t^H} \left[ \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H} \right] \Delta_t^H
+    \label{eq:labor_demand_dispersion_relation}
+    \end{equation}
+\end{enumerate}
+ここでマクロの集計生産指数 \( Y_t^H \) を用いて
+\begin{equation}
+Y_t^H = \frac{a_t^H L_t^H}{\Delta_t^H} \label{eq:aggregate_production_function_home}
+\end{equation}
+という簡潔なマクロ生産関数を書きたいという動機を考える。
+この目標とする式 \eqref{eq:aggregate_production_function_home} を \( L_t^H \) について解くと
+ \( L_t^H = (Y_t^H / a_t^H) \Delta_t^H \) となる。
+この式とステップ4で導出した関係式 \eqref{eq:labor_demand_dispersion_relation} を比較すると、
+このマクロ生産関数が成立するためには集計生産指数 \( Y_t^H \) が必然的に
+世界全体からの国内消費指数への総需要と一致しなければならないことがわかる。
+\begin{equation}
+Y_t^H = \sum_{h' \in H} c_t^{h' \to H} + \sum_{f \in F} c_t^{f \to H}
+\label{eq:aggregate_goods_market_equilibrium}
+\end{equation}
+この集計レベルの財市場均衡が成立するとき
+個別財の均衡式 \eqref{eq:demand_relation_yh_world_demand} は
+\begin{equation}
+y_t^h = \left( \frac{p_t^h}{p_t^H} \right)^{-\theta^H} Y_t^H \label{eq:demand_relation_yh_YH}
+\end{equation}
+と書き換えられる。
+さらにこの関係式 \eqref{eq:demand_relation_yh_YH} と
+価格指数 \( p_t^H \) の定義 \eqref{eq:define_pH} を用いると（詳細は付録参照）
+集計生産指数 \( Y_t^H \) は個々の生産 \( y_t^h \) の
+CES集計量として定義されなければならないことが数学的に示される。
+\begin{equation}
+Y_t^H \equiv \left[ \sum_{h \in H} (y_t^h)^{\frac{\theta^H-1}{\theta^H}} \right]^{\frac{\theta^H}{\theta^H-1}} \label{eq:CES_agg_Yh}
+\end{equation}
+この一連の導出により
+マクロ生産関数 \eqref{eq:aggregate_production_function_home} を導くという動機から出発し、
+そのために必要な集計レベルの財市場均衡 \eqref{eq:aggregate_goods_market_equilibrium} が論理的に要請され、
+その結果として \( Y_t^H \) のCES集計という定義 \eqref{eq:CES_agg_Yh} が
+モデルの内部整合性を保つために必然となる、という関係性が明らかになった。
+
+\paragraph{外国の生産関数}
+同様の論理展開により外国の生産関数は以下のように記述される。
+\begin{gather}
+Y_t^F = \frac{a_t^F L_t^F}{\Delta_t^F} \label{eq:aggregate_production_function_foreign} \\
+Y_t^F \equiv \left[ \sum_{f \in F} (y_t^f)^{\frac{\theta^F-1}{\theta^F}} \right]^{\frac{\theta^F}{\theta^F-1}} \label{eq:CES_agg_Yf} \\
+L_t^F \equiv \sum_{f \in F} l_t^f \label{eq:total_labor_foreign_def} \\
+\Delta_t^F \equiv \sum_{f \in F} \left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F} \label{eq:dispersion_definition_foreign}
+\end{gather}
+また集計レベルの財市場均衡と個別財と集計財の関係は以下の通りである。
+\begin{gather}
+Y_t^F = \sum_{h \in H} c_t^{h \to F} + \sum_{f' \in F} c_t^{f' \to F} \label{eq:aggregate_goods_market_equilibrium_foreign} \\
+y_t^f = \left( \frac{p_t^{f*}}{p_t^{F*}} \right)^{-\theta^F} Y_t^F \label{eq:demand_relation_yf_YF}
+\end{gather}
+
+\subsection{価格設定の動学}
+\label{subsec:model_price_setting}
+財の価格設定は \textcite{Calvo1983} に従う。
+すなわち毎期 \( 1-\xi^H \) の割合の家計のみが価格を改定することができ、
+残りの \( \xi^H \) の割合の家計は価格を据え置く。
+価格を改定する家計は将来にわたって価格を据え置く可能性を考慮し、
+期待効用の割引現在価値を最大化する単一の最適価格 \( p_t^h \) を選択する。
+
+\paragraph{自国の価格設定}
+この価格決定問題は 3.3.1節で述べた効用最大化問題のうち
+価格改定家計 \( h \) が時点 \( t \) で選択する価格 \( p_t^h \) に依存する項のみを抜き出し
+その期待割引現在価値を最大化する問題として定式化される。
+カルボ型価格設定の仮定の下では時点 \( t \) で設定した価格 \( p_t^h \) が \( k \) 期先まで維持される確率は
+ \( (\xi^H)^k \) となる。
+価格改定家計が最大化する期待効用は付録に示すように以下のように書ける。
+\begin{equation}
+\begin{aligned}
+\max_{p_t^h} \operatorname{E}_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{i=0}^{k-1} \beta_{t+i}^H \right) \Biggl[ & \left( \log c_{t+k}^{h \to W} - \frac{\phi^H}{2}(l_{t+k}^{h})^2 \right) \\
+& + \lambda_{t+k}^{h} \biggl( \Bigl( d_{t+k}^{h \to H} + (1+i_{t+k-1}^{F}) b_{t+k}^{h \to F} + (1 - \tau_{t+k}^{H}) p_t^h y_{t+k}^{h} + t_{t+k}^{H} \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t+k, t+k+1} d_{t+k+1}^{h \to H} + b_{t+k+1}^{h \to F} + p_{t+k}^{H \to W} c_{t+k}^{h \to W} \Bigr) \biggr) \Biggr]
+\end{aligned}
+\label{eq:profit_max_problem_home}
+\end{equation}
+この目的関数を \( p_t^h \) について偏微分し1階の条件を求める際に以下の点を考慮する。
+\begin{itemize}
+    \item 個別家計 \( h \) の価格 \( p_t^h \) がマクロ変数（\( i_{t+k}^F, e_{t+k}, \tau_{t+k}^H, t_{t+k}^H, q_{t+k, t+k+1}, p_{t+k}^{H \to W} \)）に与える影響はごく小さいため、ないものと仮定する。
+    \item 価格 \( p_t^h \) が所得を通じて消費 \( c_{t+k}^{h \to W} \) と各種債権保有 \( d_{t+k+1}^{h \to H}, b_{t+k+1}^{h \to F} \) に与える影響は、予算制約として織り込まれている。そのため 消費 \( c_{t+k}^{h \to W} \) と各種債権保有 \( d_{t+k+1}^{h \to H}, b_{t+k+1}^{h \to F} \) は \( p_t^h \) から独立しているものとして扱えばよい。
+    \item 一方で、制約 \( l_{t+k}^h = y_{t+k}^h / a_{t+k}^H \) と需要関数 \( y_{t+k}^h = (p_t^h / p_{t+k}^H)^{-\theta^H} Y_{t+k}^H \) (式 \eqref{eq:demand_relation_yh_YH} 参照) は、効用関数内の労働 \( l_{t+k}^h \) と予算制約内の生産 \( y_{t+k}^h \) に反映される。これにより \( l_{t+k}^h \) と \( y_{t+k}^h \) は \( p_t^h \) の関数となり、微分対象になる。
+\end{itemize}
+これらの仮定のもとで1階の条件を計算すると効用関数の \( \log c_{t+k}^{h \to W} \) の項と、
+予算制約の大部分の項（債券、移転、消費支出）の微分がゼロとなり、
+労働の非効用と税引き後所得の項のみが残る。
+結果として最適化問題の1階の条件は以下のように得られる。
+\begin{equation}
+\operatorname{E}_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{i=0}^{k-1} \beta_{t+i}^H \right) \left[ \frac{\partial}{\partial p_t^h} \left\{ \left( - \frac{\phi^H}{2}(l_{t+k}^h)^2 \right) + \lambda_{t+k}^h \left( (1 - \tau_{t+k}^H) p_t^h y_{t+k}^h \right) \right\} \right] = 0
+\label{eq:foc_price_setting_home}
+\end{equation}
+この式は価格 \( p_t^h \) の微小な変化がそれが維持される可能性のある将来の各期において
+「労働の非効用（限界費用に対応）」と「税引き後限界収入」に与える影響の、
+期待割引現在価値の合計がゼロになる点に最適価格があることを示している。（偏微分の詳細な計算は付録参照。）
+
+この1階の条件を計算すると以下の式が得られる（詳細は付録参照）。
+\begin{equation}
+(p_t^h)^{1+\theta^H} = \frac{\theta^H}{\theta^H-1} \frac{ \operatorname{E}_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \phi^H \frac{(Y_{t+k}^H)^2}{(a_{t+k}^H)^2} (p_{t+k}^H)^{2\theta^H} \right] }{ \operatorname{E}_t \sum_{k=0}^{\infty} (\xi^H)^k \left(\prod_{j=0}^{k-1} \beta_{t+j}^H \right) \left[ \lambda_{t+k}^h (1 - \tau_{t+k}^{H}) Y_{t+k}^H (p_{t+k}^H)^{\theta^H} \right] }
+\label{eq:optimal_price_explicit_home}
+\end{equation}
+この式の右辺に出てくる全ての変数は \( t \) 期が所与のもとで
+価格改定を行う全ての家計 \( h \) ににとって共通である。
+特に \( \lambda_{t+k}^h \) は国内完備市場の仮定により
+すべての家計で同一になることが保証されている（3.4節および付録参照）。
+したがってこの方程式の解である \( p_t^h \) もすべての価格改定を行う家計 \( h \) にとって完全に同一の値となる。
+
+しかし無限和を含む方程式は数値計算に使用できない。
+そこで分子を \( v_t \)、分母を \( w_t \) とおき、
+これら \( v_t, w_t \) を再帰的な形に書き直すことで無限和を含む元の方程式を以下の連立方程式群に分割する。
+\begin{align}
+(p_t^h)^{1+\theta^H} &= \frac{\theta^H}{\theta^H-1} \frac{v_t}{w_t} \label{eq:optimal_price_home} \\
+v_t &= \phi^H \frac{(Y_t^H)^2}{(a_t^H)^2} (p_t^H)^{2\theta^H} + \beta_t^H\xi^H \operatorname{E}_t[v_{t+1}] \label{eq:v_recursive_home} \\
+w_t &= \lambda_t^h (1 - \tau_t^{H}) Y_t^H (p_t^H)^{\theta^H} + \beta_t^H\xi^H \operatorname{E}_t[w_{t+1}] \label{eq:w_recursive_home}
+\end{align}
+これらの方程式がニュー・ケインジアン・フィリップス曲線の非線形な表現となる。
+
+\paragraph{外国の価格設定}
+同様に外国の価格設定は以下の連立方程式群で記述される。
+外国家計 \( f \) が価格 \( p_t^{f*} \) を選択する際の最大化問題は以下のように書ける。
+\begin{equation}
+\begin{aligned}
+\max_{p_t^{f*}} \operatorname{E}_t \sum_{k=0}^{\infty} (\xi^F)^k \left(\prod_{i=0}^{k-1} \beta_{t+i}^F \right) \Biggl[ & \left( \log c_{t+k}^{f \to W} - \frac{\phi^F}{2}(l_{t+k}^{f})^2 \right) \\
+& + \lambda_{t+k}^{f/*} \biggl( \Bigl( d_{t+k}^{f \to F*} + (1+i_{t+k-1}^{H}) b_{t+k}^{f \to H*} + (1 - \tau_{t+k}^{F}) p_t^{f*} y_{t+k}^{f} + t_{t+k}^{F*} \Bigr) \\
+& \quad - \Bigl( \sum_{j' \in J} q_{t+k, t+k+1}^* d_{t+k+1}^{f \to F*} + b_{t+k+1}^{f \to H*} + p_{t+k}^{F \to W*} c_{t+k}^{f \to W} \Bigr) \biggr) \Biggr]
+\end{aligned}
+\label{eq:profit_max_problem_foreign}
+\end{equation}
+これより導かれる最適価格 \( p_t^{f*} \) は、以下の再帰的な方程式群によって決定される。
+\begin{align}
+(p_t^{f*})^{1+\theta^F} &= \frac{\theta^F}{\theta^F-1} \frac{v_t^F}{w_t^F} \label{eq:optimal_price_foreign} \\
+v_t^F &= \phi^F \frac{(Y_t^F)^2}{(a_t^F)^2} (p_t^{F*})^{2\theta^F} + \beta_t^F\xi^F \operatorname{E}_t[v_{t+1}^F] \label{eq:v_recursive_foreign} \\
+w_t^F &= \lambda_t^{f/*} (1 - \tau_t^{F}) Y_t^F (p_t^{F*})^{\theta^F} + \beta_t^F\xi^F \operatorname{E}_t[w_{t+1}^F] \label{eq:w_recursive_foreign}
+\end{align}

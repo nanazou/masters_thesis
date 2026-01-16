@@ -1,0 +1,79 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% マスターファイル: main.tex
+% 2025年度 立教大学大学院 経済学研究科 修士学位申請論文（改訂版）
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% --- 1. メタデータ (main.xmpdata) の同期設定 ---
+% ご提示いただいた内容を正確に反映しています。
+\begin{filecontents*}{\jobname.xmpdata}
+\Title{ゼロ金利制約下における名目総消費水準目標の優位性（改訂版）}
+\Author{板倉　俊}
+\Keywords{金融政策, ゼロ金利制約, 名目総消費水準目標}
+\Publisher{立教大学大学院}
+\Subject{修士学位申請論文}
+\Copyright{Copyright (c) 2026 Shun Itakura. All rights reserved.}
+\end{filecontents*}
+
+% --- 2. 設定の読み込み ---
+\input{preamble.tex}
+
+\begin{document}
+
+% ===== 立教大学様式 表紙 =====
+\begin{titlepage}
+    \centering
+    \vspace*{10mm}
+    {\Large 2025年度　修士学位申請論文} \\
+    \vfill % 余白を自動調整し、1ページに収めます
+    {\huge ゼロ金利制約下における \\ 名目総消費水準目標の優位性} \\
+    \vspace{1em}
+    {\Large （改訂版）} \\
+    \vfill
+    {\Large 立教大学大学院 \\ 経済学研究科経済学専攻 \\ 博士課程前期課程} \\
+    \vfill
+    {\Large 氏名　板倉　俊} \\
+%    {\Large 学生番号　24KK009H} \\ % ★ご自身の学生番号をご入力ください
+    \vfill
+    {\Large 修士論文作成指導教員} \\
+    {\Large 山本　周吾} \\ 
+    \vspace*{20mm}
+\end{titlepage}
+
+\clearpage
+
+% ===== 前付 (要旨・謝辞・目次) =====
+\pagenumbering{roman} 
+
+\begin{abstract}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{1em}
+\noindent
+\input{sections/abstract}
+\end{abstract}
+\clearpage
+
+\include{sections/acknowledgments}
+\clearpage
+
+\tableofcontents
+\clearpage
+
+% ===== 本文 =====
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\include{sections/chapter1}
+\include{sections/chapter2}
+\include{sections/chapter3}
+\include{sections/chapter4}
+\include{sections/chapter5}
+\include{sections/chapter6}
+\include{sections/chapter7}
+
+% ===== 後付 (参考文献・付録) =====
+\printbibliography[title=参考文献]
+
+\appendix
+\include{sections/appendix}
+
+\end{document}

@@ -1,0 +1,64 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_cpi_derivation.tex
+
+\chapter{総消費価格指数と財バスケットへの需要関数の導出（ 第 2 段階 ）}
+\label{chap:appendix_cpi_derivation}
+
+\section*{定理 3：財バスケットへの需要関数と総消費価格指数}
+
+家計 \( h \) が、ある時点 \( t \) において、所与の量の総消費バスケット \( c_t^{h \to W} \) を、国内財バスケットの真の価格指数 \( p_t^H \) と外国財バスケットの真の価格指数 \( p_t^{F*} \) の下で費用最小化的に購入するとき、以下の関係が成立する。
+\begin{enumerate}
+    \item 国内財バスケット \( c_t^{h \to H} \) および外国財バスケット \( c_t^{h \to F} \) への需要関数は、それぞれ次式で与えられる。
+    \[ c_t^{h \to H} = \alpha^H \frac{p_t^{H \to W}}{p_t^H} c_t^{h \to W} \]
+    \[ c_t^{h \to F} = (1-\alpha^H) \frac{p_t^{H \to W}}{e_t p_t^{F*}} c_t^{h \to W} \]
+    \item 上記の需要関数に現れる \( p_t^{H \to W} \) は、総消費バスケットの価格指数（ CPI ）であり、各財バスケットの真の価格指数から以下のように定義される。
+    \[ p_t^{H \to W} = (p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H} \]
+\end{enumerate}
+
+\section*{証明}
+
+この定理を、自国家計 \( h \) の場合について証明する。
+
+\subsection*{1. 費用最小化問題の設定}
+この第 2 段階では、家計が時点 \( t \) において、所与の総消費量 \( c_t^{h \to W} \) を達成するために、国内財バスケット \( c_t^{h \to H} \) と海外財バスケット \( c_t^{h \to F} \) をどのように組み合わせれば総費用を最小化できるかを分析する。
+\begin{itemize}
+    \item \textbf{最小化すべき総費用}:
+    \[ \min_{c_t^{h \to H}, c_t^{h \to F}} \quad p_t^H c_t^{h \to H} + e_t p_t^{F*} c_t^{h \to F} \]
+    \item \textbf{制約条件}（ 目標とする正規化されたバスケットの量 ）:
+    \[ c_t^{h \to W} \equiv \frac{(c_t^{h \to H})^{\alpha^H} (c_t^{h \to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \]
+\end{itemize}
+
+\subsection*{2. ラグランジュ関数と一階の条件（ FOC ）}
+制約式の対数を取ると扱いやすい。ラグランジュ関数 \( \mathcal{L}^{h \to W} \) を設定する（ この段階のラグランジュ乗数を \( \eta_t^h \) とする ）。
+\[ \mathcal{L}^{h \to W} = p_t^H c_t^{h \to H} + e_t p_t^{F*} c_t^{h \to F} - \eta_t^h \left( \alpha^H \ln c_t^{h \to H} + (1-\alpha^H) \ln c_t^{h \to F} - \ln c_t^{h \to W} - \text{const.} \right) \]
+これを \( c_t^{h \to H} \) と \( c_t^{h \to F} \) でそれぞれ偏微分してゼロと置くと、以下の一階の条件（ FOC ）が得られる。
+\begin{align*}
+\frac{\partial \mathcal{L}^{h \to W}}{\partial c_t^{h \to H}} = p_t^H - \eta_t^h \frac{\alpha^H}{c_t^{h \to H}} = 0 \quad &\implies \quad p_t^H c_t^{h \to H} = \alpha^H \eta_t^h \\
+\frac{\partial \mathcal{L}^{h \to W}}{\partial c_t^{h \to F}} = e_t p_t^{F*} - \eta_t^h \frac{1-\alpha^H}{c_t^{h \to F}} = 0 \quad &\implies \quad e_t p_t^{F*} c_t^{h \to F} = (1-\alpha^H) \eta_t^h
+\end{align*}
+
+\subsection*{3. 需要関数の導出（ \( \eta_t^h \) を含む形 ）}
+上記の一階の条件をそれぞれ \( c_t^{h \to H} \) と \( c_t^{h \to F} \) について解くと、ラグランジュ乗数 \( \eta_t^h \) を含む形で各バスケットへの需要関数が得られる。
+\[ c_t^{h \to H} = \frac{\alpha^H \eta_t^h}{p_t^H} \quad , \quad c_t^{h \to F} = \frac{(1-\alpha^H) \eta_t^h}{e_t p_t^{F*}} \]
+
+\subsection*{4. ラグランジュ乗数 \( \eta_t^h \) の導出}
+ステップ 3 で得た需要関数を、制約条件である総消費バスケットの定義式に代入する。
+\begin{align*}
+c_t^{h \to W} &= \frac{1}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \left( \frac{\alpha^H \eta_t^h}{p_t^H} \right)^{\alpha^H} \left( \frac{(1-\alpha^H) \eta_t^h}{e_t p_t^{F*}} \right)^{1-\alpha^H} \\
+&= \frac{(\eta_t^h)^{\alpha^H + (1-\alpha^H)}}{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}} \cdot \frac{(\alpha^H)^{\alpha^H} (1-\alpha^H)^{1-\alpha^H}}{(p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H}} \\
+c_t^{h \to W} &= \eta_t^h \cdot \frac{1}{(p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H}}
+\end{align*}
+この式をラグランジュ乗数 \( \eta_t^h \) について解く。
+\[ \eta_t^h = c_t^{h \to W} (p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H} \]
+
+\subsection*{5. 総合物価指数 \( p_t^{H \to W} \) と最終的な需要関数の導出}
+名目総消費は、最小化すべき総費用 \( p_t^H c_t^{h \to H} + e_t p_t^{F*} c_t^{h \to F} \) として定義される。ステップ 2 の FOC より、これは \( \alpha^H \eta_t^h + (1-\alpha^H) \eta_t^h = \eta_t^h \) に等しい。一方で、名目総消費は \( p_t^{H \to W} c_t^{h \to W} \) とも定義されるため、 \( p_t^{H \to W} c_t^{h \to W} = \eta_t^h \) という関係が成立しなければならない。
+
+この関係式にステップ 4 で導出した \( \eta_t^h \) の式を代入する。
+\[ p_t^{H \to W} c_t^{h \to W} = c_t^{h \to W} (p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H} \]
+両辺の \( c_t^{h \to W} \) を消去することで、定理の項目 2 で示された\textbf{総合物価指数 \( p_t^{H \to W} \)} が導かれる。
+\[ p_t^{H \to W} = (p_t^H)^{\alpha^H} (e_t p_t^{F*})^{1-\alpha^H} \]
+最後に、この \( \eta_t^h = p_t^{H \to W} c_t^{h \to W} \) という関係をステップ 3 で得た需要関数に代入することで、定理の項目 1 で示された最終的な財バスケットへの需要関数が完成する。
+\[ c_t^{h \to H} = \frac{\alpha^H (p_t^{H \to W} c_t^{h \to W})}{p_t^H} = \alpha^H \frac{p_t^{H \to W}}{p_t^H} c_t^{h \to W} \]
+\[ c_t^{h \to F} = \frac{(1-\alpha^H) (p_t^{H \to W} c_t^{h \to W})}{e_t p_t^{F*}} = (1-\alpha^H) \frac{p_t^{H \to W}}{e_t p_t^{F*}} c_t^{h \to W} \]
+（ 証明終 ）

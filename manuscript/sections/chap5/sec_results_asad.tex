@@ -1,0 +1,129 @@
+% !TeX root = ../../main.tex
+% sections/chap5/sec_results_asad.tex
+
+\section{分析の理論的枠組み：AS-ADモデルの導出}
+\label{sec:results_asad}
+
+本節ではシミュレーション結果を解釈するための理論的枠組みとして、
+第 \ref{chap:model} 章の動学方程式系から\textbf{総供給（ AS ）曲線}および\textbf{総実需（ AD ）曲線}を導出する。
+AS曲線は代表的家計の供給側の全条件を、AD曲線は需要側の全条件をそれぞれ集約したものである。
+これにより各金融政策がいかなる効果を経済に及ぼすのかを（ \( y, p \) ）平面上の
+均衡点の移動として視覚的に理解することが可能となる。
+
+\subsection{総供給（AS）曲線}
+\label{sec:results_asad_as}
+
+供給側は代表的家計の価格の最適化を記述する以下の4本の非線形方程式系によって構成される。
+\begin{itemize}
+    \item 代表的家計の最適価格決定式 \eqref{eq:final_optimal_price_H}
+    \item 代表的家計の補助変数 \( v_t \) の再帰動学式 \eqref{eq:final_v_recursive_H}
+    \item 代表的家計の補助変数 \( w_t \) の再帰動学式 \eqref{eq:final_w_recursive_H}
+    \item 代表的家計の物価指数動学方程式 \eqref{eq:final_price_index_dynamics_H}
+\end{itemize}
+これらの方程式系を定常状態の周りで対数線形近似し補助変数を消去して整理することにより、
+以下の線形化されたフィリップス曲線が得られる（付録 \ref{chap:appendix_optimal_price_derivation}）。
+\begin{equation}
+\hat{\pi}_t^H = \beta_{ss}^H E_t [\hat{\pi}_{t+1}^H] + \kappa^H (\hat{y}_t^H - 2\hat{a}_t^H - \hat{p}_t^H - \hat{\lambda}_t^H - \hat{\tau}_t^H)
+\label{eq:results_asad_phillips}
+\end{equation}
+ここで \( \kappa^H \) は価格の粘着性に依存する正の定数である。
+パラメータ設定の表 \ref{tab:preparation_parameters} でも述べたとおり、
+本稿では日本経済の実証データにもとづき、自国の価格は極めて硬直的に設定している（ \( \xi^H = 0.99 \) ）。
+この条件下では \( \kappa^H \) が極めて小さいため、本稿の分析では単純化して \( \kappa^H = 0 \) と置く。
+このときインフレ率は期待インフレ率にのみ依存する形式となる。
+
+さらにインフレ率の定義より \( \hat{\pi}_t^H = \hat{p}_t^H - \hat{p}_{t-1}^H \)、
+期待インフレ率の定義より \( E_t [\hat{\pi}_{t+1}^H] = E_t [\hat{p}_{t+1}^H] - \hat{p}_t^H \) を代入して
+ \( \hat{p}_t^H \) について整理すると以下の\textbf{AS曲線}が得られる。
+\begin{equation}
+\hat{p}_t^H = \frac{1}{1 + \beta_{ss}^H} \hat{p}_{t-1}^H + \frac{\beta_{ss}^H}{1 + \beta_{ss}^H} E_t [\hat{p}_{t+1}^H]
+\label{eq:results_asad_as_curve}
+\end{equation}
+式 \eqref{eq:results_asad_as_curve} には生産 \( \hat{y}_t^H \) が含まれていない。
+したがって（ \( y, p \) ）平面においてAS曲線は\textbf{水平な直線}として描かれる。
+この水平線の高さは前期の生産者物価指数 \( p_{t-1}^H \) と期待生産者物価指数 \( E_t [p_{t+1}^H] \) のみによって決定される。
+
+\subsection{総需要（AD）曲線}
+\label{sec:results_asad_ad}
+需要側は代表的家計の価格以外の最適化を記述するすべての方程式によって構成される。
+注意点としては、個別財への需要関数 \eqref{eq:final_demand_HH} および \eqref{eq:final_demand_HF} を導出した家計の費用最小化問題において、
+すでに名目予算制約式 \eqref{eq:nominal_budget_home_original} が用いられていた。
+したがってそれらを集計した代表的家計の資源制約式 \eqref{eq:final_resource_constraint_H} は、
+代表的家計の需要関数 \eqref{eq:final_demand_HH} および \eqref{eq:final_demand_HF} に内包されている。
+よって代表的家計の資源制約式 \eqref{eq:final_resource_constraint_H} は以下の構成要素一覧に含めない。
+
+\begin{itemize}
+    \item 代表的家計の財市場均衡条件 \eqref{eq:final_goods_market_eq_H}
+    \item 代表的家計の所得の限界効用の式 \eqref{eq:final_lambda_H}
+    \item 代表的家計のオイラー方程式 \eqref{eq:final_euler_H}
+    \item 代表的家計の UIP 条件 \eqref{eq:final_uip_H}
+    \item 代表的家計の需要関数 \eqref{eq:final_demand_HH} および \eqref{eq:final_demand_HF}
+    \item 代表的家計の消費者物価指数 （ CPI ） の定義 \eqref{eq:final_cpi_H}
+    \item 一物一価の法則 \eqref{eq:lop}
+\end{itemize}
+
+まず需要関数 \eqref{eq:final_demand_HH} および \eqref{eq:final_demand_HF} 、一物一価の法則 \eqref{eq:lop} 、UIP条件 \eqref{eq:final_uip_H} から導かれた為替レート決定式 \eqref{eq:appendix_exchange_rate_final} を、
+財市場均衡条件 \eqref{eq:final_goods_market_eq_H} に代入する。
+これにより名目GDPと名目総消費を結びつける以下の関係式が得られる（付録 \ref{chap:appendix_exchange_rate}）。
+\begin{equation*}
+p_t^H y_t^H = \left[ \alpha^H + (1-\alpha^F) E_t [\mathcal{B}_t \Lambda_{\infty}] \right] p_t^{H \to W} c_t^{H \to W} \label{eq:results_asad_gdp_identity}
+\tag{\ref{eq:appendix_exchange_rate_gdp_substituted}}
+\end{equation*}
+この関係式は需要側の方程式系のうち、所得の限界効用の式 \eqref{eq:final_lambda_H} とオイラー方程式 \eqref{eq:final_euler_H} を除くすべての方程式を集約したものである。
+
+次に \eqref{eq:appendix_exchange_rate_gdp_substituted} の名目総消費 \( p_t^{H \to W} c_t^{H \to W} \) に対し、所得の限界効用の式 \( \lambda_t^H = 1/(p_t^{H \to W} c_t^{H \to W}) \) \eqref{eq:final_lambda_H} を名目総消費について解き代入する。
+さらにそうして出てきた所得の限界効用 \( \lambda_t^H \) に、
+オイラー方程式 \( \lambda_t^H = \beta_t^H (1+i_t^H) E_t [ \lambda_{t+1}^H ] \) \eqref{eq:final_euler_H} を代入する。
+最後に \( y_t^H \) を右辺に移項することで以下の\textbf{AD曲線}が導出される。
+\begin{equation}
+p_t^H = \frac{1}{y_t^H} \times \frac{\alpha^H + (1-\alpha^F) E_t [\mathcal{B}_t \Lambda_{\infty}]}{\beta_t^H (1+i_t^H) E_t [\lambda_{t+1}^H]}
+\label{eq:results_asad_ad_curve}
+\end{equation}
+生産者物価指数 \( p_t^H \) が生産 \( y_t^H \) に反比例していることから、
+AD曲線は右下がりの\textbf{直角双曲線}となっていることがわかる。
+
+ここでAD曲線の分子に含まれる \( E_t [\mathcal{B}_t \Lambda_{\infty}] \) は自国金融政策の影響を受けない。
+なぜなら \( \mathcal{B}_t \equiv \prod_{j=0}^{\infty} (\beta_{t+j}^H / \beta_{t+j}^F) \) は
+両国の主観的割引因子の系列のみから構成され、
+また \( \Lambda_{\infty} \equiv \lambda_{\infty}^{H/*} / \lambda_{\infty}^{F/*} \) を構成する
+外国通貨建て所得の限界効用 \( \lambda^{/*} \) は遮断効果により自国金融政策の影響を受けないためである。
+したがって金融政策の分析においてはこれらの項の動きは考慮しなくてよい。
+
+\subsection{政策による均衡の制御と期待の役割}
+\label{sec:results_asad_policy_control}
+
+本モデルの均衡は水平なAS曲線 \eqref{eq:results_asad_as_curve} と、
+右下がりのAD曲線 \eqref{eq:results_asad_ad_curve} の交点として描かれる。
+先に述べたように \( \mathcal{B}_t \) と \( \Lambda_{\infty} \) は金融政策の影響を受けないため、
+金融政策の分析上考慮すべき変数は
+ \( p_t^H, y_t^H, i_t^H, E_t[\lambda_{t+1}^H], E_t[p_{t+1}^H] \)
+の5つである。
+以下では \( i_t^H, E_t[\lambda_{t+1}^H], E_t[p_{t+1}^H] \) を仮想的に単独で変化させ
+（ \( y, p \) ）平面上の均衡点の動きを観察する。
+
+
+\paragraph{1. 名目利子率 \( i_t^H \) の低下}
+名目利子率 \( i_t^H \) が低下するとAD曲線の分母が小さくなり右辺が大きくなるため、
+\textbf{AD曲線は右上へ移動}する。
+これにより生産 \( y_t^H \) は増加する。
+
+
+\paragraph{2. 所得の期待限界効用 \( E_t[\lambda_{t+1}^H] \) の低下}
+所得の期待限界効用 \( E_t[\lambda_{t+1}^H] \) が低下すると
+AD曲線の分母が小さくなり右辺が大きくなるため、\textbf{AD曲線は右上へ移動}する。
+これにより生産 \( y_t^H \) は増加する。
+これは名目利子率を下げる余地がないゼロ金利制約下にあっても、
+中央銀行の約束が家計の期待に働きかけることにより
+生産 \( y_t^H \) を回復させることが可能であることを示している。
+
+
+\paragraph{3. 期待生産者物価指数 \( E_t[p_{t+1}^H] \) の上昇}
+期待生産者物価指数 \( E_t[p_{t+1}^H] \) が上昇した場合、
+AS曲線の右辺第2項が増大するため、\textbf{AS曲線は上へ移動}する。
+これにより生産者物価指数 \( p_t^H \) は上昇し、生産 \( y_t^H \) は下落する。
+しかし、このとき期待限界効用 \( E_t[\lambda_{t+1}^H] \) は
+所得の限界効用の式 \eqref{eq:final_lambda_H} を通じて減少するため、
+先に述べたように\textbf{AD曲線は右上へ移動}し、これは生産 \( y_t^H \) を増加させる方向に働く。
+
+名目総消費水準目標はこれら3つの指標に総合的に働きかけることにより、
+ゼロ金利制約に直面した経済を効率的に回復させる。

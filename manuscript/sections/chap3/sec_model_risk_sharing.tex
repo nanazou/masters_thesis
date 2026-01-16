@@ -1,0 +1,67 @@
+% sections/chap3/sec_model_risk_sharing.tex
+
+\section{国内完備市場とリスク共有}
+\label{sec:model_risk_sharing}
+
+前節では家計 \( h \) の最適化問題を定式化した。
+本節ではモデルの仮定である国内完備市場が家計間のリスク共有にどのような含意をもたらすかを説明する。
+これによりなぜ所得の限界効用と消費が家計間で共通化されるのかを明らかにする。
+
+\subsection{所得の限界効用 \(\lambda_t^h\) の共通化}
+本モデルでは自国と外国のそれぞれにおいて国内の債券市場は完備であると仮定しており
+家計はあらゆる不確実性に対応した国内コンティンジェント債券 \( d_{t+1}^{h \to H} \) を取引できる。
+
+任意の2つの家計 \( h \) と \( h' \) を考える。
+両者ともすべての時点・すべての状態で最適化行動をとるため、
+国内コンティンジェント債券の購入に関する一階の条件（FOC）は常に成立する。
+\begin{equation}
+\lambda_t^h q_{t, t+1} = \beta_t^H \pi \lambda_{t+1}^h \quad , \quad \lambda_t^{h'} q_{t, t+1} = \beta_t^H \pi \lambda_{t+1}^{h'}
+\label{eq:foc_contingent_bonds_individual}
+\end{equation}
+ここで \( q_{t, t+1} \) は状態コンティンジェント債の価格であり \( \pi \) は状態の発生確率である。
+これらの比をとることで、家計間の限界効用の比率が時間や状態に依存しない定数 \( k \) となることがわかる。
+\begin{equation}
+\frac{\lambda_t^h}{\lambda_t^{h'}} = \frac{\lambda_{t+1}^h}{\lambda_{t+1}^{h'}} = k
+\label{eq:marginal_utility_ratio_constant}
+\end{equation}
+
+この定数 \( k \) の値を特定するためショックの発生時点 \( s \) に注目する。
+すべての家計が同一の効用関数をもち、かつ第\ref{sec:model_steady_state}節で仮定したとおり
+ $d_s^h = b_s^h = 0$ であることから、
+ショックの発生時点 \( s \) において各家計が直面する最適化問題は数学的に完全に同一となる。
+したがってその解として得られる所得の限界効用もすべての家計で一致しなければならない
+（\( \lambda_s^h = \lambda_s^{h'} \)）。
+
+この条件を式 \eqref{eq:marginal_utility_ratio_constant} に適用することで \( k = 1 \) が特定される。
+一度 \( k = 1 \) が確定すれば、国内債券市場が完備であるかぎり、将来にわたっていかなるショックが発生しても
+すべての家計の所得の限界効用は常に一致し続けることが結論付けられる。
+\begin{equation}
+\lambda_t^h = \lambda_t^{h'} \quad (\text{for all } h, h' \in H, \text{ all } t)
+\label{eq:marginal_utility_commonality}
+\end{equation}
+
+\subsection{総消費指数 \(c_t^{h \to W}\) の共通化}
+所得の限界効用がすべての家計で共通であるという上記の結果を前節で導出した消費に関する
+一階の条件 \eqref{eq:foc_consumption_home} に適用する。
+\begin{equation}
+\lambda_t^h = \frac{1}{p_t^{H \to W} c_t^{h \to W}} \tag{\ref{eq:foc_consumption_home}}
+\end{equation}
+この式において左辺の \(\lambda_t^h\) は今や全家計で共通の値をとる。
+また右辺の消費者物価指数 (CPI) \( p_t^{H \to W} \) もマクロ変数であるためすべての家計にとって共通である。
+
+したがってこの等式がすべての家計 \( h \) について成立するためには、総消費指数 \( c_t^{h \to W} \) もまた
+すべての家計間で完全に一致しなければならない。
+\begin{equation}
+c_t^{h \to W} = c_t^{h' \to W} \quad (\text{for all } h, h' \in H, \text{ all } t)
+\label{eq:consumption_commonality}
+\end{equation}
+この結果、すべての家計の総消費指数は同一の値をとることが示された。
+カルボ型価格設定の価格改定の可否によって各家計の生産所得は同一とならない。
+しかし国内完備市場の仮定により家計はコンティンジェント債券の取引を通じて完全に保険しあうことができ
+その結果として各家計は同一の可処分所得を得ることとなる。
+このことから
+すべての家計の所得の限界効用 \(\lambda_t^h\)と総消費指数 \( c_t^{h \to W} \)  が一致するのである。
+一方で留意点として、この共通の消費を実現するために
+各家計の貯蓄行動（資産ポートフォリオ \( d_{t+1}^h, b_{t+1}^h \) の構成）は
+個別の所得ショックに応じて異質的に変動する。
+つまり消費は共通化されるが貯蓄や資産保有額の経路は家計ごとに異なる。

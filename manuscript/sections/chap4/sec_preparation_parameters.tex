@@ -1,0 +1,198 @@
+% !TeX root = ../../main.tex
+% sections/chap4/sec_preparation_parameters.tex
+
+\section{パラメータの設定}
+\label{sec:preparation_parameters}
+
+本稿のシミュレーションで用いるパラメータの値は
+日本（ \( H \) ）と米国（ \( F \) ）の近年の実証データと整合的になるように設定する。
+パラメータは家計の選好、生産性、価格の硬直性、人口、および財政政策、金融政策に関するものに大別される。
+表 \ref{tab:preparation_parameters} はパラメータ設定の一覧とその設定根拠である。
+
+% 3列目の幅を自動計算し、右端切れを防止しつつ他のページと余白を統一
+\begin{longtable}{@{}p{2.3cm}p{1.8cm}p{\dimexpr\textwidth-4.1cm-4\tabcolsep\relax}@{}}
+  \caption{パラメータの設定} \label{tab:preparation_parameters} \\
+  \toprule
+  \textbf{パラメータ} & \textbf{設定値} & \textbf{内容・根拠} \\
+  \midrule
+\endfirsthead
+
+  \caption[]{(続き) パラメータの設定} \\
+  \toprule
+  \textbf{パラメータ} & \textbf{設定値} & \textbf{内容・根拠} \\
+  \midrule
+\endhead
+
+  \bottomrule
+\endlastfoot
+
+    \multicolumn{3}{l}{\textit{家計の選好}} \\
+    \begin{tabular}[t]{@{}l@{}} \( \beta_{ss}^H \) \\ \( \beta_{ss}^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.995 \\ 0.995 \end{tabular} 
+    & 
+    定常状態の主観的割引因子。
+    年率実質利子率（ \( r^* \) ）が 2\% であることを意味し、
+    両国経済が近年の構造的低下に陥る以前の平時の値として設定する。
+    \textbf{日本（ \( H \) ）：}
+    \textcite{OkazakiSudo2018}は
+    日本の \( r^* \) が1980年代の約 4\% から近年は 0.3\% まで著しく低下したことを示しており、
+    その平時の値として 2\% を仮定することは妥当であると考えられる。
+    \textbf{米国（ \( F \) ）：}
+    \textcite{HolstonLaubachWilliams2017}らによる世界金融危機以前の \( r^* \) 推計値 2\% を採用する。
+    \\
+    \noalign{\smallskip}
+    \begin{tabular}[t]{@{}l@{}} \( \rho_{\beta}^H \) \\ \( \rho_{\beta}^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.977 \\ 0.9 \end{tabular} 
+    & 
+    \( \beta \)ショックの持続性。
+    \textbf{日本（ \( H \) ）：}
+    価格の硬直性 \( \xi^H = 0.99 \) との組み合わせでDynareが解を見つけられる上限値。
+    \textbf{米国（ \( F \) ）：}
+    \textcite{BenignoNistico2013} などで用いられる標準的な需要ショックの持続性の値。
+    \\
+    \noalign{\smallskip}
+    \begin{tabular}[t]{@{}l@{}} \( \phi^H \) \\ \( \phi^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 8/11 \\ 8/11 \end{tabular} 
+    & 
+    労働非効用の重み。
+    \textcite{GarinLesterSims2016} にならい定常状態の労働が「1日8時間労働」に相当するように設定する。
+    \\
+    \noalign{\smallskip}
+    \begin{tabular}[t]{@{}l@{}} \( \alpha^H \) \\ \( \alpha^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.85 \\ 0.85 \end{tabular} 
+    & 
+    消費における自国財への選好度（ホームバイアス）。
+    \( 1 - \alpha = 0.15 \) は輸入シェア 15\% を意味し、
+    World Bankのデータにおける日米両国の
+    「Imports of goods and services (\% of GDP)」の平均的な値と整合的である。
+    \\
+    \noalign{\smallskip}
+    \begin{tabular}[t]{@{}l@{}} \( \theta^H \) \\ \( \theta^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 11.0 \\ 11.0 \end{tabular} 
+    & 
+    国内財の間の代替の弾力性。
+    独占的競争下において企業が設定する価格と限界費用の比であるマークアップが1.1となることを含意する。 
+    \textbf{日本（ \( H \) ）：}
+    この値は日本のミクロデータを用いた\textcite{AokiHogenItoKanaiTakatomi2024}の実証推定値と一致する。
+    \textbf{米国（ \( F \) ）：}米国のマークアップは上昇傾向にあるとの研究もあるが
+    その推定手法には深刻な欠陥があることも指摘されている（\textcite{Basu2019}, \textcite{Raval2023}）。
+    そこで米国においても伝統的とされてきた1.1を採用する。
+    \\
+    \midrule
+
+    \multicolumn{3}{l}{\textit{生産性}} \\
+    \begin{tabular}[t]{@{}l@{}} \( a_{ss}^H \) \\ \( a_{ss}^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 1.0 \\ 1.0 \end{tabular} 
+    & 
+    定常状態の生産性。
+    \textcite{GarinLesterSims2016}などにおける正規化手法にもとづき1.0に設定する。
+    \\
+    \noalign{\smallskip}
+    \begin{tabular}[t]{@{}l@{}} \( \rho_{a}^H \) \\ \( \rho_{a}^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.95 \\ 0.95 \end{tabular} 
+    & 
+    生産性ショックの持続性。
+    \textcite{SmetsWouters2007}による米国経済の推計値にもとづき設定する。
+    \\
+    \midrule
+
+    \multicolumn{3}{l}{\textit{価格の硬直性}} \\
+    \begin{tabular}[t]{@{}l@{}} \( \xi^H \) \\ \( \xi^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.99 \\ 0.75 \end{tabular} 
+    & 
+    カルボ価格粘着パラメータ（価格を改定できない企業の割合）。
+    \textbf{日本（ \( H \) ）：}
+    フィリップス曲線の傾きがほぼゼロ（ \( \kappa^H \approx 0 \) ）であることを意味し、
+    \textcite{KishabaOkuda2023}が日本の地域データを用いて発見した
+    「2000年代以降、構造的傾きがゼロに崩壊した」という実証結果と整合的である。
+    \textbf{米国（ \( F \) ）：}
+    傾きが平坦だがゼロではない（ \( \kappa_F \approx 0.0070 \) ）であることを意味し、
+    \textcite{HazellHerrenoNakamuraSteinsson2022}が米国の地域データから推定した
+    安定的かつ有意にプラスの傾き（ \( \kappa_F \approx 0.0062 \) ）と整合的である。
+    \\
+    \midrule
+
+    \multicolumn{3}{l}{\textit{人口}} \\
+    \begin{tabular}[t]{@{}l@{}} \( N \) \\ \( M \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 1.0 \\ 1.0 \end{tabular} 
+    & 
+    日本（ \( H \) ）および米国（ \( F \) ）の人口。 
+    \textcite{ClaridaGaliGertler2002, GaliMonacelli2005}など日米を含む2国モデルの標準的な慣行にしたがい、
+    簡略化のため1.0に設定する。
+    \\
+    \midrule
+
+    \multicolumn{3}{l}{\textit{財政政策}} \\
+    \begin{tabular}[t]{@{}l@{}} \( \tau_{ss}^H \) \\ \( \tau_{ss}^F \) \end{tabular} 
+    & 
+    \begin{tabular}[t]{@{}c@{}} 0.2 \\ 0.2 \end{tabular} 
+    & 
+    定常状態の所得税率。
+    World Bank のデータによれば日米の税収のGDP比は 10\% 程度だが、
+    これは社会保障負担を含まないため家計や企業が直面する実際の税負担を網羅していない。
+    本稿のモデルではこの \( \tau \) は社会保障も含む広義の所得税率を意味するため
+    \textcite{GarinLesterSims2016}などにならい 20\% に設定する。
+    \\
+    \midrule
+
+\multicolumn{3}{l}{\textit{米国（ \( F \) ）の金融政策}} \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{消費者物価インフレ目標（IT-CPI）} \hrulefill} \\
+    \( \phi_{\pi}^F \) & 1.5 & インフレへの反応係数。\textcite{Taylor1993}が提唱した標準的な値。 \\
+    \( \phi_{y}^F \) & 0.5 & 生産ギャップへの反応係数。\textcite{Taylor1993}が提唱した標準的な値。 \\
+    \( \rho_{i}^F \) & 0.8 & 利子率平滑化係数。\textcite{SmetsWouters2007}の推定値と整合的な値。 \\
+    \midrule
+
+    \multicolumn{3}{l}{\textit{日本（ \( H \) ）の金融政策}} \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{総消費水準目標（CLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 0.17 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 5.06 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{消費者物価水準目標（CPLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 51000 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 100000 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{消費者物価インフレ目標（IT-CPI）} \hrulefill} \\
+    \( \phi_{\pi}^H \) & 300 & インフレへの反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{生産者物価インフレ目標（IT-PPI）} \hrulefill} \\
+    \( \phi_{\pi}^H \) & 300 & インフレへの反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{名目総消費水準目標（NCLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 129.9 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 140 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{名目GDP水準目標（NGDPLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 6.5 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 13.8 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{生産水準目標（OLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 85 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 106 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{潜在生産水準目標（POLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 0.2 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 0.06 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+      \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{生産者物価水準目標（PPLT）} \hrulefill} \\
+    \( \phi_{gap}^H \) & 100 & 目標乖離への反応係数 \\
+    \( \phi_{level}^H \) & 500 & 過去の乖離累積への反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{消費者物価テイラー・ルール（TR CPI）} \hrulefill} \\
+    \( \phi_{\pi}^H \) & 83 & インフレへの反応係数 \\
+    \( \phi_{y}^H \) & 0.5 & 生産ギャップへの反応係数 \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{生産者物価テイラー・ルール（TR PPI）} \hrulefill} \\
+    \( \phi_{\pi}^H \) & 0 & インフレへの反応係数 \\
+    \( \phi_{y}^H \) & 2.94 & 生産ギャップへの反応係数 \\
+\end{longtable}
