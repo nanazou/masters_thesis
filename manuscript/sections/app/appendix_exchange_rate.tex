@@ -1,14 +1,27 @@
 % !TeX root = ../../main.tex
 % sections/app/appendix_exchange_rate.tex
 
-\chapter{割引因子ショックを含む為替レート決定式の導出}
-\label{chap:appendix_exchange_rate}
+% !TeX root = ../../main.tex
+% sections/app/appendix_exchange_rate_and_gdp.tex
 
-本稿の第 5 章における考察では、自国と外国で家計の時間選好（ 割引因子 \( \beta \) ）が異なる場合、為替レートの決定式に将来の \( \beta \) の格差が累積的に影響することを論じた。本付録では、その数理的な導出過程を、統計学的な恒等式と対数線形近似の性質、および前方展開（ Forward Solving ）の手法に焦点を当て詳述する。
+\chapter{名目為替レートおよび名目GDPの式の導出}
+\label{chap:appendix_exchange_rate_and_gdp}
+
+本付録では名目為替レートおよび名目GDPの式を導出する。
+具体的には、自国と外国の代表的家計の
+国際債券に関するオイラー方程式、自国および外国債券に関するオイラー方程式、
+所得の限界効用の式より為替レートの式を特定し、
+それを財市場の均衡条件と組み合わせることで名目GDPの式を導出する。
+さらにこれらの関係式を用いることにより、
+全期間において自国と外国の主観的割引因子が等しい（ \( \beta_t^H = \beta_t^F \) ）場合には、
+第 \ref{sec:model_steady_state} 節で仮定した初期条件 \( b_s^H = 0 \) のもとで、
+帰納的にすべての \( t \ge s \) において対外純資産が恒等的にゼロ（ \( b_t^H = 0 \) ）となることを証明する。
 
 \section*{1. 期待値の比に関する線形近似の証明}
 
-本稿のような線形近似モデルにおいて、期待値の比 \( E_t[X_t] / E_t[Y_t] \) が「 比の期待値 」 \( E_t[X_t / Y_t] \) で近似できる理由を、一般的な確率変数の性質に基づいて数学的に証明する。
+本稿のような線形近似モデルにおいて、
+期待値の比 \( E_t[X_t] / E_t[Y_t] \) が比の期待値 \( E_t[X_t / Y_t] \) で近似できる理由を
+一般的な確率変数の性質にもとづいて数学的に証明する。
 
 \subsection*{一般論としての変数の定義}
 ある任意の確率変数 \( X_t \) について、その期待値（ 平均 ）を \( \bar{X} \equiv E[X_t] \) とし、期待値からの対数乖離（ 変化率 ）を \( \hat{x}_t \) と定義する。
@@ -19,7 +32,7 @@
 
 \subsection*{ステップ 1：積の期待値の近似（ 共分散項の評価 ）}
 
-一般に、 2 つの確率変数 \( X, Y \) の積の期待値は、「 期待値の積 」と「 共分散（ Covariance ） 」の和に分解できる。
+一般に、2つの確率変数 \( X, Y \) の積の期待値は「 期待値の積 」と「 共分散」の和に分解できる。
 \begin{equation*}
     E_t[XY] = E_t[X]E_t[Y] + \text{Cov}_t(X, Y)
 \end{equation*}
@@ -29,23 +42,23 @@
     &= E_t \left[ \left( \bar{X}(1+\hat{x}) - \bar{X} \right) \left( \bar{Y}(1+\hat{y}) - \bar{Y} \right) \right] \\
     &= \bar{X}\bar{Y} E_t \left[ \hat{x}\hat{y} \right]
 \end{align*}
-ここで、右辺の期待値の中身は、微小変動同士の積（ \( \hat{x} \times \hat{y} \) のオーダー ）となっている。 1 次近似の枠組みでは、 1 次の微小量同士の積は 2 次の微小量となるため、無視することができる（ \( \approx 0 \) ）。したがって、以下の近似が成立する。
+ここで、右辺の期待値の中身は微小変動同士の積（ \( \hat{x} \times \hat{y} \) のオーダー ）となっている。 1 次近似の枠組みでは、 1 次の微小量同士の積は 2 次の微小量となるため、無視することができる（ \( \approx 0 \) ）。したがって、以下の近似が成立する。
 \begin{equation}
     \text{Cov}_t(X, Y) \approx 0 \quad \Longrightarrow \quad E_t[XY] \approx E_t[X]E_t[Y]
     \label{eq:appendix_exchange_rate_approx_product}
 \end{equation}
 
-\subsection*{ステップ 2：逆数の期待値の近似（ 分散項の評価 ）}
+\subsection*{ステップ 2：逆数の期待値の近似（分散項の評価）}
 
 次に、変数 \( Z \) の逆数の期待値 \( E_t[1/Z] \) を考える。一般に、イェンゼンの不等式により \( E[1/Z] \neq 1/E[Z] \) であるが、その乖離幅は分散に依存する。
-関数 \( f(Z) = 1/Z \) を、期待値 \( \bar{Z} = E_t[Z] \) の周りで 2 次までテイラー展開し、期待値をとる。
+関数 \( f(Z) = 1/Z \) を期待値 \( \bar{Z} = E_t[Z] \) の周りで2次までテイラー展開し期待値をとる。
 \begin{align*}
     E_t\left[\frac{1}{Z}\right] &\approx E_t \left[ \frac{1}{\bar{Z}} - \frac{1}{\bar{Z}^2}(Z - \bar{Z}) + \frac{1}{\bar{Z}^3}(Z - \bar{Z})^2 \right] \\
     &= \frac{1}{\bar{Z}} - \frac{1}{\bar{Z}^2}\underbrace{E_t[Z - \bar{Z}]}_{0} + \frac{1}{\bar{Z}^3}\underbrace{E_t[(Z - \bar{Z})^2]}_{\text{分散 Var}(Z)} \\
     &= \frac{1}{E_t[Z]} + \frac{1}{(E_t[Z])^3} \text{Var}_t(Z)
 \end{align*}
 ここで分散 \( \text{Var}_t(Z) = \bar{Z}^2 E_t \left[ \hat{z}^2 \right] \) は微小変動の 2 乗を含むため、 1 次近似においてはこれを無視できる。
-したがって、以下の近似式が成立する。
+したがって以下の近似式が成立する。
 \begin{equation}
     E_t\left[\frac{1}{Z}\right] \approx \frac{1}{E_t[Z]}
     \label{eq:appendix_exchange_rate_approx_inverse}
@@ -62,32 +75,26 @@
 \end{align*}
 本付録の以降の導出では、この一般的な近似式 \( E_t[X_t]/E_t[Y_t] \approx E_t[X_t/Y_t] \) を利用する。
 
-\section*{2. 修正UIP条件とオイラー方程式の比}
+\section*{2. 自国と外国の代表的家計の国際債券に関する修正オイラー方程式の比}
+\ref{sec:appendix_insulation_effect_modified_uip}節で確認したとおり、
+自国と外国の代表的家計の国際債券に関する修正オイラー方程式は次のようであった
+\begin{equation}
+    \lambda_t^{H/*} = \beta_t^H (1+i_t^F) E_t [\lambda_{t+1}^{H/*}]
+    \tag{\ref{eq:appendix_insulation_effect_modified_final_uip_H}}
+\end{equation}
+\begin{equation}
+    \lambda_t^{F/*} = \beta_t^F (1+i_t^F) E_t [\lambda_{t+1}^{F/*}]
+    \tag{\ref{eq:appendix_insulation_effect_modified_final_uip_F}}
+\end{equation}
 
-名目為替レートの決定プロセスを明らかにするため、まず両国の基礎方程式を整理する。
-
-\begin{itemize}
-    \item \textbf{自国代表的家計の修正UIP条件：}
-    本文第 5 章（ 式 \ref{eq:results_asad_modified_uip_H} ）で確認した通り、自国の UIP 条件 \eqref{eq:uip_condition_home} に対し、自国家計にとっての外貨 1 単位の限界効用の定義式 \( \lambda_t^{H/*} \equiv e_t^{/*} \lambda_t^H \) を適用すると、以下の「 修正UIP条件 」が得られる。
-    \begin{equation}
-        \lambda_t^{H/*} = \beta_t^H (1+i_t^F) E_t [\lambda_{t+1}^{H/*}]
-        \tag{\ref{eq:results_asad_modified_uip_H}}
-    \end{equation}
-
-    \item \textbf{外国代表的家計の修正UIP条件：}
-    同様の手順を、外国代表的家計の UIP 条件 \eqref{eq:model_uip_F} に対しても適用する。外国代表的家計にとっての外貨（ この場合、自国通貨 1 単位 ）の限界効用は \( \lambda_t^{F/*} \) である。外国のオイラー方程式から、以下の関係が得られる。
-    \begin{equation}
-        \lambda_t^{F/*} = \beta_t^F (1+i_t^F) E_t [\lambda_{t+1}^{F/*}]
-        \label{eq:appendix_exchange_rate_modified_uip_F}
-    \end{equation}
-\end{itemize}
-
-ここで、自国代表的家計と外国代表的家計による外貨評価の比率を \( \Lambda_t \) と定義する。
+ここで自国と外国の代表的家計の外国通貨建て所得の限界効用の比率を \( \Lambda_t \) と定義する。
 \begin{equation}
     \Lambda_t \equiv \frac{\lambda_t^{H/*}}{\lambda_t^{F/*}}
     \label{eq:appendix_exchange_rate_lambda_def}
 \end{equation}
-式 \eqref{eq:results_asad_modified_uip_H} と 式 \eqref{eq:appendix_exchange_rate_modified_uip_F} の辺々を割ると、共通項である外国の名目金利 \( (1+i_t^F) \) が相殺され、以下の関係が得られる。
+式\eqref{eq:appendix_insulation_effect_modified_final_uip_H}と
+式\eqref{eq:appendix_insulation_effect_modified_final_uip_F}
+の辺々を割ると、共通項である外国の名目利子率 \( (1+i_t^F) \) が相殺され以下の関係が得られる。
 \begin{equation}
     \Lambda_t = \frac{\beta_t^H}{\beta_t^F} \frac{E_t [\lambda_{t+1}^{H/*}]}{E_t [\lambda_{t+1}^{F/*}]}
     \label{eq:appendix_exchange_rate_lambda_ratio_raw}
@@ -101,7 +108,7 @@
 
 \section*{3. 将来に向けた前方展開と極限}
 
-前節で導出した再帰式 \eqref{eq:appendix_exchange_rate_lambda_recursive} を将来に向かって逐次代入（ Forward Solving ）することで、現在の比率 \( \Lambda_t \) を決定する。
+前節で導出した再帰式 \eqref{eq:appendix_exchange_rate_lambda_recursive} を将来に向かって逐次代入することで、現在の比率 \( \Lambda_t \) を決定する。
 
 \paragraph{① 再帰的代入と一般形の導出}
 式 \eqref{eq:appendix_exchange_rate_lambda_recursive} の右辺にある \( \Lambda_{t+1} \) に対して、 1 期先の関係式 \( \Lambda_{t+1} = \frac{\beta_{t+1}^H}{\beta_{t+1}^F} E_{1+t}[\Lambda_{t+2}] \) を代入する。この操作を \( k \) 回繰り返すと、反復期待値の法則により、以下の一般形が得られる。
@@ -112,26 +119,32 @@
 
 \paragraph{② 極限の適用}
 次に、式 \eqref{eq:appendix_exchange_rate_lambda_iterative} の両辺について \( k \to \infty \) の極限をとる。
-本稿のモデルにおいては、全ての変数が定常状態近傍で安定的に推移（ 有界性 ）することを前提としている。このとき、ルベーグの優収束定理（ Dominated Convergence Theorem ）により、期待値演算子 \( E_t \) と極限操作 \( \lim \) の順序を入れ替えることが正当化される。すなわち、期待値の極限は極限の期待値に等しい。
+本稿のモデルにおいては、全ての変数が定常状態近傍で安定的に推移（有界性）することを前提としている。
+このときルベーグの優収束定理により
+期待値演算子 \( E_t \) と極限操作 \( \lim \) の順序を入れ替えることが正当化される。
+すなわち、期待値の極限は極限の期待値に等しい。
 
 \begin{align*}
     \Lambda_t &= \lim_{k \to \infty} E_t \left[ \left( \prod_{j=0}^{k} \frac{\beta_{t+j}^H}{\beta_{t+j}^F} \right) \Lambda_{t+k+1} \right] \\
     &= E_t \left[ \lim_{k \to \infty} \left( \left( \prod_{j=0}^{k} \frac{\beta_{t+j}^H}{\beta_{t+j}^F} \right) \Lambda_{t+k+1} \right) \right]
 \end{align*}
 
-ここで、経済の安定性条件より、無限遠方において一時的なショックの影響は消失し、変数はショック後の新たな定常状態へ収束すると仮定する。したがって、評価の比率 \( \Lambda_{t+k+1} \) は、定常状態における比率 \( \Lambda_{\infty} \) へと収束する。
+ここで、経済の安定性条件より、無限遠方において一時的なショックの影響は消失し、
+変数はショック後の新たな定常状態へ収束すると仮定する。
+すると \( \Lambda_{t+k+1} \) は定常状態における \( \Lambda_{\infty} \) へと収束する。
 \begin{equation*}
     \lim_{k \to \infty} \Lambda_{t+k+1} = \Lambda_{\infty}
 \end{equation*}
-不完備市場モデルにおいては、この \( \Lambda_{\infty} \) はショックの履歴に依存する確率変数としての性質を持つため、期待値演算子の中に留まる。
+不完備市場モデルにおいてはこの \( \Lambda_{\infty} \) は
+ショックの履歴に依存する確率変数としての性質を持つため、期待値演算子の中に留まる。
 
-ここで、資本移動要因 \( \mathcal{B}_t \) を以下のように定義する。
+ここで資本移動要因 \( \mathcal{B}_t \) を以下のように定義する。
 \begin{equation}
     \mathcal{B}_t \equiv \prod_{j=0}^{\infty} \frac{\beta_{t+j}^H}{\beta_{t+j}^F}
     \label{eq:appendix_exchange_rate_bt_definition}
 \end{equation}
 
-以上より、現在の \( \Lambda_t \) は以下の形式で確定する。
+以上より \( \Lambda_t \) は以下の形式で確定する。
 \begin{equation}
     \Lambda_t = E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right]
     \label{eq:appendix_exchange_rate_lambda_final_solution}
@@ -139,17 +152,30 @@
 
 \section*{4. 結論：為替レートの決定式}
 
-為替レートの定義式 \( e_t^{/*} = \lambda_t^{H/*} / \lambda_t^H \) に、 \( \lambda_t^{H/*} = \Lambda_t \lambda_t^{F/*} \) を代入する。
-さらに、代表的家計の所得の限界効用の定義 \eqref{eq:model_lambda_H} および外国の同様の関係式を用いる。
-\begin{equation*}
-    \lambda_t^H = \frac{1}{p_t^{H \to W} c_t^{H \to W}}, \quad \lambda_t^{F/*} = \frac{1}{p_t^{F \to W*} c_t^{F \to W}}
-\end{equation*}
-これらを代入して整理すると、最終的な為替レート決定式が得られる。
+\( \lambda_t^{H/*} \) の定義式\eqref{eq:appendix_exchange_rate_lambda_def}を \( e_t^{/*} \) について解いた
+\( e_t^{/*} = \lambda_t^{H/*} / \lambda_t^H \) に
+\( \Lambda_t \) の定義式\eqref{eq:appendix_exchange_rate_lambda_def}を変形した 
+ \( \lambda_t^{H/*} = \Lambda_t \lambda_t^{F/*} \) を代入すると以下が得られる。
+\begin{equation}
+    e_t^{/*} = \Lambda_t \times \frac{\lambda_t^{F/*}}{\lambda_t^H}
+    \label{eq:appendix_exchange_mu_ratio}
+\end{equation}
 
+ここで式\eqref{eq:appendix_exchange_mu_ratio}に
+代表的家計のオイラー方程式 \eqref{eq:final_euler_H}、\eqref{eq:final_euler_F} を代入すると、
+以下の名目利子率を含む関係式が得られる。
+\begin{equation}
+    e_t^{/*} = \Lambda_t \times \frac{\beta_t^{F*} (1 + i_t^F) E_t [ \lambda_{t+1}^{F/*} ]}{\beta_t^H (1 + i_t^H) E_t [ \lambda_{t+1}^H ]}
+    \label{eq:appendix_exchange_euler_ratio}
+\end{equation}
+
+一方で式 \eqref{eq:appendix_exchange_mu_ratio} に
+所得の限界効用の式 \eqref{eq:final_lambda_H}、\eqref{eq:final_lambda_F} を代入して整理すると、
+最終的な為替レート決定式が得られる。
 \begin{align}
     e_t^{/*} &= \Lambda_t \times \frac{\lambda_t^{F/*}}{\lambda_t^H} \nonumber \\
-    &= \Lambda_t \times \frac{1 / (p_t^{F \to W*} c_t^{F \to W})}{1 / (p_t^{H \to W} c_t^{H \to W})} \nonumber \\
-    &= E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right] \times \frac{p_t^{H \to W} c_t^{H \to W}}{p_t^{F \to W*} c_t^{F \to W}}
+    &= \Lambda_t \times \frac{1 / ( p_t^{F \to W*} c_t^{F \to W} )}{1 / ( p_t^{H \to W} c_t^{H \to W} )} \nonumber \\
+    &= E_t [ \mathcal{B}_t \Lambda_{\infty} ] \times \frac{p_t^{H \to W} c_t^{H \to W}}{p_t^{F \to W*} c_t^{F \to W}}
     \label{eq:appendix_exchange_rate_final}
 \end{align}
 

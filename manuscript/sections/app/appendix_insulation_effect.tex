@@ -1,5 +1,5 @@
 % !TeX root = ../../main.tex
-% sections/app/appendix_insulation_effect.tex
+% app/appendix_insulation_effect.tex
 
 \chapter{遮断効果を生みだす方程式系の導出}
 \label{chap:appendix_insulation_effect}
@@ -17,10 +17,12 @@
 \end{itemize}
 
 \section{外国のコア方程式系と独立性の証明}
+\label{sec:appendix_insulation_effect_core_equations}
 
 まず、外国の主要な内生変数を決定するコア方程式系を導出する。
 
 \paragraph{1. 外国財市場の均衡式}
+\label{sec:appendix_insulation_effect_foreign_market_clearing}
 
 まず、外国財市場の実質需給均衡式を出発点とする。
 \[
@@ -47,6 +49,7 @@ p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{
 \end{equation}
 
 \paragraph{2. 外国のオイラー方程式}
+\label{sec:appendix_insulation_effect_foreign_euler}
 
 外国家計の異時点間の最適化条件より、
 \begin{equation}
@@ -55,6 +58,7 @@ p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{
 \end{equation}
 
 \paragraph{3. 外国のフィリップス曲線群}
+\label{sec:appendix_insulation_effect_foreign_phillips}
 
 外国企業の価格設定行動を記述する非線形方程式群である。
 
@@ -80,6 +84,7 @@ p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{
 \end{equation}
 
 \paragraph{4. 外国の金融政策式}
+\label{sec:appendix_insulation_effect_foreign_policy}
 
 外国中央銀行の政策ルール
 \begin{equation}
@@ -90,16 +95,17 @@ p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{
     i_t^F = i_{ss}^F + \phi_{\pi}^F \left( \frac{p_t^{F*}}{p_{t-1}^{F*}} - 1 \right) + \varepsilon_{t}^{i,F} \tag{L.8}
 \end{equation}
 
-\paragraph{5. 修正UIP条件}
+\paragraph{5. 国際債券に関する修正オイラー方程式}
+\label{sec:appendix_insulation_effect_modified_uip}
 
 市場均衡式（ L.1 ）に現れた自国の外国通貨所得の限界効用 \( \lambda_t^{H/*} \) がどのように決定されるかを示す。
-自国の UIP 条件：
+自国代表的家計の国際債券に関するオイラー方程式を出発点とする。
 \begin{equation}
     \lambda_t^H e_t = (1+i_t^F) \beta_t^H E_t [ \lambda_{t+1}^H e_{t+1} ]
     \tag{\ref{eq:uip_condition_home}}
 \end{equation}
-を出発点とする。
-この左辺は定義により \( \lambda_t^{H/*} \) であり、右辺の期待値の中身は \( \lambda_{t+1}^{H/*} \) である。したがって、以下の決定式が得られる。
+この左辺は定義により \( \lambda_t^{H/*} \)であり、右辺の期待値の中身は \( \lambda_{t+1}^{H/*} \) である。
+したがって以下の式が得られる。
 \begin{equation}
     \lambda_t^{H/*} = \beta_t^H (1+i_t^F) E_t [\lambda_{t+1}^{H/*}] \tag{L.9}
     \label{eq:appendix_insulation_effect_modified_final_uip_H}
@@ -126,13 +132,14 @@ p_t^{F*} y_t^F &= p_t^{F*} \left( \alpha^F \frac{p_t^{F \to W*}}{p_t^{F*}} c_t^{
 このように9本の方程式系が閉じていることが遮断効果を生んでいる。
 
 \section{その他外国関連変数の決定}
+\label{sec:appendix_insulation_effect_other_vars}
 上記で決定された9つの外国関連変数
 \( \{ \lambda_t^{H/*}, \lambda_t^{F/*}, p_t^{F*}, i_t^F,
  \widetilde{p}_t^{F*}, v_t^F, w_t^F, y_t^F, \Delta_t^F \} \)
 よりさらに残りの外国関連変数が決定される。
 
 \paragraph{6. 自国の外国財消費 \( c_t^{H \to F} \) の決定}
-\label{subsec:appendix_insulation_effect_home_consumption_HF}
+\label{sec:appendix_insulation_effect_home_consumption_HF}
 
 次に自国家計による外国財の消費 \( c_t^{H \to F} \) （ 外国にとっては輸出需要 ）を考える。
 自国家計の消費の最適化条件より、自国通貨建ての名目総消費支出は、自国の所得の限界効用の逆数と等しくなる。
@@ -158,7 +165,7 @@ p_t^{F*} c_t^{H \to F} = \frac{1-\alpha^H}{\lambda_t^{H/*}}
 右辺の \( p_t^{F*} \) はコア方程式系から、 \( \lambda_t^{H/*} \) は自国の外国通貨所得の限界効用の決定式（ 式（ L.9 ） ）から、それぞれ自国政策とは独立に決定済みである。したがって、自国の外国財消費 \( c_t^{H \to F} \) もまた、自国金融政策の影響を受けない。
 
 \paragraph{7. 外国の外国財消費 \( c_t^{F \to F} \) の決定}
-\label{subsec:appendix_insulation_effect_foreign_consumption_FF}
+\label{sec:appendix_insulation_effect_foreign_consumption_FF}
 
 まず、外国家計による外国財の消費 \( c_t^{F \to F} \) を考える。
 外国家計の消費の最適化条件より、外国通貨建ての名目総消費支出は、所得の限界効用の逆数と等しくなる。
@@ -180,7 +187,7 @@ p_t^{F*} c_t^{F \to F} = \frac{\alpha^F}{\lambda_t^{F/*}}
 右辺の \( p_t^{F*} \) および \( \lambda_t^{F/*} \) は、コアとなる方程式系（ 式（ L.1 ）〜（ L.9 ） ）において既に自国政策から独立して決定された変数である。したがって、外国財消費 \( c_t^{F \to F} \) もまた、自国金融政策の影響を受けずに一意に定まる。
 
 \paragraph{8. 外国の労働 \( l_t^F \) の決定}
-\label{subsec:appendix_insulation_effect_foreign_labor}
+\label{sec:appendix_insulation_effect_foreign_labor}
 
 続いて、外国の労働を考える。
 個別生産関数の集計式を \( l_t^F \) について逆算することで、以下の決定式が得られる。
@@ -190,6 +197,8 @@ p_t^{F*} c_t^{F \to F} = \frac{\alpha^F}{\lambda_t^{F/*}}
 ここで、 \( y_t^F \) （ 生産 ）と \( \Delta_t^F \) （ 価格分散 ）はコア方程式系で決定済みの変数であり、 \( a_t^F \) は外生変数である。したがって、労働 \( l_t^F \) も独立して決定される。
 
 \paragraph{9. 外国の正規化物価指数の決定}
+\label{sec:appendix_insulation_effect_foreign_ppi_normalized}
+
 外国の正規化された物価指数（ PPI ） \( \bar{p}_t^{F*} \) は、正規化された物価指数と通常の物価指数の関係式 \( p_t^{F*} = M^{\frac{1}{1-\theta^F}} \bar{p}_t^{F*} \) より決定される。
 \begin{equation}
     \bar{p}_t^{F*} = M^{-\frac{1}{1-\theta^F}} p_t^{F*} \tag{L.13}
@@ -197,13 +206,15 @@ p_t^{F*} c_t^{F \to F} = \frac{\alpha^F}{\lambda_t^{F/*}}
 なお、右辺の \( p_t^{F*} \) はコア方程式系ですでに決定されている。
 
 \paragraph{10. 外国のインフレ率の決定}
+\label{sec:appendix_insulation_effect_foreign_inflation}
+
 外国のグロス・インフレ率 \( \pi_t^{F*} \) は、定義より以下のように決定される。
 \[
 \pi_t^{F*} = \frac{\bar{p}_t^{F*}}{\bar{p}_{t-1}^{F*}}
 \]
 
 \paragraph{11. 外国の一括移転 \( t_t^{F*} \) の決定}
-\label{subsec:appendix_insulation_effect_foreign_transfer}
+\label{sec:appendix_insulation_effect_foreign_transfer}
 
 最後に、外国政府から家計への一括移転 \( t_t^{F*} \) を考える。
 外国政府の予算制約式より、移転額は名目 GDP と税率によって決定される。
@@ -213,6 +224,7 @@ p_t^{F*} c_t^{F \to F} = \frac{\alpha^F}{\lambda_t^{F/*}}
 \( p_t^{F*} \) と \( y_t^F \) は決定済みであり、税率 \( \tau_t^F \) は外生的な確率過程に従う。したがって、一括移転 \( t_t^{F*} \) も自国政策から独立している。
 
 \paragraph{12. 自国対外純資産 \( b_t^H \) の決定と独立性}
+\label{sec:appendix_insulation_effect_home_net_assets}
 
 最後に、自国対外純資産 \( b_t^H \) の決定について考察する。
 自国の資源制約式は以下の通りである。
