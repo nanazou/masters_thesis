@@ -4,50 +4,61 @@
 \chapter{最適計画の時間整合性}
 \label{chap:appendix_time_consistency}
 
-本稿で導出された家計の最適計画が時間整合的であること、
+本付録では、本稿で導出された家計の最適計画が時間整合的であること、
 すなわち将来新たな予想外のショックが発生しない限り、
 家計は将来のどの時点においても当初の計画を変更するインセンティブを持たずそのまま実行し続けることを、
 消費と価格のそれぞれについて証明する。
 それ以外の変数についても同様に時間整合性が成立する。
 
 \section{消費と資産保有に関する時間整合性}
-時点\(s\)において家計が直面するラグランジアン\eqref{eq:home_lagrangian_modified}を、割引因子の累積積\(D_{s,t}\equiv \prod_{k=0}^{t-s-1}\beta_{s+k}^H\)（ ただし\(D_{s,s}= 1\)）を用いて記述すると以下のようになる。
+\label{sec:appendix_time_consistency_sub1}
+時点\(s\)において家計が直面するラグランジアン\eqref{eq:home_lagrangian_modified}を、割引因子の累積積\(D_{s,t}\equiv\prod_{k=0}^{t-s-1}\beta_{s+k}^H\)（ただし\(D_{s,s}=1\)）を用いて記述すると以下のようになる。
 \begin{equation}
 \begin{aligned}
-\mathcal{L}_s^h = & \operatorname{E}_s \Biggl[ \sum_{t=s}^{\infty}D_{s,t}\Biggl\{ \left( \log c_t^{h \to W}- \frac{\phi^H}{2}(l_t^h)^2 \right) \\
-& \quad + \lambda_t^h \biggl( \Bigl( d_{t}^{h \to H}+ (1+i_{t-1}^{F}) \frac{e_t^{/}}{e_{t-1}^{/}}b_{t}^{h \to F}+ (1 - \tau_t^H) p_t^{h}y_t^{h}+ t_t^H \Bigr) \\
-& \quad - \Bigl( \sum_{j' \in J}q_{t, t+1}(j') d_{t+1}^{h \to H}(j') + b_{t+1}^{h \to F}+ p_t^{H \to W}c_t^{h \to W}\Bigr) \biggr) \Biggr\}\Biggr]
+\mathcal{L}_s^h=&\operatorname{E}_s\Biggl[\sum_{t=s}^{\infty}D_{s,t}\Biggl\{\left(\log c_t^{h\to W}-\frac{\phi^H}{2}(l_t^h)^2\right) \\
+&\quad+\lambda_t^h\biggl(\Bigl(d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/}}{e_{t-1}^{/}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H\Bigr) \\
+&\quad-\Bigl(\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\Bigr)\biggr)\Biggr\}\Biggr]
 \end{aligned}
+\label{eq:appendix_time_consistency_sub1_lagrangian_s}
 \end{equation}
-将来の任意の時点\(t \ (>s)\)における総消費指数\(c_t^{h \to W}\)に関する一階の条件は、
+将来の任意の時点\(t(>s)\)における総消費指数\(c_t^{h\to W}\)に関する一階の条件は、
 \begin{equation}
-\frac{\partial \mathcal{L}_s^h}{\partial c_t^{h \to W}}= \operatorname{E}_s \left[ D_{s,t}\left( \frac{1}{c_t^{h \to W}}- \lambda_t^h p_t^{H \to W}\right) \right] = 0
+\frac{\partial\mathcal{L}_s^h}{\partial c_t^{h\to W}}=\operatorname{E}_s\left[D_{s,t}\left(\frac{1}{c_t^{h\to W}}-\lambda_t^hp_t^{H\to W}\right)\right]=0
+\label{eq:appendix_time_consistency_sub1_foc_s}
 \end{equation}
-となる。各状態において内部の括弧内がゼロ、すなわち\(\lambda_t^h = 1 / ( p_t^{H \to W}c_t^{h \to W})\)が成立することが時点\(s\)で立てた将来の計画である。
+となる。各状態において内部の括弧内がゼロ、すなわち\(\lambda_t^h=1/(p_t^{H\to W}c_t^{h\to W})\)が成立することが時点\(s\)で立てた将来の計画である。
+
+
 
 一方で、実際に時間が経過して時点\(t\)に到達した家計が、その時点の情報の下で改めて生涯効用最大化を行う際のラグランジアン\(\mathcal{L}_t^h\)は、その時点を起点とするため割引因子の累積積の基準が\(D_{t,t}=1\)に書き換わる。
 \begin{equation}
 \begin{aligned}
-\mathcal{L}_t^h = & \operatorname{E}_t \Biggl[ \sum_{k=t}^{\infty}D_{t,k}\Biggl\{ \left( \log c_k^{h \to W}- \frac{\phi^H}{2}(l_k^h)^2 \right) \\
-& \quad + \lambda_k^h \biggl( \text{時点 }k \text{ の予算制約}\biggr) \Biggr\}\Biggr]
+\mathcal{L}_t^h=&\operatorname{E}_t\Biggl[\sum_{k=t}^{\infty}D_{t,k}\Biggl\{\left(\log c_k^{h\to W}-\frac{\phi^H}{2}(l_k^h)^2\right) \\
+&\quad+\lambda_k^h\biggl(\text{時点}k\text{の予算制約}\biggr)\Biggr\}\Biggr]
 \end{aligned}
+\label{eq:appendix_time_consistency_sub1_lagrangian_t}
 \end{equation}
-このとき、現時点である時点\(t\)の消費\(c_t^{h \to W}\)に関する一階の条件は、
+このとき、現時点である時点\(t\)の消費\(c_t^{h\to W}\)に関する一階の条件は、
 \begin{equation}
-\frac{\partial \mathcal{L}_t^h}{\partial c_t^{h \to W}}= \frac{1}{c_t^{h \to W}}- \lambda_t^h p_t^{H \to W}= 0
+\frac{\partial\mathcal{L}_t^h}{\partial c_t^{h\to W}}=\frac{1}{c_t^{h\to W}}-\lambda_t^hp_t^{H\to W}=0
+\label{eq:appendix_time_consistency_sub1_foc_t}
 \end{equation}
 となり、時点\(s\)で計画した関係式と全く同一の形式が導出される。
 
 \section{価格設定に関する時間整合性}
+\label{sec:appendix_time_consistency_sub2}
 価格設定についても同様の論理が成立する。時点\(t\)において価格を改定する家計は、式\eqref{eq:profit_max_problem_home}の通り、将来その価格が維持される全期間にわたる期待割引現在価値を最大化するように最適価格\(p_t^h\)を決定する。その一階の条件\eqref{eq:foc_price_setting_home}は、簡略化して記述すると以下の通りである。
 \begin{equation}
-\operatorname{E}_t \sum_{k=0}^{\infty}(\xi^H)^k D_{t,t+k}\left[ \frac{\partial \text{Utility}_{t+k}}{\partial p_t^h}\right] = 0
+\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^kD_{t,t+k}\left[\frac{\partial\text{Utility}_{t+k}}{\partial p_t^h}\right]=0
+\label{eq:appendix_time_consistency_sub2_pricing_foc_t}
 \end{equation}
-ここで、\(n\)期が経過した時点\(t+n\)において、依然として価格改定の機会を得られていない家計の状況を考える。この家計が時点\(t+n\)において「現在の価格\(p_t^h\)を維持すべきか、それとも（ 仮に変更可能だとしたら ）変更すべきか」を判断する際の一階の条件は、
+ここで、\(n\)期が経過した時点\(t+n\)において、依然として価格改定の機会を得られていない家計の状況を考える。この家計が時点\(t+n\)において「現在の価格\(p_t^h\)を維持すべきか、それとも（仮に変更可能だとしたら）変更すべきか」を判断する際の一階の条件は、
 \begin{equation}
-\operatorname{E}_{t+n}\sum_{m=0}^{\infty}(\xi^H)^m D_{t+n,t+n+m}\left[ \frac{\partial \text{Utility}_{t+n+m}}{\partial p_t^h}\right] = 0
+\operatorname{E}_{t+n}\sum_{m=0}^{\infty}(\xi^H)^mD_{t+n,t+n+m}\left[\frac{\partial\text{Utility}_{t+n+m}}{\partial p_t^h}\right]=0
+\label{eq:appendix_time_consistency_sub2_pricing_foc_tn}
 \end{equation}
-となる。指数型割引の性質から、時点\(t\)における総和式は、時点\(t+n\)以降の総和式を包含した構造（\((\xi^H)^n D_{t,t+n}\)という定数倍の差のみ ）になっている。したがって、新たなショックが発生しない限り、当初の最適価格\(p_t^h\)は将来のどの時点においても依然として最適条件を満たし続ける。
+となる。指数型割引の性質から、時点\(t\)における総和式は、時点\(t+n\)以降の総和式を包含した構造（\((\xi^H)^nD_{t,t+n}\)という定数倍の差のみ）になっている。したがって、新たなショックが発生しない限り、当初の最適価格\(p_t^h\)は将来のどの時点においても依然として最適条件を満たし続ける。
 
 \section{結論}
-以上の通り、家計の効用関数が時点間で加法分離的であり、かつ割引因子が幾何級数的な構造（ 指数型割引 ）を持っていることから、消費および価格設定のいずれにおいても、当初の最適計画は将来の各時点における最適条件と一致する。したがって、この最適計画は時間整合的である。
+\label{sec:appendix_time_consistency_conclusion}
+以上の通り、家計の効用関数が時点間で加法分離的であり、かつ割引因子が幾何級数的な構造（指数型割引）を持っていることから、消費および価格設定のいずれにおいても、当初の最適計画は将来の各時点における最適条件と一致する。したがって、この最適計画は時間整合的である。

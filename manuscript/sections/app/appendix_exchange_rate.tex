@@ -1,7 +1,4 @@
 % !TeX root = ../../main.tex
-% sections/app/appendix_exchange_rate.tex
-
-% !TeX root = ../../main.tex
 % sections/app/appendix_exchange_rate_and_gdp.tex
 
 \chapter{名目為替レートおよび名目GDPの式の導出}
@@ -10,274 +7,296 @@
 本付録では名目為替レートおよび名目GDPの式を導出する。
 具体的には、自国と外国の代表的家計の
 国際債券に関するオイラー方程式、自国および外国債券に関するオイラー方程式、
-所得の限界効用の式より為替レートの式を特定し、
+所得の限界効用の方程式より為替レートの式を特定し、
 それを財市場の均衡条件と組み合わせることで名目GDPの式を導出する。
 さらにこれらの関係式を用いることにより、
-全期間において自国と外国の主観的割引因子が等しい（ \( \beta_t^H = \beta_t^F \) ）場合には、
-第 \ref{sec:model_steady_state} 節で仮定した初期条件 \( b_s^H = 0 \) のもとで、
-帰納的にすべての \( t \ge s \) において対外純資産が恒等的にゼロ（ \( b_t^H = 0 \) ）となることを証明する。
+全期間において自国と外国の主観的割引因子が等しい（\(\beta_t^H=\beta_t^F\)）場合には、
+第\ref{sec:model_steady_state}節で仮定した初期条件\(b_s^H=0\)のもとで、
+帰納的にすべての\(t\ge s\)において対外純資産が恒等的にゼロ（\(b_t^H=0\)）となることを証明する。
 
-\section*{1. 期待値の比に関する線形近似の証明}
+\section*{1.期待値の比に関する線形近似の証明}
+\label{sec:appendix_exchange_rate_and_gdp_s1}
 
 本稿のような線形近似モデルにおいて、
-期待値の比 \( E_t[X_t] / E_t[Y_t] \) が比の期待値 \( E_t[X_t / Y_t] \) で近似できる理由を
+期待値の比\(E_t[X_t]/E_t[Y_t]\)が比の期待値\(E_t[X_t/Y_t]\)で近似できる理由を
 一般的な確率変数の性質にもとづいて数学的に証明する。
 
 \subsection*{一般論としての変数の定義}
-ある任意の確率変数 \( X_t \) について、その期待値（ 平均 ）を \( \bar{X} \equiv E[X_t] \) とし、期待値からの対数乖離（ 変化率 ）を \( \hat{x}_t \) と定義する。
-\begin{equation*}
-    \hat{x}_t \equiv \frac{X_t - \bar{X}}{\bar{X}} \quad \Longleftrightarrow \quad X_t = \bar{X}(1+\hat{x}_t)
-\end{equation*}
-本稿のような線形近似モデルでは、この乖離 \( \hat{x}_t \) を「 1 次の微小量 」として扱い、その 2 乗以上（ \( \hat{x}_t^2 \) や \( \hat{x}_t \hat{y}_t \) ）を無視できるほど小さい項（ \( \approx 0 \) ）として計算を行う。
-
-\subsection*{ステップ 1：積の期待値の近似（ 共分散項の評価 ）}
-
-一般に、2つの確率変数 \( X, Y \) の積の期待値は「 期待値の積 」と「 共分散」の和に分解できる。
-\begin{equation*}
-    E_t[XY] = E_t[X]E_t[Y] + \text{Cov}_t(X, Y)
-\end{equation*}
-ここで、共分散の項を上記の定義に従って展開する。
-\begin{align*}
-    \text{Cov}_t(X, Y) &= E_t \left[ (X - \bar{X}) (Y - \bar{Y}) \right] \\
-    &= E_t \left[ \left( \bar{X}(1+\hat{x}) - \bar{X} \right) \left( \bar{Y}(1+\hat{y}) - \bar{Y} \right) \right] \\
-    &= \bar{X}\bar{Y} E_t \left[ \hat{x}\hat{y} \right]
-\end{align*}
-ここで、右辺の期待値の中身は微小変動同士の積（ \( \hat{x} \times \hat{y} \) のオーダー ）となっている。 1 次近似の枠組みでは、 1 次の微小量同士の積は 2 次の微小量となるため、無視することができる（ \( \approx 0 \) ）。したがって、以下の近似が成立する。
+\label{sec:appendix_exchange_rate_and_gdp_s1_def}
+ある任意の確率変数\(X_t\)について、その期待値（平均）を\(\bar{X}\equiv E[X_t]\)とし、期待値からの対数乖離（変化率）を\(\hat{x}_t\)と定義する。
 \begin{equation}
-    \text{Cov}_t(X, Y) \approx 0 \quad \Longrightarrow \quad E_t[XY] \approx E_t[X]E_t[Y]
-    \label{eq:appendix_exchange_rate_approx_product}
+    \hat{x}_t\equiv\frac{X_t-\bar{X}}{\bar{X}}\quad\Longleftrightarrow\quad X_t=\bar{X}(1+\hat{x}_t)
+    \label{eq:appendix_exchange_rate_and_gdp_s1_log_linear_def}
+\end{equation}
+本稿のような線形近似モデルでは、この乖離\(\hat{x}_t\)を「1次の微小量」として扱い、その2乗以上（\(\hat{x}_t^2\)や\(\hat{x}_t\hat{y}_t\)）を無視できるほど小さい項（\(\approx0\)）として計算を行う。
+
+\subsection*{ステップ1：積の期待値の近似（共分散項の評価）}
+\label{sec:appendix_exchange_rate_and_gdp_s1_sub1}
+
+一般に、2つの確率変数\(X,Y\)の積の期待値は「期待値の積」と「共分散」の和に分解できる。
+\begin{equation}
+    E_t[XY]=E_t[X]E_t[Y]+\text{Cov}_t(X,Y)
+    \label{eq:appendix_exchange_rate_and_gdp_s1_covariance_decomposition}
+\end{equation}
+ここで、共分散の項を上記の定義に従って展開する。
+\begin{align}
+    \text{Cov}_t(X,Y)&=E_t\left[(X-\bar{X})(Y-\bar{Y})\right] \nonumber \\
+    &=E_t\left[\left(\bar{X}(1+\hat{x})-\bar{X}\right)\left(\bar{Y}(1+\hat{y})-\bar{Y}\right)\right] \nonumber \\
+    &=\bar{X}\bar{Y}E_t\left[\hat{x}\hat{y}\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s1_covariance_order}
+\end{align}
+ここで、右辺の期待値の中身は微小変動同士の積（\(\hat{x}\times\hat{y}\)のオーダー）となっている。1次近似の枠組みでは、1次の微小量同士の積は2次の微小量となるため、無視することができる（\(\approx0\)）。したがって、以下の近似が成立する。
+\begin{equation}
+    \text{Cov}_t(X,Y)\approx0\quad\Longrightarrow\quad E_t[XY]\approx E_t[X]E_t[Y]
+    \label{eq:appendix_exchange_rate_and_gdp_s1_approx_product}
 \end{equation}
 
-\subsection*{ステップ 2：逆数の期待値の近似（分散項の評価）}
+\subsection*{ステップ2：逆数の期待値の近似（分散項の評価）}
+\label{sec:appendix_exchange_rate_and_gdp_s1_sub2}
 
-次に、変数 \( Z \) の逆数の期待値 \( E_t[1/Z] \) を考える。一般に、イェンゼンの不等式により \( E[1/Z] \neq 1/E[Z] \) であるが、その乖離幅は分散に依存する。
-関数 \( f(Z) = 1/Z \) を期待値 \( \bar{Z} = E_t[Z] \) の周りで2次までテイラー展開し期待値をとる。
-\begin{align*}
-    E_t\left[\frac{1}{Z}\right] &\approx E_t \left[ \frac{1}{\bar{Z}} - \frac{1}{\bar{Z}^2}(Z - \bar{Z}) + \frac{1}{\bar{Z}^3}(Z - \bar{Z})^2 \right] \\
-    &= \frac{1}{\bar{Z}} - \frac{1}{\bar{Z}^2}\underbrace{E_t[Z - \bar{Z}]}_{0} + \frac{1}{\bar{Z}^3}\underbrace{E_t[(Z - \bar{Z})^2]}_{\text{分散 Var}(Z)} \\
-    &= \frac{1}{E_t[Z]} + \frac{1}{(E_t[Z])^3} \text{Var}_t(Z)
-\end{align*}
-ここで分散 \( \text{Var}_t(Z) = \bar{Z}^2 E_t \left[ \hat{z}^2 \right] \) は微小変動の 2 乗を含むため、 1 次近似においてはこれを無視できる。
+次に、変数\(Z\)の逆数の期待値\(E_t[1/Z]\)を考える。一般に、イェンゼンの不等式により\(E[1/Z]\neq1/E[Z]\)であるが、その乖離幅は分散に依存する。
+関数\(f(Z)=1/Z\)を期待値\(\bar{Z}=E_t[Z]\)の周りで2次までテイラー展開し期待値をとる。
+\begin{align}
+    E_t\left[\frac{1}{Z}\right]&\approx E_t\left[\frac{1}{\bar{Z}}-\frac{1}{\bar{Z}^2}(Z-\bar{Z})+\frac{1}{\bar{Z}^3}(Z-\bar{Z})^2\right] \nonumber \\
+    &=\frac{1}{\bar{Z}}-\frac{1}{\bar{Z}^2}\underbrace{E_t[Z-\bar{Z}]}_{0}+\frac{1}{\bar{Z}^3}\underbrace{E_t[(Z-\bar{Z})^2]}_{\text{分散Var}(Z)} \nonumber \\
+    &=\frac{1}{E_t[Z]}+\frac{1}{(E_t[Z])^3}\text{Var}_t(Z)
+    \label{eq:appendix_exchange_rate_and_gdp_s1_jensen_approx}
+\end{align}
+ここで分散\(\text{Var}_t(Z)=\bar{Z}^2E_t\left[\hat{z}^2\right]\)は微小変動の2乗を含むため、1次近似においてはこれを無視できる。
 したがって以下の近似式が成立する。
 \begin{equation}
-    E_t\left[\frac{1}{Z}\right] \approx \frac{1}{E_t[Z]}
-    \label{eq:appendix_exchange_rate_approx_inverse}
+    E_t\left[\frac{1}{Z}\right]\approx\frac{1}{E_t[Z]}
+    \label{eq:appendix_exchange_rate_and_gdp_s1_approx_inverse}
 \end{equation}
 
 \subsection*{結論：比の期待値への変換}
+\label{sec:appendix_exchange_rate_and_gdp_s1_conclusion}
 
-式 \eqref{eq:appendix_exchange_rate_approx_product} と 式 \eqref{eq:appendix_exchange_rate_approx_inverse} の結果を組み合わせることで、期待値の比を比の期待値として扱うことが正当化される。
-\begin{align*}
-    \frac{E_t [X]}{E_t [Y]} &= E_t [X] \cdot \frac{1}{E_t [Y]} \\
-    &\approx E_t [X] \cdot E_t \left[ \frac{1}{Y} \right] \quad （ \because \text{分散項} \approx 0 ） \\
-    &\approx E_t \left[ X \cdot \frac{1}{Y} \right] \quad （ \because \text{共分散項} \approx 0 ） \\
-    &= E_t \left[ \frac{X}{Y} \right]
-\end{align*}
-本付録の以降の導出では、この一般的な近似式 \( E_t[X_t]/E_t[Y_t] \approx E_t[X_t/Y_t] \) を利用する。
+式\eqref{eq:appendix_exchange_rate_and_gdp_s1_approx_product}と式\eqref{eq:appendix_exchange_rate_and_gdp_s1_approx_inverse}の結果を組み合わせることで、期待値の比を比の期待値として扱うことが正当化される。
+\begin{align}
+    \frac{E_t[X]}{E_t[Y]}&=E_t[X]\cdot\frac{1}{E_t[Y]} \nonumber \\
+    &\approx E_t[X]\cdot E_t\left[\frac{1}{Y}\right]\quad（\because\text{分散項}\approx0） \nonumber \\
+    &\approx E_t\left[X\cdot\frac{1}{Y}\right]\quad（\because\text{共分散項}\approx0） \nonumber \\
+    &=E_t\left[\frac{X}{Y}\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s1_ratio_final}
+\end{align}
+本付録の以降の導出では、この一般的な近似式\(E_t[X_t]/E_t[Y_t]\approx E_t[X_t/Y_t]\)を利用する。
 
-\section*{2. 自国と外国の代表的家計の国際債券に関する修正オイラー方程式の比}
-\ref{sec:appendix_insulation_effect_modified_uip}節で確認したとおり、
-自国と外国の代表的家計の国際債券に関する修正オイラー方程式は次のようであった
+\section*{2.自国と外国の代表的家計の国際債券に関する修正オイラー方程式の比}
+\label{sec:appendix_exchange_rate_and_gdp_s2}
+第\ref{sec:appendix_insulation_effect_modified_uip}節で確認したとおり、
+自国と外国の代表的家計の国際債券に関する修正オイラー方程式は次のようであった。
 \begin{equation}
-    \lambda_t^{H/*} = \beta_t^H (1+i_t^F) E_t [\lambda_{t+1}^{H/*}]
+    \lambda_t^{H/*}=\beta_t^H(1+i_t^F)E_t[\lambda_{t+1}^{H/*}]
     \tag{\ref{eq:appendix_insulation_effect_modified_final_uip_H}}
 \end{equation}
 \begin{equation}
-    \lambda_t^{F/*} = \beta_t^F (1+i_t^F) E_t [\lambda_{t+1}^{F/*}]
+    \lambda_t^{F/*}=\beta_t^F(1+i_t^F)E_t[\lambda_{t+1}^{F/*}]
     \tag{\ref{eq:appendix_insulation_effect_modified_final_uip_F}}
 \end{equation}
 
-ここで自国と外国の代表的家計の外国通貨建て所得の限界効用の比率を \( \Lambda_t \) と定義する。
+ここで自国と外国の代表的家計の外国通貨建て所得の限界効用の比率を\(\Lambda_t\)と定義する。
 \begin{equation}
-    \Lambda_t \equiv \frac{\lambda_t^{H/*}}{\lambda_t^{F/*}}
-    \label{eq:appendix_exchange_rate_lambda_def}
+    \Lambda_t\equiv\frac{\lambda_t^{H/*}}{\lambda_t^{F/* messenger}}
+    \label{eq:appendix_exchange_rate_and_gdp_s2_lambda_ratio_def}
 \end{equation}
 式\eqref{eq:appendix_insulation_effect_modified_final_uip_H}と
 式\eqref{eq:appendix_insulation_effect_modified_final_uip_F}
-の辺々を割ると、共通項である外国の名目利子率 \( (1+i_t^F) \) が相殺され以下の関係が得られる。
+の辺々を割ると、共通項である外国の名目利子率\((1+i_t^F)\)が相殺され以下の関係が得られる。
 \begin{equation}
-    \Lambda_t = \frac{\beta_t^H}{\beta_t^F} \frac{E_t [\lambda_{t+1}^{H/*}]}{E_t [\lambda_{t+1}^{F/*}]}
-    \label{eq:appendix_exchange_rate_lambda_ratio_raw}
+    \Lambda_t=\frac{\beta_t^H}{\beta_t^F}\frac{E_t[\lambda_{t+1}^{H/*}]}{E_t[\lambda_{t+1}^{F/*}]}
+    \label{eq:appendix_exchange_rate_and_gdp_s2_lambda_ratio_raw}
 \end{equation}
 
-第 1 節で証明した一般的な近似関係を用いることで、式 \eqref{eq:appendix_exchange_rate_lambda_ratio_raw} の右辺にある「 期待値の比 」を「 比の期待値 」へと変換し、以下の再帰式を得る。
+第1節で証明した一般的な近似関係を用いることで、式\eqref{eq:appendix_exchange_rate_and_gdp_s2_lambda_ratio_raw}の右辺にある「期待値の比」を「比の期待値」へと変換し、以下の再帰式を得る。
 \begin{equation}
-    \Lambda_t \approx \frac{\beta_t^H}{\beta_t^F} E_t \left[ \frac{\lambda_{t+1}^{H/*}}{\lambda_{t+1}^{F/*}} \right] = \frac{\beta_t^H}{\beta_t^F} E_t [\Lambda_{t+1}]
-    \label{eq:appendix_exchange_rate_lambda_recursive}
+    \Lambda_t\approx\frac{\beta_t^H}{\beta_t^F}E_t\left[\frac{\lambda_{t+1}^{H/*}}{\lambda_{t+1}^{F/*}}\right]=\frac{\beta_t^H}{\beta_t^F}E_t[\Lambda_{t+1}]
+    \label{eq:appendix_exchange_rate_and_gdp_s2_lambda_recursive}
 \end{equation}
 
-\section*{3. 将来に向けた前方展開と極限}
+\section*{3.将来に向けた前方展開と極限}
+\label{sec:appendix_exchange_rate_and_gdp_s3}
 
-前節で導出した再帰式 \eqref{eq:appendix_exchange_rate_lambda_recursive} を将来に向かって逐次代入することで、現在の比率 \( \Lambda_t \) を決定する。
+前節で導出した再帰式\eqref{eq:appendix_exchange_rate_and_gdp_s2_lambda_recursive}を将来に向かって逐次代入することで、現在の比率\(\Lambda_t\)を決定する。
 
-\paragraph{① 再帰的代入と一般形の導出}
-式 \eqref{eq:appendix_exchange_rate_lambda_recursive} の右辺にある \( \Lambda_{t+1} \) に対して、 1 期先の関係式 \( \Lambda_{t+1} = \frac{\beta_{t+1}^H}{\beta_{t+1}^F} E_{1+t}[\Lambda_{t+2}] \) を代入する。この操作を \( k \) 回繰り返すと、反復期待値の法則により、以下の一般形が得られる。
+\paragraph{①再帰的代入と一般形の導出}
+\label{sec:appendix_exchange_rate_and_gdp_s3_p1}
+式\eqref{eq:appendix_exchange_rate_and_gdp_s2_lambda_recursive}の右辺にある\(\Lambda_{t+1}\)に対して、1期先の関係式\(\Lambda_{t+1}=\frac{\beta_{t+1}^H}{\beta_{t+1}^F}E_{1+t}[\Lambda_{t+2}]\)を代入する。この操作を\(k\)回繰り返すと、反復期待値の法則により、以下の一般形が得られる。
 \begin{equation}
-    \Lambda_t = E_t \left[ \left( \prod_{j=0}^{k} \frac{\beta_{t+j}^H}{\beta_{t+j}^F} \right) \Lambda_{t+k+1} \right]
-    \label{eq:appendix_exchange_rate_lambda_iterative}
+    \Lambda_t=E_t\left[\left(\prod_{j=0}^{k}\frac{\beta_{t+j}^H}{\beta_{t+j}^F}\right)\Lambda_{t+k+1}\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s3_iterative_general}
 \end{equation}
 
-\paragraph{② 極限の適用}
-次に、式 \eqref{eq:appendix_exchange_rate_lambda_iterative} の両辺について \( k \to \infty \) の極限をとる。
+\paragraph{②極限の適用}
+\label{sec:appendix_exchange_rate_and_gdp_s3_p2}
+次に、式\eqref{eq:appendix_exchange_rate_and_gdp_s3_iterative_general}の両辺について\(k\to\infty\)の極限をとる。
 本稿のモデルにおいては、全ての変数が定常状態近傍で安定的に推移（有界性）することを前提としている。
 このときルベーグの優収束定理により
-期待値演算子 \( E_t \) と極限操作 \( \lim \) の順序を入れ替えることが正当化される。
+期待値演算子\(E_t\)と極限操作\(\lim\)の順序を入れ替えることが正当化される。
 すなわち、期待値の極限は極限の期待値に等しい。
 
-\begin{align*}
-    \Lambda_t &= \lim_{k \to \infty} E_t \left[ \left( \prod_{j=0}^{k} \frac{\beta_{t+j}^H}{\beta_{t+j}^F} \right) \Lambda_{t+k+1} \right] \\
-    &= E_t \left[ \lim_{k \to \infty} \left( \left( \prod_{j=0}^{k} \frac{\beta_{t+j}^H}{\beta_{t+j}^F} \right) \Lambda_{t+k+1} \right) \right]
-\end{align*}
+\begin{align}
+    \Lambda_t&=\lim_{k\to\infty}E_t\left[\left(\prod_{j=0}^{k}\frac{\beta_{t+j}^H}{\beta_{t+j}^F}\right)\Lambda_{t+k+1}\right] \nonumber \\
+    &=E_t\left[\lim_{k\to\infty}\left(\left(\prod_{j=0}^{k}\frac{\beta_{t+j}^H}{\beta_{t+j}^F}\right)\Lambda_{t+k+1}\right)\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s3_limit_exchange}
+\end{align}
 
 ここで、経済の安定性条件より、無限遠方において一時的なショックの影響は消失し、
 変数はショック後の新たな定常状態へ収束すると仮定する。
-すると \( \Lambda_{t+k+1} \) は定常状態における \( \Lambda_{\infty} \) へと収束する。
-\begin{equation*}
-    \lim_{k \to \infty} \Lambda_{t+k+1} = \Lambda_{\infty}
-\end{equation*}
-不完備市場モデルにおいてはこの \( \Lambda_{\infty} \) は
+すると\(\Lambda_{t+k+1}\)は定常状態における\(\Lambda_{\infty}\)へと収束する。
+\begin{equation}
+    \lim_{k\to\infty}\Lambda_{t+k+1}=\Lambda_{\infty}
+    \label{eq:appendix_exchange_rate_and_gdp_s3_lambda_convergence}
+\end{equation}
+不完備市場モデルにおいてはこの\(\Lambda_{\infty}\)は
 ショックの履歴に依存する確率変数としての性質を持つため、期待値演算子の中に留まる。
 
-ここで資本移動要因 \( \mathcal{B}_t \) を以下のように定義する。
+ここで資本移動要因\(\mathcal{B}_t\)を以下のように定義する。
 \begin{equation}
-    \mathcal{B}_t \equiv \prod_{j=0}^{\infty} \frac{\beta_{t+j}^H}{\beta_{t+j}^F}
-    \label{eq:appendix_exchange_rate_bt_definition}
+    \mathcal{B}_t\equiv\prod_{j=0}^{\infty}\frac{\beta_{t+j}^H}{\beta_{t+j}^F}
+    \label{eq:appendix_exchange_rate_and_gdp_s3_bt_def}
 \end{equation}
 
-以上より \( \Lambda_t \) は以下の形式で確定する。
+以上より\(\Lambda_t\)は以下の形式で確定する。
 \begin{equation}
-    \Lambda_t = E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right]
-    \label{eq:appendix_exchange_rate_lambda_final_solution}
+    \Lambda_t=E_t\left[\mathcal{B}_t\Lambda_{\infty}\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s3_lambda_final_solution}
 \end{equation}
 
-\section*{4. 結論：為替レートの決定式}
+\section*{4.結論：為替レートの決定式}
+\label{sec:appendix_exchange_rate_and_gdp_s4}
 
-\( \lambda_t^{H/*} \) の定義式\eqref{eq:appendix_exchange_rate_lambda_def}を \( e_t^{/*} \) について解いた
-\( e_t^{/*} = \lambda_t^{H/*} / \lambda_t^H \) に
-\( \Lambda_t \) の定義式\eqref{eq:appendix_exchange_rate_lambda_def}を変形した 
- \( \lambda_t^{H/*} = \Lambda_t \lambda_t^{F/*} \) を代入すると以下が得られる。
+\(\lambda_t^{H/*}\)の定義式\eqref{eq:appendix_exchange_rate_lambda_def}を\(e_t^{/*}\)について解いた
+\(e_t^{/*}=\lambda_t^{H/*}/\lambda_t^H\)に
+\(\Lambda_t\)の定義式\eqref{eq:appendix_exchange_lambda_ratio_def}を変形した
+\(\lambda_t^{H/*}=\Lambda_t\lambda_t^{F/*}\)を代入すると以下が得られる。
 \begin{equation}
-    e_t^{/*} = \Lambda_t \times \frac{\lambda_t^{F/*}}{\lambda_t^H}
-    \label{eq:appendix_exchange_mu_ratio}
+    e_t^{/*}=\Lambda_t\times\frac{\lambda_t^{F/*}}{\lambda_t^H}
+    \label{eq:appendix_exchange_rate_and_gdp_s4_mu_ratio}
 \end{equation}
 
-ここで式\eqref{eq:appendix_exchange_mu_ratio}に
-代表的家計のオイラー方程式 \eqref{eq:final_euler_H}、\eqref{eq:final_euler_F} を代入すると、
+ここで式\eqref{eq:appendix_exchange_rate_and_gdp_s4_mu_ratio}に
+代表的家計のオイラー方程式\eqref{eq:final_euler_H}、\eqref{eq:final_euler_F}を代入すると、
 以下の名目利子率を含む関係式が得られる。
 \begin{equation}
-    e_t^{/*} = \Lambda_t \times \frac{\beta_t^{F*} (1 + i_t^F) E_t [ \lambda_{t+1}^{F/*} ]}{\beta_t^H (1 + i_t^H) E_t [ \lambda_{t+1}^H ]}
-    \label{eq:appendix_exchange_euler_ratio}
+    e_t^{/*}=\Lambda_t\times\frac{\beta_t^{F*}(1+i_t^F)E_t[\lambda_{t+1}^{F/*}]}{\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]}
+    \label{eq:appendix_exchange_rate_and_gdp_s4_euler_ratio}
 \end{equation}
 
-一方で式 \eqref{eq:appendix_exchange_mu_ratio} に
-所得の限界効用の式 \eqref{eq:final_lambda_H}、\eqref{eq:final_lambda_F} を代入して整理すると、
+一方で式\eqref{eq:appendix_exchange_rate_and_gdp_s4_mu_ratio}に
+所得の限界効用の式\eqref{eq:final_lambda_H}、\eqref{eq:final_lambda_F}を代入して整理すると、
 最終的な為替レート決定式が得られる。
 \begin{align}
-    e_t^{/*} &= \Lambda_t \times \frac{\lambda_t^{F/*}}{\lambda_t^H} \nonumber \\
-    &= \Lambda_t \times \frac{1 / ( p_t^{F \to W*} c_t^{F \to W} )}{1 / ( p_t^{H \to W} c_t^{H \to W} )} \nonumber \\
-    &= E_t [ \mathcal{B}_t \Lambda_{\infty} ] \times \frac{p_t^{H \to W} c_t^{H \to W}}{p_t^{F \to W*} c_t^{F \to W}}
-    \label{eq:appendix_exchange_rate_final}
+    e_t^{/*}&=\Lambda_t\times\frac{\lambda_t^{F/*}}{\lambda_t^H} \nonumber \\
+    &=\Lambda_t\times\frac{1/(p_t^{F\to W*}c_t^{F\to W})}{1/(p_t^{H\to W}c_t^{H\to W})} \nonumber \\
+    &=E_t[\mathcal{B}_t\Lambda_{\infty}]\times\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}
+    \label{eq:appendix_exchange_rate_and_gdp_s4_rate_final}
 \end{align}
 
-ここで、期待値項 \( E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right] \) について、定常状態における割引因子の設定が決定的な役割を果たす。
+ここで、期待値項\(E_t\left[\mathcal{B}_t\Lambda_{\infty}\right]\)について、定常状態における割引因子の設定が決定的な役割を果たす。
 
 \begin{itemize}
-    \item \textbf{定常状態で割引因子が等しい場合（ \( \beta_{ss}^H = \beta_{ss}^F \) ）：}
-    本稿の基本設定である。一時的なショックにより \( \beta_t \) が変動しても、長期的には元の水準に戻るため、無限乗積項 \( \mathcal{B}_t \) は有限の値に収束する。
-    特に、全期間において \( \beta_t^H = \beta_t^F \) であるならば、式 \eqref{eq:appendix_exchange_rate_final} の期待値項は \( E_t [\Lambda_{\infty}] \) となり、為替レートは純粋に両国の名目支出比率のみで決定される。
+    \item \textbf{定常状態で割引因子が等しい場合（\(\beta_{ss}^H=\beta_{ss}^F\)）：}
+    本稿の基本設定である。一時的なショックにより\(\beta_t\)が変動しても、長期的には元の水準に戻るため、無限乗積項\(\mathcal{B}_t\)は有限の値に収束する。
+    特に、全期間において\(\beta_t^H=\beta_t^F\)であるならば、式\eqref{eq:appendix_exchange_rate_and_gdp_s4_rate_final}の期待値項は\(E_t[\Lambda_{\infty}]\)となり、為替レートは純粋に両国の名目支出比率のみで決定される。
     \begin{equation}
-        e_t^{/*} = E_t [\Lambda_{\infty}] \times \frac{p_t^{H \to W} c_t^{H \to W}}{p_t^{F \to W*} c_t^{F \to W}} 
-        \label{eq:appendix_exchange_rate_simplified}
+        e_t^{/*}=E_t[\Lambda_{\infty}]\times\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}
+        \label{eq:appendix_exchange_rate_and_gdp_s4_rate_simplified}
     \end{equation}
     
-    \item \textbf{定常状態で割引因子が異なる場合（ \( \beta_{ss}^H \neq \beta_{ss}^F \) ）：}
-    もし恒久的に \( \beta \) が異なると仮定すると、無限乗積項は発散または消失し、安定的な均衡が存在しなくなる。したがって、本モデルのような無限期間モデルにおいて安定解を得るためには、定常状態において両国の割引因子が一致していることが前提条件となる。
+    \item \textbf{定常状態で割引因子が異なる場合（\(\beta_{ss}^H\neq\beta_{ss}^F\)）：}
+    もし恒久的に\(\beta\)が異なると仮定すると、無限乗積項は発散または消失し、安定的な均衡が存在しなくなる。したがって、本モデルのような無限期間モデルにおいて安定解を得るためには、定常状態において両国の割引因子が一致していることが前提条件となる。
 \end{itemize}
 
-\section*{5. 資源制約式と対外純資産の恒等的なゼロ均衡}
+\section*{5.資源制約式と対外純資産の恒等的なゼロ均衡}
+\label{sec:appendix_exchange_rate_and_gdp_s5}
 
-上記の為替レート決定メカニズムが、対外純資産（ \( b_t^H \) ）の動学に与える影響を確認する。
+上記の為替レート決定メカニズムが、対外純資産（\(b_t^H\)）の動学に与える影響を確認する。
 
-\subsection*{1. 名目GDP方程式の導出と為替レート決定式の代入}
+\subsection*{1.名目GDP方程式の導出と為替レート決定式の代入}
+\label{sec:appendix_exchange_rate_and_gdp_s5_sub1}
 
-自国の一人当たり財市場均衡条件 \eqref{eq:model_goods_market_eq_H} から出発する。
+自国の一人当たり財市場均衡条件\eqref{eq:model_goods_market_eq_H}から出発する。
 \begin{equation}
-    y_t^H = c_t^{H \to H} + \frac{M}{N} c_t^{F \to H}
-    \label{eq:appendix_exchange_rate_goods_market_raw}
+    y_t^H=c_t^{H\to H}+\frac{M}{N}c_t^{F\to H}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_goods_raw}
 \end{equation}
-この両辺に自国財価格 \( p_t^H \) を乗じると、名目GDPは各主体の需要内訳として以下のように展開される。
-\begin{align*}
-    p_t^H y_t^H &= p_t^H c_t^{H \to H} + p_t^H \frac{M}{N} c_t^{F \to H} \\
-    &= p_t^H \left( \alpha^H \frac{p_t^{H \to W}}{p_t^H} c_t^{H \to W} \right) + p_t^H \frac{M}{N} \left( (1 - \alpha^F) \frac{p_t^{F \to W*}}{p_t^{H*}} c_t^{F \to W} \right) \\
-    &= \alpha^H (p_t^{H \to W} c_t^{H \to W}) + \frac{M}{N} (1 - \alpha^F) \frac{p_t^H}{p_t^{H*}} (p_t^{F \to W*} c_t^{F \to W})
-\end{align*}
-ここで、一物一価の法則 \( p_t^H = e_t^{/*} p_t^{H*} \) \eqref{eq:model_lop} および、人口比 \( N=M=1 \) の設定を適用すると、以下の一般的な名目GDPの方程式が得られる。
-\begin{equation}
-    p_t^H y_t^H = \alpha^H(p_t^{H \to W} c_t^{H \to W}) + (1 - \alpha^F) e_t^{/*} (p_t^{F \to W*} c_t^{F \to W})
-    \label{eq:appendix_exchange_rate_gdp_general}
-\end{equation}
-
-さらに、式 \eqref{eq:appendix_exchange_rate_gdp_general} の右辺にある為替レート \( e_t^{/*} \) に、先に導出した決定式 \eqref{eq:appendix_exchange_rate_final} を代入する。
+この両辺に自国財価格\(p_t^H\)を乗じると、名目GDPは各主体の需要内訳として以下のように展開される。
 \begin{align}
-    p_t^H y_t^H &= \alpha^H(p_t^{H \to W} c_t^{H \to W}) + (1 - \alpha^F) \left( E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right] \frac{p_t^{H \to W} c_t^{H \to W}}{p_t^{F \to W*} c_t^{F \to W}} \right) (p_t^{F \to W*} c_t^{F \to W}) \nonumber \\
-    &= \alpha^H(p_t^{H \to W} c_t^{H \to W}) + (1 - \alpha^F) E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right] (p_t^{H \to W} c_t^{H \to W}) \nonumber \\
-    &= \left[ \alpha^H + (1 - \alpha^F) E_t \left[ \mathcal{B}_t \Lambda_{\infty} \right] \right] p_t^{H \to W} c_t^{H \to W}
-    \label{eq:appendix_exchange_rate_gdp_substituted}
+    p_t^Hy_t^H&=p_t^Hc_t^{H\to H}+p_t^H\frac{M}{N}c_t^{F\to H} \nonumber \\
+    &=p_t^H\left(\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{H\to W}\right)+p_t^H\frac{M}{N}\left((1-\alpha^F)\frac{p_t^{F\to W*}}{p_t^{H*}}c_t^{F\to W}\right) \nonumber \\
+    &=\alpha^H(p_t^{H\to W}c_t^{H\to W})+\frac{M}{N}(1-\alpha^F)\frac{p_t^H}{p_t^{H*}}(p_t^{F\to W*}c_t^{F\to W})
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_derivation}
+\end{align}
+ここで、一物一価の法則\(p_t^H=e_t^{/*}p_t^{H*}\)\eqref{eq:model_lop}および、人口比\(N=M=1\)の設定を適用すると、以下の一般的な名目GDPの方程式が得られる。
+\begin{equation}
+    p_t^Hy_t^H=\alpha^H(p_t^{H\to W}c_t^{H\to W})+(1-\alpha^F)e_t^{/*}(p_t^{F\to W*}c_t^{F\to W})
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_general}
+\end{equation}
+
+さらに、式\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_general}の右辺にある為替レート\(e_t^{/*}\)に、先に導出した決定式\eqref{eq:appendix_exchange_rate_and_gdp_s4_rate_final}を代入する。
+\begin{align}
+    p_t^Hy_t^H&=\alpha^H(p_t^{H\to W}c_t^{H\to W})+(1-\alpha^F)\left(E_t\left[\mathcal{B}_t\Lambda_{\infty}\right]\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}\right)(p_t^{F\to W*}c_t^{F\to W}) \nonumber \\
+    &=\alpha^H(p_t^{H\to W}c_t^{H\to W})+(1-\alpha^F)E_t\left[\mathcal{B}_t\Lambda_{\infty}\right](p_t^{H\to W}c_t^{H\to W}) \nonumber \\
+    &=\left[\alpha^H+(1-\alpha^F)E_t\left[\mathcal{B}_t\Lambda_{\infty}\right]\right]p_t^{H\to W}c_t^{H\to W}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_substituted}
 \end{align}
 
-ここで第 \ref{sec:model_steady_state} 節において仮定されたとおり
-初期時点およびそれ以前の対外純資産はゼロ（ \( b_s^H = b_{s-1}^H = 0 \) ）である。
+ここで第\ref{sec:model_steady_state}節において仮定されたとおり
+初期時点およびそれ以前の対外純資産はゼロ（\(b_s^H=b_{s-1}^H=0\)）である。
 
-自国の資源制約式 \eqref{eq:model_resource_constraint_H} においてショック発生前の \( t = s - 1 \) の時点を考える。
+自国の資源制約式\eqref{eq:model_resource_constraint_H}においてショック発生前の\(t=s-1\)の時点を考える。
 \begin{equation}
-    p_{s-1}^{H \to W} c_{s-1}^{H \to W} + b_s^H = p_{s-1}^H y_{s-1}^H + (1+i_{s-2}^F) \frac{e_{s-1}^{/*}}{e_{s-2}^{/*}} b_{s-1}^H
-    \label{eq:appendix_exchange_rate_resource_constraint_init}
+    p_{s-1}^{H\to W}c_{s-1}^{H\to W}+b_s^H=p_{s-1}^Hy_{s-1}^H+(1+i_{s-2}^F)\frac{e_{s-1}^{/*}}{e_{s-2}^{/*}}b_{s-1}^H
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_res_init}
 \end{equation}
-ここに仮定 \( b_s^H = b_{s-1}^H = 0 \) を代入すると、以下の貿易収支の均衡条件が導かれる。
+ここに仮定\(b_s^H=b_{s-1}^H=0\)を代入すると、以下の貿易収支の均衡条件が導かれる。
 \begin{equation}
-    p_{s-1}^H y_{s-1}^H = p_{s-1}^{H \to W} c_{s-1}^{H \to W}
-    \label{eq:appendix_exchange_rate_trade_balance_init}
+    p_{s-1}^Hy_{s-1}^H=p_{s-1}^{H\to W}c_{s-1}^{H\to W}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_trade_init}
 \end{equation}
-式 \eqref{eq:appendix_exchange_rate_gdp_substituted} を初期時点 \( t = s - 1 \) で評価し、貿易収支均衡 \eqref{eq:appendix_exchange_rate_trade_balance_init} と比較すると、右辺の名目消費にかかる係数部分は \( 1 \) でなければならないことがわかる。すなわち、
+式\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_substituted}を初期時点\(t=s-1\)で評価し、貿易収支均衡\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub1_trade_init}と比較すると、右辺の名目消費にかかる係数部分は1でなければならないことがわかる。すなわち、
 \begin{equation}
-    1 = \alpha^H + (1 - \alpha^F) E_{s-1} \left[ \mathcal{B}_{s-1} \Lambda_{\infty} \right]
-    \label{eq:appendix_exchange_rate_coefficient_unity_condition}
+    1=\alpha^H+(1-\alpha^F)E_{s-1}\left[\mathcal{B}_{s-1}\Lambda_{\infty}\right]
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub1_unity}
 \end{equation}
 が成立する。
 
-\subsection*{2. a ショックが発生したときの均衡}
+\subsection*{2.aショックが発生したときの均衡}
+\label{sec:appendix_exchange_rate_and_gdp_s5_sub2}
 
-次に、全期間において自国と外国の割引因子が等しく（ \( \beta_t^H = \beta_t^F \) ）、生産性ショック（ \( a \) ショック ）のみが発生するケースを検討する。
+次に、全期間において自国と外国の割引因子が等しく（\(\beta_t^H=\beta_t^F\)）、生産性ショック（aショック）のみが発生するケースを検討する。
 
-まず、本稿の第 5 章 「 生産性ショックにおける国際的波及（ 遮断効果 ） 」で論じたように、外貨建ての限界効用 \( \lambda_t^{H/*} \) および \( \lambda_t^{F/*} \) は生産性ショックの影響を受けない方程式系によって決定される。したがって、ショックの前後でこれらの値は変化せず、その比率である \( \Lambda_t = \lambda_t^{H/*} / \lambda_t^{F/*} \) も不変に維持される。すなわち、
+まず、本稿の第5章「生産性ショックにおける国際的波及（遮断効果）」で論じたように、外貨建ての限界効用\(\lambda_t^{H/*}\)および\(\lambda_t^{F/*}\)は生産性ショックの影響を受けない方程式系によって決定される。したがって、ショックの前後でこれらの値は変化せず、その比率である\(\Lambda_t=\lambda_t^{H/*}/\lambda_t^{F/*}\)も不変に維持される。すなわち、
 \begin{equation}
-    \Lambda_{s-1} = \Lambda_s = \dots = \Lambda_{\infty}
+    \Lambda_{s-1}=\Lambda_s=\dots=\Lambda_{\infty}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub2_lambda_constancy}
 \end{equation}
-が成立する。この性質により、評価の比率の極限値 \( \Lambda_{\infty} \) は、ショックの履歴に依存しない確定的定数とみなすことができ、期待値演算子 \( E_t \) の外に出すことが可能となる。
+が成立する。この性質により、評価の比率の極限値\(\Lambda_{\infty}\)は、ショックの履歴に依存しない確定的定数とみなすことができ、期待値演算子\(E_t\)の外に出すことが可能となる。
 
-また、本ケースでは全期間において割引因子が一定であるため、定義式 \eqref{eq:appendix_exchange_rate_bt_definition} より資本移動要因は恒等的に \( \mathcal{B}_t = 1 \) となる。
+また、本ケースでは全期間において割引因子が一定であるため、定義式\eqref{eq:appendix_exchange_rate_and_gdp_s3_bt_def}より資本移動要因は恒等的に\(\mathcal{B}_t=1\)となる。
 
-この条件を式 \eqref{eq:appendix_exchange_rate_coefficient_unity_condition} に適用すると、
+この条件を式\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub1_unity}に適用すると、
 \begin{equation}
-    1 = \alpha^H + (1 - \alpha^F) \Lambda_{\infty}
-    \label{eq:appendix_exchange_rate_coefficient_unity_condition_substituted}
+    1=\alpha^H+(1-\alpha^F)\Lambda_{\infty}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub2_unity_subst}
 \end{equation}
 となり、これを整理すると以下が得られる。
 \begin{equation}
-    \Lambda_{\infty} = \frac{1 - \alpha^H}{1 - \alpha^F}
-    \label{eq:appendix_exchange_rate_lambda_steady_state_ratio}
+    \Lambda_{\infty}=\frac{1-\alpha^H}{1-\alpha^F}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub2_lambda_ss}
 \end{equation}
 
-この \( \Lambda_{\infty} \) と \( \mathcal{B}_t = 1 \) を式 \eqref{eq:appendix_exchange_rate_gdp_substituted} に代入すると、以下の名目貿易収支の均衡式が得られる。
+この\(\Lambda_{\infty}\)と\(\mathcal{B}_t=1\)を式\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub1_gdp_substituted}に代入すると、以下の名目貿易収支の均衡式が得られる。
 \begin{equation}
-    p_t^H y_t^H = p_t^{H \to W} c_t^{H \to W}
-    \label{eq:appendix_exchange_rate_nominal_trade_balance_identity}
+    p_t^Hy_t^H=p_t^{H\to W}c_t^{H\to W}
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub2_trade_balance}
 \end{equation}
 
-最後に、式 \eqref{eq:appendix_exchange_rate_nominal_trade_balance_identity} を自国の資源制約式 \eqref{eq:model_resource_constraint_H} に代入すると、資産蓄積に関する以下の差分方程式が得られる。
+最後に、式\eqref{eq:appendix_exchange_rate_and_gdp_s5_sub2_trade_balance}を自国の資源制約式\eqref{eq:model_resource_constraint_H}に代入すると、資産蓄積に関する以下の差分方程式が得られる。
 \begin{equation}
-    b_{t+1}^H = (1+i_{t-1}^F) \frac{e_t^{/*}}{e_{t-1}^{/*}} b_t^H
-    \label{eq:appendix_exchange_rate_nfa_difference_equation}
+    b_{t+1}^H=(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^H
+    \label{eq:appendix_exchange_rate_and_gdp_s5_sub2_nfa_diff}
 \end{equation}
 
-初期条件 \( b_s^H = 0 \) を用いると、帰納的にすべての \( t \ge s \) において \( b_{t+1}^H = 0 \) であることが証明される。以上により、Cole-Obstfeld 条件下では為替レートの調整により貿易収支が常に均衡し、対外純資産が恒等的にゼロとなることが数学的に裏付けられた。
+初期条件\(b_s^H=0\)を用いると、帰納的にすべての\(t\ge s\)において\(b_{t+1}^H=0\)であることが証明される。以上により、Cole-Obstfeld条件下では為替レートの調整により貿易収支が常に均衡し、対外純資産が恒等的にゼロとなることが数学的に裏付けられた。

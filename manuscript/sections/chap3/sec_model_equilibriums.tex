@@ -5,26 +5,40 @@
 \label{sec:model_equilibriums}
 
 \subsection{財市場の均衡}
-\label{subsec:model_goods_market}
-\paragraph{自国財市場}
-家計 \( h \) が生産する財の市場は \( t \) 期におけるその財の生産 \( y_t^h \) が
-全世界からの総需要と等しくなることで均衡する。
+\label{sec:model_equilibriums_goods_market}
+自国および外国の財市場は均衡するものと仮定する。
 \begin{equation}
-y_t^h = \sum_{h' \in H} c_t^{h' \to h} + \sum_{f \in F} c_t^{f \to h}
-\label{eq:individual_goods_market_equilibrium_repeat}
+y_t^h=\sum_{h'\in H}c_t^{h'\to h}+\sum_{f\in F}c_t^{f\to h}
+\label{eq:model_equilibriums_goods_market_home}
+\end{equation}
+\begin{equation}
+y_t^f=\sum_{h\in H}c_t^{h\to f}+\sum_{f'\in F}c_t^{f'\to f}
+\label{eq:model_equilibriums_goods_market_foreign}
 \end{equation}
 
-\paragraph{外国財市場}
-同様に外国財市場の均衡は以下の関係式で記述される。
-\begin{equation}
-y_t^f = \sum_{h \in H} c_t^{h \to f} + \sum_{f' \in F} c_t^{f' \to f}
-\label{eq:individual_goods_market_equilibrium_foreign}
-\end{equation}
+たとえば\eqref{eq:model_equilibriums_goods_market_home}は
+家計\(h\)の財の供給\(y_t^h\)と世界からの需要\(\sum_{h'\in H}c_t^{h'\to h}+\sum_{f\in F}c_t^{f\to h}\)
+が均衡することを表している。
 
 \subsection{一物一価の法則}
-\label{subsec:model_lop}
-国際間の財価格は名目為替レート \( e_t^{/*} \) を通じて以下の一物一価の法則が成立すると仮定する。
+\label{sec:model_equilibriums_lop}
+自国と外国における同一財の価格については財の国際的な裁定取引により一物一価の法則が成立すると仮定する。
+
+
+
 \begin{equation}
-p_t^h = e_t^{/*} p_t^{h*} \quad , \quad p_t^f = e_t^{/*} p_t^{f*}
-\label{eq:lop}
+p_t^h=e_t^{/*}p_t^{h*}
+\label{eq:model_equilibriums_lop_home}
 \end{equation}
+\begin{equation}
+p_t^f=e_t^{/*}p_t^{f*}
+\label{eq:model_equilibriums_lop_foreign}
+\end{equation}
+
+たとえば一物一価の法則が成立せず\(p_t^h<e_t^{/*}p_t^{h*}\)であったとする。
+このとき家計は自国において自国財を\(p_t^h\)で買い、外国において\(p_t^{h*}\)で売ることができる。
+この\(p_t^{h*}\)を為替市場において自国通貨に戻せば\(e_t^{/*}p_t^{h*}\)となるが、
+\(p_t^h<e_t^{/*}p_t^{h*}\)であったのだから、\(0<e_t^{/*}p_t^{h*}-p_t^h\)の利益を得ることになる。
+一物一価の法則とはこのような裁定取引の結果として
+名目為替レート\(e_t^{/*}\)や財の価格\(p_t^h,p_t^{h*}\)が調整され、
+\eqref{eq:model_equilibriums_lop_home}における等号が成立すると仮定することにほかならない。
