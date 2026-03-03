@@ -1,0 +1,47 @@
+% !TeX root = ../../main.tex
+% sections/app/appendix_envelope.tex
+
+\chapter{一般化された包絡線定理の導出}
+\label{chap:appendix_envelope}
+
+独立変数を\(x_i(i\in N)\)、パラメータを\(\alpha\)とする。家計の費用最小化問題を一般化し、以下の最適化問題を考える。
+目的関数:\(f(\{x_i\}_{i\in N})\)を最小化（あるいは最大化）する。
+制約条件:\(g(\{x_i\}_{i\in N})=\alpha\)
+この問題のラグランジアンは、ラグランジュ乗数を\(\lambda\)として以下のように定義される。
+\begin{equation}
+\label{eq:envelope_lagrangian_def}
+    L(\{x_i\}_{i\in N}, \lambda, \alpha)=f(\{x_i\}_{i\in N})+\lambda[\alpha-g(\{x_i\}_{i\in N})]
+\end{equation}
+ここで、ある\(\alpha\)に対して最適化を行った結果得られる最適解を\(\{x_i(\alpha)\}_{i\in N}\)、\(\lambda(\alpha)\)とし、そのときの目的関数の値を最適値関数\(V(\alpha)=f(\{x_i(\alpha)\}_{i\in N})\)と定義する。
+
+\paragraph{1.ラグランジアンと最適値関数の恒等性}
+最適点においては、制約条件\(g(\{x_i(\alpha)\}_{i\in N})=\alpha\)が必ず満たされているため、ラグランジアンの第2項（大括弧の中身）は常に0になる。したがって、最適点でのラグランジアンの値は、最適値関数の値と恒等的に一致する。
+\begin{equation}
+\label{eq:envelope_identity}
+    V(\alpha)=L(\{x_i(\alpha)\}_{i\in N}, \lambda(\alpha), \alpha)
+\end{equation}
+この「最適化されている限り、\(V\)と\(L\)は常に背中合わせで動く」という事実が重要である。
+
+\paragraph{2.全微分による「動き」の分解}
+パラメータ\(\alpha\)が変化したときの最適値の変動量\(\frac{dV}{d\alpha}\)を計算する。式\eqref{eq:envelope_identity}の両辺を\(\alpha\)で全微分すると、連鎖律により以下のように展開される。
+\begin{equation}
+\label{eq:envelope_total_derivative}
+    \frac{dV(\alpha)}{d\alpha}=\underbrace{\frac{\partial L}{\partial \alpha}}_{\text{直接効果}}+\sum_{i\in N}\underbrace{\frac{\partial L}{\partial x_i}}_{\text{内生変数の調整}}\frac{dx_i(\alpha)}{d\alpha}+\underbrace{\frac{\partial L}{\partial \lambda}}_{\text{制約の変化}}\frac{d\lambda(\alpha)}{d\alpha}
+\end{equation}
+
+\paragraph{3.最適化の原理による項の消滅}
+ここで、ラグランジアンの各変数に関する性質を確認する。
+内生変数の項:家計は\(f(\{x_i\}_{i\in N})\)を最適化するために\(x_i\)を選択しているため、1階の条件（FOC）より、最適点では\(\frac{\partial L}{\partial x_i}=0\)がすべての\(i\)について成立している。
+ラグランジュ乗数の項:ラグランジアンを\(\lambda\)で偏微分すると制約条件そのもの（\(\alpha-g(\{x_i\}_{i\in N})\)）が導かれるが、最適点ではこれは恒等的に0である（\(\frac{\partial L}{\partial \lambda}=0\)）。
+したがって、式\eqref{eq:envelope_total_derivative}の第2項と第3項はすべて消滅し、以下のシンプルな関係が残る。
+\begin{equation}
+\label{eq:envelope_result}
+    \frac{dV(\alpha)}{d\alpha}=\frac{\partial L}{\partial \alpha}
+\end{equation}
+
+\paragraph{4.具体的な計算}
+最後に、ラグランジアンの定義式\eqref{eq:envelope_lagrangian_def}をパラメータ\(\alpha\)で直接偏微分する。
+\begin{equation}
+\label{eq:envelope_final_step}
+    \frac{\partial L}{\partial \alpha}=\frac{\partial}{\partial \alpha}\left(f(\{x_i\}_{i\in N})+\lambda\alpha-\lambda g(\{x_i\}_{i\in N})\right)=\lambda
+\end{equation}

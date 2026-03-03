@@ -22,14 +22,14 @@ Johannes Pfeifer氏が最新のDynareとの互換性を維持するために修�
 経済が永続的に留まる点として以下を満たすものと定義される。
 \begin{equation}
 \mathbf{f}(\mathbf{x}_{ss},\mathbf{x}_{ss},0)=0
-\label{eq:model_preparation_method_dynare_steady_state_definition}
+\label{form:model_preparation_method_dynare_steady_state_definition}
 \end{equation}
 この定常状態においてヤコビ行列が正則であれば陰関数定理によって点
 \((\mathbf{x}_{t+1},\mathbf{x}_t,\mathbf{\epsilon}_t)=(\mathbf{x}_{ss},\mathbf{x}_{ss},0)\)
 の近傍において
 \begin{equation}
 \mathbf{x}_{t+1}=\mathbf{h}(\mathbf{x}_t,\mathbf{\epsilon}_t)
-\label{eq:model_preparation_method_dynare_policy_function}
+\label{form:model_preparation_method_dynare_policy_function}
 \end{equation}
 というベクトル値関数\(\mathbf{h}\)の存在が数学的に保証される。
 また定常状態の定義から\(\mathbf{x}_{ss}=\mathbf{h}(\mathbf{x}_{ss},0)\)という関係が成立する。
@@ -49,7 +49,7 @@ Johannes Pfeifer氏が最新のDynareとの互換性を維持するために修�
 
 \begin{equation}
 x_1=h_0(x_0),\quad x_2=h_0(x_1),\quad\dots
-\label{eq:model_preparation_method_dynare_iterative_convergence}
+\label{form:model_preparation_method_dynare_iterative_convergence}
 \end{equation}
 この反復計算の結果\(x_t\)は\(x_{ss}\)へと収束する。
 この階段状の移動の軌跡を時間軸に沿ってプロットしたものがインパルス応答関数である。

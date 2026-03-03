@@ -1,0 +1,80 @@
+\subsubsection{第2段階（期をまたぐ問題）}
+\label{sec:model_households_indices_aggregation_stage2}
+ここからは第2段階、すなわち期をまたぐ最適化問題を扱う。
+
+\paragraph{自国家計の第2段階}
+\label{sec:model_households_indices_aggregation_stage2_home}
+第一段階である期内費用最小化の結果、
+家計の名目総支出\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\sum_fp_t^fc_t^{h\to f}\)は
+最終財の物価指数\(p_t^{H\to W}\)と消費指数\(c_t^{h\to W}\)の積で簡潔に表現できることがわかる
+（証明は付録\ref{chap:appendix_cost_minimization}に譲る）。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_p_H_W_c_h_W_eq}
+    \sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\sum_fp_t^fc_t^{h\to f}=p_t^{H\to W}c_t^{h\to W}
+\end{equation}
+また期待生涯効用関数の\(\log\)の引数全体も\(c_t^{h\to W}\)に一致する。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_c_h_W_eq}
+    \frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}=c_t^{h\to W}
+\end{equation}
+これらの関係を用いることで、\ref{model_households_optimization_home}節で提示した
+複雑な予算制約を持つ問題はより単純な操作変数を用いた問題に書き換えることができる。
+この第2段階の問題のラグランジアンは以下のように記述される。
+ここでの操作変数は、総消費指数\(c_t^{h\to W}\)、労働供給\(l_t^h\)、
+および各種債権の保有量\(d_{t+1}^{h\to H},b_{t+1}^{h\to F}\)である。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_lagrangian_eq}
+    \begin{aligned}
+        \mathcal{L}^h=&\operatorname{E}_s\Biggl[\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\Biggl\{\left(\log c_t^{h\to W}-\frac{\phi^H}{2}(l_t^h)^2\right) \\
+        &\quad+\lambda_t^h\biggl(\Bigl(d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\Bigr)\biggr)\Biggr\}\Biggr]
+    \end{aligned}
+\end{equation}
+このラグランジアンから以下の主要なFOCが導かれる。
+導出の厳密な過程（状態\(j\)に依存した変数での偏微分、反復期待値の法則の適用、係数除去の論理）は
+付録\ref{chap:appendix_cost_minimization}に譲る。
+総消費指数\(c_t^{h\to W}\)に関するFOCから以下が得られる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_lambda_h_p_H_W_c_h_W_eq}
+    \lambda_t^h=\frac{1}{p_t^{H\to W}c_t^{h\to W}}
+\end{equation}
+国内コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)に関するFOCを集計することで以下のオイラー方程式が導かれる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_lambda_h_i_H_eq}
+    \lambda_t^h=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^h]
+\end{equation}
+ここで\(i_t^H\)は国内の無リスク名目金利である。
+国際リスクフリー債券\(b_{t+1}^{h\to F*}\)に関するFOCから以下のオイラー方程式が得られる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_home_lambda_h_i_F_eq}
+    \lambda_t^he_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t\left[\lambda_{t+1}^he_{t+1}^{/*}\right]
+\end{equation}
+ここで\(i_t^F\)は外国の無リスク名目金利である。
+
+\paragraph{外国家計の第2段階}
+\label{sec:model_households_indices_aggregation_stage2_foreign}
+同様に外国家計\(f\)のラグランジアンは以下のように簡略化される。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_foreign_lagrangian_eq}
+    \begin{aligned}
+        \mathcal{L}^f=&\operatorname{E}_s\Biggl[\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\Biggl\{\left(\log c_t^{f\to W}-\frac{\phi^F}{2}(l_t^f)^2\right) \\
+        &\quad+\lambda_t^{f/*}\biggl(\Bigl(d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}\Bigr)\biggr)\Biggr\}\Biggr]
+    \end{aligned}
+\end{equation}
+この簡略版ラグランジアンを各変数で偏微分することで以下が得られる。
+総消費指数\(c_t^{f\to W}\)に関するFOCから以下が得られる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_foreign_lambda_f_star_p_F_W_star_c_f_W}
+    \lambda_t^{f/*}=\frac{1}{p_t^{F\to W*}c_t^{f\to W}}
+\end{equation}
+国内コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)に関するFOCを集計することで以下のオイラー方程式が導かれる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_foreign_lambda_f_star_i_F_eq}
+    \lambda_t^{f/*}=\beta_t^F(1+i_t^F)\operatorname{E}_t[\lambda_{t+1}^{f/*}]
+\end{equation}
+国際リスクフリー債券\(b_{t+1}^{f\to H*}\)に関するFOCから以下のオイラー方程式が得られる。
+\begin{equation}
+\label{form:model_households_indices_aggregation_stage2_foreign_lambda_f_star_i_H_eq}
+    \frac{\lambda_t^{f/*}}{e_t^{/*}}=(1+i_t^H)\beta_t^F\operatorname{E}_t\left[\lambda_{t+1}^{f/*}\frac{1}{e_{t+1}^{/*}}\right]
+\end{equation}

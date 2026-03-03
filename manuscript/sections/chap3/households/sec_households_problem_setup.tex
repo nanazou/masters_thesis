@@ -1,0 +1,60 @@
+\subsection{価格以外の最適化}
+\label{sec:model_households_optimization}
+
+\subsubsection{自国家計の最適化}
+\label{sec:model_households_optimization_home}
+まず価格\(p_t^h\)を所与とした上で家計\(h\)の最適化問題を考える。
+家計\(h\)は各期において名目予算制約の下で期待生涯効用関数を最大化する。
+このとき操作変数は消費\(c_t^{h\to h'},c_t^{h\to f}\)、労働\(l_t^h\)、
+および債権\(d_{t+1}^{h\to H},b_{t+1}^{h\to F}\)である。
+
+\paragraph{自国家計の期待生涯効用関数:}
+\label{sec:model_households_optimization_home_utility}
+\begin{equation}
+\label{form:model_households_optimization_home_utility_function}
+    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\left(\log\left(\frac{\left(\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{\alpha^H}\left(\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\right)-\frac{\phi^H}{2}(l_t^h)^2\right)
+\end{equation}
+
+\paragraph{自国家計の名目予算制約:}
+\label{sec:model_households_optimization_home_budget}
+\begin{equation}
+\label{form:model_households_optimization_home_budget_equation}
+    \begin{aligned}
+        &\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\sum_{f\in F}p_t^fc_t^{h\to f} \\
+        &\qquad=d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
+    \end{aligned}
+\end{equation}
+
+この最適化問題は他の家計の財の消費\(c_t^{h\to h'},c_t^{h\to f}\)を
+個々に決定しなければならないため複雑である。
+そこでこの問題を扱いやすくするために全体として同値である以下の2つの問題に分割する。
+（同値性の証明は\ref{chap:appendix_equivalence}を参照）
+第一段階：
+「所与の総消費指数
+（期待生涯効用関数におけるlogの引数全体。のちに総消費指数\(c_t^{h\to W}\)をこの式に一致するように定義する）
+をどのような消費\(c_t^{h\to h'},c_t^{h\to f}\)を組み合わせて最小費用で実現するか」という期内の問題
+第二段階：
+「どのように総消費指数\(c_t^{h\to W}\)、労働供給\(l_t^h\)、
+および債権\(d_{t+1}^{h\to H},b_{t+1}^{h\to F}\)を組み合わせて
+名目予算制約のもと期待生涯効用関数を最大化するか」という期をまたぐ問題
+
+\paragraph{外国家計の最適化}
+\label{sec:model_households_optimization_foreign}
+同様に外国家計\(f\)も名目予算制約の下で期待生涯効用関数を最大化する。
+
+\paragraph{外国家計の期待生涯効用関数:}
+\label{sec:model_households_optimization_foreign_utility}
+\begin{equation}
+\label{form:model_households_optimization_foreign_utility_function}
+    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\left(\log\left(\frac{\left(\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{\alpha^F}\left(\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}\right)-\frac{\phi^F}{2}(l_t^f)^2\right)
+\end{equation}
+
+\paragraph{外国家計の名目予算制約:}
+\label{sec:model_households_optimization_foreign_budget}
+\begin{equation}
+\label{form:model_households_optimization_foreign_budget_equation}
+    \begin{aligned}
+        &\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}+\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'} \\
+        &\qquad=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+    \end{aligned}
+\end{equation}

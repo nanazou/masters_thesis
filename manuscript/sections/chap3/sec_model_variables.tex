@@ -6,211 +6,334 @@
 
 \subsection*{表記の規則と確率変数の扱い}
 \label{sec:model_variables_notation}
-
 本稿では不確実性を伴う変数の表記について以下の規則を採用する。
-
 \begin{enumerate}
-    \item\label{itm:model_variables_notation_realization} \textbf{確率変数と実現値の同一視:}\\
-    本章で記述される方程式（予算制約式、市場均衡条件、最適化条件など）は特段の断りがないかぎり、時点\(t\)における情報集合\(I_t\)（時点\(t\)までのショックの実現値を含む）が所与とされた下での関係式を表す。
-    したがって式中の変数（例：\(c_t,p_t\)）は、その時点\(t\)における確定した実現値として記述する。状態\(j\)への依存を示す表記（\((j)\)）は記述の煩雑さを避けるため省略する。
-
-    \item\label{itm:model_variables_notation_expectation} \textbf{期待値:}\\
-    将来の変数（例：\(c_{t+1}\)）は、時点\(t\)から見て不確実な確率変数である。これらを含む項については、時点\(t\)の情報集合にもとづく条件付き期待値演算子\(E_t[\cdot]\)を用いて記述する。
-
-    \item\label{itm:model_variables_notation_asterisk} \textbf{通貨建て(Currency):}\\
-    アスタリスク*の有無で示す。
-    \begin{itemize}
-        \item\label{itm:model_variables_notation_asterisk_home} もともと自国通貨建てである変数は*をつけず\(x_t\)のように表す。
-        \item\label{itm:model_variables_notation_asterisk_foreign} もともと外国通貨建てである変数は*をつけ\(x_t^*\)のように表す。
-        \item\label{itm:model_variables_notation_asterisk_def_foreign} もともと自国通貨建てである変数\(x_t\)について、\(x_t^*\equiv(1/e_t^{/*})x_t\)により\(x_t^*\)を定義する。
-        \item\label{itm:model_variables_notation_asterisk_def_home} もともと外国通貨建てである変数\(x_t^*\)について、\(x_t\equiv e_t^{/*}x_t^*\)により\(x_t\)を定義する。
-    \end{itemize}
-    ここで\(e_t^{/*}\)は名目為替レート（自国通貨/外国通貨）である。（例：\(\bar{p}_t^{F*},b_t^{h\to F}\)）
+    \item
+        \label{itm:model_variables_notation_realization}
+        \textbf{確率変数と実現値の同一視:}\\
+        本章で記述される方程式（予算制約式、市場均衡条件、最適化条件など）は特段の断りがないかぎり、
+        時点\(t\)における情報集合\(I_t\)（時点\(t\)までのショックの実現値を含む）が
+        所与とされた下での関係式を表す。
+        したがって式中の変数（例：\(c_t,p_t\)）は、その時点\(t\)における確定した実現値として記述する。
+        状態\(j\)への依存を示す表記（\((j)\)）は記述の煩雑さを避けるため省略する。
+    \item
+        \label{itm:model_variables_notation_expectation}
+        \textbf{期待値:}\\
+        将来の変数（例：\(c_{t+1}\)）は、時点\(t\)から見て不確実な確率変数である。
+        これらを含む項については、時点\(t\)の情報集合にもとづく条件付き期待値演算子\(E_t[\cdot]\)を
+        用いて記述する。
+    \item
+        \label{itm:model_variables_notation_asterisk}
+        \textbf{通貨建て(Currency):}\\
+        アスタリスク*の有無で示す。
+        \begin{itemize}
+            \item
+                \label{itm:model_variables_notation_asterisk_home}
+                もともと自国通貨建てである変数は*をつけず\(x_t\)のように表す。
+            \item
+                \label{itm:model_variables_notation_asterisk_foreign}
+                もともと外国通貨建てである変数は*をつけ\(x_t^*\)のように表す。
+            \item
+                \label{itm:model_variables_notation_asterisk_def_foreign}
+                もともと自国通貨建てである変数\(x_t\)について
+                \(x_t^*\equiv(1/e_t^{/*})x_t\)により\(x_t^*\)を定義する。
+            \item
+                \label{itm:model_variables_notation_asterisk_def_home}
+                もともと外国通貨建てである変数\(x_t^*\)について
+                \(x_t\equiv e_t^{/*}x_t^*\)により\(x_t\)を定義する。
+        \end{itemize}
+        ここで\(e_t^{/*}\)は名目為替レート（自国通貨/外国通貨）である。
+        （例：\(\bar{p}_t^{F*},b_t^{h\to F}\)）
 \end{enumerate}
-
 \subsection*{内生変数}
 \label{sec:model_variables_endogenous}
-
 \subsubsection*{家計の変数}
 \label{sec:model_variables_endogenous_households}
 \begin{itemize}
-    \item\label{itm:model_variables_endogenous_households_c_h_h} \(c_t^{h\to h'}\)：家計\(h\)による、家計\(h'\)が生産する財の消費。
-    \item\label{itm:model_variables_endogenous_households_l_h} \(l_t^h\)：家計\(h\)の労働。
-    \item\label{itm:model_variables_endogenous_households_y_h} \(y_t^h\)：家計\(h\)の財の生産。
-    \item\label{itm:model_variables_endogenous_households_p_h} \(p_t^h\)：家計\(h\)の財の価格。
-    \item\label{itm:model_variables_endogenous_households_p_h_tilde} \(\widetilde{p}_t^h\)：価格改定機会を得た家計\(h\)が設定する最適価格。
-    \item\label{itm:model_variables_endogenous_households_v_w} \(v_t,w_t\)：最適価格の補助変数。
-    \item\label{itm:model_variables_endogenous_households_d_h_H} \(d_{t+1}^{h\to H}\)：家計\(h\)が時点\(t\)に購入する、\(t+1\)期の状態に依存する国内コンティンジェント債券の数量。
-    \item\label{itm:model_variables_endogenous_households_b_h_F} \(b_{t+1}^{h\to F}\)：家計\(h\)が時点\(t\)に保有する、外国リスクフリー債券の自国通貨建ての保有額（名目値）。
-    \item\label{itm:model_variables_endogenous_households_lambda_h} \(\lambda_t^h\)：家計\(h\)の予算制約に関するラグランジュ乗数（所得の限界効用）。
-    \item\label{itm:model_variables_endogenous_households_foreign} （外国も同様に\(c_t^{f\to f'},l_t^f,y_t^f,p_t^{f*},\widetilde{p}_t^{f*},v_t^F,w_t^F,d_{t+1}^{f\to F*},b_{t+1}^{f\to H*},\lambda_t^{f/*}\)が定義される。）
+    \item
+        \label{itm:model_variables_endogenous_households_c_h_h}
+        \(c_t^{h\to h'}\)：家計\(h\)による、家計\(h'\)が生産する財の消費。
+    \item
+        \label{itm:model_variables_endogenous_households_l_h}
+        \(l_t^h\)：家計\(h\)の労働。
+    \item
+        \label{itm:model_variables_endogenous_households_y_h}
+        \(y_t^h\)：家計\(h\)の財の生産。
+    \item
+        \label{itm:model_variables_endogenous_households_p_h}
+        \(p_t^h\)：家計\(h\)の財の価格。
+    \item
+        \label{itm:model_variables_endogenous_households_p_h_tilde}
+        \(\widetilde{p}_t^h\)：価格改定機会を得た家計\(h\)が設定する最適価格。
+    \item
+        \label{itm:model_variables_endogenous_households_v_w}
+        \(v_t,w_t\)：最適価格の補助変数。
+    \item
+        \label{itm:model_variables_endogenous_households_d_h_H}
+        \(d_{t+1}^{h\to H}\)：家計\(h\)が時点\(t\)に購入する
+        \(t+1\)期の状態に依存する国内コンティンジェント債券の数量。
+    \item
+        \label{itm:model_variables_endogenous_households_b_h_F}
+        \(b_{t+1}^{h\to F}\)：家計\(h\)が時点\(t\)に保有する
+        外国リスクフリー債券の自国通貨建ての保有額（名目値）。
+    \item
+        \label{itm:model_variables_endogenous_households_lambda_h}
+        \(\lambda_t^h\)：家計\(h\)の予算制約に関するラグランジュ乗数（所得の限界効用）。
+    \item
+        \label{itm:model_variables_endogenous_households_foreign}
+        （外国も同様に
+        \(c_t^{f\to f'},l_t^f,y_t^f,p_t^{f*},\widetilde{p}_t^{f*},v_t^F,w_t^F,d_{t+1}^{f\to F*},
+        b_{t+1}^{f\to H*},\lambda_t^{f/*}\)
+        が定義される。）
 \end{itemize}
-
 \subsubsection*{消費指数}
 \label{sec:model_variables_endogenous_consumption_indices}
 \begin{itemize}
-    \item\label{itm:model_variables_endogenous_consumption_indices_c_h_H} \(c_t^{h\to H}\)：家計\(h\)の自国財消費指数。
-    \begin{equation}
-        c_t^{h\to H}\equiv\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
-        \label{eq:model_variables_endogenous_consumption_indices_c_h_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_consumption_indices_c_h_F} \(c_t^{h\to F}\)：家計\(h\)の外国財消費指数。
-    \begin{equation}
-        c_t^{h\to F}\equiv\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
-        \label{eq:model_variables_endogenous_consumption_indices_c_h_F_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_consumption_indices_c_h_W} \(c_t^{h\to W}\)：家計\(h\)の総消費指数。
-    \begin{equation}
-        c_t^{h\to W}\equiv\frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}
-        \label{eq:model_variables_endogenous_consumption_indices_c_h_W_def}
-    \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_consumption_indices_c_h_H}
+        \(c_t^{h\to H}\)：家計\(h\)の自国財消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_consumption_indices_c_h_H_def}
+            c_t^{h\to H}\equiv\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_consumption_indices_c_h_F} \(c_t^{h\to F}\)：家計\(h\)の外国財消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_consumption_indices_c_h_F_def}
+            c_t^{h\to F}\equiv\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_consumption_indices_c_h_W}
+        \(c_t^{h\to W}\)：家計\(h\)の総消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_consumption_indices_c_h_W_def}
+            c_t^{h\to W}\equiv\frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}
+        \end{equation}
 \end{itemize}
-
 \subsubsection*{国全体の変数}
 \label{sec:model_variables_endogenous_aggregate}
 \begin{itemize}
-    \item\label{itm:model_variables_endogenous_aggregate_q} \(q_{t,t+1}\)：時点\(t\)における、\(t+1\)期の状態コンティンジェント債券の価格（確率的割引因子）。
-    \item\label{itm:model_variables_endogenous_aggregate_e_star} \(e_t^{/*}\)：名目為替レート（自国通貨/外国通貨）。
-    \item\label{itm:model_variables_endogenous_aggregate_p_H} \(p_t^H\)：自国の生産者物価指数（PPI）。
-    \begin{equation}
-        p_t^H\equiv\left[\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
-        \label{eq:model_variables_endogenous_aggregate_p_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_H_bar} \(\bar{p}_t^H\)：自国の正規化された生産者物価指数（PPI）。
-    \begin{equation}
-        \bar{p}_t^H\equiv\left[\frac{1}{N}\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}=N^{-\frac{1}{1-\theta^H}}p_t^H
-        \label{eq:model_variables_endogenous_aggregate_p_H_bar_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_F_star} \(p_t^{F*}\)：外国の生産者物価指数（PPI,外国通貨建て）。
-    \begin{equation}
-        p_t^{F*}\equiv\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
-        \label{eq:model_variables_endogenous_aggregate_p_F_star_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_F_star_bar} \(\bar{p}_t^{F*}\)：外国の正規化された生産者物価指数（PPI,外国通貨建て）。
-    \begin{equation}
-        \bar{p}_t^{F*}\equiv\left[\frac{1}{M}\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}=M^{-\frac{1}{1-\theta^F}}p_t^{F*}
-        \label{eq:model_variables_endogenous_aggregate_p_F_star_bar_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_H_W} \(p_t^{H\to W}\)：自国の消費者物価指数（CPI）。
-    \begin{equation}
-        p_t^{H\to W}\equiv(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
-        \label{eq:model_variables_endogenous_aggregate_p_H_W_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_H_W_bar} \(\bar{p}_t^{H\to W}\)：自国の正規化された消費者物価指数（CPI）。
-    \begin{equation}
-        \bar{p}_t^{H\to W}\equiv(\bar{p}_t^H)^{\alpha^H}(\bar{p}_t^F)^{1-\alpha^H}
-        \label{eq:model_variables_endogenous_aggregate_p_H_W_bar_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_F_W_star} \(p_t^{F\to W*}\)：外国の消費者物価指数（CPI,外国通貨建て）。
-    \begin{equation}
-        p_t^{F\to W*}\equiv(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
-        \label{eq:model_variables_endogenous_aggregate_p_F_W_star_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_p_F_W_star_bar} \(\bar{p}_t^{F\to W*}\)：外国の正規化された消費者物価指数（CPI,外国通貨建て）。
-    \begin{equation}
-        \bar{p}_t^{F\to W*}\equiv(\bar{p}_t^{F*})^{\alpha^F}(\bar{p}_t^{H*})^{1-\alpha^F}
-        \label{eq:model_variables_endogenous_aggregate_p_F_W_star_bar_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_pi_H} \(\pi_t^H\)：自国の生産者物価指数グロス・インフレ率（\(\bar{p}_t^H/\bar{p}_{t-1}^H\)）。
-    \item\label{itm:model_variables_endogenous_aggregate_pi_F_star} \(\pi_t^{F*}\)：外国の生産者物価指数グロス・インフレ率（\(\bar{p}_t^{F*}/\bar{p}_{t-1}^{F*}\)）。
-    \item\label{itm:model_variables_endogenous_aggregate_pi_H_W} \(\pi_t^{H\to W}\)：自国の消費者物価指数グロス・インフレ率（\(\bar{p}_t^{H\to W}/\bar{p}_{t-1}^{H\to W}\)）。
-    \item\label{itm:model_variables_endogenous_aggregate_pi_F_W_star} \(\pi_t^{F\to W*}\)：外国の消費者物価指数グロス・インフレ率（\(\bar{p}_t^{F\to W*}/\bar{p}_{t-1}^{F\to W*}\)）。
-    \item\label{itm:model_variables_endogenous_aggregate_Y_H} \(Y_t^H\)：自国全体の総生産指数。
-    \begin{equation}
-        Y_t^H\equiv\left[\sum_{h\in H}(y_t^h)^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
-        \label{eq:model_variables_endogenous_aggregate_Y_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_L_H} \(L_t^H\)：自国全体の総労働。
-    \begin{equation}
-        L_t^H\equiv\sum_{h\in H}l_t^h
-        \label{eq:model_variables_endogenous_aggregate_L_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_C_H_W} \(C_t^{H\to W}\)：自国全体の総消費。
-    \begin{equation}
-        C_t^{H\to W}\equiv\sum_{h\in H}c_t^{h\to W}
-        \label{eq:model_variables_endogenous_aggregate_C_H_W_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_B_H} \(B_t^H\)：自国全体の対外純資産（自国通貨建て）。
-    \begin{equation}
-        B_t^H\equiv\sum_{h\in H}b_t^{h\to F}
-        \label{eq:model_variables_endogenous_aggregate_B_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_B_F_star} \(B_t^{F*}\)：自国全体の対外純資産（外国通貨建て）。
-    \begin{equation}
-        B_t^{F*}\equiv-(N/M)(B_t^H/e_t^{/*})
-        \label{eq:model_variables_endogenous_aggregate_B_F_star_def}
-    \end{equation}
-    （世界全体の債券市場均衡\(Nb_t^{h\to F}+Me_t^{/*}b_t^{f\to F*}=0\)より導出される定義）
-    \item\label{itm:model_variables_endogenous_aggregate_Delta_H} \(\Delta_t^H\)：自国全体の総価格分散。
-    \begin{equation}
-        \Delta_t^H\equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
-        \label{eq:model_variables_endogenous_aggregate_Delta_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_aggregate_foreign} （外国も同様に\(Y_t^F,L_t^F,C_t^{F\to W},\Delta_t^F,p_t^{F*},\bar{p}_t^{F*},p_t^{F\to W*},\pi_t^{F*}\)などが定義される。）
+    \item
+    \label{itm:model_variables_endogenous_aggregate_q}
+        \(q_{t,t+1}\)：時点\(t\)における、\(t+1\)期の状態コンティンジェント債券の価格（確率的割引因子）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_e_star}
+        \(e_t^{/*}\)：名目為替レート（自国通貨/外国通貨）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_H}
+        \(p_t^H\)：自国の生産者物価指数（PPI）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_H_def}
+            p_t^H\equiv\left[\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_H_bar}
+        \(\bar{p}_t^H\)：自国の正規化された生産者物価指数（PPI）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_H_bar_def}
+            \bar{p}_t^H\equiv\left[\frac{1}{N}\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}=N^{-\frac{1}{1-\theta^H}}p_t^H
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_F_star}
+        \(p_t^{F*}\)：外国の生産者物価指数（PPI,外国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_F_star_def}
+            p_t^{F*}\equiv\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_F_star_bar}
+        \(\bar{p}_t^{F*}\)：外国の正規化された生産者物価指数（PPI,外国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_F_star_bar_def}
+            \bar{p}_t^{F*}\equiv\left[\frac{1}{M}\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}=M^{-\frac{1}{1-\theta^F}}p_t^{F*}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_H_W}
+        \(p_t^{H\to W}\)：自国の消費者物価指数（CPI）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_H_W_def}
+            p_t^{H\to W}\equiv(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_H_W_bar}
+        \(\bar{p}_t^{H\to W}\)：自国の正規化された消費者物価指数（CPI）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_H_W_bar_def}
+            \bar{p}_t^{H\to W}\equiv(\bar{p}_t^H)^{\alpha^H}(\bar{p}_t^F)^{1-\alpha^H}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_F_W_star}
+        \(p_t^{F\to W*}\)：外国の消費者物価指数（CPI,外国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_F_W_star_def}
+            p_t^{F\to W*}\equiv(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_p_F_W_star_bar}
+        \(\bar{p}_t^{F\to W*}\)：外国の正規化された消費者物価指数（CPI,外国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_p_F_W_star_bar_def}
+            \bar{p}_t^{F\to W*}\equiv(\bar{p}_t^{F*})^{\alpha^F}(\bar{p}_t^{H*})^{1-\alpha^F}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_pi_H}
+        \(\pi_t^H\)：自国の生産者物価指数グロス・インフレ率（\(\bar{p}_t^H/\bar{p}_{t-1}^H\)）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_pi_F_star}
+        \(\pi_t^{F*}\)：外国の生産者物価指数グロス・インフレ率（\(\bar{p}_t^{F*}/\bar{p}_{t-1}^{F*}\)）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_pi_H_W}
+        \(\pi_t^{H\to W}\)：自国の消費者物価指数グロス・インフレ率
+        （\(\bar{p}_t^{H\to W}/\bar{p}_{t-1}^{H\to W}\)）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_pi_F_W_star}
+        \(\pi_t^{F\to W*}\)：外国の消費者物価指数グロス・インフレ率
+        （\(\bar{p}_t^{F\to W*}/\bar{p}_{t-1}^{F\to W*}\)）。
+    \item
+    \label{itm:model_variables_endogenous_aggregate_Y_H}
+        \(Y_t^H\)：自国全体の総生産指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_Y_H_def}
+            Y_t^H\equiv\left[\sum_{h\in H}(y_t^h)^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_L_H}
+        \(L_t^H\)：自国全体の総労働。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_L_H_def}
+            L_t^H\equiv\sum_{h\in H}l_t^h
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_C_H_W}
+        \(C_t^{H\to W}\)：自国全体の総消費。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_C_H_W_def}
+            C_t^{H\to W}\equiv\sum_{h\in H}c_t^{h\to W}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_B_H}
+        \(B_t^H\)：自国全体の対外純資産（自国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_B_H_def}
+            B_t^H\equiv\sum_{h\in H}b_t^{h\to F}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_B_F_star}
+        \(B_t^{F*}\)：自国全体の対外純資産（外国通貨建て）。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_B_F_star_def}
+            B_t^{F*}\equiv-(N/M)(B_t^H/e_t^{/*})
+        \end{equation}
+        （世界全体の債券市場均衡\(Nb_t^{h\to F}+Me_t^{/*}b_t^{f\to F*}=0\)より導出される定義）
+    \item
+    \label{itm:model_variables_endogenous_aggregate_Delta_H}
+        \(\Delta_t^H\)：自国全体の総価格分散。
+        \begin{equation}
+        \label{form:model_variables_endogenous_aggregate_Delta_H_def}
+            \Delta_t^H\equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_aggregate_foreign}
+        （外国も同様に
+        \(Y_t^F,L_t^F,C_t^{F\to W},\Delta_t^F,p_t^{F*},\bar{p}_t^{F*},p_t^{F\to W*},\pi_t^{F*}\)
+        などが定義される。）
 \end{itemize}
-
 \subsubsection*{代表的家計の変数}
 \label{sec:model_variables_endogenous_representative}
-3.4節のリスク共有の議論にもとづき、代表的家計の変数（\(H\)付きなど）を以下のように定義する。
+\ref{sec:sec_model_risk_sharing_consumption_and_disposable_equality}節のリスク共有の議論にもとづき、
+代表的家計の変数（\(H\)付きなど）を以下のように定義する。
 \begin{itemize}
-    \item\label{itm:model_variables_endogenous_representative_c_H_W} \(c_t^{H\to W}\)：代表的家計の総消費指数。
-    \begin{equation}
-        c_t^{H\to W}\equiv c_t^{h\to W}\quad（※3.4節より全家計で共通のため）
-        \label{eq:model_variables_endogenous_representative_c_H_W_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_c_H_H} \(c_t^{H\to H}\)：代表的家計の自国財消費指数。
-    \begin{equation}
-        c_t^{H\to H}\equiv c_t^{h\to H}\quad（※3.4節より全家計で共通のため）
-        \label{eq:model_variables_endogenous_representative_c_H_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_c_H_F} \(c_t^{H\to F}\)：代表的家計の外国財消費指数。
-    \begin{equation}
-        c_t^{H\to F}\equiv c_t^{h\to F}\quad（※3.4節より全家計で共通のため）
-        \label{eq:model_variables_endogenous_representative_c_H_F_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_l_H} \(l_t^H\)：代表的家計の労働。
-    \begin{equation}
-        l_t^H\equiv\frac{1}{N}\sum_{h\in H}l_t^h
-        \label{eq:model_variables_endogenous_representative_l_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_y_H} \(y_t^H\)：代表的家計の生産指数。
-    \begin{equation}
-        y_t^H\equiv Y_t^H/N
-        \label{eq:model_variables_endogenous_representative_y_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_lambda_H} \(\lambda_t^H\)：所得の限界効用。
-    \begin{equation}
-        \lambda_t^H\equiv\lambda_t^h\quad（※3.4節より全家計で共通のため）
-        \label{eq:model_variables_endogenous_representative_lambda_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_b_H} \(b_t^H\)：代表的家計の対外純資産。
-    \begin{equation}
-        b_t^H\equiv B_t^H/N
-        \label{eq:model_variables_endogenous_representative_b_H_def}
-    \end{equation}
-    \item\label{itm:model_variables_endogenous_representative_p_H_tilde} \(\widetilde{p}_t^H\)：代表的家計の最適価格。
-    \begin{equation}
-        \widetilde{p}_t^H\equiv\widetilde{p}_t^h\quad（※3.5.2節より全価格改定家計で共通のため）
-        \label{eq:model_variables_endogenous_representative_p_H_tilde_def}
-    \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_c_H_W}
+        \(c_t^{H\to W}\)：代表的家計の総消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_c_H_W_def}
+            c_t^{H\to W}\equiv c_t^{h\to W}\quad（※\eqref{form:sec_model_risk_sharing_c_h_W_equality}より全家計で共通のため）
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_c_H_H}
+        \(c_t^{H\to H}\)：代表的家計の自国財消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_c_H_H_def}
+            c_t^{H\to H}\equiv c_t^{h\to H}\quad（※3.4節より全家計で共通のため）
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_c_H_F}
+        \(c_t^{H\to F}\)：代表的家計の外国財消費指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_c_H_F_def}
+            c_t^{H\to F}\equiv c_t^{h\to F}\quad（※3.4節より全家計で共通のため）
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_l_H}
+        \(l_t^H\)：代表的家計の労働。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_l_H_def}
+            l_t^H\equiv\frac{1}{N}\sum_{h\in H}l_t^h
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_y_H}
+        \(y_t^H\)：代表的家計の生産指数。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_y_H_def}
+            y_t^H\equiv Y_t^H/N
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_lambda_H}
+        \(\lambda_t^H\)：所得の限界効用。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_lambda_H_def}
+            \lambda_t^H\equiv\lambda_t^h
+        \end{equation}
+        ※\ref{sec_model_risk_sharing_lambda}節より\(\lambda_t^h\)は全家計で共通
+    \item
+    \label{itm:model_variables_endogenous_representative_b_H}
+        \(b_t^H\)：代表的家計の対外純資産。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_b_H_def}
+            b_t^H\equiv B_t^H/N
+        \end{equation}
+    \item
+    \label{itm:model_variables_endogenous_representative_p_H_tilde}
+        \(\widetilde{p}_t^H\)：代表的家計の最適価格。
+        \begin{equation}
+        \label{form:model_variables_endogenous_representative_p_H_tilde_def}
+            \widetilde{p}_t^H\equiv\widetilde{p}_t^h\quad（※3.5.2節より全価格改定家計で共通のため）
+        \end{equation}
 \end{itemize}
-
 \subsubsection*{政策変数}
 \label{sec:model_variables_endogenous_policy}
 \begin{itemize}
-    \item\label{itm:model_variables_endogenous_policy_i} \(i_t^H,i_t^F\)：自国と外国の政策金利（無リスク名目金利）。
-    \item\label{itm:model_variables_endogenous_policy_tau} \(\tau_t^H,\tau_t^F\)：自国と外国の所得税率。
-    \item\label{itm:model_variables_endogenous_policy_t} \(t_t^H,t_t^{F*}\)：自国と外国の一括移転。
-    \item\label{itm:model_variables_endogenous_policy_gamma} \(\gamma_t^H,\gamma_t^F\)：水準目標政策における過去の目標乖離の累積項。
+    \item
+    \label{itm:model_variables_endogenous_policy_i}
+        \(i_t^H,i_t^F\)：自国と外国の政策金利（無リスク名目金利）。
+    \item
+    \label{itm:model_variables_endogenous_policy_tau}
+        \(\tau_t^H,\tau_t^F\)：自国と外国の所得税率。
+    \item
+    \label{itm:model_variables_endogenous_policy_t}
+        \(t_t^H,t_t^{F*}\)：自国と外国の一括移転。
+    \item
+    \label{itm:model_variables_endogenous_policy_gamma}
+        \(\gamma_t^H,\gamma_t^F\)：水準目標政策における過去の目標乖離の累積項。
 \end{itemize}
-
 \subsection*{外生変数（ショック）}
 \label{sec:model_variables_exogenous}
 \begin{itemize}
-    \item\label{itm:model_variables_exogenous_a} \(a_t^H,a_t^F\)：生産性（技術水準）。
-    \item\label{itm:model_variables_exogenous_beta} \(\beta_t^H,\beta_t^F\)：時間割引因子。
-    \item\label{itm:model_variables_exogenous_chi} \(\chi_t^H,\chi_t^F\)：金融政策の目標パス。
-    \item\label{itm:model_variables_exogenous_eps} \(\varepsilon_t^{\tau,H},\varepsilon_t^{i,H},\dots\)：各外生変数の確率過程に従うショック項。（外国も同様に\(\varepsilon_t^{\tau,F},\varepsilon_t^{i,F}\)など）
+    \item
+    \label{itm:model_variables_exogenous_a}
+        \(a_t^H,a_t^F\)：生産性（技術水準）。
+    \item
+    \label{itm:model_variables_exogenous_beta}
+        \(\beta_t^H,\beta_t^F\)：時間割引因子。
+    \item
+    \label{itm:model_variables_exogenous_chi}
+        \(\chi_t^H,\chi_t^F\)：金融政策の目標パス。
+    \item
+    \label{itm:model_variables_exogenous_eps}
+        \(\varepsilon_t^{\tau,H},\varepsilon_t^{i,H},\dots\)
+        ：各外生変数の確率過程に従うショック項。
+        （外国も同様に\(\varepsilon_t^{\tau,F},\varepsilon_t^{i,F}\)など）
 \end{itemize}
 
 \subsection*{パラメータ}
@@ -219,28 +342,45 @@
 \subsubsection*{家計の選好}
 \label{sec:model_variables_parameters_preferences}
 \begin{itemize}
-    \item\label{itm:model_variables_parameters_preferences_phi} \(\phi^H,\phi^F\)：労働の非効用の重み。
-    \item\label{itm:model_variables_parameters_preferences_alpha} \(\alpha^H,\alpha^F\)：消費バスケットにおける自国財（内需）への嗜好の強さ（ホームバイアス）。
+    \item
+    \label{itm:model_variables_parameters_preferences_phi}
+        \(\phi^H,\phi^F\)：労働の非効用の重み。
+    \item
+    \label{itm:model_variables_parameters_preferences_alpha}
+        \(\alpha^H,\alpha^F\)：消費バスケットにおける自国財（内需）への嗜好の強さ（ホームバイアス）。
 \end{itemize}
 
 \subsubsection*{生産と価格設定}
 \label{sec:model_variables_parameters_production}
 \begin{itemize}
-    \item\label{itm:model_variables_parameters_production_theta} \(\theta^H,\theta^F\)：個別財間の代替の弾力性。
-    \item\label{itm:model_variables_parameters_production_xi} \(\xi^H,\xi^F\)：価格を改定できない企業の割合（カルボ・パラメータ）。
+    \item
+    \label{itm:model_variables_parameters_production_theta}
+        \(\theta^H,\theta^F\)：個別財間の代替の弾力性。
+    \item
+    \label{itm:model_variables_parameters_production_xi}
+        \(\xi^H,\xi^F\)：価格を改定できない企業の割合（カルボ・パラメータ）。
 \end{itemize}
 
 \subsubsection*{政策ルール}
 \label{sec:model_variables_parameters_policy}
 \begin{itemize}
-    \item\label{itm:model_variables_parameters_policy_phi} \(\phi_\pi,\phi_y,\phi_{gap},\phi_{level}\)：金融政策ルールにおける各目標への反応係数。（自国・外国共通の場合もあるが、区別する場合は\(\phi_\pi^H,\phi_\pi^F\)などとする。）
-    \item\label{itm:model_variables_parameters_policy_rho} \(\rho_i,\rho_\tau,\dots\)：各外生変数の確率過程における自己回帰係数。（自国・外国共通の場合もあるが、区別する場合は\(\rho_i^H,\rho_i^F\)などとする。）
+    \item
+    \label{itm:model_variables_parameters_policy_phi}
+        \(\phi_\pi,\phi_y,\phi_{gap},\phi_{level}\)
+        ：金融政策ルールにおける各目標への反応係数。
+        （自国・外国共通の場合もあるが、区別する場合は\(\phi_\pi^H,\phi_\pi^F\)などとする。）
+    \item
+    \label{itm:model_variables_parameters_policy_rho}
+        \(\rho_i,\rho_\tau,\dots\)：各外生変数の確率過程における自己回帰係数。
+        （自国・外国共通の場合もあるが、区別する場合は\(\rho_i^H,\rho_i^F\)などとする。）
 \end{itemize}
 
 \subsubsection*{その他}
 \label{sec:model_variables_parameters_others}
 \begin{itemize}
-    \item\label{itm:model_variables_parameters_others_pop} \(N,M\)：自国と外国の人口（家計の数）。
+    \item
+    \label{itm:model_variables_parameters_others_pop}
+        \(N,M\)：自国と外国の人口（家計の数）。
 \end{itemize}
 
 \subsection*{不確実性の源泉と確率変数}
@@ -251,8 +391,8 @@
 \label{sec:model_variables_stochastic_nature_sources}
 本稿のモデルにおけるすべての不確実性は、「外生変数（ショック）」の節で定義された変数（例：生産性\(a_t^H\),割引因子\(\beta_t^H\),税率\(\tau_t^H\)など）から生じる。これらの外生変数は第4章などで定義されるAR(1)（1次自己回帰）のような確率過程に従う。たとえば\(\beta_t^H\)は
 \begin{equation}
+\label{form:model_variables_stochastic_nature_sources_beta_def}
     \log(\beta_t^H)=(1-\rho_\beta^H)\log(\beta_{ss}^H)+\rho_\beta^H\log(\beta_{t-1}^H)+\epsilon_t^{\beta,H}
-    \label{eq:model_variables_stochastic_nature_sources_beta_def}
 \end{equation}
 のように記述される。この式の最後にある\(\epsilon_t^{\beta,H}\)が毎期新たにランダムに発生する新規ショックであり、これが不確実性の唯一の源泉である。
 
@@ -264,8 +404,15 @@
 \label{sec:model_variables_stochastic_nature_variables}
 上記の仮定から、確率変数となるのは以下の2種類である。
 \begin{itemize}
-    \item\label{itm:model_variables_stochastic_nature_variables_exogenous} \textbf{外生変数（ショック変数）:} \(\epsilon_t\)がランダムであるため、\(\epsilon_t\)に依存する\(a_t^H\),\(\beta_t^H\),\(\tau_t^H\)などの外生変数が確率変数となる。
-
-    \item\label{itm:model_variables_stochastic_nature_variables_endogenous} \textbf{すべての内生変数:} モデルのすべての内生変数（例：消費\(c_t^H\),生産\(y_t^H\),所得の限界効用\(\lambda_t^H\),価格\(p_t^H\),為替レート\(e_t^{/*}\)など）はモデルの方程式系（第3.8節）を通じて確率的な外生変数の現在値と期待される将来経路の関数として確定される。したがって入力（外生変数）が確率変数であるため、その出力であるすべての解（内生変数）もまた確率変数となる。
+    \item
+    \label{itm:model_variables_stochastic_nature_variables_exogenous}
+        \textbf{外生変数（ショック変数）:} \(\epsilon_t\)がランダムであるため、\(\epsilon_t\)に依存する\(a_t^H\),\(\beta_t^H\),\(\tau_t^H\)などの外生変数が確率変数となる。
+    \item
+    \label{itm:model_variables_stochastic_nature_variables_endogenous}
+        \textbf{すべての内生変数:} モデルのすべての内生変数
+        （例：消費\(c_t^H\),生産\(y_t^H\),所得の限界効用\(\lambda_t^H\),価格\(p_t^H\),
+        為替レート\(e_t^{/*}\)など）は
+        モデルの方程式系（第3.8節）を通じて確率的な外生変数の現在値と期待される将来経路の関数として確定される。
+        したがって入力（外生変数）が確率変数であるためその出力であるすべての解（内生変数）もまた確率変数となる。
 \end{itemize}
 このため家計や企業は将来の確率変数（例：\(\lambda_{t+1}^H\),\(e_{t+1}\)など）の値を現時点\(t\)で正確に知ることはできず、その期待値（\(E_t[\cdot]\)）にもとづいて最適化行動をとるため、不確実性がモデルの動学を規定する。

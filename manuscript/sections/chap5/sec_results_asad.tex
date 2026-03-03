@@ -17,10 +17,10 @@ AS曲線は代表的家計の供給側の全条件を、AD曲線は需要側の�
 
 供給側は代表的家計の価格の最適化を記述する以下の4本の非線形方程式系によって構成される。
 \begin{itemize}
-    \item 代表的家計の最適価格決定式\eqref{eq:model_producers_optimal_price_home}
-    \item 代表的家計の補助変数\(v_t\)の再帰動学式\eqref{eq:model_producers_v_recursive_home}
-    \item 代表的家計の補助変数\(w_t\)の再帰動学式\eqref{eq:model_producers_w_recursive_home}
-    \item 代表的家計の物価指数動学方程式\eqref{eq:model_households_indices_aggregation_stage1a_costmin_h_h_ppi}
+    \item 代表的家計の最適価格決定式\eqref{form:model_producers_optimal_price_home}
+    \item 代表的家計の補助変数\(v_t\)の再帰動学式\eqref{form:model_producers_v_recursive_home}
+    \item 代表的家計の補助変数\(w_t\)の再帰動学式\eqref{form:model_producers_w_recursive_home}
+    \item 代表的家計の物価指数動学方程式\eqref{form:model_households_indices_aggregation_stage1a_costmin_h_h_ppi}
 \end{itemize}
 これらの方程式系を定常状態の周りで対数線形近似し補助変数を消去して整理することにより、
 以下の線形化されたフィリップス曲線が得られる（付録\ref{sec:model_appendix_optimal_price_derivation_main}）。
@@ -29,7 +29,7 @@ AS曲線は代表的家計の供給側の全条件を、AD曲線は需要側の�
 
 \begin{equation}
 \hat{\pi}_t^H=\beta_{ss}^HE_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-\hat{\lambda}_t^H-\hat{\tau}_t^H)
-\label{eq:results_asad_as_phillips}
+\label{form:results_asad_as_phillips}
 \end{equation}
 ここで\(\kappa^H\)は価格の粘着性に依存する正の定数である。
 パラメータ設定の表\ref{tab:model_preparation_parameters_list}でも述べたとおり、
@@ -42,48 +42,48 @@ AS曲線は代表的家計の供給側の全条件を、AD曲線は需要側の�
  \(\hat{p}_t^H\)について整理すると以下の\textbf{AS曲線}が得られる。
 \begin{equation}
 \hat{p}_t^H=\frac{1}{1+\beta_{ss}^H}\hat{p}_{t-1}^H+\frac{\beta_{ss}^H}{1+\beta_{ss}^H}E_t[\hat{p}_{t+1}^H]
-\label{eq:results_asad_as_curve}
+\label{form:results_asad_as_curve}
 \end{equation}
 
-式\eqref{eq:results_asad_as_curve}には生産\(\hat{y}_t^H\)が含まれていない。
+式\eqref{form:results_asad_as_curve}には生産\(\hat{y}_t^H\)が含まれていない。
 したがって（\(y,p\)）平面においてAS曲線は\textbf{水平な直線}として描かれる。
 この水平線の高さは前期の生産者物価指数\(p_{t-1}^H\)と期待生産者物価指数\(E_t[p_{t+1}^H]\)のみによって決定される。
 
 \subsection{総実需（AD）曲線}
 \label{sec:results_asad_ad}
 需要側は代表的家計の価格以外の最適化を記述するすべての方程式によって構成される。
-注意点としては、個別財への需要関数\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_f}を導出した家計の費用最小化問題において、
-すでに名目予算制約式\eqref{eq:model_households_optimization_budget_h}が用いられていた。
-したがってそれらを集計した代表的家計の資源制約式\eqref{eq:model_resource_constraints_aggregate_H}は、
-代表的家計の需要関数\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_f}に内包されている。
-よって代表的家計の資源制約式\eqref{eq:model_resource_constraints_aggregate_H}は以下の構成要素一覧に含めない。
+注意点としては、個別財への需要関数\eqref{form:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{form:model_households_indices_aggregation_stage1a_demand_h_f}を導出した家計の費用最小化問題において、
+すでに名目予算制約式\eqref{form:model_households_optimization_budget_h}が用いられていた。
+したがってそれらを集計した代表的家計の資源制約式\eqref{form:model_resource_constraints_aggregate_H}は、
+代表的家計の需要関数\eqref{form:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{form:model_households_indices_aggregation_stage1a_demand_h_f}に内包されている。
+よって代表的家計の資源制約式\eqref{form:model_resource_constraints_aggregate_H}は以下の構成要素一覧に含めない。
 
 \begin{itemize}
-    \item 代表的家計の財市場均衡条件\eqref{eq:model_producers_aggregate_goods_market_equilibrium}
-    \item 代表的家計の所得の限界効用の式\eqref{eq:model_households_foc_h_consumption}
-    \item 代表的家計のオイラー方程式\eqref{eq:model_households_foc_h_bond}
-    \item 代表的家計のUIP条件\eqref{eq:model_households_foc_h_uip}
-    \item 代表的家計の需要関数\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_f}
-    \item 代表的家計の消費者物価指数（CPI）の定義\eqref{eq:model_households_indices_aggregation_stage1b_cpi_h_def}
-    \item 一物一価の法則\eqref{eq:model_households_indices_aggregation_stage1a_ppi_relation_h}
+    \item 代表的家計の財市場均衡条件\eqref{form:model_producers_aggregate_goods_market_equilibrium}
+    \item 代表的家計の所得の限界効用の式\eqref{form:model_households_foc_h_consumption}
+    \item 代表的家計のオイラー方程式\eqref{form:model_households_foc_h_bond}
+    \item 代表的家計のUIP条件\eqref{form:model_households_foc_h_uip}
+    \item 代表的家計の需要関数\eqref{form:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{form:model_households_indices_aggregation_stage1a_demand_h_f}
+    \item 代表的家計の消費者物価指数（CPI）の定義\eqref{form:model_households_indices_aggregation_stage1b_cpi_h_def}
+    \item 一物一価の法則\eqref{form:model_households_indices_aggregation_stage1a_ppi_relation_h}
 \end{itemize}
 
-まず順に需要関数\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{eq:model_households_indices_aggregation_stage1a_demand_h_f}、一物一価の法則\eqref{eq:model_households_indices_aggregation_stage1a_ppi_relation_h}、UIP条件\eqref{eq:model_households_foc_h_uip}から導かれた為替レート決定式\eqref{eq:model_appendix_exchange_rate_final}を、
-財市場均衡条件\eqref{eq:model_producers_aggregate_goods_market_equilibrium}に代入する。
+まず順に需要関数\eqref{form:model_households_indices_aggregation_stage1a_demand_h_h}および\eqref{form:model_households_indices_aggregation_stage1a_demand_h_f}、一物一価の法則\eqref{form:model_households_indices_aggregation_stage1a_ppi_relation_h}、UIP条件\eqref{form:model_households_foc_h_uip}から導かれた為替レート決定式\eqref{form:model_appendix_exchange_rate_final}を、
+財市場均衡条件\eqref{form:model_producers_aggregate_goods_market_equilibrium}に代入する。
 これにより名目GDPと名目総消費を結びつける以下の関係式が得られる（付録\ref{sec:model_appendix_exchange_rate_main}）。
 \begin{equation*}
 p_t^Hy_t^H=\left[\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]\right]p_t^{H\to W}c_t^{H\to W}
-\tag{\ref{eq:model_appendix_exchange_rate_gdp_substituted}}
+\tag{\ref{form:model_appendix_exchange_rate_gdp_substituted}}
 \end{equation*}
-この関係式は需要側の方程式系のうち、所得の限界効用の式\eqref{eq:model_households_foc_h_consumption}とオイラー方程式\eqref{eq:model_households_foc_h_bond}を除くすべての方程式を集約したものである。
+この関係式は需要側の方程式系のうち、所得の限界効用の式\eqref{form:model_households_foc_h_consumption}とオイラー方程式\eqref{form:model_households_foc_h_bond}を除くすべての方程式を集約したものである。
 
-次に\eqref{eq:model_appendix_exchange_rate_gdp_substituted}の名目総消費\(p_t^{H\to W}c_t^{H\to W}\)に対し、所得の限界効用の式\(\lambda_t^H=1/(p_t^{H\to W}c_t^{H\to W})\)\eqref{eq:model_households_foc_h_consumption}を名目総消費について解き代入する。
+次に\eqref{form:model_appendix_exchange_rate_gdp_substituted}の名目総消費\(p_t^{H\to W}c_t^{H\to W}\)に対し、所得の限界効用の式\(\lambda_t^H=1/(p_t^{H\to W}c_t^{H\to W})\)\eqref{form:model_households_foc_h_consumption}を名目総消費について解き代入する。
 さらにそうして出てきた所得の限界効用\(\lambda_t^H\)に、
-オイラー方程式\(\lambda_t^H=\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]\)\eqref{eq:model_households_foc_h_bond}を代入する。
+オイラー方程式\(\lambda_t^H=\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]\)\eqref{form:model_households_foc_h_bond}を代入する。
 最後に\(y_t^H\)を右辺に移項することで以下の\textbf{AD曲線}が導出される。
 \begin{equation}
 p_t^H=\frac{1}{y_t^H}\times\frac{\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]}{\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]}
-\label{eq:results_asad_ad_curve}
+\label{form:results_asad_ad_curve}
 \end{equation}
 
 生産者物価指数\(p_t^H\)が生産\(y_t^H\)に反比例していることから、
@@ -99,8 +99,8 @@ AD曲線は右下がりの\textbf{直角双曲線}となっていることがわ
 \subsection{政策による均衡の制御と期待の役割}
 \label{sec:results_asad_policy_control}
 
-本モデルの均衡は水平なAS曲線\eqref{eq:results_asad_as_curve}と、
-右下がりのAD曲線\eqref{eq:results_asad_ad_curve}の交点として描かれる。
+本モデルの均衡は水平なAS曲線\eqref{form:results_asad_as_curve}と、
+右下がりのAD曲線\eqref{form:results_asad_ad_curve}の交点として描かれる。
 先に述べたように\(\mathcal{B}_t\)と\(\Lambda_{\infty}\)は金融政策の影響を受けないため、
 金融政策の分析上考慮すべき変数は
  \(p_t^H,y_t^H,i_t^H,E_t[\lambda_{t+1}^H],E_t[p_{t+1}^H]\)
@@ -126,7 +126,7 @@ AD曲線の右辺分母が小さくなり右辺全体が大きくなるため、
 AS曲線の右辺第2項が増大するため、\textbf{AS曲線は上へ移動}する。
 これにより生産者物価指数\(p_t^H\)は上昇し、生産\(y_t^H\)は下落する。
 しかし、このとき期待限界効用\(E_t[\lambda_{t+1}^H]\)は
-所得の限界効用の式\eqref{eq:model_households_foc_h_consumption}を通じて減少するため、
+所得の限界効用の式\eqref{form:model_households_foc_h_consumption}を通じて減少するため、
 先に述べたように\textbf{AD曲線は右上へ移動}し、これは生産\(y_t^H\)を増加させる方向に働く。
 
 名目総消費水準目標はこれら3つの指標に総合的に働きかけることにより、
