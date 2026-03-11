@@ -1,0 +1,127 @@
+% !TeX root = ../../../../main.tex
+% sections/chap3/subsections/assumptions/price_optimization.tex
+
+\subsection{価格最適化}
+\label{sec:chapter3_assumptions_price_optimization}
+本モデルは独占的競争モデルのため生産者が価格を決定する。
+また家計は生産者でもあるため（ヨーマン・ファーマ）、家計が価格を決定することとなる。
+
+\subsubsection{自国家計の価格最適化}
+\label{sec:chapter3_assumptions_price_optimization_home}
+
+\paragraph{自国家計の価格最適化の機会}
+\label{sec:chapter3_assumptions_price_optimization_home_opportunity}
+自国の家計\(h\)は\textcite{Calvo1983}に従い毎期\(1-\xi^H\)の確率で価格を改定する機会を得る。
+改定の機会を得られなかった家計は前期の価格を据え置く。
+
+\paragraph{自国生産者の価格最適化の計算}
+\label{sec:chapter3_assumptions_price_optimization_home_caliculation}
+最終的に導かれる修正されたラグランジアン\eqref{form:model_households_stage2_home_lagrangian_eq}を
+価格\(p_t^h\)で偏微分するにあたり、各変数を価格\(p_t^h\)の関数でないものとあるものにまとめる。
+\begin{itemize}
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_home_caliculation_remark1}
+        \textbf{価格\(p_t^h\)の関数でないもの}
+        \begin{itemize}
+            \item 主観的割引因子\(\beta_{s+k}^H\)
+            \item 総消費指数\(c_t^{h\to W}\)
+            \item コンティンジェント債券\(d_t^{h\to H}, d_{t+1}^{h\to H}(j')\)
+            \item 外国の名目利子率\(i_{t-1}^F\)
+            \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
+            \item 国際リスクフリー債券\(b_t^{h\to F}, b_{t+1}^{h\to F}\)
+            \item 所得税率\(\tau_t^H\)
+            \item 一括移転\(t_t^H\)
+            \item コンティンジェント債券の価格\(q_{t,t+1}(j')\)
+        \end{itemize}
+        総消費指数\(c_t^{h\to W}\)、コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)および
+        国際リスクフリー債券\(b_{t+1}^{h\to F}\)は独立変数であるため価格\(p_t^h\)の関数ではないが、
+        価格\(p_t^h\)の変化を通じた効用や予算制約の変化の影響を受ける。
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_home_caliculation_remark2}
+        \textbf{価格\(p_t^h\)の関数であるもの}
+        \begin{itemize}
+            \item 労働\(l_t^h\)
+            \item 生産\(y_t^h\)
+            \item 価格\(p_t^h\)
+            \item 消費者物価指数\(p_t^{H\to W}\)
+        \end{itemize}
+        労働\(l_t^h\)は
+        生産関数\eqref{form:model_producers_home_production_function_definision_def}により
+        生産\(y_t^h\)の関数であり、生産\(y_t^h\)は
+        市場均衡\eqref{form:model_producers_home_market_eq}により
+        総消費指数\(c_t^{h\to W}\)の関数であるが、総消費指数\(c_t^{h\to W}\)は
+        需要関数
+        \eqref{form:model_households_stage1a_ppi_descriptions_c_h_h_eq}、
+        \eqref{form:model_households_stage1a_ppi_descriptions_c_f_h_eq}により
+        価格\(p_t^h\)の関数であるため（\ref{}節TODO）。
+\end{itemize}
+また最適価格\(p_t^h\)で偏微分するにあたり以下の仮定をおく。
+\begin{itemize}
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_home_caliculation_assumption}
+        \textbf{価格\(p_t^h\)の関数だがそうではないように扱うもの}
+        \begin{itemize}
+            \item 消費者物価指数\(p_t^{H\to W}\)
+        \end{itemize}
+        消費者物価指数\(p_t^{H\to W}\)が価格\(p_t^h\)より受ける影響は小さいため、ないものと仮定する。
+\end{itemize}
+
+\subsubsection{外国家計の価格最適化}
+\label{sec:chapter3_assumptions_price_optimization_foreign}
+
+\paragraph{外国家計の価格最適化の機会}
+\label{sec:chapter3_assumptions_price_optimization_foreign_opportunity}
+外国の家計\(f\)は自国と同様に毎期\(1-\xi^F\)の確率で価格を改定する機会を得る。
+改定の機会を得られなかった家計は前期の価格を据え置く。
+
+\paragraph{外国生産者の価格最適化の計算}
+\label{sec:chapter3_assumptions_price_optimization_foreign_caliculation}
+最終的に導かれる修正されたラグランジアン\eqref{form:model_households_stage2_foreign_lagrangian_eq}を
+価格\(p_t^{f*}\)で偏微分するにあたり、各変数を価格\(p_t^{f*}\)の関数でないものとあるものにまとめる。
+\begin{itemize}
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_foreign_caliculation_remark1}
+        \textbf{価格\(p_t^{f*}\)の関数でないもの}
+        \begin{itemize}
+            \item 主観的割引因子\(\beta_{s+k}^F\)
+            \item 総消費指数\(c_t^{f\to W}\)
+            \item 外国コンティンジェント債券\(d_t^{f\to F*}, d_{t+1}^{f\to F*}(j')\)
+            \item 自国の名目利子率\(i_{t-1}^H\)
+            \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
+            \item 国際リスクフリー債券\(b_t^{f\to H*}, b_{t+1}^{f\to H*}\)
+            \item 所得税率\(\tau_t^F\)
+            \item 一括移転\(t_t^{F*}\)
+            \item 外国コンティンジェント債券の価格\(q_{t,t+1}^*(j')\)
+        \end{itemize}
+        総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)および
+        国際リスクフリー債券\(b_{t+1}^{f\to H*}\)は独立変数であるため価格\(p_t^{f*}\)の関数ではないが、
+        価格\(p_t^{f*}\)の変化を通じた効用や予算制約の変化の影響を受ける。
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_foreign_caliculation_remark2}
+        \textbf{価格\(p_t^{f*}\)の関数であるもの}
+        \begin{itemize}
+            \item 労働\(l_t^f\)
+            \item 生産\(y_t^f\)
+            \item 価格\(p_t^{f*}\)
+            \item 消費者物価指数\(p_t^{F\to W*}\)
+        \end{itemize}
+        労働\(l_t^f\)は
+        生産関数\eqref{form:model_producers_household_production_function_foreign_eq}により
+        生産\(y_t^f\)の関数であり、生産\(y_t^f\)は
+        市場均衡\eqref{form:model_producers_good_market_y_f_modified_eq}により
+        各国からの需要の関数となるが、これらの需要は
+        需要関数
+        \eqref{form:model_households_stage1a_ppi_descriptions_c_f_f_eq}、
+        \eqref{form:model_households_stage1a_ppi_descriptions_c_h_f_eq}により
+        価格\(p_t^{f*}\)の関数であるため（\ref{sec:model_producers}節参照）。
+\end{itemize}
+また最適価格\(p_t^{f*}\)で偏微分するにあたり以下の仮定をおく。
+\begin{itemize}
+    \item
+    \label{itm:chapter3_assumptions_price_optimization_foreign_caliculation_assumption}
+        \textbf{価格\(p_t^{f*}\)の関数だがそうではないように扱うもの}
+        \begin{itemize}
+            \item 消費者物価指数\(p_t^{F\to W*}\)
+        \end{itemize}
+        消費者物価指数\(p_t^{F\to W*}\)が価格\(p_t^{f*}\)より受ける影響は小さいため、ないものと仮定する。
+\end{itemize}

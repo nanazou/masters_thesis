@@ -1,0 +1,256 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/households/stage1b.tex
+
+\subsection{第1段階ステップB}
+\label{sec:chapter3_households_stage1b}
+次に第1段階（期内費用最小化）のうちステップBを考える。
+
+\subsubsection{自国家計の第1段階ステップB}
+\label{sec:chapter3_households_stage1b_home}
+
+\paragraph{自国家計の総消費指数\(c_t^{h\to W}\)の定義}
+\label{sec:chapter3_households_stage1b_home_c_h_W_definition}
+まず自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)を用いて総消費指数\(c_t^{h\to W}\)を定義する。
+これはCES型指数において代替の弾力性パラメータ\(\theta\)が1である特別な場合（コブ＝ダグラス型）に対応する。
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_definition_def}
+    c_t^{h\to W}\equiv\frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}
+\end{equation}
+この定義はパラメータ\(\alpha^H\)を用いた加重幾何平均の形をとる。
+この形式がもつ一つの重要な含意は単位の整合性である。
+仮に消費指数の単位を「単位」とすると
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_definition_unit_id}
+    (\text{単位})^{\alpha^H}\times(\text{単位})^{1-\alpha^H}=\text{単位}^{\alpha^H+1-\alpha^H}=\text{単位}^1
+\end{equation}
+となり総消費指数\(c_t^{h\to W}\)はその構成要素と同じ次元を持つ。
+これにより\(c_t^{h\to W}\)は家計の総体的な消費水準を示す指標として成立する。
+\(1/\left((\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}\right)\)という定数項は
+総消費指数\(c_t^{h\to W}\)を調整するための正規化項である。
+モデルの式中では消費者物価指数\(p_t^{H\to W}\)が多用されるため、
+その定義式が簡潔になるよう、あらかじめ\(c_t^{h\to W}\)の定義にこの項を入れておくのが一般的である。
+この正規化により後続する消費者物価指数\(p_t^{H\to W}\)の定義式から
+定数項\((\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}\)が消え、
+\(p_t^{H\to W}=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}\)という簡潔な形で表現される。
+
+\paragraph{自国家計の総消費指数\(c_t^{h\to W}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1b_home_c_h_W_problem}
+家計\(h\)が所与の総消費指数\(c_t^{h\to W}\)を達成するために、
+自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)への名目支出の総和
+\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)を最小化する問題を考える。
+この問題のラグランジアンは以下のように記述される。
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_problem_lagrangian_def}
+    \mathcal{L}^{h\to W}=p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}+\eta_t^h\left(c_t^{h\to W}-\frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\right)
+\end{equation}
+上記ラグランジアンには名目支出額が含まれていることから、単位は自国通貨と考えられる。
+また一般にラグランジアンはラグランジュ乗数\(\eta_t^h\)を独立変数扱いして各独立変数で偏微分する。
+そこで上記ラグランジアンを総消費指数\(c_t^{h\to W}\)で偏微分すると、その値はラグランジュ乗数\(\eta_t^h\)に一致する。
+さらに均衡においてはこのラグランジアンの総消費指数\(c_t^{h\to W}\)による偏微分は、
+名目総支出\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)の総消費指数\(c_t^{h\to W}\)による微分に
+一致することが証明される（式\eqref{chap:appendix_envelope}）。すなわち
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_marginal_eq}
+    \frac{\mathrm{d}(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F})}{\mathrm{d}c_t^{h\to W}}=\frac{\partial \mathcal{L}^{h\to W}}{\partial c_t^{h\to W}}=\eta_t^h
+\end{equation}
+このことからラグランジュ乗数\(\eta_t^h\)は総消費指数\(c_t^{h\to W}\)の限界価格と解釈でき、
+大雑把にいえば総消費指数\(c_t^{h\to W}\)を追加1単位増やしたときの
+名目総支出の増加量を表す。
+この費用最小化問題から各財消費指数への需要関数が導出される
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{align}
+    \label{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}
+        c_t^{h\to H}&=\alpha^H\left(\frac{p_t^H}{\eta_t^h}\right)^{-1}c_t^{h\to W} \\
+    \label{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_F_eq}
+        c_t^{h\to F}&=(1-\alpha^H)\left(\frac{p_t^F}{\eta_t^h}\right)^{-1}c_t^{h\to W}
+\end{align}
+これらの需要関数を名目総支出\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)に代入して計算すると
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_average_eq}
+    p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}=\eta_t^hc_t^{h\to W}
+\end{equation}
+という関係が得られる（式\eqref{chap:appendix_cost_minimization}TODO）。
+これにより\(\eta_t^h\)は総消費指数\(c_t^{h\to W}\)の平均価格であると解釈できる。
+さらに具体的に\(\eta_t^h\)は各財の物価指数のみで構成されることが示される
+（式\eqref{chap:appendix_cost_minimization}）。
+\begin{equation}
+\label{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_eq}
+    \eta_t^h=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
+\end{equation}
+この式からわかるように\(\eta_t^h\)はすべての自国家計\(h\)で共通の値をとる。
+またこの式によれば\(\eta_t^h\)は総消費指数\(c_t^{h\to W}\)に依存しないのだから、
+総消費指数\(c_t^{h\to W}\)の限界価格であった\(\eta_t^h\)が
+総消費指数\(c_t^{h\to W}\)の平均価格ともなったことは当然といえる。
+
+\subsubsection{外国家計の第1段階ステップB}
+\label{sec:chapter3_households_stage1b_foreign}
+
+\paragraph{外国家計の総消費指数\(c_t^{f\to W}\)の定義}
+\label{sec:chapter3_households_stage1b_foreign_c_f_W_definition}
+同様に外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)を用いて総消費指数\(c_t^{f\to W}\)を定義する。
+これはCES型指数において代替の弾力性パラメータ\(\theta\)が1である特別な場合（コブ＝ダグラス型）に対応する。
+\begin{equation}
+\label{form:chapter3_households_stage1b_foreign_c_f_W_definition_def}
+    c_t^{f\to W}\equiv\frac{(c_t^{f\to F})^{\alpha^F}(c_t^{f\to H})^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}
+\end{equation}
+この定義はパラメータ\(\alpha^F\)を用いた加重幾何平均の形をとる。
+
+\paragraph{外国家計の総消費指数\(c_t^{f\to W}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1b_foreign_c_f_W_problem}
+外国家計\(f\)が所与の総消費指数\(c_t^{f\to W}\)を達成するために、
+外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)への名目支出の総和
+\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)を最小化する問題を考える。
+この問題のラグランジアンは以下のように記述される。
+\begin{equation}
+\label{form:chapter3_households_stage1b_foreign_c_f_W_problem_lagrangian_def}
+    \mathcal{L}^{f\to W}=p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}+\eta_t^f\left(c_t^{f\to W}-\frac{(c_t^{f\to F})^{\alpha^F}(c_t^{f\to H})^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}\right)
+\end{equation}
+上記ラグランジアンには外国通貨建ての名目支出額が含まれていることから、単位は外国通貨と考えられる。
+また一般にラグランジアンはラグランジュ乗数\(\eta_t^f\)を独立変数扱いして各独立変数で偏微分する。
+そこで上記ラグランジアンを総消費指数\(c_t^{f\to W}\)で偏微分すると、その値はラグランジュ乗数\(\eta_t^f\)に一致する。
+さらに均衡においてはこのラグランジアンの総消費指数\(c_t^{f\to W}\)による偏微分は、
+名目総支出\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)の総消費指数\(c_t^{f\to W}\)による微分に
+一致することが証明される（式\eqref{chap:appendix_envelope}）。すなわち
+\begin{equation}
+\label{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_marginal_eq}
+    \frac{\mathrm{d}(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H})}{\mathrm{d}c_t^{f\to W}}=\frac{\partial \mathcal{L}^{f\to W}}{\partial c_t^{f\to W}}=\eta_t^f
+\end{equation}
+このことからラグランジュ乗数\(\eta_t^f\)は総消費指数\(c_t^{f\to W}\)の限界価格と解釈でき、
+大雑把にいえば総消費指数\(c_t^{f\to W}\)を追加1単位増やしたときの
+名目総支出の増加量を表す。
+この費用最小化問題から各財消費指数への需要関数が導出される
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{align}
+    \label{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_F_eq}
+        c_t^{f\to F}&=\alpha^F\left(\frac{p_t^{F*}}{\eta_t^f}\right)^{-1}c_t^{f\to W} \\
+    \label{form:chapter3_households_stage1b_foreign_c_f_H_eq}
+        c_t^{f\to H}&=(1-\alpha^F)\left(\frac{p_t^{H*}}{\eta_t^f}\right)^{-1}c_t^{f\to W}
+\end{align}
+これらの需要関数を名目総支出\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)に代入して計算すると
+\begin{equation}
+\label{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_average_eq}
+    p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}=\eta_t^fc_t^{f\to W}
+\end{equation}
+という関係が得られる（式\eqref{chap:appendix_cost_minimization}TODO）。
+これにより\(\eta_t^f\)は総消費指数\(c_t^{f\to W}\)の平均価格であると解釈できる。
+さらに具体的に\(\eta_t^f\)は各財の物価指数のみで構成されることが示される
+（式\eqref{chap:appendix_cost_minimization}）。
+\begin{equation}
+\label{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_eq}
+    \eta_t^f=(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
+\end{equation}
+この式からわかるように\(\eta_t^f\)はすべての外国家計\(f\)で共通の値をとる。
+またこの式によれば\(\eta_t^f\)は総消費指数\(c_t^{f\to W}\)に依存しないのだから、
+総消費指数\(c_t^{f\to W}\)の限界価格であった\(\eta_t^f\)が
+総消費指数\(c_t^{f\to W}\)の平均価格ともなったことは当然といえる。
+（ここで\(p_t^{H*}\)は自国財の外国通貨建て価格）
+
+\subsubsection{消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W*}\)の定義}
+\label{sec:chapter3_households_stage1b_cpi_definitions}
+一物一価の法則\eqref{form:chapter3_households_stage1a_ppi_definitions_p_H_lop}および\eqref{form:chapter3_households_stage1a_ppi_definitions_p_F_lop}を用いると、異なる通貨建ての消費者物価指数間の関係式が以下のように導出される。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_h_eta_h_star_eq}
+        \eta_t^h
+        &=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
+        =(e_t^{/*}p_t^{H*})^{\alpha^H}(e_t^{/*}p_t^{F*})^{1-\alpha^H}
+        =e_t^{/*}(p_t^{H*})^{\alpha^H}(p_t^{F*})^{1-\alpha^H}
+        =e_t^{/*}\eta_t^{h*} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_f_eta_f_star_eq}
+        \eta_t^f
+        &=(p_t^F)^{1-\alpha^F}(p_t^H)^{\alpha^F}
+        =(e_t^{/*}p_t^{F*})^{1-\alpha^F}(e_t^{/*}p_t^{H*})^{\alpha^F}
+        =e_t^{/*}(p_t^{F*})^{1-\alpha^F}(p_t^{H*})^{\alpha^F}
+        =e_t^{/*}\eta_t^{f*}
+\end{align}
+上記の関係にもとづき消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W*}\)を以下のように定義する。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_definitions_p_H_W_def}
+        p_t^{H\to W}&\equiv\eta_t^h\quad\text{（自国の自国通貨建て消費者物価指数(CPI)）} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_p_F_W_star_def}
+        p_t^{F\to W*}&\equiv\eta_t^{f*}\quad\text{（外国の外国通貨建て消費者物価指数(CPI)）}
+\end{align}
+この記法を用いると4つの物価指数の関係は以下のようにまとめられる。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_h_p_H_W_eq}
+        \eta_t^h&=p_t^{H\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_h_star_p_H_W_star_eq}
+        \eta_t^{h*}&=p_t^{H\to W*} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_f_p_F_W_eq}
+        \eta_t^f&=p_t^{F\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_eta_f_star_p_F_W_star_eq}
+        \eta_t^{f*}&=p_t^{F\to W*}
+\end{align}
+これらを使って
+\eqref{form:chapter3_households_stage1b_cpi_definitions_eta_h_eta_h_star_eq}および
+\eqref{form:chapter3_households_stage1b_cpi_definitions_eta_f_eta_f_star_eq}
+を書き直せば消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W}\)に関する一物一価の法則が得られる。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_definitions_p_H_W_lop}
+        p_t^{H\to W}&=e_t^{/*}p_t^{H\to W*} \\
+    \label{form:chapter3_households_stage1b_cpi_definitions_p_F_W_lop}
+        p_t^{F\to W}&=e_t^{/*}p_t^{F\to W*}
+\end{align}
+
+\subsubsection{正規化された消費者物価指数(CPI)\(\bar{p}_t^{H\to W}, \bar{p}_t^{F\to W*}\)の定義}
+\label{sec:chapter3_households_stage1b_normalized_cpi_definitions}
+さらにマクロ分析のため経済規模の影響（\(N,M\)）を取り除いた正規化された消費者物価指数(CPI)\(\bar{p}_t^{H\to W}, \bar{p}_t^{F\to W*}\)を以下のように定義する。
+\begin{align}
+    \label{form:chapter3_households_stage1b_normalized_cpi_definitions_p_H_W_bar_def}
+        \bar{p}_t^{H\to W}&\equiv(\bar{p}_t^H)^{\alpha^H}(\bar{p}_t^F)^{1-\alpha^H} \\
+    \label{form:chapter3_households_stage1b_normalized_cpi_definitions_p_F_W_star_bar_def}
+        \bar{p}_t^{F\to W*}&\equiv(\bar{p}_t^{F*})^{\alpha^F}(\bar{p}_t^{H*})^{1-\alpha^F}
+\end{align}
+するとこれらについても一物一価の法則が成立する。
+\begin{align}
+    \label{form:chapter3_households_stage1b_normalized_cpi_definitions_p_H_W_bar_lop}
+        \bar{p}_t^{H\to W}&=e_t^{/*}\bar{p}_t^{H\to W*} \\
+    \label{form:chapter3_households_stage1b_normalized_cpi_definitions_p_F_W_bar_lop}
+        \bar{p}_t^{F\to W}&=e_t^{/*}\bar{p}_t^{F\to W*}
+\end{align}
+
+\subsubsection{消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W*}\)を用いた式の再記述}
+\label{sec:chapter3_households_stage1b_cpi_descriptions}
+第1段階ステップBにおいて導出された各式を消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W*}\)を用いて再記述する。
+まず各財消費指数への需要関数
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}、
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_F_eq}、
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_F_eq}、
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_H_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_descriptions_c_h_H_eq}
+        c_t^{h\to H}&=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{h\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_descriptions_c_h_F_eq}
+        c_t^{h\to F}&=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{h\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_descriptions_c_f_F_eq}
+        c_t^{f\to F}&=\alpha^F\frac{p_t^{F\to W*}}{p_t^{F*}}c_t^{f\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_descriptions_c_f_H_eq}
+        c_t^{f\to H}&=(1-\alpha^F)\frac{p_t^{F\to W*}}{p_t^{H*}}c_t^{f\to W}
+\end{align}
+ここで定義上は集計の際の重みとして導入されたパラメータ\(\alpha^H, \alpha^F\)が
+家計の最適化の結果として支出シェアという経済学的な意味を持つことを確認する。
+自国の需要関数\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}を名目支出の形に書き直せば、
+自国財消費への名目支出額\(p_t^Hc_t^{h\to H}\)は
+名目総支出額\(p_t^{H\to W}c_t^{h\to W}\)の常に\(\alpha^H\)倍となる。
+同様に外国においても外国財消費への名目支出額\(p_t^{F*}c_t^{f\to F}\)は名目総支出額の\(\alpha^F\)倍となる。
+したがってコブ＝ダグラス型指数の下では重みパラメータは各財指数への最適な支出シェアに必然的に一致する。
+平均価格としての\(p_t^{H\to W}\)の式
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_average_eq}、
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_average_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_descriptions_p_H_W_average_eq}
+        p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}&=p_t^{H\to W}c_t^{h\to W} \\
+    \label{form:chapter3_households_stage1b_cpi_descriptions_p_F_W_star_average_eq}
+        p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}&=p_t^{F\to W*}c_t^{f\to W}
+\end{align}
+最後に\(p_t^{H\to W}\)の具体的な形の式
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_eq}、
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1b_cpi_descriptions_p_H_W_eq}
+        p_t^{H\to W}&=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H} \\
+    \label{form:chapter3_households_stage1b_cpi_descriptions_p_F_W_star_eq}
+        p_t^{F\to W*}&=(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
+\end{align}

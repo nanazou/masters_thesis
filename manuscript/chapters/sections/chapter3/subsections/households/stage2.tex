@@ -1,0 +1,139 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/households/stage2.tex
+
+\subsection{第2段階（期をまたぐ問題）}
+\label{sec:chapter3_households_stage2}
+ここからは第2段階、すなわち期をまたぐ最適化問題を扱う。
+
+\subsubsection{自国家計の第2段階}
+\label{sec:chapter3_households_stage2_home}
+第2段階（期をまたぐ最適化問題）を定式化するにあたり、第1段階である期内費用最小化の結果を用いて
+期待生涯効用関数および予算制約式内の変数を集計変数へと整理する。
+まず効用関数内の\(\log\)の引数は第1段階ステップAにおける各財消費指数の定義および
+ステップBにおける総消費指数の定義に基づき、以下のように総消費指数\(c_t^{h\to W}\)へと完全に集約される。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_log_argument_eq}
+    \begin{aligned}
+        &\frac{\left(\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{\alpha^H}\left(\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}} \\
+        &\quad = \frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}} \tag{\ref{form:chapter3_households_stage1a_home_c_h_H_definition_def}, \ref{form:chapter3_households_stage1b_home_c_h_W_definition_def}参照} \\
+        &\quad = c_t^{h\to W}
+    \end{aligned}
+\end{equation}
+次に予算制約式の支出側についても第1段階の結果から個別財への名目支出の総和は
+消費者物価指数\(p_t^{H\to W}\)と総消費指数\(c_t^{h\to W}\)の積に等しくなることが示されている。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_p_H_W_average_eq}
+    \sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\sum_{f\in F}p_t^fc_t^{h\to f} = p_t^{H\to W}c_t^{h\to W} \tag{\ref{form:chapter3_households_stage1b_cpi_descriptions_p_H_W_average_eq}参照}
+\end{equation}
+以上の関係を用いることで、当初提示した複雑な予算制約を持つ問題は
+集計変数である総消費指数\(c_t^{h\to W}\)を操作変数とした簡潔な動学的最適化問題へと書き換えることができる。
+これらの関係を用いることで\ref{chapter3_households_problem_setup_home}節で提示した
+複雑な期待生涯効用関数と予算制約を持つ問題はより単純な操作変数を用いた以下の問題に書き換えることができる。
+すなわち家計\(h\)は総消費指数\(c_t^{h\to W}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
+および国際リスクフリー債券\(b_{t+1}^{h\to F}\)を操作変数とし、
+以下の名目予算制約のもとで以下の期待生涯効用関数を最大化する。
+（労働\(l_t^h\)は自身が設定する財の価格に応じて自動で決定されるため操作変数ではない）\\
+期待生涯効用関数：
+\begin{equation}
+\label{form:sec_chapter3_households_stage2_home_utility_def}
+    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\left(\log c_t^{h\to W}-\frac{\phi^H}{2}(l_t^h)^2\right)
+\end{equation}
+名目予算制約：
+\begin{equation}
+\label{form:sec_chapter3_households_stage2_home_budget_eq}
+    \sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}=d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
+\end{equation}
+この問題のラグランジアンは以下のようになり、これを各操作変数について偏微分することでFOCが導かれる
+（付録\ref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_lagrangian_eq}
+    \begin{aligned}
+        \mathcal{L}^h=&\operatorname{E}_s\Biggl[\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\Biggl\{\left(\log c_t^{h\to W}-\frac{\phi^H}{2}(l_t^h)^2\right) \\
+        &\quad+\lambda_t^h\biggl(\Bigl(d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\Bigr)\biggr)\Biggr\}\Biggr]
+    \end{aligned}
+\end{equation}
+まず総消費指数\(c_t^{h\to W}\)に関する偏微分から以下のFOCが得られる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_lambda_h_p_H_W_c_h_W_eq}
+    \lambda_t^h=\frac{1}{p_t^{H\to W}c_t^{h\to W}}
+\end{equation}
+自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)に関する偏微分から得られたFOCを集計することで
+以下のオイラー方程式が導かれる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_lambda_h_i_H_eq}
+    \lambda_t^h=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^h]
+\end{equation}
+ここで\(i_t^H\)は国内の無リスク名目金利である。
+国際リスクフリー債券\(b_{t+1}^{h\to F}\)に関する偏微分から以下のオイラー方程式が得られる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_home_lambda_h_i_F_eq}
+    \lambda_t^he_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t\left[\lambda_{t+1}^he_{t+1}^{/*}\right]
+\end{equation}
+ここで\(i_t^F\)は外国の無リスク名目金利である。
+
+\subsubsection{外国家計の第2段階}
+\label{sec:chapter3_households_stage2_foreign}
+外国家計\(f\)についても自国家計と同様に第2段階（期をまたぐ最適化問題）を定式化するにあたり、
+第1段階である期内費用最小化の結果を用いて期待生涯効用関数および予算制約式内の変数を集計変数へと整理する。
+まず効用関数内の\(\log\)の引数は第1段階ステップAにおける各財消費指数の定義および
+ステップBにおける総消費指数の定義に基づき、以下のように外国の総消費指数\(c_t^{f\to W}\)へと完全に集約される。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_log_argument_eq}
+    \begin{aligned}
+        &\frac{\left(\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{\alpha^F}\left(\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}} \\
+        &\quad = \frac{(c_t^{f\to F})^{\alpha^F}(c_t^{f\to H})^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}} \tag{\ref{form:chapter3_households_stage1a_foreign_c_f_F_definition_def}, \ref{form:chapter3_households_stage1b_foreign_c_f_W_definition_def}参照} \\
+        &\quad = c_t^{f\to W}
+    \end{aligned}
+\end{equation}
+次に外国通貨建ての予算制約式の支出側についても第1段階の結果から個別財への名目支出の総和は
+外国の消費者物価指数\(p_t^{F\to W*}\)と総消費指数\(c_t^{f\to W}\)の積に等しくなることが示されている。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_p_F_W_star_average_eq}
+    \sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}+\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'} = p_t^{F\to W*}c_t^{f\to W} \tag{\ref{form:chapter3_households_stage1b_cpi_descriptions_p_F_W_star_average_eq}参照}
+\end{equation}
+
+以上の関係を用いることで\ref{chapter3_households_problem_setup_foreign}節で提示した
+複雑な期待生涯効用関数と予算制約を持つ問題はより単純な操作変数を用いた以下の問題に書き換えることができる。
+すなわち家計\(f\)は総消費指数\(c_t^{f\to W}\)、自国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)を操作変数とし、
+以下の名目予算制約のもとで以下の期待生涯効用関数を最大化する。
+（労働\(l_t^f\)は自身が設定する財の価格に応じて自動で決定されるため操作変数ではない）\\
+期待生涯効用関数：
+\begin{equation}
+\label{form:sec_chapter3_households_stage2_foreign_utility_def}
+    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\left(\log c_t^{f\to W}-\frac{\phi^F}{2}(l_t^f)^2\right)
+\end{equation}
+名目予算制約：
+\begin{equation}
+\label{form:sec_chapter3_households_stage2_foreign_budget_eq}
+    \sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+\end{equation}
+この問題のラグランジアンは以下のようになり、これを各操作変数について偏微分することでFOCが導かれる
+（付録\ref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_lagrangian_eq}
+    \begin{aligned}
+        \mathcal{L}^f=&\operatorname{E}_s\Biggl[\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\Biggl\{\left(\log c_t^{f\to W}-\frac{\phi^F}{2}(l_t^f)^2\right) \\
+        &\quad+\lambda_t^{f/*}\biggl(\Bigl(d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}\Bigr)\biggr)\Biggr\}\Biggr]
+    \end{aligned}
+\end{equation}
+まず総消費指数\(c_t^{f\to W}\)に関する偏微分から以下のFOCが得られる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_lambda_f_star_p_F_W_star_c_f_W_eq}
+    \lambda_t^{f/*}=\frac{1}{p_t^{F\to W*}c_t^{f\to W}}
+\end{equation}
+外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)に関する偏微分から得られたFOCを集計することで
+以下のオイラー方程式が導かれる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_lambda_f_star_i_F_eq}
+    \lambda_t^{f/*}=\beta_t^F(1+i_t^F)\operatorname{E}_t[\lambda_{t+1}^{f/*}]
+\end{equation}
+ここで\(i_t^F\)は外国の無リスク名目金利である。
+国際リスクフリー債券\(b_{t+1}^{f\to H*}\)に関する偏微分から以下のオイラー方程式が得られる（式\eqref{xxx}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage2_foreign_lambda_f_star_i_H_eq}
+    \frac{\lambda_t^{f/*}}{e_t^{/*}}=(1+i_t^H)\beta_t^F\operatorname{E}_t\left[\frac{\lambda_{t+1}^{f/*}}{e_{t+1}^{/*}}\right]
+\end{equation}
+ここで\(i_t^H\)は自国の無リスク名目金利である。

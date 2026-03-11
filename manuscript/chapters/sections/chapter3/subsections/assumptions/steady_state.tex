@@ -1,0 +1,65 @@
+% !TeX root = ../../main.tex
+% sections/chapter3/subsections/assumptions/steady_state.tex
+
+\section{初期定常状態}
+\label{sec:chapter3_assumptions_steady_state}
+本モデルにおける経済の推移と、分析の出発点となる初期定常状態について以下のように定義する。
+
+\subsection{自国の初期定常状態}
+\label{sec:chapter3_assumptions_steady_state_home}
+
+\subsubsection{自国の初期定常状態とショック}
+\label{sec:chapter3_assumptions_steady_state_home_shocks}
+自国について\(t\le s-1\)期までは初期定常状態にあり外生ショックの値はすべて0であったと仮定する。
+そして\(t=s\)期において分析の対象となる外生ショックが発生する。
+この\(t=s\)におけるショックの発生により自国は初期定常状態から乖離し、
+自国および外国の家計は各変数の最適値を計算しなおす。
+
+\subsubsection{自国家計の初期定常状態における資産保有}
+\label{sec:chapter3_assumptions_steady_state_home_asset_holdings}
+自国家計\(h\)は初期定常状態\(t=s\)においては資産を一切保有していない、
+すなわち自国コンティンジェント債券\(d_s^h\)
+および国際リスクフリー債券\(b_s^h\)の保有は0であると仮定する。
+\begin{equation}
+\label{form:chapter3_assumptions_steady_state_home_asset_holdings_d_s_h_eq}
+    d_s^h=0\quad(\text{for all }h\in H)
+\end{equation}
+\begin{equation}
+\label{form:chapter3_assumptions_steady_state_home_asset_holdings_b_s_h_eq}
+    b_s^h=0\quad(\text{for all }h\in H)
+\end{equation}
+ここで自国コンティンジェント債券\(d_s^h\)と国際リスクフリー債券\(b_s^h\)は
+\(s-1\)期において決定され\(t=s\)期首において自国家計\(h\)が保有しているものである。
+
+\subsection{外国の初期定常状態}
+\label{sec:chapter3_assumptions_steady_state_foreign}
+外国についても自国と同様の仮定を以下のようにおく。
+
+\subsubsection{外国の初期定常状態とショック}
+\label{sec:chapter3_assumptions_steady_state_foreign_shocks}
+外国について\(t\le s-1\)期までは初期定常状態にあり外生ショックの値はすべて0であったと仮定する。
+そして\(t=s\)期において分析の対象となる外生ショックが発生する。
+この\(t=s\)におけるショックの発生により外国は初期定常状態から乖離し、
+外国および自国の家計は各変数の最適値を計算しなおす。
+
+\subsubsection{外国家計の初期定常状態における資産保有}
+\label{sec:chapter3_assumptions_steady_state_foreign_asset_holdings}
+外国家計\(f\)は初期定常状態\(t=s\)においては資産を一切保有していない、
+すなわち外国コンティンジェント債券\(d_s^{f*}\)
+および国際リスクフリー債券\(b_s^{f*}\)の保有は0であると仮定する。
+\begin{equation}
+\label{form:chapter3_assumptions_steady_state_foreign_asset_holdings_d_s_f_star_eq}
+    d_s^{f*}=0\quad(\text{for all }f\in F)
+\end{equation}
+\begin{equation}
+\label{form:chapter3_assumptions_steady_state_foreign_asset_holdings_b_s_f_star_eq}
+    b_s^{f*}=0\quad(\text{for all }f\in F)
+\end{equation}
+ここで外国コンティンジェント債券\(d_s^{f*}\)と国際リスクフリー債券\(b_s^{f*}\)は
+\(s-1\)期において決定され\(t=s\)期首において外国家計\(f\)が保有しているものである。
+
+\subsection{初期資産保有0と国内完備市場が導く帰結}
+\label{sec:chapter3_assumptions_steady_state_zero_asset_holdings_and_complete_market}
+上記の初期資産保有量0の仮定と国内完備市場の仮定が合わさることにより、
+自国と外国のそれぞれにおいて、すべての家計の可処分所得が同一となりよって消費や所得の限界効用が同一となる。
+このことは\ref{sec:chapter3_risk_sharing}節において詳述する。

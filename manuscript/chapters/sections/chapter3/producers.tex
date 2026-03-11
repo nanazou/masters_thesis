@@ -1,176 +1,140 @@
 % !TeX root = ../../main.tex
-% chap3/sec_model_producers.tex
+% sections/chap3/sec_model_producers.tex
 
 \section{生産者}
 \label{sec:model_producers}
 本モデルはヨーマン・ファーマ・モデルのため家計は生産者でもある。
 本節では家計の生産者としての側面を記述する。
-まず\(t\)期における家計の生産\(y_t^h\)と労働\(l_t^h\)の関係、
-および家計の財の市場均衡について記述する。
+まず\(t\)期における家計の生産\(y_t^h\)と労働\(l_t^h\)の関係、および家計の財の市場均衡について記述する。
 
-\subsection{価格の最適化の準備}
-\label{sec:model_producers_preparation}
-本節では家計の価格の最適化を考えていく。
-価格の最適化を考えるにあたってまず家計の生産関数を定義し、
-次いでその生産関数をもちいてマクロの生産関数を決定する。
+\subsection{自国家計の価格最適化}
+\label{sec:model_producers_home}
 
-\subsubsection{家計の生産関数}
-\label{sec:model_producers_preparation_production_function}
-
-\paragraph{自国家計の生産関数}
-\label{sec:model_producers_preparation_production_function_home}
-家計\(h\)が生産する財の生産\(y_t^h\)は
-国全体の生産性\(a_t^H\)と家計の労働\(l_t^h\)を用いて以下のように定義される。
+\subsubsection{自国家計の財の市場均衡}
+\label{sec:model_producers_home_market}
+仮定\eqref{form:chapter3_assumptions_goods_markets_home_eq}より自国家計\(h\)の財市場は均衡するのだった。
 \begin{equation}
-\label{form:model_producers_preparation_production_function_home_eq}
-    y_t^h=a_t^Hl_t^h
-\end{equation}
-
-\paragraph{外国家計の生産関数}
-\label{sec:model_producers_preparation_household_production_function_foreign}
-同様に外国の家計\(f\)の生産関数は以下のように定義される。
-\begin{equation}
-\label{form:model_producers_preparation_household_production_function_foreign_eq}
-    y_t^f=a_t^Fl_t^f
-\end{equation}
-
-\subsubsection{家計の財の市場均衡}
-\label{sec:model_producers_preparation_good_market}
-家計\(h\)の財の生産は\(y_t^h\)であり、
-家計\(h\)の財への総需要は自国家計\(h'\)からの需要と外国家計\(f\)からの需要の合計である。
-財市場均衡ではこの生産と総需要が一致する。
-\begin{equation}
-\label{form:model_producers_preparation_good_market_y_h_eq}
+\label{form:model_producers_home_market_eq}
     y_t^h=\sum_{h'\in H}c_t^{h'\to h}+\sum_{f\in F}c_t^{f\to h}
 \end{equation}
-この均衡条件に家計\(h\)の財の
-需要関数
-\eqref{form:model_households_indices_aggregation_stage1a_demand_functions_c_h_h_eq}と
-\eqref{form:model_households_indices_aggregation_stage1a_demand_functions_c_f_h_eq}を代入し
+この均衡条件に家計\(h\)の財の需要関数
+\eqref{form:model_households_stage1a_ppi_descriptions_c_h_h_eq}と
+\eqref{form:model_households_stage1a_ppi_descriptions_c_f_h_eq}を代入し
 共通項\((p_t^h/p_t^H)^{-\theta^H}\)で括ると以下のようになる。
 \begin{equation}
-\label{form:model_producers_preparation_good_market_y_h_modified_eq}
+\label{form:model_producers_home_market_modified_eq}
     y_t^h=\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]
 \end{equation}
-ここで大括弧の中は世界全体からの自国消費指数への総需要を表す。
+ここで大括弧の中は世界全体からの自国消費指数への総需要を表す。TODO
 
-同様に外国家計\(f\)の財の市場均衡も以下のように表される。
-\begin{equation}
-\label{form:model_producers_preparation_good_market_y_f_modified_eq}
-    y_t^f=\left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F}\left[\sum_{h\in H}c_t^{h\to F}+\sum_{f'\in F}c_t^{f'\to F}\right]
-\end{equation}
-
-\subsubsection{集計生産関数}
-\label{sec:model_producers_preparation_aggregated_production_function}
-本節では\ref{sec:model_producers_preparation_production_function}節で定義した
-家計の生産関数を集計しマクロレベルの集計生産関数を導出する。
-
-\paragraph{自国の集計産関数}
-\label{sec:model_producers_preparation_aggregated_production_function_home}
+\subsubsection{自国の集計生産関数の定義}
+\label{sec:model_producers_home_aggregated_production_function_definision}
 国全体の総労働の定義から出発する。
 \begin{equation}
-\label{form:model_producers_preparation_aggregated_production_function_home_L_H_def}
+\label{form:model_producers_home_aggregated_production_function_definision_L_H_def}
     L_t^H\equiv\sum_{h\in H}l_t^h
 \end{equation}
-\begin{enumerate}
-    \item
-    \label{itm:model_producers_preparation_aggregated_production_function_home_step1}
-        家計\(h\)の財の生産関数
-        \eqref{form:model_producers_preparation_production_function_home_eq}を
-        \(l_t^h\)について解き総労働の定義
-        \eqref{form:model_producers_preparation_aggregated_production_function_home_L_H_def}に代入する。
-        \begin{equation}
-        \label{form:model_producers_preparation_aggregated_production_function_home_step1_L_H_eq}
-            L_t^H=\sum_{h\in H}\frac{y_t^h}{a_t^H}=\frac{1}{a_t^H}\sum_{h\in H}y_t^h
-        \end{equation}
-    \item
-    \label{itm:model_producers_preparation_aggregated_production_function_home_step2}
-        家計\(h\)の財の均衡式
-        \eqref{form:model_producers_preparation_good_market_y_h_modified_eq}を
-        \(\sum y_t^h\)に代入する。
-        \begin{align}
-        \label{form:model_producers_preparation_aggregated_production_function_home_step2_L_H_modified_eq}
-            L_t^H&=\frac{1}{a_t^H}\sum_{h\in H}\left\{\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\right\} \nonumber \\
-            &=\frac{1}{a_t^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
-        \end{align}
-    \item
-    \label{itm:model_producers_preparation_aggregated_production_function_home_step3}
-        価格の非効率性を表す価格分散\(\Delta_t^H\)を以下のように定義する。
-        \begin{equation}
-        \label{form:model_producers_preparation_aggregated_production_function_home_step2_Delta_H_def}
-            \Delta_t^H\equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
-        \end{equation}
-    \item
-    \label{itm:model_producers_preparation_aggregated_production_function_home_step4}
-        これにより、総労働\(L_t^H\)、世界総需要\([\sum c+\sum c]\)、
-        価格分散\(\Delta_t^H\)のあいだに以下の関係式が導かれる。
-        \begin{equation}
-        \label{form:model_producers_preparation_aggregated_production_function_home_step4_L_H_modified2_eq}
-            L_t^H=\frac{1}{a_t^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\Delta_t^H
-        \end{equation}
-\end{enumerate}
-
-ここでマクロの集計生産指数\(Y_t^H\)を何らかの方法で定義することにより
+家計\(h\)の生産関数\eqref{form:chapter3_definitions_functions_production_home}を\(l_t^h\)について解き、
+総労働の定義\eqref{form:chapter3_definitions_variables_endogenous_aggregate_L_H_def}に代入すると
+以下のようになる。
 \begin{equation}
-\label{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_eq}
+\label{form:model_producers_home_aggregated_production_function_definision_L_H_eq}
+    L_t^H=\sum_{h\in H}\frac{y_t^h}{a_t^H}=\frac{1}{a_t^H}\sum_{h\in H}y_t^h
+\end{equation}
+次にこの式に家計\(h\)の財の市場均衡式\eqref{form:model_producers_home_market_modified_eq}を代入し
+家計\(h\)に依存しない項を和の外へ括り出す。
+\begin{align}
+\label{form:model_producers_home_aggregated_production_function_definision_L_H_modified_eq}
+    L_t^H&=\frac{1}{a_t^H}\sum_{h\in H}\left\{\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\right\} \nonumber \\
+    &=\frac{1}{a_t^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
+\end{align}
+ここで価格の非効率性を表す価格分散\(\Delta_t^H\)を以下のように定義する。
+\begin{equation}
+\label{form:model_producers_home_aggregated_production_function_definision_Delta_H_eq}
+    \Delta_t^H\equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
+\end{equation}
+この価格分散\(\Delta_t^H\)を使うと先ほどの総労働\(L_t^h\)の式は次のように書き換えられる。
+\begin{equation}
+\label{form:model_producers_home_aggregated_production_function_definision_L_H_modified2_eq}
+    L_t^H=\frac{1}{a_t^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\Delta_t^H
+\end{equation}
+ここで集計生産指数\(Y_t^H\)を何らかの方法で定義することにより
+\begin{equation}
+\label{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_eq}
     Y_t^H=\frac{a_t^HL_t^H}{\Delta_t^H}
 \end{equation}
 という簡潔な集計生産関数の式を成立させられないかと考える。
 この目標とする式を\(L_t^H\)について解くと\(L_t^H=(Y_t^H/a_t^H)\Delta_t^H\)となる。
 この式とステップ4で導出した関係式
-\eqref{form:model_producers_preparation_aggregated_production_function_home_step4_L_H_modified2_eq}
+\eqref{form:model_producers_home_aggregated_production_function_definision_L_H_modified2_eq}
 を比較すると、目標とする式が成立するためには集計生産指数\(Y_t^H\)が
-国内消費指数への総需要と一致しなければならないことがわかる。
+国内消費指数への総需要と一致しなければならないことがわかる。TODO
 \begin{equation}
-\label{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_modified_eq}
+\label{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_modified_eq}
     Y_t^H=\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}
 \end{equation}
 この集計レベルの財市場均衡が成立するとき
-家計の財の均衡式\eqref{form:model_producers_preparation_good_market_y_h_modified_eq}は
+家計の財の均衡式\eqref{form:model_producers_home_market_modified_eq}は
 \begin{equation}
-\label{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_y_h_eq}
+\label{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_y_h_eq}
     y_t^h=\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}Y_t^H
 \end{equation}
 と書き換えられる。
 さらにこの関係式と
 価格指数\(p_t^H\)の定義
-\eqref{form:model_households_indices_aggregation_stage1a_ppi_definitions_p_H_def}
-を用いると集計生産指数\(Y_t^H\)は個々の生産\(y_t^h\)のCES集計量として定義されなければならないことが
-数学的に示される（詳細は付録\ref{}参照）。
+\eqref{form:sec_model_households_stage1a_p_H_def}
+を用いると集計生産指数\(Y_t^H\)は個別財の生産\(y_t^h\)のCES集計量として定義されなければならないことが
+数学的に示される（付録\ref{}TODO）。
 \begin{equation}
-\label{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_modified2_eq}
+\label{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_modified2_eq}
     Y_t^H\equiv\left[\sum_{h\in H}(y_t^h)^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
 \end{equation}
-この一連の導出により
-集計生産関数
-\eqref{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption}
+この一連の導出により集計生産関数\(Y_t^H\)の式
+\eqref{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_eq}
 を導くという動機から出発し、そのために必要な集計レベルの財市場均衡
-\eqref{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_modified_eq}
+\eqref{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_modified_eq}
 が論理的に要請され、その結果として\(Y_t^H\)のCES集計という定義
-\eqref{form:model_producers_preparation_aggregated_production_function_home_Y_H_assumption_modified2_eq}
+\eqref{form:model_producers_home_aggregated_production_function_definition_Y_H_assumption_modified2_eq}
 がモデルの内部整合性を保つために必然となる、という関係性が明らかになった。
 
-\paragraph{自国の集計産関数}
-\label{sec:model_producers_preparation_aggregated_production_function_foreign}
+\paragraph{外国の集計産関数}
+\label{sec:model_producers_aggregated_production_function_foreign}
 同様の論理展開により外国の生産関数は以下のように記述される。
 \begin{gather}
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_L_F_def}
+    \label{form:model_producers_aggregated_production_function_foreign_L_F_def}
         L_t^F\equiv\sum_{f\in F}l_t^f \\
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_Y_F_assumption_eq}
+    \label{form:model_producers_aggregated_production_function_foreign_Y_F_assumption_eq}
         Y_t^F=\frac{a_t^FL_t^F}{\Delta_t^F} \\
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_Y_F_assumption_modified_eq}
+    \label{form:model_producers_aggregated_production_function_foreign_Y_F_assumption_modified_eq}
         Y_t^F\equiv\left[\sum_{f\in F}(y_t^f)^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}} \\
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_step2_Delta_F_def}
+    \label{form:model_producers_aggregated_production_function_foreign_step2_Delta_F_def}
         \Delta_t^F\equiv\sum_{f\in F}\left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F}
 \end{gather}また集計レベルの財市場均衡と個別財と集計財の関係は以下の通りである。
 \begin{gather}
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_Y_F_assumption_modified2_eq}
+    \label{form:model_producers_aggregated_production_function_foreign_Y_F_assumption_modified2_eq}
         Y_t^F=\sum_{h\in H}c_t^{h\to F}+\sum_{f'\in F}c_t^{f'\to F} \\
-    \label{form:model_producers_preparation_aggregated_production_function_foreign_Y_F_assumption_y_h_eq}
+    \label{form:model_producers_aggregated_production_function_foreign_Y_F_assumption_y_h_eq}
         y_t^f=\left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F}Y_t^F
 \end{gather}
 
-\subsubsection{家計の価格最適化}
+
+\paragraph{外国家計の生産関数}
+\label{sec:model_producers_household_production_function_foreign}
+同様に外国の家計\(f\)の生産関数は以下のように定義される。
+\begin{equation}
+\label{form:model_producers_household_production_function_foreign_eq}
+    y_t^f=a_t^Fl_t^f
+\end{equation}
+
+
+同様に外国家計\(f\)の財の市場均衡も以下のように表される。
+\begin{equation}
+\label{form:model_producers_good_market_y_f_modified_eq}
+    y_t^f=\left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F}\left[\sum_{h\in H}c_t^{h\to F}+\sum_{f'\in F}c_t^{f'\to F}\right]
+\end{equation}
+
+
+\subsection{家計の価格最適化}
 \label{sec:model_producers_optimization}
 価格の設定規則は\textcite{Calvo1983}に従い。
 すなわち毎期\(1-\xi^H\)の割合の家計のみが価格を改定することができ、

@@ -1,0 +1,34 @@
+% !TeX root = ../../../../main.tex
+% sections/chapter3/subsections/assumptions/behavior.tex
+
+\subsection{主体の合理性と期待形成}
+\label{sec:chapter3_assumptions_behavior}
+
+\begin{enumerate}
+    \item
+    \label{sec:chapter3_assumptions_behavior_homo_economicus}
+        合理的経済人:
+        家計は期待生涯効用を予算制約の下で最大化する。
+        これは家計が高度な数学的計算能力をもち、将来のすべての期を見据えた動的な最適化問題を解くことを意味する。
+        この最適化問題を解くために家計は将来の不確実な変数について何らかの期待（予測値）を形成する必要がある。
+        またこの最適計画は時間整合的となり、将来新たな予想外のショックが発生しない限り、家計は将来のどの時点においても当初の計画を変更するインセンティブを持たずそのまま実行し続ける（付録\ref{chap:appendix_time_consistency}）[cite: 6]。
+    \item
+    \label{sec:chapter3_assumptions_behavior_rational_expectations}
+        合理的期待:
+        経済学における期待とは将来の不確実な変数に対して家計が抱く予測値のことである。
+        本稿が採用する合理的期待形成においては、家計は変数の確率分布などモデルの構造を完全に知っており、その知識にもとづいて数学的な期待値を計算して予測する。
+        したがって合理的期待とは、家計の主観的な予測値が客観的な数学的期待値と同一である、という仮定に他ならない。
+        における期待値の計算は以下の2種類の情報を所与としておこなわれる。
+        \begin{itemize}
+            \item
+            \label{sec:chapter3_assumptions_behavior_model_structure}
+                [a.]モデルの構造：
+                (i)すべての方程式体系、(ii)すべてのパラメータの値、および(iii)すべての外生ショックの確率分布
+            \item
+            \label{sec:chapter3_assumptions_behavior_information_set}
+                [b.]\(t\)期より前に確定したすべての変数の値および\(t\)期のショックの値（情報集合\(I_t\)）：[cite: 8]
+        \end{itemize}
+        よって計算する期待値は\(E[\cdot|I_t]\)となり、これは「情報集合\(I_t\)に含まれる命題（例えば\(b_t=b_t'\)や\(c_{t-1}=c_{t-1}'\)という等式）が成立している」という条件の下での条件付期待値を意味する。
+        そのためこの期待値計算では\(I_t\)の命題に含まれる変数（\(b_t\)や\(c_{t-1}\)など）はその値と同一視して期待値の括弧の外に出すことができる。
+        本稿では慣例に従いこの\(E[\cdot|I_t]\)を\(E_t[\cdot]\)と略記する。
+\end{enumerate}

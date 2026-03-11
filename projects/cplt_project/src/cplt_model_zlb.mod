@@ -5,7 +5,7 @@
 model;
     @#include "cplt_model_equations_common.inc"
     
-    // --- IV. ショックと追加의 プロセス ---
+    // --- IV. ショックと追加の プロセス ---
     // 目標パス
     log(chi_H) = (1-rho_chi_H)*log(chi_H_ss) + rho_chi_H*log(chi_H(-1)) + eps_chi_H;
 

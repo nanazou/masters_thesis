@@ -1,0 +1,290 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/households/stage1a.tex
+
+\subsection{第1段階ステップA}
+\label{sec:chapter3_households_stage1a}
+
+\subsubsection{自国家計の第1段階ステップA}
+\label{sec:chapter3_households_stage1a_home}
+
+\paragraph{自国家計の自国財消費指数\(c_t^{h\to H}\)の定義}
+\label{sec:chapter3_households_stage1a_home_c_h_H_definition}
+まず自国家計\(h\)が消費する自国財\(c_t^{h\to h'}\)を集計して自国財消費指数\(c_t^{h\to H}\)を定義する。
+これは各財への選好が対称的である（すべての\(h'\in H\)について\(\alpha_{h'}=1\)）としたCES関数の形をとる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_definition_def}
+    c_t^{h\to H}\equiv\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+\end{equation}
+
+\paragraph{自国家計の外国財消費指数\(c_t^{h\to F}\)の定義}
+\label{sec:chapter3_households_stage1a_home_c_h_F_definition}
+同様に外国財を集計した外国財消費指数\(c_t^{h\to F}\)も定義される。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_F_definition_def}
+    c_t^{h\to F}\equiv\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
+\end{equation}
+
+\paragraph{自国家計の自国財消費指数\(c_t^{h\to H}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1a_home_c_h_H_problem}
+家計\(h\)が所与の自国財消費指数\(c_t^{h\to H}\)を達成するために
+家計の財の名目消費の総和\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)を最小化する問題を考える。
+この問題のラグランジアンは以下のように記述される。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_problem_lagrangian_def}
+    \mathcal{L}^{h\to H}=\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\mu_t^{h\to H}\left(c_t^{h\to H}-\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)
+\end{equation}
+上記ラグランジアンには名目自国財消費\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)が含まれていることから
+単位は自国通貨と考えられる。
+また一般にラグランジアンはラグランジュ乗数\(\mu_t^{h\to H}\)を独立変数扱いして各独立変数で偏微分する。
+そこで上記ラグランジアンを自国財消費指数\(c_t^{h\to H}\)で偏微分するとその値は
+ラグランジュ乗数\(\mu_t^{h\to H}\)に一致する。
+さらに均衡においてはこのラグランジアンの自国財消費指数\(c_t^{h\to H}\)による偏微分は
+名目自国財消費\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)の自国財消費指数\(c_t^{h\to H}\)による微分に
+一致することが証明される（式\eqref{chap:appendix_envelope}）。すなわち
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_problem_mu_h_H_marginal_eq}
+    \frac{\mathrm{d}\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}}{\mathrm{d}c_t^{h\to H}}=\frac{\partial \mathcal{L}^{h\to H}}{\partial c_t^{h\to H}}=\mu_t^{h\to H}
+\end{equation}
+このことからラグランジュ乗数\(\mu_t^{h\to H}\)は自国財消費指数\(c_t^{h\to H}\)の限界価格と解釈でき、
+大雑把にいえば自国財消費指数\(c_t^{h\to H}\)を追加1単位増やしたときの
+名目自国財消費\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)の増加量を表す。
+
+この費用最小化問題から家計\(h'\)が生産する財への需要関数が導出される
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_problem_c_h_h_eq}
+    c_t^{h\to h'}=\left(\frac{p_t^{h'}}{\mu_t^{h\to H}}\right)^{-\theta^H}c_t^{h\to H}
+\end{equation}
+この需要関数を名目自国財消費\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)に代入して計算すると
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_problem_mu_h_H_average_eq}
+    \sum_{h'\in H}p_t^{h'}c_t^{h\to h'}=\mu_t^{h\to H}c_t^{h\to H}
+\end{equation}
+という関係が得られる（式\eqref{chap:appendix_cost_minimization}TODO）。
+これにより\(\mu_t^{h\to H}\)は自国財消費指数\(c_t^{h\to H}\)の
+（限界価格というだけでなく）平均価格であると解釈できる。
+さらに具体的に\(\mu_t^{h\to H}\)は個々の財価格のみで構成されることが示される
+（式\eqref{chap:appendix_cost_minimization}）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_H_problem_mu_h_H_eq}
+    \mu_t^{h\to H}=\left[\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+\end{equation}
+この式からわかるように\(\mu_t^{h\to H}\)はすべての自国家計\(h\)で共通の値をとる。
+またこの式によれば\(\mu_t^{h\to H}\)は自国財消費指数\(c_t^{h\to H}\)に依存しないのだから、
+自国財消費指数\(c_t^{h\to H}\)の限界価格であった\(\mu_t^{h\to H}\)が
+自国財消費指数\(c_t^{h\to H}\)の平均価格ともなったことは当然といえる。
+
+\paragraph{自国家計の外国財消費指数\(c_t^{h\to F}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1a_home_c_h_F_problem}
+この問題から\(\mu_t^{h\to F}\)が外国財消費指数\(c_t^{h\to F}\)の限界価格であることがわかる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_F_problem_mu_h_F_marginal_eq}
+    \frac{\mathrm{d}\sum_{f'\in F}p_t^{f'}c_t^{h\to f'}}{\mathrm{d}c_t^{h\to F}}=\frac{\partial \mathcal{L}^{h\to F}}{\partial c_t^{h\to F}}=\mu_t^{h\to F}
+\end{equation}
+また家計\(f'\)が生産する財への需要関数が導出される（式\eqref{chap:appendix_cost_minimization}）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_F_problem_c_h_f_eq}
+    c_t^{h\to f'}=\left(\frac{p_t^{f'}}{\mu_t^{h\to F}}\right)^{-\theta^F}c_t^{h\to F}
+\end{equation}
+この需要関数を名目外国財消費\(\sum_{f'\in F}p_t^{f'}c_t^{h\to f'}\)に代入すると
+\(\mu_t^{h\to F}\)が外国財消費指数\(c_t^{h\to F}\)の平均価格であることが導かれる
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_F_problem_mu_h_F_average_eq}
+    \sum_{f'\in F}p_t^{f'}c_t^{h\to f'}=\mu_t^{h\to F}c_t^{h\to F}
+\end{equation}
+さらに\(\mu_t^{h\to F}\)の具体的な形は以下のようになる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_home_c_h_F_problem_mu_h_F_eq}
+    \mu_t^{h\to F}\equiv\left[\sum_{f'\in F}(p_t^{f'})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+\end{equation}
+（ここで\(p_t^{f'}\)は外国財\(f'\)の自国通貨建て価格）
+
+\subsubsection{外国家計の第1段階ステップA}
+\label{sec:chapter3_households_stage1a_foreign}
+
+\paragraph{外国家計の外国財消費指数\(c_t^{f\to F}\)の定義}
+\label{sec:chapter3_households_stage1a_foreign_c_f_F_definition}
+同様に外国家計\(f\)が消費する外国財\(c_t^{f\to f'}\)を集計して外国財消費指数\(c_t^{f\to F}\)を定義する。
+これは各財への選好が対称的である(すべての\(f'\in F\)について\(\alpha_{f'}=1\))としたCES関数の形をとる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_F_definition_def}
+    c_t^{f\to F}\equiv\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
+\end{equation}
+
+\paragraph{外国家計の自国財消費指数\(c_t^{f\to H}\)の定義}
+\label{sec:chapter3_households_stage1a_foreign_c_f_H_definition}
+自国財を集計した自国財消費指数\(c_t^{f\to H}\)も同様に定義される。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_H_definition_def}
+    c_t^{f\to H}\equiv\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+\end{equation}
+
+\paragraph{外国家計の外国財消費指数\(c_t^{f\to F}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1a_foreign_c_f_F_problem}
+この問題から\(\mu_t^{f\to F}\)が外国財消費指数\(c_t^{f\to F}\)の限界価格であることがわかる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_F_problem_mu_f_F_marginal_eq}
+    \frac{\mathrm{d}\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}}{\mathrm{d}c_t^{f\to F}}=\frac{\partial \mathcal{L}^{f\to F}}{\partial c_t^{f\to F}}=\mu_t^{f\to F}
+\end{equation}
+また家計\(f'\)が生産する財への需要関数が導出される（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_F_problem_c_f_f_eq}
+    c_t^{f\to f'}=\left(\frac{p_t^{f'*}}{\mu_t^{f\to F}}\right)^{-\theta^F}c_t^{f\to F}
+\end{equation}
+この需要関数を名目外国財消費\(\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}\)に代入すると
+\(\mu_t^{f\to F}\)が外国財消費指数\(c_t^{f\to F}\)の平均価格であることが導かれる
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_F_problem_mu_f_F_average_eq}
+    \sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}=\mu_t^{f\to F}c_t^{f\to F}
+\end{equation}
+さらに\(\mu_t^{f\to F}\)の具体的な形は以下のようになる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_F_problem_mu_f_F_eq}
+    \mu_t^{f\to F}\equiv\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+\end{equation}
+（ここで\(p_t^{f'*}\)は外国財\(f'\)の外国通貨建て価格）
+
+\paragraph{外国家計の自国財消費指数\(c_t^{f\to H}\)を最小費用で達成する問題}
+\label{sec:chapter3_households_stage1a_foreign_c_f_H_problem}
+この問題から\(\mu_t^{f\to H}\)が自国財消費指数\(c_t^{f\to H}\)の限界価格であることがわかる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_H_problem_mu_f_H_marginal_eq}
+    \frac{\mathrm{d}\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}}{\mathrm{d}c_t^{f\to H}}=\frac{\partial \mathcal{L}^{f\to H}}{\partial c_t^{f\to H}}=\mu_t^{f\to H}
+\end{equation}
+また家計\(h'\)が生産する財への需要関数が導出される（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_H_problem_c_f_h_eq}
+    c_t^{f\to h'}=\left(\frac{p_t^{h'*}}{\mu_t^{f\to H}}\right)^{-\theta^H}c_t^{f\to H}
+\end{equation}
+この需要関数を名目自国財消費\(\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}\)に代入すると
+\(\mu_t^{f\to H}\)が自国財消費指数\(c_t^{f\to H}\)の平均価格であることが導かれる
+（式\eqref{chap:appendix_cost_minimization}TODO）。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_H_problem_mu_f_H_average_eq}
+    \sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}=\mu_t^{f\to H}c_t^{f\to H}
+\end{equation}
+さらに\(\mu_t^{f\to H}\)の具体的な形は以下のようになる。
+\begin{equation}
+\label{form:chapter3_households_stage1a_foreign_c_f_H_problem_mu_f_H_eq}
+    \mu_t^{f\to H}\equiv\left[\sum_{h'\in H}(p_t^{h'*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+\end{equation}
+（ここで\(p_t^{h'*}\)は自国財\(h'\)の外国通貨建て価格）
+
+\subsubsection{生産者物価指数(PPI)\(p_t^H, p_t^{F*}\)の定義}
+\label{sec:chapter3_households_stage1a_ppi_definitions}
+一物一価の法則
+\eqref{form:chapter3_equilibriums_lop_home_eq}および
+\eqref{form:chapter3_equilibriums_lop_foreign_eq}を用いると
+異なる通貨建ての物価指数間の関係式が以下のように導出される。
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_h_H_mu_f_H_eq}
+        \mu_t^{h\to H}
+        &=\left[\sum_{h'\in H}(e_t^{/*}p_t^{h'*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+        =e_t^{/*}\left[\sum_{h'\in H}(p_t^{h'*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+        =e_t^{/*}\mu_t^{f\to H} \\
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_h_F_mu_f_F_eq}
+        \mu_t^{h\to F}
+        &=\left[\sum_{f'\in F}(e_t^{/*}p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+        =e_t^{/*}\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+        =e_t^{/*}\mu_t^{f\to F}
+\end{align}
+上記の関係にもとづき生産者物価指数(PPI)\(p_t^H, p_t^{F*}\)を以下のように定義する。
+\begin{align}
+    \label{form:sec_chapter3_households_stage1a_p_H_def}
+        p_t^H&\equiv\mu_t^{h\to H}=\left[\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}\quad\text{（自国財の自国通貨建て生産者物価指数(PPI)）} \\
+    \label{form:sec_chapter3_households_stage1a_p_F_star_def}
+        p_t^{F*}&\equiv\mu_t^{f\to F}=\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}\quad\text{（外国財の外国通貨建て生産者物価指数(PPI)）}
+\end{align}
+この記法を用いると4つの物価指数の関係は以下のようにまとめられる。
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_h_H_p_H_eq}
+        \mu_t^{h\to H}&=p_t^H \\
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_h_F_p_F_eq}
+        \mu_t^{h\to F}&=p_t^F \\
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_f_F_p_F_star_eq}
+        \mu_t^{f\to F}&=p_t^{F*} \\
+    \label{form:chapter3_households_stage1a_ppi_definitions_mu_f_H_p_H_star_eq}
+        \mu_t^{f\to H}&=p_t^{H*}
+\end{align}
+これらを使って
+\eqref{form:chapter3_households_stage1a_ppi_definitions_mu_h_H_mu_f_H_eq}および
+\eqref{form:chapter3_households_stage1a_ppi_definitions_mu_h_F_mu_f_F_eq}
+を書き直せば生産者物価指数(PPI)\(p_t^H, p_t^F\)に関する一物一価の法則が得られる
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_definitions_p_H_lop}
+        p_t^H&=e_t^{/*}p_t^{H*}\\
+    \label{form:chapter3_households_stage1a_ppi_definitions_p_F_lop}
+        p_t^F&=e_t^{/*}p_t^{F*}
+\end{align}
+
+\subsubsection{正規化された生産者物価指数(PPI)\(\bar{p}_t^H, \bar{p}_t^{F*}\)の定義}
+\label{sec:chapter3_households_stage1a_normalized_ppi_definitions}
+さらにマクロ分析のため経済規模の影響(\(N,M\))を取り除いた正規化された生産者物価指数(PPI)
+\(\bar{p}_t^H, \bar{p}_t^{F*}\)を以下のように定義する。
+\begin{align}
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_def}
+        \bar{p}_t^H&\equiv\left[\frac{1}{N}\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}=N^{-\frac{1}{1-\theta^H}}p_t^H \\
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_star_bar_def}
+        \bar{p}_t^{F*}&\equiv\left[\frac{1}{M}\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}=M^{-\frac{1}{1-\theta^F}}p_t^{F*}
+\end{align}
+するとこれらについても一物一価の法則が成立する。
+\begin{align}
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_lop}
+        \bar{p}_t^H&=e_t^{/*}\bar{p}_t^{H*}\\
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_bar_lop}
+        \bar{p}_t^F&=e_t^{/*}\bar{p}_t^{F*}
+\end{align}
+
+\subsubsection{生産者物価指数(PPI)を用いた式の再記述}
+\label{sec:chapter3_households_stage1a_ppi_descriptions}
+第1段階ステップAにおいて導出された各式を生産者物価指数(PPI)を用いて再記述する。
+まず個別財の需要関数
+\eqref{form:chapter3_households_stage1a_home_c_h_H_problem_c_h_h_eq}、
+\eqref{form:chapter3_households_stage1a_home_c_h_F_problem_c_h_f_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_F_problem_c_f_f_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_H_problem_c_f_h_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_descriptions_c_h_h_eq}
+        c_t^{h\to h'}&=\left(\frac{p_t^{h'}}{p_t^H}\right)^{-\theta^H}c_t^{h\to H} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_c_h_f_eq}
+        c_t^{h\to f'}&=\left(\frac{p_t^{f'}}{p_t^F}\right)^{-\theta^F}c_t^{h\to F} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_c_f_f_eq}
+        c_t^{f\to f'}&=\left(\frac{p_t^{f'*}}{p_t^{F*}}\right)^{-\theta^F}c_t^{f\to F} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_c_f_h_eq}
+        c_t^{f\to h'}&=\left(\frac{p_t^{h'*}}{p_t^{H*}}\right)^{-\theta^H}c_t^{f\to H}
+\end{align}
+平均価格としての\(\mu\)の式
+\eqref{form:chapter3_households_stage1a_home_c_h_H_problem_mu_h_H_average_eq}、
+\eqref{form:chapter3_households_stage1a_home_c_h_F_problem_mu_h_F_average_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_F_problem_mu_f_F_average_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_H_problem_mu_f_H_average_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_H_average_eq}
+        \sum_{h'\in H}p_t^{h'}c_t^{h\to h'}&=p_t^Hc_t^{h\to H} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_F_average_eq}
+        \sum_{f'\in F}p_t^{f'}c_t^{h\to f'}&=p_t^Fc_t^{h\to F} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_F_star_average_eq}
+        \sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}&=p_t^{F*}c_t^{f\to F} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_H_star_average_eq}
+        \sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}&=p_t^{H*}c_t^{f\to H}
+\end{align}
+最後に\(\mu\)の具体的な形の式
+\eqref{form:chapter3_households_stage1a_home_c_h_H_problem_mu_h_H_eq}、
+\eqref{form:chapter3_households_stage1a_home_c_h_F_problem_mu_h_F_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_F_problem_mu_f_F_eq}、
+\eqref{form:chapter3_households_stage1a_foreign_c_f_H_problem_mu_f_H_eq}
+は以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_H_eq}
+        p_t^H&=\left[\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_F_eq}
+        p_t^F&=\left[\sum_{f'\in F}(p_t^{f'})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_F_star_eq}
+        p_t^{F*}&=\left[\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}} \\
+    \label{form:chapter3_households_stage1a_ppi_descriptions_p_H_star_eq}
+        p_t^{H*}&=\left[\sum_{h'\in H}(p_t^{h'*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+\end{align}

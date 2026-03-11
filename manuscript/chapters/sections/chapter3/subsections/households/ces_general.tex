@@ -1,11 +1,14 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/households/ces_general.tex
+
 \subsection{消費指数と物価指数}
-\label{sec:model_households_indices}
+\label{sec:chapter3_households_indices}
 本節では上記の2段階最適化問題で用いる各種の消費指数とそれに対応する物価指数を定義していく。
 消費指数はCES（Constant Elasticity of Substitution）関数により定義され、
 このCES関数は家計が多様な財の消費の組み合わせから得る効用をモデル化するものである。
 
 \begin{equation}
-\label{form:model_households_indices_ces_eq}
+\label{form:chapter3_households_indices_ces_eq}
     U=\left(\alpha_1c_1^{\frac{\theta-1}{\theta}}+\alpha_2c_2^{\frac{\theta-1}{\theta}}\right)^{\frac{\theta}{\theta-1}}
 \end{equation}
 
@@ -20,14 +23,14 @@
 これにより、集計量である消費指数が元の消費という経済的に意味のある単位を維持することが保証される。
 具体的には、消費の単位を「単位」とすると
 \begin{equation}
-\label{form:model_households_indices_ces_units}
+\label{form:chapter3_households_indices_ces_units}
     \left[(\text{単位})^{\frac{\theta-1}{\theta}}\right]^{\frac{\theta}{\theta-1}}=\text{単位}^{(\frac{\theta-1}{\theta})\cdot(\frac{\theta}{\theta-1})}=\text{単位}^1
 \end{equation}
 となり消費指数は元の消費と同じ次元をもつ。
 
 このCES型関数から限界代替率（\(MRS_{1,2}\)）が次のように導かれる。
 \begin{equation}
-\label{form:model_households_indices_mrs}
+\label{form:chapter3_households_indices_mrs}
     MRS_{1,2}=\frac{\alpha_1}{\alpha_2}\left(\frac{c_1}{c_2}\right)^{-1/\theta}
 \end{equation}
 
@@ -55,7 +58,7 @@ CES型関数により合成したものである。
 \begin{table}[H]
     \centering
     \caption{消費指数の設計思想の比較}
-    \label{tab:model_households_indices_philosophy}
+    \label{tab:chapter3_households_indices_philosophy}
     \begin{tabular}{lll}
         \toprule
         & 自国財および外国財消費指数(\(c_t^{h\to H},c_t^{h\to F}\)) & 総消費指数(\(c_t^{h\to W}\)) \\
