@@ -8,9 +8,10 @@
 \label{sec:chapter3_households_problem_setup_home}
 まず価格\(p_t^h\)を所与とした上で家計\(h\)の最適化問題を考える。
 家計\(h\)は各期において名目予算制約の下で期待生涯効用関数を最大化する。
-このとき操作変数は、消費\(c_t^{h\to h'}, c_t^{h\to f}\)、
+このとき操作変数は消費\(c_t^{h\to h'}, c_t^{h\to f}\)、
 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、および国際リスクフリー債券\(b_{t+1}^{h\to F}\)である。
-（労働\(l_t^h\)は自身が設定する財の価格に応じて自動で決定されるため操作変数ではない）
+また\ref{itm:household_optimization_home_calculation_remark1}より
+他の変数はこれら操作変数の関数ではない。
 
 \paragraph{自国家計の期待生涯効用関数}
 \label{sec:chapter3_households_problem_setup_home_utility}
@@ -19,7 +20,7 @@
     \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\left(\log\left(\frac{\left(\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{\alpha^H}\left(\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\right)-\frac{\phi^H}{2}(l_t^h)^2\right)
 \end{equation}
 
-\paragraph{自国家計の名目予算制約:}
+\paragraph{自国家計の名目予算制約}
 \label{sec:chapter3_households_problem_setup_home_budget}
 \begin{equation}
 \label{form:chapter3_households_problem_setup_home_budget_eq}
@@ -41,9 +42,14 @@
 および国際リスクフリー債券\(b_{t+1}^{h\to F}\)を組み合わせて名目予算制約のもと期待生涯効用関数を最大化するか」
 という期をまたぐ問題
 
-\paragraph{外国家計の問題設定}
+\subsubsection{外国家計の問題設定}
 \label{sec:chapter3_households_problem_setup_foreign}
-同様に外国家計\(f\)も名目予算制約の下で期待生涯効用関数を最大化する。
+同様に価格\(p_t^{f*}\)を所与とした上で外国家計\(f\)の最適化問題を考える。
+外国家計\(f\)も各期において名目予算制約の下で期待生涯効用関数を最大化する。
+このとき操作変数は消費\(c_t^{f\to f'}, c_t^{f\to h'}\)、
+外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)である。
+また\ref{itm:household_optimization_foreign_calculation_remark1}より
+他の変数はこれら操作変数の関数ではない。
 
 \paragraph{外国家計の期待生涯効用関数}
 \label{sec:chapter3_households_problem_setup_foreign_utility}
@@ -61,3 +67,15 @@
         &\qquad=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
     \end{aligned}
 \end{equation}
+
+この最適化問題は他の家計の財の消費\(c_t^{f\to f'}, c_t^{f\to h'}\)を個々に決定しなければならないため複雑である。
+そこでこの問題を扱いやすくするために全体として同値である以下の2つの問題に分割する。
+（\ref{chap:appendix_equivalence}節TODO）
+第一段階：
+「所与の総消費指数
+（期待生涯効用関数におけるlogの引数全体。のちに総消費指数\(c_t^{f\to W}\)をこの式に一致するように定義する）
+をどのような消費\(c_t^{f\to f'},c_t^{f\to h'}\)を組み合わせて最小費用で実現するか」という期内の問題
+第二段階：
+「どのように総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)を組み合わせて名目予算制約のもと期待生涯効用関数を最大化するか」
+という期をまたぐ問題

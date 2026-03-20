@@ -1,0 +1,116 @@
+% !TeX root = ../../../../main.tex
+% sections/chapter3/subsections/assumptions/household_optimization.tex
+
+\subsection{家計の最適化}
+\label{sec:household_optimization}
+仮定\eqref{sec:chapter3_assumptions_market_structure_assumption2}より家計はマクロ経済変数の受容者であるため、各種価格や自身の生産などを所与としたうえで消費および債券を最適化する。
+ここでは家計が消費や債券を最適化するにあたっての仮定および留意事項についてまとめる。
+なお議論の対象とするラグランジアンは総消費指数\(c_t^{h\to W}\)や消費者物価指数\(p_t^{H\to W}\)を用いて記述された
+\eqref{form:chapter3_households_stage2_home_lagrangian_eq}および
+\eqref{form:chapter3_households_stage2_foreign_lagrangian_eq}
+とする。
+
+\subsubsection{自国家計の最適化}
+\label{sec:household_optimization_home}
+
+\paragraph{自国家計の最適化の機会}
+\label{sec:household_optimization_home_opportunity}
+自国の家計\(h\)は毎期、総消費指数\(c_t^{h\to W}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
+および国際リスクフリー債券\(b_{t+1}^{h\to F}\)を最適化する機会を得る。
+
+\paragraph{自国家計の最適化の計算}
+\label{sec:household_optimization_home_calculation}
+最終的に導かれるラグランジアン
+\eqref{form:chapter3_households_stage2_home_lagrangian_eq}
+を先の操作変数\(c_t^{h\to W}, d_{t+1}^{h\to H}(j'), b_{t+1}^{h\to F}\)で偏微分するにあたり、
+各変数を操作変数の関数でないものとあるものにまとめる。
+\begin{itemize}
+    \item
+    \label{itm:household_optimization_home_calculation_remark1}
+        \textbf{操作変数の関数でないもの}
+        \begin{itemize}
+            \item 主観的割引因子\(\beta_{s+k}^H\)
+            \item 前期から持ち越した自国コンティンジェント債券\(d_t^{h\to H}\)
+            \item 前期から持ち越した国際リスクフリー債券\(b_t^{h\to F}\)
+            \item 外国の名目利子率\(i_{t-1}^F\)
+            \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
+            \item 消費者物価指数\(p_t^{H\to W}\)
+            \item 自国コンティンジェント債券の価格\(q_{t,t+1}(j')\)
+            \item 所得税率\(\tau_t^H\)
+            \item 一括移転\(t_t^H\)
+            \item 労働\(l_t^h\)、自身の財の価格\(p_t^h\)および生産\(y_t^h\)
+            \item ラグランジュ乗数\(\lambda_t^h\)
+        \end{itemize}
+        主観的割引因子\(\beta_{s+k}^H\)、所得税率\(\tau_t^H\)
+        および一括移転\(t_t^H\)はモデルのパラメータまたは外生変数であるため定数として扱う。
+        前期から持ち越した資産\(d_t^{h\to H}\)
+        および\(b_t^{h\to F}\)も\(t\)期においてはすでに確定した定数である。
+        また各家計の経済規模は微小であるため、
+        仮定\eqref{sec:chapter3_assumptions_market_structure_assumption2}より
+        自身の行動がマクロ経済変数に与える影響は軽微であるとみなす。
+        したがって消費者物価指数\(p_t^{H\to W}\)、
+        自国コンティンジェント債券の価格\(q_{t,t+1}(j')\)、
+        外国の名目利子率\(i_{t-1}^F\)および名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)などの価格体系に加えて、
+        マクロの総需要から決定される自身の生産\(y_t^h\)やそれに伴う労働\(l_t^h\)、
+        自身の財の価格\(p_t^h\)についても、家計としての計算においてはすべて所与（定数）として扱う。
+    \item
+    \label{itm:household_optimization_home_calculation_remark2}
+        \textbf{操作変数の関数であるもの}
+        \begin{itemize}
+            \item 総消費指数\(c_t^{h\to W}\)
+            \item 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)
+            \item 国際リスクフリー債券\(b_{t+1}^{h\to F}\)
+        \end{itemize}
+\end{itemize}
+
+\subsubsection{外国家計の最適化}
+\label{sec:household_optimization_foreign}
+
+\paragraph{外国家計の最適化の機会}
+\label{sec:household_optimization_foreign_opportunity}
+外国の家計\(f\)は毎期、総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)を最適化する機会を得る。
+
+\paragraph{外国家計の最適化の計算}
+\label{sec:household_optimization_foreign_calculation}
+最終的に導かれるラグランジアン
+\eqref{form:chapter3_households_stage2_foreign_lagrangian_eq}
+を先の操作変数\(c_t^{f\to W}, d_{t+1}^{f\to F*}(j'), b_{t+1}^{f\to H*}\)で偏微分するにあたり、
+各変数を操作変数の関数でないものとあるものにまとめる。
+\begin{itemize}
+    \item
+    \label{itm:household_optimization_foreign_calculation_remark1}
+        \textbf{操作変数の関数でないもの}
+        \begin{itemize}
+            \item 主観的割引因子\(\beta_{s+k}^F\)
+            \item 前期から持ち越した外国コンティンジェント債券\(d_t^{f\to F*}\)
+            \item 前期から持ち越した国際リスクフリー債券\(b_t^{f\to H*}\)
+            \item 自国の名目利子率\(i_{t-1}^H\)
+            \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
+            \item 消費者物価指数\(p_t^{F\to W*}\)
+            \item 外国コンティンジェント債券の価格\(q_{t,t+1}^*(j')\)
+            \item 所得税率\(\tau_t^F\)
+            \item 一括移転\(t_t^{F*}\)
+            \item 労働\(l_t^f\)、自身の財の価格\(p_t^{f*}\)および生産\(y_t^f\)
+            \item ラグランジュ乗数\(\lambda_t^{f/*}\)
+        \end{itemize}
+        自国と同様に主観的割引因子\(\beta_{s+k}^F\)、所得税率\(\tau_t^F\)
+        および一括移転\(t_t^{F*}\)はモデルのパラメータまたは外生変数であるため定数として扱う。
+        前期から持ち越した資産\(d_t^{f\to F*}\)
+        および\(b_t^{f\to H*}\)も\(t\)期においてはすでに確定した定数である。
+        各家計の経済規模は微小であるため、
+        仮定\eqref{sec:chapter3_assumptions_market_structure_assumption2}に基づき
+        自身の行動がマクロ経済変数に与える影響は軽微であるとみなす。
+        したがって消費者物価指数\(p_t^{F\to W*}\)、外国コンティンジェント債券の価格\(q_{t,t+1}^*(j')\)、
+        自国の名目利子率\(i_{t-1}^H\)および名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)などの価格体系に加えて、
+        マクロの総需要から決定される自身の生産\(y_t^f\)やそれに伴う労働\(l_t^f\)、
+        自身の財の価格\(p_t^{f*}\)についても、家計としての計算においてはすべて所与（定数）として扱う。
+    \item
+    \label{itm:household_optimization_foreign_calculation_remark2}
+        \textbf{操作変数の関数であるもの}
+        \begin{itemize}
+            \item 総消費指数\(c_t^{f\to W}\)
+            \item 外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)
+            \item 国際リスクフリー債券\(b_{t+1}^{f\to H*}\)
+        \end{itemize}
+\end{itemize}

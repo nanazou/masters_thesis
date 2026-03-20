@@ -23,3 +23,6 @@
 
 # projects フォルダ内の各プロジェクトの src 以下の全フォルダを除外
 projects/*_project/src/*/
+
+# メモ用フォルダ
+memos/

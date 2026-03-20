@@ -1,0 +1,45 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/producers/stage2.tex
+
+\subsection{第2段階（フィリップス曲線の導出）}
+\label{sec:chapter3_producers_stage2}
+前節で導出した最適価格の再帰的な方程式群を出発点として
+定常状態の近傍で対数線形化を行うことで線形化されたフィリップス曲線を導出する。
+
+\subsubsection{自国生産者の第2段階}
+\label{sec:chapter3_producers_stage2_home}
+第1段階で得られた自国の最適価格に関する連立方程式群
+（式\ref{form:chapter3_producers_stage1_home_p_h_modified_eq}〜
+\ref{form:chapter3_producers_stage1_home_w_h_eq}）を定常状態の近傍で対数線形化する。
+各変数の定常状態からの対数乖離をハット記号（\(\hat{\cdot}\)）で表し、
+自国財のインフレ率を\(\hat{\pi}_t^H\equiv\hat{p}_t^H-\hat{p}_{t-1}^H\)と定義して式を整理すると
+以下の自国の線形化されたフィリップス曲線が得られる。
+\begin{equation}
+\label{form:chapter3_producers_stage2_home_nkpc_eq}
+    \hat{\pi}_t^H=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H\left(\hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-\hat{\lambda}_t^H-\widehat{(1-\tau_t^H)}\right)
+\end{equation}
+ここで\(\kappa^H\)は価格粘着性の程度や需要の価格弾力性に依存する係数であり以下のように定義される。
+\begin{equation}
+\label{form:chapter3_producers_stage2_home_kappa_eq}
+    \kappa^H\equiv\frac{(1-\xi^H)(1-\beta_{ss}^H\xi^H)}{\xi^H(1+\theta^H)}
+\end{equation}
+なお、この対数線形化による線形化されたフィリップス曲線の詳細な導出過程については
+付録\ref{chap:appendix_optimal_price_derivation}に譲る。
+
+\subsubsection{外国生産者の第2段階}
+\label{sec:chapter3_producers_stage2_foreign}
+自国と全く同様の手順により、外国の最適価格に関する連立方程式群
+（式\ref{form:chapter3_producers_stage1_foreign_p_f_star_modified_eq}〜
+\ref{form:chapter3_producers_stage1_foreign_w_f_eq}）を対数線形化する。
+外国財のインフレ率を\(\hat{\pi}_t^{F*}\equiv\hat{p}_t^{F*}-\hat{p}_{t-1}^{F*}\)と定義して整理することで
+以下の外国の線形化されたフィリップス曲線が導出される。
+\begin{equation}
+\label{form:chapter3_producers_stage2_foreign_nkpc_eq}
+    \hat{\pi}_t^{F*}=\beta_{ss}^F\operatorname{E}_t[\hat{\pi}_{t+1}^{F*}]+\kappa^F\left(\hat{y}_t^F-2\hat{a}_t^F-\hat{p}_t^{F*}-\hat{\lambda}_t^{f/*}-\widehat{(1-\tau_t^F)}\right)
+\end{equation}
+ここで係数\(\kappa^F\)は以下のように定義される。
+\begin{equation}
+\label{form:chapter3_producers_stage2_foreign_kappa_eq}
+    \kappa^F\equiv\frac{(1-\xi^F)(1-\beta_{ss}^F\xi^F)}{\xi^F(1+\theta^F)}
+\end{equation}
+外国のフィリップス曲線の導出についても詳細は付録\ref{chap:appendix_optimal_price_derivation}に譲る。

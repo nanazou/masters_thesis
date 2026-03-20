@@ -155,8 +155,8 @@
 \label{form:model_producers_optimization_home_lagrangian_def}
     \begin{aligned}
         \max_{p_t^h}\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^H\right)\Biggl[&\left(\log c_{t+k}^{h\to W}-\frac{\phi^H}{2}(l_{t+k}^h)^2\right) \\
-        &+\lambda_{t+k}^h\biggl(\Bigl(d_{t+k}^{h\to H}+(1+i_{t+k-1}^F)b_{t+k}^{h\to F}+(1-\tau_{t+k}^H)p_t^hy_{_{t+k}}^h+t_{t+k}^H\Bigr) \\
-        &\quad-\Bigl(\sum_{j'\in J}q_{t+k,t+k+1}d_{t+k+1}^{h\to H}+b_{t+k+1}^{h\to F}+p_{t+k}^{H\to W}c_{t+k}^{h\to W}\Bigr)\biggr)\Biggr]
+        &+\lambda_{t+k}^h\biggl(\Bigl(d_{t+k}^{h\to H}+(1+i_{t+k-1}^F)\frac{e_{t+k}^{/*}}{e_{t+k-1}^{/*}}b_{t+k}^{h\to F}+(1-\tau_{t+k}^H)p_t^hy_{t+k}^h+t_{t+k}^H\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t+k,t+k+1}(j')d_{t+k+1}^{h\to H}(j')+b_{t+k+1}^{h\to F}+p_{t+k}^{H\to W}c_{t+k}^{h\to W}\Bigr)\biggr)\Biggr]
     \end{aligned}
 \end{equation}
 この目的関数を\(p_t^h\)について偏微分し1階の条件を求める際に以下の点を考慮する。
@@ -225,8 +225,8 @@
 \label{form:model_producers_optimization_foreign_lagrangian_def}
     \begin{aligned}
         \max_{p_t^{f*}}\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^F)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^F\right)\Biggl[&\left(\log c_{t+k}^{f\to W}-\frac{\phi^F}{2}(l_{t+k}^f)^2\right) \\
-        &+\lambda_{t+k}^{f/*}\biggl(\Bigl(d_{t+k}^{f\to F*}+(1+i_{t+k-1}^H)b_{t+k}^{f\to H*}+(1-\tau_{t+k}^F)p_t^{f*}y_{t+k}^f+t_{t+k}^{F*}\Bigr) \\
-        &\quad-\Bigl(\sum_{j'\in J}q_{t+k,t+k+1}^*d_{t+k+1}^{f\to F*}+b_{t+k+1}^{f\to H*}+p_{t+k}^{F\to W*}c_{t+k}^{f\to W}\Bigr)\biggr)\Biggr]
+        &+\lambda_{t+k}^{f/*}\biggl(\Bigl(d_{t+k}^{f\to F*}+(1+i_{t+k-1}^H)\frac{e_{t+k-1}^{/*}}{e_{t+k}^{/*}}b_{t+k}^{f\to H*}+(1-\tau_{t+k}^F)p_t^{f*}y_{t+k}^f+t_{t+k}^{F*}\Bigr) \\
+        &\quad-\Bigl(\sum_{j'\in J}q_{t+k,t+k+1}^*(j')d_{t+k+1}^{f\to F*}(j')+b_{t+k+1}^{f\to H*}+p_{t+k}^{F\to W*}c_{t+k}^{f\to W}\Bigr)\biggr)\Biggr]
     \end{aligned}
 \end{equation}
 これより導かれる最適価格\(p_t^{f*}\)は、以下の再帰的な方程式群によって決定される。
@@ -234,7 +234,7 @@
     \label{form:model_producers_optimization_foreign_p_f_star}
         (p_t^{f*})^{1+\theta^F}&=\frac{\theta^F}{\theta^F-1}\frac{v_t^f}{w_t^f} \\
     \label{form:model_producers_optimization_foreign_v_f}
-        v_t^f&=\phi^F\frac{(Y_t^F)^2}{(a_t^F)^2}(p_t^{F*})^{2\theta^F}+\beta_t^F\xi^FE_t[v_{t+1}^f] \\
+        v_t^f&=\phi^F\frac{(Y_t^F)^2}{(a_t^F)^2}(p_t^{F*})^{2\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[v_{t+1}^f] \\
     \label{form:model_producers_optimization_foreign_w_f}
-        w_t^f&=\lambda_t^{f/*}(1-\tau_t^F)Y_t^F(p_t^{F*})^{\theta^F}+\beta_t^F\xi^FE_t[w_{t+1}^f]
+        w_t^f&=\lambda_t^{f/*}(1-\tau_t^F)Y_t^F(p_t^{F*})^{\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[w_{t+1}^f]
 \end{align}
