@@ -1,0 +1,152 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/policies/monetary.tex
+
+\subsection{金融政策}
+\label{sec:chapter3_policies_monetary}
+本稿の分析においてハット（\(\hat{\cdot}\)）付き変数はその変数の対数をとったものとその変数の定常状態での対数値との乖離（対数乖離）を表す（例：\(\hat{y}_t^H=\log(y_t^H)-\log(y_{ss}^H)\)）。
+この対数乖離は、乖離が微小である場合に限りその変化率（\((y_t^H-y_{ss}^H)/y_{ss}^H\)）の良い近似となるため広く用いられる。
+
+特にグロス・インフレ率（\(\pi_t^H\equiv p_t^H/p_{t-1}^H\)）の（対数）乖離\(\hat{\pi}_t^H\)は、\(\log(\pi_t^H)-\log(\pi_{ss}^H)\)で定義される。
+定常状態においてはネット・インフレ率は0\%（すなわちグロス・インフレ率\(\pi_{ss}^H=1\)）となるため
+\begin{align}
+\label{form:chapter3_policies_monetary_pi_hat_derivation_eq}
+    \hat{\pi}_t^H&\equiv\log(\pi_t^H)-\log(\pi_{ss}^H)&&\text{（ハットの定義）} \nonumber \\
+    &=\log(\pi_t^H)-\log(1)&&\text{（グロス・インフレ率\(\pi_{ss}^H=1\)を代入）} \nonumber \\
+    &=\log(\pi_t^H)&&\text{（\(\log(1)=0\)のため）}
+\end{align}
+と計算される。
+最後にグロス・インフレ率の定義と対数の性質（\(\log(A/B)=\log(A)-\log(B)\)）を用いると、インフレ・ギャップの式が導出される。
+\begin{equation}
+\label{form:chapter3_policies_monetary_pi_hat_dynamics_definition_eq}
+    \hat{\pi}_t^H=\log\left(\frac{p_t^H}{p_{t-1}^H}\right)=\log(p_t^H)-\log(p_{t-1}^H)
+\end{equation}
+
+\subsubsection{自国の金融政策}
+\label{sec:chapter3_policies_monetary_home}
+自国の中央銀行は利子率\(i_t^H\)を操作する。
+本稿ではシミュレーションにおいて自国が従う以下の11種類の政策ルールを比較分析する。
+すべての変数は一人当たりの変数で記述される。
+
+\paragraph{1.総消費水準目標(CLT)}
+\label{sec:chapter3_policies_monetary_clt}
+利子率は実質総消費（\(c_t^{H\to W}\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離（\(\log(c_t^{H\to W})-\log(\chi_t^H)\)）に反応し、さらに過去の乖離の累積\(\gamma_t^H\)にも反応する。ここで\(i_{ss}^H\)は利子率の定常状態の値である。
+\begin{align}
+\label{form:chapter3_policies_monetary_clt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(c_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_clt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(c_{t-1}^{H\to W})-\log(\chi_{t-1}^H))
+\end{align}
+本稿の各種水準目標（LT）ルールにおいて共通して用いられる目標パス\(\chi_t^H\)は、その定常状態の値\(\chi_{ss}^H\)の対数周囲での外生的な確率過程に従うものと仮定する。
+\begin{equation}
+\label{form:chapter3_policies_monetary_target_path_eq}
+    \log(\chi_t^H)=(1-\rho_{\chi}^H)\log(\chi_{ss}^H)+\rho_{\chi}^H\log(\chi_{t-1}^H)+\varepsilon_t^{\chi,H}
+\end{equation}
+
+\paragraph{2.消費者物価水準目標(CPLT)}
+\label{sec:chapter3_policies_monetary_cplt}
+利子率は消費者物価水準（\(p_t^{H\to W}\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_cplt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_cplt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(p_{t-1}^{H\to W})-\log(\chi_{t-1}^H))
+\end{align}
+
+\paragraph{3.消費者物価インフレ目標(IT-CPI)}
+\label{sec:chapter3_policies_monetary_it_cpi}
+利子率は消費者物価指数を用いたグロス・インフレ率（\(\pi_t^{H\to W}\)）の定常状態からの乖離に反応する。
+\begin{equation}
+\label{form:chapter3_policies_monetary_it_cpi_home_eq}
+    i_t^H=i_{ss}^H+\phi_{\pi}^H(\pi_t^{H\to W}-\pi_{ss}^{H\to W})+\varepsilon_t^{i,H}
+\end{equation}
+
+\paragraph{4.生産者物価インフレ目標(IT-PPI)}
+\label{sec:chapter3_policies_monetary_it_ppi}
+利子率\(i_t^H\)は生産者物価指数を用いたグロス・インフレ率（\(\pi_t^H\)）の定常状態からの乖離に反応する。
+\begin{equation}
+\label{form:chapter3_policies_monetary_it_ppi_home_eq}
+    i_t^H=i_{ss}^H+\phi_{\pi}^H(\pi_t^H-\pi_{ss}^H)+\varepsilon_t^{i,H}
+\end{equation}
+
+\paragraph{5.名目総消費水準目標(NCLT)}
+\label{sec:chapter3_policies_monetary_nclt}
+利子率は一人当たりの名目総消費（\(p_t^{H\to W}c_t^{H\to W}\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_nclt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^{H\to W}c_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_nclt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(p_{t-1}^{H\to W}c_{t-1}^{H\to W})-\log(\chi_{t-1}^H))
+\end{align}
+
+\paragraph{6.名目GDP水準目標(NGDPLT)}
+\label{sec:chapter3_policies_monetary_ngdplt}
+利子率は一人当たりの名目GDP（\(p_t^Hy_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_ngdplt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^Hy_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_ngdplt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(p_{t-1}^Hy_{t-1}^H)-\log(\chi_{t-1}^H))
+\end{align}
+
+\paragraph{7.生産水準目標(OLT)}
+\label{sec:chapter3_policies_monetary_olt}
+利子率は実質産出量（\(y_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_olt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(y_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_olt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(y_{t-1}^H)-\log(\chi_{t-1}^H))
+\end{align}
+
+\paragraph{8.潜在生産水準目標(POLT)}
+\label{sec:chapter3_policies_monetary_polt}
+利子率は実質産出量（\(y_t^H\)）と潜在産出量（\(y_t^{H,pot}\)）の対数乖離（産出量ギャップ）、および過去のギャップの累積に反応する。本ルールでは外生的な目標パスの代わりに潜在産出量との乖離が指標として用いられる。
+\begin{align}
+\label{form:chapter3_policies_monetary_polt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(y_t^H)-\log(y_t^{H,pot}))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_polt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(y_{t-1}^H)-\log(y_{t-1}^{H,pot}))
+\end{align}
+
+\paragraph{9.生産者物価水準目標(PPLT)}
+\label{sec:chapter3_policies_monetary_pplt}
+利子率は生産者物価水準（\(p_t^H\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離とその累積\(\gamma_t^H\)に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_pplt_interest_rate_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter3_policies_monetary_pplt_accumulation_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(p_{t-1}^H)-\log(\chi_{t-1}^H))
+\end{align}
+
+\paragraph{10.消費者物価テイラー・ルール(TR-CPI)}
+\label{sec:chapter3_policies_monetary_tr_cpi}
+利子率は金利平滑化を伴い、消費者物価インフレ率（\(\pi_t^{H\to W}\)）の対数、および産出量ギャップに反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_tr_cpi_notional_eq}
+    i_t^{H,notional}&=\rho_i^Hi_{t-1}^{H,notional}+(1-\rho_i^H)\left(i_{ss}^H+\phi_{\pi}^H\log(\pi_t^{H\to W})+\phi_y^H(\log(y_t^H)-\log(y_t^{H,pot}))\right)+\varepsilon_t^{i,H} \\
+\label{form:chapter3_policies_monetary_tr_cpi_actual_eq}
+    i_t^H&=i_t^{H,notional}
+\end{align}
+
+\paragraph{11.生産者物価テイラー・ルール(TR-PPI)}
+\label{sec:chapter3_policies_monetary_tr_ppi}
+利子率は金利平滑化（スムージング）を伴い、生産者物価インフレ率（\(\pi_t^H\)）の対数、および実質産出量（\(y_t^H\)）と潜在産出量（\(y_t^{H,pot}\)）の対数乖離に反応する。
+\begin{align}
+\label{form:chapter3_policies_monetary_tr_ppi_notional_eq}
+    i_t^{H,notional}&=\rho_i^Hi_{t-1}^{H,notional}+(1-\rho_i^H)\left(i_{ss}^H+\phi_{\pi}^H\log(\pi_t^H)+\phi_y^H(\log(y_t^H)-\log(y_t^{H,pot}))\right)+\varepsilon_t^{i,H} \\
+\label{form:chapter3_policies_monetary_tr_ppi_actual_eq}
+    i_t^H&=i_t^{H,notional}
+\end{align}
+
+\subsubsection{外国の金融政策}
+\label{sec:chapter3_policies_monetary_foreign}
+外国の中央銀行は本稿の分析を通じて一貫して以下の政策ルールに従うものと仮定する。シミュレーションにおいて比較対象とするのは自国の政策ルールのみである。
+
+\paragraph{生産者物価インフレ目標(IT-PPI)}
+\label{sec:chapter3_policies_monetary_foreign_it_ppi}
+外国の利子率\(i_t^F\)は、外国の生産者物価指数を用いたグロス・インフレ率（\(\pi_t^{F*}\)）の定常状態からの乖離に反応する。
+\begin{equation}
+\label{form:chapter3_policies_monetary_it_foreign_eq}
+    i_t^F=i_{ss}^F+\phi_{\pi}^F(\pi_t^{F*}-\pi_{ss}^{F*})+\varepsilon_t^{i,F}
+\end{equation}
+ここで\(i_{ss}^F\)と\(\pi_{ss}^{F*}\)はそれぞれの定常状態の値である。

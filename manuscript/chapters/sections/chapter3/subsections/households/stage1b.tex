@@ -35,8 +35,8 @@
 
 \paragraph{自国家計の総消費指数\(c_t^{h\to W}\)を最小費用で達成する問題}
 \label{sec:chapter3_households_stage1b_home_c_h_W_problem}
-家計\(h\)が所与の総消費指数\(c_t^{h\to W}\)を達成するために、
-自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)への名目支出の総和
+自国家計\(h\)が所与の総消費指数\(c_t^{h\to W}\)を達成するために、
+自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)を調整して名目支出の総和
 \(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)を最小化する問題を考える。
 この問題のラグランジアンは以下のように記述される。
 \begin{equation}
@@ -45,18 +45,18 @@
 \end{equation}
 上記ラグランジアンには名目支出額が含まれていることから、単位は自国通貨と考えられる。
 また一般にラグランジアンはラグランジュ乗数\(\eta_t^h\)を独立変数扱いして各独立変数で偏微分する。
-そこで上記ラグランジアンを総消費指数\(c_t^{h\to W}\)で偏微分すると、その値はラグランジュ乗数\(\eta_t^h\)に一致する。
-さらに均衡においてはこのラグランジアンの総消費指数\(c_t^{h\to W}\)による偏微分は、
+そこで上記ラグランジアンを総消費指数\(c_t^{h\to W}\)で偏微分すると
+その値はラグランジュ乗数\(\eta_t^h\)に一致する。
+さらに均衡においてはこのラグランジアンの総消費指数\(c_t^{h\to W}\)による偏微分は
 名目総支出\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)の総消費指数\(c_t^{h\to W}\)による微分に
 一致することが証明される（式\eqref{chap:appendix_envelope}）。すなわち
 \begin{equation}
 \label{form:chapter3_households_stage1b_home_c_h_W_problem_eta_h_marginal_eq}
     \frac{\mathrm{d}(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F})}{\mathrm{d}c_t^{h\to W}}=\frac{\partial \mathcal{L}^{h\to W}}{\partial c_t^{h\to W}}=\eta_t^h
 \end{equation}
-このことからラグランジュ乗数\(\eta_t^h\)は総消費指数\(c_t^{h\to W}\)の限界価格と解釈でき、
-大雑把にいえば総消費指数\(c_t^{h\to W}\)を追加1単位増やしたときの
-名目総支出の増加量を表す。
-この費用最小化問題から各財消費指数への需要関数が導出される
+このことからラグランジュ乗数\(\eta_t^h\)は総消費指数\(c_t^{h\to W}\)の限界価格と解釈できる。
+これは総消費指数\(c_t^{h\to W}\)を追加1単位増やしたときの名目総支出の増加量におおむね一致する。
+この費用最小化問題から自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)の需要関数が導出される
 （式\eqref{chap:appendix_cost_minimization}TODO）。
 \begin{align}
     \label{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}
@@ -98,7 +98,7 @@
 \paragraph{外国家計の総消費指数\(c_t^{f\to W}\)を最小費用で達成する問題}
 \label{sec:chapter3_households_stage1b_foreign_c_f_W_problem}
 外国家計\(f\)が所与の総消費指数\(c_t^{f\to W}\)を達成するために、
-外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)への名目支出の総和
+外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)を調整して名目支出の総和
 \(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)を最小化する問題を考える。
 この問題のラグランジアンは以下のように記述される。
 \begin{equation}
@@ -115,10 +115,9 @@
 \label{form:chapter3_households_stage1b_foreign_c_f_W_problem_eta_f_marginal_eq}
     \frac{\mathrm{d}(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H})}{\mathrm{d}c_t^{f\to W}}=\frac{\partial \mathcal{L}^{f\to W}}{\partial c_t^{f\to W}}=\eta_t^f
 \end{equation}
-このことからラグランジュ乗数\(\eta_t^f\)は総消費指数\(c_t^{f\to W}\)の限界価格と解釈でき、
-大雑把にいえば総消費指数\(c_t^{f\to W}\)を追加1単位増やしたときの
-名目総支出の増加量を表す。
-この費用最小化問題から各財消費指数への需要関数が導出される
+このことからラグランジュ乗数\(\eta_t^f\)は総消費指数\(c_t^{f\to W}\)の限界価格と解釈できる。
+これは総消費指数\(c_t^{f\to W}\)を追加1単位増やしたときの名目総支出の増加量におおむね一致する。
+この費用最小化問題から外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)の需要関数が導出される
 （式\eqref{chap:appendix_cost_minimization}TODO）。
 \begin{align}
     \label{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_F_eq}
@@ -145,7 +144,7 @@
 総消費指数\(c_t^{f\to W}\)の平均価格ともなったことは当然といえる。
 （ここで\(p_t^{H*}\)は自国財の外国通貨建て価格）
 
-\subsubsection{消費者物価指数(CPI)\(p_t^{H\to W}, p_t^{F\to W*}\)の定義}
+\subsubsection{消費者物価指数（CPI）\(p_t^{H\to W}, p_t^{F\to W*}\)の定義}
 \label{sec:chapter3_households_stage1b_cpi_definitions}
 一物一価の法則\eqref{form:chapter3_households_stage1a_ppi_definitions_p_H_lop}および\eqref{form:chapter3_households_stage1a_ppi_definitions_p_F_lop}を用いると、異なる通貨建ての消費者物価指数間の関係式が以下のように導出される。
 \begin{align}

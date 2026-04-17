@@ -1,44 +1,8 @@
-% !TeX root = ../../main.tex
-% sections/chap3/sec_model_resource_constraints.tex
+% !TeX root = ../../../../main.tex
+% chapters/sections/chapter3/resource_constraints.tex
 
 \section{国全体の資源制約式}
-\label{sec:model_resource_constraints}
+\label{sec:chapter3_resource_constraints}
 
-\subsection{自国の資源制約}
-\label{sec:model_resource_constraints_home}
-まず自国の総消費\(C_t^{H\to W}\)を以下のように定義する
-\begin{equation}
-\label{form:model_resource_constraints_home_C_H_W_def}
-    C_t^{H\to W}=Nc_t^{H\to W}
-\end{equation}
-次に自国の対外純資産（自国通貨建て）\(B_t^H\)を以下のように定義する。
-\begin{equation}
-\label{form:model_resource_constraints_home_B_H_def}
-    B_t^H=Nb_t^H
-\end{equation}
-そのうえで\(t\)期において成立するすべての自国家計（\(h\in H\)）の予算制約式を足し合わせ、
-自国の債券市場と政府部門の均衡条件を適用することで自国の集計的な資源制約式が得られる
-（導出の詳細は付録\ref{chap:appendix_resource_constraint}参照）。
-\begin{equation}
-\label{form:model_resource_constraints_home_eq}
-    p_t^{H\to W}C_t^{H\to W}+B_{t+1}^H=p_t^HY_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H
-\end{equation}
-この式は自国の消費と対外純資産の増加が自国の生産と既存の対外資産からの収益によって賄われることを示している。
-
-\subsection{外国の資源制約（外国通貨建て）}
-\label{sec:model_resource_constraints_foreign}
-同様に外国の総消費\(C_t^{F\to W}\)
-\begin{equation}
-\label{form:model_resource_constraints_foreign_C_F_W_def}
-    C_t^{F\to W}=Mc_t^{F\to W}
-\end{equation}
-外国の対外純資産（外国通貨建て）\(B_t^{F*}\)
-\begin{equation}
-\label{form:model_resource_constraints_foreign_B_F_star_def}
-    B_t^{F*}=Mb_t^{F*}
-\end{equation}
-の定義のもと外国の資源制約式が以下のように導出される。
-\begin{equation}
-\label{form:model_resource_constraints_foreign_eq}
-    p_t^{F\to W*}C_t^{F\to W}+B_{t+1}^{F*}=p_t^{F*}Y_t^F+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}B_t^{F*}
-\end{equation}
+\input{chapters/sections/chapter3/subsections/resource_constraints/overview.tex}
+\input{chapters/sections/chapter3/subsections/resource_constraints/aggregate.tex}

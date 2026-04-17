@@ -1,0 +1,37 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/fiscal_policy.tex
+
+\subsection{財政政策}
+\label{sec:chapter3_representative_household_fiscal_policy}
+\paragraph{①出発点：政府の集計予算制約}\label{sec:chapter3_representative_household_fiscal_policy_origin}
+3.6.1節\eqref{form:model_final_gov_budget_agg}で示された通り、政府の税収と移転の関係は、以下の集計レベルの予算制約式で厳密に表される。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_gov_agg_restated}
+    Nt_t^H=\tau_t^Hp_t^HY_t^H
+\end{equation}
+
+\paragraph{②代表的家計モデルの方程式への変換}\label{sec:chapter3_representative_household_fiscal_policy_ra_eq}
+3.8.3.1節で定義した\(y_t^H\equiv Y_t^H/N\)を上記に代入する。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_derivation}
+    Nt_t^H=\tau_t^Hp_t^H(Ny_t^H)
+\end{equation}
+この式の両辺を人口\(N\)で割ることで、一人当たりの一括移転\(t_t^H\)が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_h}
+    t_t^H=\tau_t^Hp_t^Hy_t^H
+\end{equation}
+
+\paragraph{税率の決定ルール}\label{sec:chapter3_representative_household_fiscal_policy_tax_rule}
+税率は3.6.1節\eqref{form:model_tax_rule_H}で定義した確率過程に従う。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_gov_tax_rule_h_restated}
+    \log(\tau_t^H)=(1-\rho_\tau^H)\log(\tau_{ss}^H)+\rho_\tau^H\log(\tau_{t-1}^H)+\varepsilon_t^{\tau,H}
+\end{equation}
+外国についても同様に定義される。
+\begin{align}
+\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_f}
+    t_t^{F*}&=\tau_t^Fp_t^{F*}y_t^F \\
+\label{form:chapter3_representative_household_fiscal_policy_gov_tax_rule_f_restated}
+    \log(\tau_t^F)&=(1-\rho_\tau^F)\log(\tau_{ss}^{F*})+\rho_\tau^F\log(\tau_{t-1}^F)+\varepsilon_t^{\tau,F}
+\end{align}

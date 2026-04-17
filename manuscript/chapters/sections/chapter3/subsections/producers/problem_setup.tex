@@ -10,15 +10,13 @@
 仮定\ref{sec:chapter3_assumptions_price_optimization_home_opportunity}により
 自国家計\(h\)は毎期\(1-\xi^H\)の確率で価格を改定する機会を得る。
 そして価格改定の機会を得た家計\(h\)は
-問題\ref{form:sec_chapter3_households_stage2_home_utility_def}において価格\(p_t^h\)を最適化する。
-また\ref{itm:producer_optimization_home_calculation_remark2}より
-労働\(l_t^h\)と生産\(y_t^h\)は価格\(p_t^h\)の関数であり、
-\ref{itm:producer_optimization_home_calculation_assumption}より
-消費者物価指数\(p_t^{H\to W}\)は価格\(p_t^h\)の関数とはみなさない。
-\(t\)期で設定した価格\(p_t^h\)が\(k\)期先まで維持される確率は\((\xi^H)^k\)であることがわかり
+問題\ref{form:chapter3_households_stage2_home_utility_def}において価格\(p_t^h\)を最適化する。
+また\ref{sec:chapter3_assumptions_producer_optimization_home_calculation}より
+価格\(p_t^h\)の関数とみなすのは価格\(p_t^h\)のほか労働\(l_t^h\)と生産\(y_t^h\)のみである。
+さらに\(t\)期で設定した価格\(p_t^h\)が\(k\)期先まで維持される確率は\((\xi^H)^k\)となるため
 この問題は以下の問題と同値となる（\ref{}節TODO）。
 \begin{equation}
-\label{form:model_producers_optimization_home_lagrangian_def}
+\label{form:chapter3_producers_problem_setup_home_lagrangian_def}
     \begin{aligned}
         \max_{p_t^h}\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^H\right)\Biggl[&\left(\log c_{t+k}^{h\to W}-\frac{\phi^H}{2}(l_{t+k}^h)^2\right) \\
         &+\lambda_{t+k}^h\biggl(\Bigl(d_{t+k}^{h\to H}+(1+i_{t+k-1}^F)\frac{e_{t+k}^{/*}}{e_{t+k-1}^{/*}}b_{t+k}^{h\to F}+(1-\tau_{t+k}^H)p_t^hy_{t+k}^h+t_{t+k}^H\Bigr) \\
@@ -31,15 +29,13 @@
 仮定\ref{sec:chapter3_assumptions_price_optimization_foreign_opportunity}により
 外国家計\(f\)は毎期\(1-\xi^F\)の確率で価格を改定する機会を得る。
 そして価格改定の機会を得た家計\(f\)は
-問題\ref{form:sec_chapter3_households_stage2_foreign_utility_def}において価格\(p_t^{f*}\)を最適化する。
-また\ref{itm:producer_optimization_foreign_calculation_remark2}より
-労働\(l_t^f\)と生産\(y_t^f\)は価格\(p_t^{f*}\)の関数であり、
-\ref{itm:producer_optimization_foreign_calculation_assumption}より
-消費者物価指数\(p_t^{F\to W*}\)は価格\(p_t^{f*}\)の関数とはみなさない。
-\(t\)期で設定した価格\(p_t^{f*}\)が\(k\)期先まで維持される確率は\((\xi^F)^k\)であることがわかり
+問題\ref{form:chapter3_households_stage2_foreign_utility_def}において価格\(p_t^{f*}\)を最適化する。
+また\ref{sec:chapter3_assumptions_producer_optimization_foreign_calculation}より
+価格\(p_t^{f*}\)の関数とみなすのは価格\(p_t^{f*}\)のほか労働\(l_t^f\)と生産\(y_t^f\)のみである。
+さらに\(t\)期で設定した価格\(p_t^{f*}\)が\(k\)期先まで維持される確率は\((\xi^F)^k\)となるため
 この問題は以下の問題と同値となる（\ref{}節TODO）。
 \begin{equation}
-\label{form:chapter3_producers_problem_setup_optimization_foreign_lagrangian_def}
+\label{form:chapter3_producers_problem_setup_foreign_lagrangian_def}
     \begin{aligned}
         \max_{p_t^{f*}}\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^F)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^F\right)\Biggl[&\left(\log c_{t+k}^{f\to W}-\frac{\phi^F}{2}(l_{t+k}^f)^2\right) \\
         &+\lambda_{t+k}^{f/*}\biggl(\Bigl(d_{t+k}^{f\to F*}+(1+i_{t+k-1}^H)\frac{e_{t+k-1}^{/*}}{e_{t+k}^{/*}}b_{t+k}^{f\to H*}+(1-\tau_{t+k}^F)p_t^{f*}y_{t+k}^f+t_{t+k}^{F*}\Bigr) \\

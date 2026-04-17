@@ -1,24 +1,24 @@
-% !TeX root = ../../main.tex
-% sections/chap3/sec_model_final_equations.tex
+% !TeX root = ../../../../main.tex
+% chapters/sections/chapter3/subsections/final_equations.tex
 
 \section{代表的家計モデルの最終的な方程式体系}
-\label{sec:model_final_equations}
+\label{sec:chapter3_final_equations}
 本章で導出された個々の最適化条件と均衡条件を集約し、シミュレーション分析で用いる代表的家計モデルの最終的な方程式体系を以下にまとめる。
 
 本節では、家計の最適化条件（FOC）をもとに、代表的家計の方程式を導出する。
 
 \subsection{市場均衡}
-\label{sec:model_final_equations_market}
+\label{sec:chapter3_final_equations_market}
 \subsubsection{財市場の均衡}
-\label{sec:model_final_equations_market_goods}
-\paragraph{①出発点：集計レベルの需給均衡}\label{sec:model_final_equations_market_goods_agg_origin}
+\label{sec:chapter3_final_equations_market_goods}
+\paragraph{①出発点：集計レベルの需給均衡}\label{sec:chapter3_final_equations_market_goods_agg_origin}
 3.5.1節\eqref{form:model_aggregate_goods_market_equilibrium}で示された通り、自国の総生産指数\(Y_t^H\)は、国内からの総推奨と、外国からの総埋要の合計に等しくなる。
 \begin{equation}
 Y_t^H=\sum_{h\in H}c_t^{h\to H}+\sum_{f\in F}c_t^{f\to H}
 \label{form:model_final_equations_market_goods_agg_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_market_goods_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_market_goods_ra_eq}
 \(c_t^{h\to H}=c_t^{H\to H}\)と\(c_t^{f\to H}=c_t^{F\to H}\)より①式の総和は以下のように書き換えられる。
 \begin{equation}
 Y_t^H=Nc_t^{H\to H}+Mc_t^{F\to H}
@@ -36,17 +36,17 @@ y_t^F=c_t^{F\to F}+\frac{N}{M}c_t^{H\to F}
 \end{equation}
 
 \subsection{家計の最適化行動}
-\label{sec:model_final_equations_utility}
+\label{sec:chapter3_final_equations_utility}
 \subsubsection{所得の限界効用（消費のFOC）}
-\label{sec:model_final_equations_utility_lambda}
-\paragraph{①出発点：家計のFOC}\label{sec:model_final_equations_utility_lambda_origin}
+\label{sec:chapter3_final_equations_utility_lambda}
+\paragraph{①出発点：家計のFOC}\label{sec:chapter3_final_equations_utility_lambda_origin}
 消費に関するFOCは、家計の所得の限界効用\(\lambda_t^h\)を用いて次のように書ける。（3.3.2.3節\eqref{form:model_foc_consumption_home}再掲）
 \begin{equation}
 \lambda_t^h=\frac{1}{p_t^{H\to W}c_t^{h\to W}}
 \label{form:model_final_equations_utility_foc_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_utility_lambda_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_utility_lambda_ra_eq}
 3.4節で示された通り、全ての家計\(h\)で\(\lambda_t^h\)と\(c_t^{h\to W}\)は共通の値をとる。そこで、代表的家計の変数を以下のように定義する。
 \begin{equation}
 \lambda_t^H\equiv\lambda_t^h\quad（※3.4節より全家計で共通のため）
@@ -68,15 +68,15 @@ c_t^{H\to W}\equiv c_t^{h\to W}\quad（※3.4節より全家計で共通のた�
 \end{equation}
 
 \subsubsection{オイラー方程式（国内債券）}
-\label{sec:model_final_equations_utility_euler}
-\paragraph{①出発点：家計のFOC}\label{sec:model_final_equations_utility_euler_origin}
+\label{sec:chapter3_final_equations_utility_euler}
+\paragraph{①出発点：家計のFOC}\label{sec:chapter3_final_equations_utility_euler_origin}
 個々の家計\(h\)の国内債券保有に関する最適化の一階条件（FOC）は、次のように表現される。（3.3.2.3節\eqref{form:model_euler_domestic_home}再掲）
 \begin{equation}
 \lambda_t^h=\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^h]
 \label{form:model_final_equations_utility_euler_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_utility_euler_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_utility_euler_ra_eq}
 ①式に、前項で定義した代表的家計の所得の限界効用\(\lambda_t^h=\lambda_t^H\)、および\(\lambda_{t+1}^h=\lambda_{t+1}^H\)を代入すると、そのまま代表的家計の変数で記述されたオイラー方程式が得られる。
 \begin{equation}
 \lambda_t^H=\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]
@@ -89,15 +89,15 @@ c_t^{H\to W}\equiv c_t^{h\to W}\quad（※3.4節より全家計で共通のた�
 \end{equation}
 
 \subsubsection{UIP条件（国際債券）}
-\label{sec:model_final_equations_utility_uip}
-\paragraph{①出発点：家計のFOC}\label{sec:model_final_equations_utility_uip_origin}
+\label{sec:chapter3_final_equations_utility_uip}
+\paragraph{①出発点：家計のFOC}\label{sec:chapter3_final_equations_utility_uip_origin}
 自国の家計の国際リスクフリー債券に関する最適化条件（FOC）は、3.3.2.3節\eqref{form:model_uip_condition_home}で示された。
 \begin{equation}
 \lambda_t^he_t^{/*}=(1+i_t^F)\beta_t^HE_t[\lambda_{t+1}^he_{t+1}^{/*}]
 \label{form:model_final_equations_utility_uip_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_utility_uip_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_utility_uip_ra_eq}
 ①式に\(\lambda_t^h=\lambda_t^H\)、および\(\lambda_{t+1}^h=\lambda_{t+1}^H\)を代入すると、代表的家計のUIP条件式が得られる。
 \begin{equation}
 \lambda_t^He_t^{/*}=(1+i_t^F)\beta_t^HE_t[\lambda_{t+1}^He_{t+1}^{/*}]
@@ -110,8 +110,8 @@ c_t^{H\to W}\equiv c_t^{h\to W}\quad（※3.4節より全家計で共通のた�
 \end{equation}
 
 \subsubsection{需要関数と消費者物価指数（CPI）の定義}
-\label{sec:model_final_equations_utility_demand}
-\paragraph{①出発点：家計の需要関数}\label{sec:model_final_equations_utility_demand_origin}
+\label{sec:chapter3_final_equations_utility_demand}
+\paragraph{①出発点：家計の需要関数}\label{sec:chapter3_final_equations_utility_demand_origin}
 家計\(h\)の費用最小化問題から自国財消費と外国財消費への需要は以下のようになる。
 （3.3.2.2節\eqref{form:model_demand_domestic_basket}、\eqref{form:model_demand_foreign_basket}再掲）
 \begin{align}
@@ -119,7 +119,7 @@ c_t^{h\to H}&=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{h\to W} \label{form:model_f
 c_t^{h\to F}&=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{h\to W} \label{form:model_final_equations_utility_demand_foreign_restated}
 \end{align}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_utility_demand_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_utility_demand_ra_eq}
 3.4節で示された通り、これらの消費指数も全家計で共通となる。そこで、1.1節と同様に代表的家計の変数を定義する。
 \begin{equation}
 c_t^{H\to H}\equiv c_t^{h\to H}\quad（※共通のため）
@@ -154,17 +154,17 @@ p_t^{F\to W*}=(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
 \end{equation}
 
 \subsection{生産と価格設定}
-\label{sec:model_final_equations_pricing}
+\label{sec:chapter3_final_equations_pricing}
 \subsubsection{代表的家計の生産関数}
-\label{sec:model_final_equations_pricing_prod}
-\paragraph{①出発点：集計レベルの関係式（厳密な形式）}\label{sec:model_final_equations_pricing_prod_origin}
+\label{sec:chapter3_final_equations_pricing_prod}
+\paragraph{①出発点：集計レベルの関係式（厳密な形式）}\label{sec:chapter3_final_equations_pricing_prod_origin}
 3.5.1節\eqref{form:model_aggregate_production_function_home}で示された通り、国全体の総生産指数\(Y_t^H\)、総労働\(L_t^H\)、および総価格分散\(\Delta_t^H\)の間には、以下の厳密な関係が成り立つ。
 \begin{equation}
 Y_t^H=\frac{a_t^HL_t^H}{\Delta_t^H}
 \label{form:model_final_equations_pricing_prod_agg_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式への変換}\label{sec:model_final_equations_pricing_prod_ra_eq}
+\paragraph{②代表的家計モデルの方程式への変換}\label{sec:chapter3_final_equations_pricing_prod_ra_eq}
 代表的家計の生産\(y_t^H\)と労働を\(l_t^H\)を以下のように定義する。
 \begin{equation}
 y_t^H\equiv Y_t^H/N
@@ -191,8 +191,8 @@ y_t^F=\frac{a_t^Fl_t^F}{\Delta_t^F}
 \end{equation}
 
 \subsubsection{価格設定の動学（非線形形式）}
-\label{sec:model_final_equations_pricing_dynamics}
-\paragraph{①出発点：家計のFOC}\label{sec:model_final_equations_pricing_dynamics_origin}
+\label{sec:chapter3_final_equations_pricing_dynamics}
+\paragraph{①出発点：家計のFOC}\label{sec:chapter3_final_equations_pricing_dynamics_origin}
 3.5.2節で導出された通り、価格改定家計\(h\)が設定する最適価格\(\widetilde{p}_t^h\)は、以下の補助変数\(v_t,w_t\)を用いた方程式群によって決定される。
 \begin{align}
 (\widetilde{p}_t^h)^{1+\theta^H}&=\frac{\theta^H}{\theta^H-1}\frac{v_t}{w_t} \label{form:model_final_equations_pricing_opt_p_restated} \\
@@ -200,7 +200,7 @@ v_t&=\phi^H\frac{(Y_t^H)^2}{(a_t^H)^2}(p_t^H)^{2\theta^H}+\beta_t^H\xi^HE_t[v_{t
 w_t&=\lambda_t^h(1-\tau_t^H)Y_t^H(p_t^H)^{\theta^H}+\beta_t^H\xi^HE_t[w_{t+1}] \label{form:model_final_equations_pricing_w_restated}
 \end{align}
 
-\paragraph{②代表的家計モデルの方程式}\label{sec:model_final_equations_pricing_dynamics_ra_eq}
+\paragraph{②代表的家計モデルの方程式}\label{sec:chapter3_final_equations_pricing_dynamics_ra_eq}
 3.5.2節で示したように、全ての価格改定家計\(h\)は共通の最適価格\(\widetilde{p}_t^h\)を設定する。そこで、代表的家計の最適価格\(\widetilde{p}_t^H\)を以下のように定義する。
 \begin{equation}
 \widetilde{p}_t^H\equiv\widetilde{p}_t^h\quad（※3.5.2節より全価格改定家計で共通のため）
@@ -223,21 +223,21 @@ w_t=\lambda_t^HN(1-\tau_t^H)y_t^H(p_t^H)^{\theta^H}+\beta_t^H\xi^HE_t[w_{t+1}]
 \label{form:model_final_equations_pricing_w_h}
 \end{equation}
 
-\paragraph*{物価指数の動学:}\label{sec:model_final_equations_pricing_ppi_h_dynamics}
+\paragraph*{物価指数の動学:}\label{sec:chapter3_final_equations_pricing_ppi_h_dynamics}
 \(p_t^h\)は、当期の価格改定組（割合\(1-\xi^H\)、全員が\(\widetilde{p}_t^H\)を設定）と、価格据え置き組（割合\(\xi^H\)、前期の物価指数\(\bar{p}_{t-1}^H\)）の二つのグループに分解できる。この集計計算を行うと（詳細は付録参照）、\(\bar{p}_t^H(j)^{1-\theta^H}\)が、二つのグループの価格の加重平均として以下のように表される。
 \begin{equation}
 (\bar{p}_t^H)^{1-\theta^H}=(1-\xi^H)(\widetilde{p}_t^H)^{1-\theta^H}+\xi^H(\bar{p}_{t-1}^H)^{1-\theta^H}
 \label{form:model_final_equations_pricing_ppi_h}
 \end{equation}
 
-\paragraph*{価格分散の動学:}\label{sec:model_final_equations_pricing_delta_h_dynamics}
+\paragraph*{価格分散の動学:}\label{sec:chapter3_final_equations_pricing_delta_h_dynamics}
 価格分散\(\Delta_t^H\)は価格改定家計と非改定家計の価格の乖離を集計したものであり、計算すると以下のように再帰的に記述できる（詳細は付録参照）。
 \begin{equation}
 \Delta_t^H=(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}+\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
 \label{form:model_final_equations_pricing_delta_h}
 \end{equation}
 
-\paragraph*{外国の価格設定:}\label{sec:model_final_equations_pricing_foreign_dynamics}
+\paragraph*{外国の価格設定:}\label{sec:chapter3_final_equations_pricing_foreign_dynamics}
 外国についても同様に、最適価格\(\widetilde{p}_t^{F*}\)、補助変数\(v_t^F,w_t^F\)、物価指数、価格分散の動学が定義される。
 \begin{align}
 (\widetilde{p}_t^{F*})^{1+\theta^F}&=\frac{\theta^F}{\theta^F-1}\frac{v_t^F}{w_t^F} \label{form:model_final_equations_pricing_opt_p_f} \\
@@ -254,15 +254,15 @@ w_t^F&=\lambda_t^{F/*}M(1-\tau_t^F)y_t^F(p_t^{F*})^{\theta^F}+\beta_t^F\xi^FE_t[
 \end{equation}
 
 \subsection{国全体の資源制約式}
-\label{sec:model_final_equations_resource}
-\paragraph{①出発点：集計レベルの関係式}\label{sec:model_final_equations_resource_origin}
+\label{sec:chapter3_final_equations_resource}
+\paragraph{①出発点：集計レベルの関係式}\label{sec:chapter3_final_equations_resource_origin}
 3.7節\eqref{form:model_aggregate_resource_constraint_H}で示された通り、全ての家計の予算制約式を足し合わせ、国内市場の均衡条件を適用すると、国全体の資源制約式が得られる。
 \begin{equation}
 p_t^{H\to W}C_t^{H\to W}+B_{t+1}^H=p_t^HY_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H
 \label{form:model_final_equations_resource_agg_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式への変換}\label{sec:model_final_equations_resource_ra_eq}
+\paragraph{②代表的家計モデルの方程式への変換}\label{sec:chapter3_final_equations_resource_ra_eq}
 ここで、代表的家計の（一人当たりの）対外純資産を定義する。
 \begin{equation}
 b_t^H\equiv B_t^H/N
@@ -290,17 +290,17 @@ b_t^{F*}\equiv-(N/M)(b_t^H/e_t^{/*})
 \end{equation}
 
 \subsection{政策ルール}
-\label{sec:model_final_equations_policy}
+\label{sec:chapter3_final_equations_policy}
 \subsubsection{財政政策}
-\label{sec:model_final_equations_policy_fiscal}
-\paragraph{①出発点：政府の集計予算制約}\label{sec:model_final_equations_policy_fiscal_origin}
+\label{sec:chapter3_final_equations_policy_fiscal}
+\paragraph{①出発点：政府の集計予算制約}\label{sec:chapter3_final_equations_policy_fiscal_origin}
 3.6.1節\eqref{form:model_final_gov_budget_agg}で示された通り、政府の税収と移転の関係は、以下の集計レベルの予算制約式で厳密に表される。
 \begin{equation}
 Nt_t^H=\tau_t^Hp_t^HY_t^H
 \label{form:model_final_equations_gov_agg_restated}
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式への変換}\label{sec:model_final_equations_policy_fiscal_ra_eq}
+\paragraph{②代表的家計モデルの方程式への変換}\label{sec:chapter3_final_equations_policy_fiscal_ra_eq}
 3.8.3.1節で定義した\(y_t^H\equiv Y_t^H/N\)を上記に代入する。
 \begin{equation}
 Nt_t^H=\tau_t^Hp_t^H(Ny_t^H)
@@ -312,7 +312,7 @@ t_t^H=\tau_t^Hp_t^Hy_t^H
 \label{form:model_final_equations_gov_transfer_h}
 \end{equation}
 
-\paragraph{税率の決定ルール}\label{sec:model_final_equations_policy_fiscal_tax_rule}
+\paragraph{税率の決定ルール}\label{sec:chapter3_final_equations_policy_fiscal_tax_rule}
 税率は3.6.1節\eqref{form:model_tax_rule_H}で定義した確率過程に従う。
 \begin{equation}
 \log(\tau_t^H)=(1-\rho_\tau^H)\log(\tau_{ss}^H)+\rho_\tau^H\log(\tau_{t-1}^H)+\varepsilon_t^{\tau,H}
@@ -325,23 +325,23 @@ t_t^{F*}=\tau_t^Fp_t^{F*}y_t^F \label{form:model_final_equations_gov_transfer_f}
 \end{align}
 
 \subsubsection{金融政策ルール}
-\label{sec:model_final_equations_policy_monetary}
+\label{sec:chapter3_final_equations_policy_monetary}
 中央銀行が従う金融政策ルールは、3.6.2節において既に一人当たりの変数を用いて定義されているため、本節では式の再掲を省略する。
 
-\paragraph{1.インフレ目標(IT)}\label{sec:model_final_equations_policy_monetary_it}
+\paragraph{1.インフレ目標(IT)}\label{sec:chapter3_final_equations_policy_monetary_it}
 政策ルールは3.6.2節で定義したインフレ目標のルールに従う。
 \begin{equation}
 i_t^H=i_{ss}^H+\phi_\pi^H(\pi_t^H-\pi_{ss}^H)+\varepsilon_t^{i,H}
 \label{form:model_final_equations_mp_it_h}
 \end{equation}
 
-\paragraph{2.名目GDP水準目標(NGDPLT)}\label{sec:model_final_equations_policy_monetary_ngdplt}
+\paragraph{2.名目GDP水準目標(NGDPLT)}\label{sec:chapter3_final_equations_policy_monetary_ngdplt}
 政策ルールは3.6.2節で定義した名目GDP水準目標のルールに従う。
 
-\paragraph{3.名目消費水準目標(NCLT)}\label{sec:model_final_equations_policy_monetary_nclt}
+\paragraph{3.名目消費水準目標(NCLT)}\label{sec:chapter3_final_equations_policy_monetary_nclt}
 政策ルールは3.6.2節で定義した名目消費水準目標のルールに従う。
 
-\paragraph{外国の金融政策}\label{sec:model_final_equations_policy_monetary_foreign}
+\paragraph{外国の金融政策}\label{sec:chapter3_final_equations_policy_monetary_foreign}
 外国の中央銀行は、本稿の分析を通じて、常に標準的なインフレ目標（IT）に従うものと仮定する（3.6.2節参照）。政策ルールは3.6.2節で定義した式\eqref{form:model_mp_it_F}に従う。
 \begin{equation}
 i_t^F=i_{ss}^F+\phi_\pi^F(\pi_t^{F*}-\pi_{ss}^{F*})+\varepsilon_t^{i,F}

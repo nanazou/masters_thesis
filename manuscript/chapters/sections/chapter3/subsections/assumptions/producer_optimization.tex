@@ -1,8 +1,8 @@
-% !TeX root = ../../../../main.tex
-% sections/chapter3/subsections/assumptions/producer_optimization.tex
+% !TeX root = ../../../../../main.tex
+% sections/chapter3/subsections/assumptions/chapter3_assumptions_producer_optimization.tex
 
 \subsection{価格最適化}
-\label{sec:producer_optimization}
+\label{sec:chapter3_assumptions_producer_optimization}
 本モデルにおいて採用する期待障害効用関数
 \eqref{sec:chapter3_households_problem_setup_home_utility}
 のつくりより、各家計の財は互いに幾分差別化された独占的競争の状態にある。
@@ -14,19 +14,19 @@
 ここでは家計が価格を最適化するにあたってのその他の仮定と留意事項についてまとめる。
 
 \subsubsection{自国生産者の価格最適化}
-\label{sec:producer_optimization_home}
+\label{sec:chapter3_assumptions_producer_optimization_home}
 
 \paragraph{自国生産者の価格最適化の機会}
-\label{sec:producer_optimization_home_opportunity}
+\label{sec:chapter3_assumptions_producer_optimization_home_opportunity}
 自国の家計\(h\)は\textcite{Calvo1983}に従い毎期\(1-\xi^H\)の確率で価格を改定する機会を得る。
 改定の機会を得られなかった家計は前期の価格を据え置く。
 
 \paragraph{自国生産者の価格最適化の計算}
-\label{sec:producer_optimization_home_calculation}
+\label{sec:chapter3_assumptions_producer_optimization_home_calculation}
 最終的に導かれる修正されたラグランジアン\eqref{form:model_households_stage2_home_lagrangian_eq}を価格\(p_t^h\)で偏微分するにあたり、各変数を価格\(p_t^h\)の関数でないものとあるものにまとめる。
 \begin{itemize}
     \item
-    \label{itm:producer_optimization_home_calculation_remark1}
+    \label{itm:chapter3_assumptions_producer_optimization_home_calculation_remark1}
         \textbf{価格\(p_t^h\)の関数でないもの}
         \begin{itemize}
             \item 主観的割引因子\(\beta_{s+k}^H\)
@@ -34,15 +34,15 @@
             \item コンティンジェント債券\(d_t^{h\to H}, d_{t+1}^{h\to H}(j')\)
             \item 外国の名目利子率\(i_{t-1}^F\)
             \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
-            \item 国際リスクフリー債券\(b_t^{h\to F}, b_{t+1}^{h\to F}\)
+            \item 外国通貨建てリスクフリー債券\(b_t^{h\to F}, b_{t+1}^{h\to F}\)
             \item 所得税率\(\tau_t^H\)
             \item 一括移転\(t_t^H\)
             \item コンティンジェント債券の価格\(q_{t,t+1}(j')\)
             \item ラグランジュ乗数\(\lambda_t^h\)
         \end{itemize}
-        総消費指数\(c_t^{h\to W}\)、コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)および国際リスクフリー債券\(b_{t+1}^{h\to F}\)は独立変数であるため価格\(p_t^h\)の関数ではないが、価格\(p_t^h\)の変化を通じた効用や予算制約の変化の影響を受ける。
+        総消費指数\(c_t^{h\to W}\)、コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)は独立変数であるため価格\(p_t^h\)の関数ではないが、価格\(p_t^h\)の変化を通じた効用や予算制約の変化の影響を受ける。
     \item
-    \label{itm:producer_optimization_home_calculation_remark2}
+    \label{itm:chapter3_assumptions_producer_optimization_home_calculation_remark2}
         \textbf{価格\(p_t^h\)の関数であるもの}
         \begin{itemize}
             \item 労働\(l_t^h\)
@@ -55,7 +55,7 @@
 また最適価格\(p_t^h\)で偏微分するにあたり以下の仮定をおく。
 \begin{itemize}
     \item
-    \label{itm:producer_optimization_home_calculation_assumption}
+    \label{itm:chapter3_assumptions_producer_optimization_home_calculation_assumption}
         \textbf{価格\(p_t^h\)の関数だがそうではないように扱うもの}
         \begin{itemize}
             \item 消費者物価指数\(p_t^{H\to W}\)
@@ -64,19 +64,19 @@
 \end{itemize}
 
 \subsubsection{外国家計の価格最適化}
-\label{sec:producer_optimization_foreign}
+\label{sec:chapter3_assumptions_producer_optimization_foreign}
 
 \paragraph{外国家計の価格最適化の機会}
-\label{sec:producer_optimization_foreign_opportunity}
+\label{sec:chapter3_assumptions_producer_optimization_foreign_opportunity}
 外国の家計\(f\)は自国と同様に毎期\(1-\xi^F\)の確率で価格を改定する機会を得る。
 改定の機会を得られなかった家計は前期の価格を据え置く。
 
 \paragraph{外国生産者の価格最適化の計算}
-\label{sec:producer_optimization_foreign_calculation}
+\label{sec:chapter3_assumptions_producer_optimization_foreign_calculation}
 最終的に導かれる修正されたラグランジアン\eqref{form:model_households_stage2_foreign_lagrangian_eq}を価格\(p_t^{f*}\)で偏微分するにあたり、各変数を価格\(p_t^{f*}\)の関数でないものとあるものにまとめる。
 \begin{itemize}
     \item
-    \label{itm:producer_optimization_foreign_calculation_remark1}
+    \label{itm:chapter3_assumptions_producer_optimization_foreign_calculation_remark1}
         \textbf{価格\(p_t^{f*}\)の関数でないもの}
         \begin{itemize}
             \item 主観的割引因子\(\beta_{s+k}^F\)
@@ -84,15 +84,15 @@
             \item 外国コンティンジェント債券\(d_t^{f\to F*}, d_{t+1}^{f\to F*}(j')\)
             \item 自国の名目利子率\(i_{t-1}^H\)
             \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
-            \item 国際リスクフリー債券\(b_t^{f\to H*}, b_{t+1}^{f\to H*}\)
+            \item 自国通貨建てリスクフリー債券\(b_t^{f\to H*}, b_{t+1}^{f\to H*}\)
             \item 所得税率\(\tau_t^F\)
             \item 一括移転\(t_t^{F*}\)
             \item 外国コンティンジェント債券の価格\(q_{t,t+1}^*(j')\)
             \item ラグランジュ乗数\(\lambda_t^{f/*}\)
         \end{itemize}
-        総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)は独立変数であるため価格\(p_t^{f*}\)の関数ではないが、価格\(p_t^{f*}\)の変化を通じた効用や予算制約の変化の影響を受ける。
+        総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)は独立変数であるため価格\(p_t^{f*}\)の関数ではないが、価格\(p_t^{f*}\)の変化を通じた効用や予算制約の変化の影響を受ける。
     \item
-    \label{itm:producer_optimization_foreign_calculation_remark2}
+    \label{itm:chapter3_assumptions_producer_optimization_foreign_calculation_remark2}
         \textbf{価格\(p_t^{f*}\)の関数であるもの}
         \begin{itemize}
             \item 労働\(l_t^f\)
@@ -105,7 +105,7 @@
 また最適価格\(p_t^{f*}\)で偏微分するにあたり以下の仮定をおく。
 \begin{itemize}
     \item
-    \label{itm:producer_optimization_foreign_calculation_assumption}
+    \label{itm:chapter3_assumptions_producer_optimization_foreign_calculation_assumption}
         \textbf{価格\(p_t^{f*}\)の関数だがそうではないように扱うもの}
         \begin{itemize}
             \item 消費者物価指数\(p_t^{F\to W*}\)

@@ -1,0 +1,61 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/euler_risk_free.tex
+
+\subsection{リスクフリー債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_risk_free}
+
+\subsubsection{自国の外国通貨建てリスクフリー債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_home_original}
+式
+\eqref{form:chapter3_households_stage2_home_lambda_h_i_F_eq}
+で示されたとおり、自国家計\(h\)の外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)に関するFOCは以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_risk_free_home_original_lambda_h_i_F_eq}
+    \lambda_t^he_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t[\lambda_{t+1}^he_{t+1}^{/*}]
+\end{equation}
+
+\paragraph{②自国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_home_representative}
+式
+\eqref{form:chapter3_representative_household_euler_risk_free_home_original_lambda_h_i_F_eq}
+に対し
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_def}
+により定義した自国代表的家計の所得の限界効用
+\(\lambda_t^h=\lambda_t^H\)および
+\(\lambda_{t+1}^h=\lambda_{t+1}^H\)
+を代入すると自国代表的家計の外国通貨建てリスクフリー債券に関するオイラー方程式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
+    \lambda_t^He_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t[\lambda_{t+1}^He_{t+1}^{/*}]
+\end{equation}
+
+\subsubsection{外国の自国通貨建てリスクフリー債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_foreign_original}
+式
+\eqref{form:chapter3_households_stage2_foreign_lambda_f_slash_star_i_H_eq}
+で示されたとおり、外国家計\(f\)の自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)に関するFOCは以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_risk_free_foreign_original_lambda_f_slash_star_i_H_eq}
+    \frac{\lambda_t^{f/*}}{e_t^{/*}}=(1+i_t^H)\beta_t^F\operatorname{E}_t\left[\frac{\lambda_{t+1}^{f/*}}{e_{t+1}^{/*}}\right]
+\end{equation}
+
+\paragraph{②外国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_euler_risk_free_foreign_representative}
+式
+\eqref{form:chapter3_representative_household_euler_risk_free_foreign_original_lambda_f_slash_star_i_H_eq}
+に対し
+\eqref{form:chapter3_representative_household_lambda_foreign_representative_lambda_F_slash_star_def}
+により定義した外国代表的家計の所得の限界効用
+\(\lambda_t^{f/*}=\lambda_t^{F/*}\)および
+\(\lambda_{t+1}^{f/*}=\lambda_{t+1}^{F/*}\)
+を代入すると外国代表的家計の自国通貨建てリスクフリー債券に関するオイラー方程式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_risk_free_foreign_representative_lambda_F_slash_star_i_H_eq}
+    \frac{\lambda_t^{F/*}}{e_t^{/*}}=(1+i_t^H)\beta_t^F\operatorname{E}_t\left[\frac{\lambda_{t+1}^{F/*}}{e_{t+1}^{/*}}\right]
+\end{equation}

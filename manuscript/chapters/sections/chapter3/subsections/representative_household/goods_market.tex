@@ -1,0 +1,109 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/goods_market.tex
+
+\subsection{財市場}
+\label{sec:chapter3_representative_household_goods_market}
+
+\subsubsection{自国の財市場}
+\label{sec:chapter3_representative_household_goods_market_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_goods_market_home_original}
+式\eqref{form:chapter3_producers_aggregated_production_function_home_definition_Y_H_assumption_modified_eq}
+で示されたとおり、自国の総生産指数\(Y_t^H\)は
+自国における総消費\(\sum_{h\in H}c_t^{h\to H}\)と
+外国における総消費\(\sum_{f\in F}c_t^{f\to H}\)の和に等しくなる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_original_Y_H_eq}
+    Y_t^H=\sum_{h\in H}c_t^{h\to H}+\sum_{f\in F}c_t^{f\to H}
+\end{equation}
+
+\paragraph{②自国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_goods_market_home_representative}
+式\eqref{form:chapter3_risk_sharing_commonization_home_c_h_H_equality_eq}と
+式\eqref{form:chapter3_risk_sharing_commonization_foreign_c_f_H_equality}より
+すべての自国家計\(h\in H\)について自国財消費指数\(c_t^{h\to H}\)は共通の値をとり、
+すべての外国家計\(f\in F\)について自国財消費指数\(c_t^{f\to H}\)は共通の値をとる。
+これにもとづき
+自国代表的家計の自国財消費指数\(c_t^{H\to H}\)および
+外国代表的家計の自国財消費指数\(c_t^{F\to H}\)を以下のように定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_representative_c_H_H_def}
+    c_t^{H\to H}\equiv c_t^{h\to H}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_representative_c_F_H_def}
+    c_t^{F\to H}\equiv c_t^{f\to H}
+\end{equation}
+この定義を用いると式
+\eqref{form:chapter3_representative_household_goods_market_home_original_Y_H_eq}
+は以下のように書き換えられる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_representative_Y_H_modified_eq}
+    Y_t^H=Nc_t^{H\to H}+Mc_t^{F\to H}
+\end{equation}
+ここでさらに自国の一人当たり生産指数\(y_t^H\)を以下のように定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_representative_y_H_def}
+    y_t^H\equiv Y_t^H/N
+\end{equation}
+式
+\eqref{form:chapter3_representative_household_goods_market_home_representative_Y_H_modified_eq}
+の両辺を自国の人口\(N\)で割り自国の一人当たり生産指数\(y_t^H\)の定義を用いて書き換えると
+一人当たりの均衡式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_home_representative_y_H_eq}
+    y_t^H=c_t^{H\to H}+\frac{M}{N}c_t^{F\to H}
+\end{equation}
+
+\subsubsection{外国の財市場}
+\label{sec:chapter3_representative_household_goods_market_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_goods_market_foreign_original}
+式
+\eqref{form:chapter3_producers_aggregated_production_function_foreign_definition_Y_F_assumption_modified_eq}
+で示されたとおり、外国の総生産指数\(Y_t^F\)は
+自国における総消費\(\sum_{h\in H}c_t^{h\to F}\)と
+外国における総消費\(\sum_{f\in F}c_t^{f\to F}\)の和に等しくなる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_original_Y_F_eq}
+    Y_t^F=\sum_{h\in H}c_t^{h\to F}+\sum_{f\in F}c_t^{f\to F}
+\end{equation}
+
+\paragraph{②外国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_goods_market_foreign_representative}
+式
+\eqref{form:chapter3_risk_sharing_commonization_home_c_h_F_equality_eq}と
+\eqref{form:chapter3_risk_sharing_commonization_foreign_c_f_F_equality}より
+すべての自国家計\(h\in H\)について外国財消費指数\(c_t^{h\to F}\)は共通の値をとり、
+すべての外国家計\(f\in F\)について外国財消費指数\(c_t^{f\to F}\)は共通の値をとる。
+これにもとづき代表的家計の変数\(c_t^{H\to F}, c_t^{F\to F}\)を以下のように定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_representative_c_H_F_def}
+    c_t^{H\to F}\equiv c_t^{h\to F}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_representative_c_F_F_def}
+    c_t^{F\to F}\equiv c_t^{f\to F}
+\end{equation}
+この定義を用いると式
+\eqref{form:chapter3_representative_household_goods_market_foreign_original_Y_F_eq}
+は以下のように書き換えられる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_representative_Y_F_modified_eq}
+    Y_t^F=Nc_t^{H\to F}+Mc_t^{F\to F}
+\end{equation}
+ここでさらに外国の一人当たり生産指数\(y_t^F\)を以下のように定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_representative_y_F_def}
+    y_t^F\equiv Y_t^F/M
+\end{equation}
+式
+\eqref{form:chapter3_representative_household_goods_market_foreign_representative_Y_F_modified_eq}
+の両辺を外国の人口\(M\)で割り外国の一人当たり生産指数\(y_t^F\)の定義を用いて書き換えると
+一人当たりの均衡式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_goods_market_foreign_representative_y_F_eq}
+    y_t^F=\frac{N}{M}c_t^{H\to F}+c_t^{F\to F}
+\end{equation}

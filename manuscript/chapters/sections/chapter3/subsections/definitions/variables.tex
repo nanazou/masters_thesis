@@ -9,12 +9,20 @@
 本稿では不確実性を伴う変数の表記について以下の規則を採用する。
 \begin{enumerate}
     \item
+    \label{itm:chapter3_definitions_variables_notation_state_space}
+        \textbf{状態と状態集合:}\\
+        本モデル内に存在するすべての外生ショックは有限個の値をとるものと仮定する。
+        これらすべての外生ショックの実現値の組み合わせを状態と呼び\(j, j'\)などによって表す。
+        状態の全体は有限集合となるがこれを状態集合と呼び\(J\)によって表す。
+        自国と外国は同じ世界経済のショックを共有するため状態集合\(J\)は自国と外国に共通であることに注意する。
+    \item
     \label{itm:chapter3_definitions_variables_notation_realization}
         \textbf{確率変数と実現値の同一視:}\\
         本章で記述される方程式（予算制約式、市場均衡条件、最適化条件など）は特段の断りがないかぎり、
         時点\(t\)における情報集合\(I_t\)（時点\(t\)までのショックの実現値を含む）が
         所与とされた下での関係式を表す。
         したがって式中の変数（例：\(c_t,p_t\)）は、その時点\(t\)における確定した実現値として記述する。
+        本来であれば変数は実現した状態\(j\in J\)に依存するため\(c_t(j)\)のように記述されるべきであるが、
         状態\(j\)への依存を示す表記（\((j)\)）は記述の煩雑さを避けるため省略する。
     \item
     \label{itm:chapter3_definitions_variables_notation_expectation}
@@ -50,12 +58,12 @@
         変数の性質に応じて期の添え字を以下のように定義する。
         \begin{itemize}
             \item
-            \label{variables_notation_time_subscript_flow}
+            \label{itm:variables_notation_time_subscript_flow}
                 \textbf{フロー変数（例：\(c_t, y_t, i_t, p_t\)）:}\\
                 「当該量の決定や発生が起こった期」を添え字とする。
                 例えば利子率\(i_{t-1}\)は\(t-1\)期に決定された利率を意味する。
             \item
-            \label{variables_notation_time_subscript_stock}
+            \label{itm:variables_notation_time_subscript_stock}
                 \textbf{ストック変数（例：\(b_t,d_t\)）:}\\
                 「当該量を期首に保有している期」を添え字とする。
                 例えば債券残高\(b_t\)は、\(t-1\)期における投資の意思決定の結果であるが
@@ -96,7 +104,7 @@
     \item
     \label{itm:chapter3_definitions_variables_endogenous_households_b_h_F}
         \(b_{t+1}^{h\to F}\)：家計\(h\)が時点\(t\)に保有する
-        外国リスクフリー債券の自国通貨建ての保有額（名目値）。
+        外国通貨建てリスクフリー債券の自国通貨建ての保有額（名目値）。
     \item
     \label{itm:chapter3_definitions_variables_endogenous_households_lambda_h}
         \(\lambda_t^h\)：家計\(h\)の予算制約に関するラグランジュ乗数（所得の限界効用）。
@@ -248,7 +256,7 @@
         （世界全体の債券市場均衡\(Nb_t^{h\to F}+Me_t^{/*}b_t^{f\to F*}=0\)より導出される定義）
     \item
     \label{itm:chapter3_definitions_variables_endogenous_aggregate_Delta_H}
-        \(\Delta_t^H\)：自国全体の総価格分散。
+        \(\Delta_t^H\)：自国の価格分散。
         \begin{equation}
         \label{form:chapter3_definitions_variables_endogenous_aggregate_Delta_H_def}
             \Delta_t^H\equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}

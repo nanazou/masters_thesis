@@ -1,0 +1,63 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/euler_contingent.tex
+
+\subsection{コンティンジェント債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_contingent}
+
+\subsubsection{自国の自国コンティンジェント債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_contingent_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_euler_contingent_home_original}
+式
+\eqref{form:chapter3_households_stage2_home_lambda_h_i_H_eq}
+で示されたとおり、自国家計\(h\)の自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)に関する
+FOCを\(j'\)について集計することで以下のオイラー方程式が得られるのであった。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_contingent_home_original_lambda_h_i_H_eq}
+    \lambda_t^h=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^h]
+\end{equation}
+
+\paragraph{②自国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_euler_contingent_home_representative}
+式
+\eqref{form:chapter3_representative_household_euler_contingent_home_original_lambda_h_i_H_eq}
+に対し
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_def}
+により定義した自国代表的家計の所得の限界効用
+\(\lambda_t^h=\lambda_t^H\)および
+\(\lambda_{t+1}^h=\lambda_{t+1}^H\)
+を代入すると自国代表的家計の自国コンティンジェント債券に関するオイラー方程式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
+    \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+\end{equation}
+
+\subsubsection{外国の外国コンティンジェント債券に関するオイラー方程式}
+\label{sec:chapter3_representative_household_euler_contingent_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_euler_contingent_foreign_original}
+式
+\eqref{form:chapter3_households_stage2_foreign_lambda_f_slash_star_i_F_eq}
+で示されたとおり、外国家計\(f\)の外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)に関する
+FOCを\(j'\)について集計することで以下のオイラー方程式が得られるのであった。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_contingent_foreign_original_lambda_f_slash_star_i_F_eq}
+    \lambda_t^{f/*}=\beta_t^F(1+i_t^F)\operatorname{E}_t[\lambda_{t+1}^{f/*}]
+\end{equation}
+
+\paragraph{②外国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_euler_contingent_foreign_representative}
+式
+\eqref{form:chapter3_representative_household_euler_contingent_foreign_original_lambda_f_slash_star_i_F_eq}
+に対し
+\eqref{form:chapter3_representative_household_lambda_foreign_representative_lambda_F_slash_star_def}
+により定義した外国代表的家計の所得の限界効用
+\(\lambda_t^{f/*}=\lambda_t^{F/*}\)および
+\(\lambda_{t+1}^{f/*}=\lambda_{t+1}^{F/*}\)
+を代入すると外国代表的家計の外国コンティンジェント債券に関するオイラー方程式が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_euler_contingent_foreign_representative_lambda_F_slash_star_i_F_eq}
+    \lambda_t^{F/*}=\beta_t^F(1+i_t^F)\operatorname{E}_t[\lambda_{t+1}^{F/*}]
+\end{equation}

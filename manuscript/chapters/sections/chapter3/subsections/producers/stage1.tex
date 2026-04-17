@@ -3,29 +3,34 @@
 
 \subsection{第1段階（最適化条件の導出）}
 \label{sec:chapter3_producers_stage1}
-前節で設定した問題に基づき、生産者が設定する最適価格に関する1階の条件（FOC）および再帰的な方程式を導出する。
+前節で設定した生産者の価格最適化問題について1階の条件（FOC）を求め、それらをもとに再帰的な方程式群を導出する。
 
 \subsubsection{自国生産者の第1段階}
 \label{sec:chapter3_producers_stage1_home}
-前節で整理した仮定のもとで問題\ref{form:model_producers_optimization_home_lagrangian_def}の1階の条件を計算すると、効用関数の\(\log c_{t+k}^{h\to W}\)の項と、予算制約の大部分の項（債券、移転、消費支出）の微分がゼロとなり、労働の非効用と税引き後所得の項のみが残る。
-結果として最適化問題の1階の条件は以下のように得られる。
+前節の仮定のもと問題\ref{form:chapter3_producers_problem_setup_home_lagrangian_def}の1階の条件を計算する。
+すると価格\(p_t^h\)、労働\(l_t^h\)あるいは生産\(y_t^h\)のいずれかを含む項を
+価格\(p_t^h\)で偏微分したもののみが残り、以下のような1階の条件が得られる
+（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{equation}
 \label{form:chapter3_producers_stage1_home_expectation_eq}
     \operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^H\right)\left[\frac{\partial}{\partial p_t^h}\left\{\left(-\frac{\phi^H}{2}(l_{t+k}^h)^2\right)+\lambda_{t+k}^h\left((1-\tau_{t+k}^H)p_t^hy_{t+k}^h\right)\right\}\right]=0
 \end{equation}
-この式は価格\(p_t^h\)の微小な変化がそれが維持される可能性のある将来の各期において「労働の非効用（限界費用に対応）」と「税引き後限界収入」に与える影響の、期待割引現在価値の合計がゼロになる点に最適価格があることを示している（偏微分の詳細な計算は付録参照）。
 
-この1階の条件を計算すると以下の式が得られる（詳細は付録\ref{chap:appendix_optimal_price_derivation}参照）。
+この1階の条件を整理すると以下の式が得られる（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{equation}
 \label{form:chapter3_producers_stage1_home_p_h_eq}
     (p_t^h)^{1+\theta^H}=\frac{\theta^H}{\theta^H-1}\frac{\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^H\right)\left[\phi^H\frac{(Y_{t+k}^H)^2}{(a_{t+k}^H)^2}(p_{t+k}^H)^{2\theta^H}\right]}{\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^H)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^H\right)\left[\lambda_{t+k}^h(1-\tau_{t+k}^H)Y_{t+k}^H(p_{t+k}^H)^{\theta^H}\right]}
 \end{equation}
+ここで\(Y_{t+k}^H\)は式
+\eqref{form:chapter3_producers_aggregated_production_function_home_definition_Y_H_assumption_modified2_eq}
+により定義したものである。
 この式の右辺に出てくる全ての変数は\(t\)期が所与のもとで価格改定を行う全ての家計\(h\)にとって共通である。
-特に\(\lambda_{t+k}^h\)は国内完備市場の仮定によりすべての家計で同一になることが保証されている（\ref{sec:sec_model_risk_sharing_lambda}節参照）。
+特に\(\lambda_{t+k}^h\)は国内完備市場の仮定によりすべての家計で同一になることが保証されているのであった
+（\ref{sec:chapter3_risk_sharing_commonization_home_lambda_h}節）。
 したがってこの方程式の解である\(p_t^h\)もすべての価格改定を行う家計\(h\)にとって完全に同一の値となる。
-
 しかし無限和を含む方程式は数値計算に使用できない。
-そこで分子を\(v_t^h\)、分母を\(w_t^h\)とおき、これら\(v_t^h,w_t^h\)を再帰的な形に書き直すことで無限和を含む元の方程式を以下の連立方程式群に分割する。
+そこで分子を\(v_t^h\)、分母を\(w_t^h\)とおき、これら\(v_t^h, w_t^h\)を再帰的な形に書き直すことで
+無限和を含む元の方程式を以下の連立方程式群に分割する（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{align}
     \label{form:chapter3_producers_stage1_home_p_h_modified_eq}
         (p_t^h)^{1+\theta^H}&=\frac{\theta^H}{\theta^H-1}\frac{v_t^h}{w_t^h} \\
@@ -38,22 +43,30 @@
 
 \subsubsection{外国生産者の第1段階}
 \label{sec:chapter3_producers_stage1_foreign}
-外国生産者についても自国と同様に、問題\ref{form:chapter3_producers_problem_setup_optimization_foreign_lagrangian_def}の1階の条件を計算すると、労働の非効用と税引き後所得の項のみが残り以下のように得られる。
+前節の仮定のもと問題\ref{form:chapter3_producers_problem_setup_foreign_lagrangian_def}の1階の条件を計算する。
+すると価格\(p_t^{f*}\)、労働\(l_t^f\)あるいは生産\(y_t^f\)のいずれかを含む項を
+価格\(p_t^{f*}\)で偏微分したもののみが残り、以下のような1階の条件が得られる
+（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{equation}
 \label{form:chapter3_producers_stage1_foreign_expectation_eq}
     \operatorname{E}_t\sum_{k=0}^{\infty}(\xi^F)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^F\right)\left[\frac{\partial}{\partial p_t^{f*}}\left\{\left(-\frac{\phi^F}{2}(l_{t+k}^f)^2\right)+\lambda_{t+k}^{f/*}\left((1-\tau_{t+k}^F)p_t^{f*}y_{t+k}^f\right)\right\}\right]=0
 \end{equation}
-この式は価格\(p_t^{f*}\)の微小な変化がそれが維持される可能性のある将来の各期において「労働の非効用（限界費用に対応）」と「税引き後限界収入」に与える影響の、期待割引現在価値の合計がゼロになる点に最適価格があることを示している。
 
-この1階の条件を計算すると以下の式が得られる（詳細は付録\ref{chap:appendix_optimal_price_derivation}参照）。
+この1階の条件を整理すると以下の式が得られる（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{equation}
 \label{form:chapter3_producers_stage1_foreign_p_f_star_eq}
     (p_t^{f*})^{1+\theta^F}=\frac{\theta^F}{\theta^F-1}\frac{\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^F)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^F\right)\left[\phi^F\frac{(Y_{t+k}^F)^2}{(a_{t+k}^F)^2}(p_{t+k}^{F*})^{2\theta^F}\right]}{\operatorname{E}_t\sum_{k=0}^{\infty}(\xi^F)^k\left(\prod_{i=0}^{k-1}\beta_{t+i}^F\right)\left[\lambda_{t+k}^{f/*}(1-\tau_{t+k}^F)Y_{t+k}^F(p_{t+k}^{F*})^{\theta^F}\right]}
 \end{equation}
-自国と同様にこの式の右辺に出てくる全ての変数は\(t\)期が所与のもとで価格改定を行う全ての家計\(f\)にとって共通である。
+ここで\(Y_{t+k}^F\)は式
+\eqref{form:chapter3_producers_aggregated_production_function_foreign_definition_Y_F_assumption_modified2_eq}
+により定義したものである。
+この式の右辺に出てくる全ての変数は\(t\)期が所与のもとで価格改定を行う全ての家計\(f\)にとって共通である。
+特に\(\lambda_{t+k}^{f/*}\)は外国完備市場の仮定によりすべての家計で同一になることが保証されているのであった
+（\ref{sec:chapter3_risk_sharing_commonization_foreign_lambda_f_slash}節）。
 したがってこの方程式の解である\(p_t^{f*}\)もすべての価格改定を行う家計\(f\)にとって完全に同一の値となる。
-
-自国と同様に無限和を含む方程式を数値計算に使用できるよう、分子を\(v_t^f\)、分母を\(w_t^f\)とおき再帰的な形に書き直すことで、以下の連立方程式群に分割する。
+しかし無限和を含む方程式は数値計算に使用できない。
+そこで分子を\(v_t^f\)、分母を\(w_t^f\)とおき、これら\(v_t^f, w_t^f\)を再帰的な形に書き直すことで
+無限和を含む元の方程式を以下の連立方程式群に分割する（付録\ref{chap:appendix_optimal_price_derivation}）。
 \begin{align}
     \label{form:chapter3_producers_stage1_foreign_p_f_star_modified_eq}
         (p_t^{f*})^{1+\theta^F}&=\frac{\theta^F}{\theta^F-1}\frac{v_t^f}{w_t^f} \\

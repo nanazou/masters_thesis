@@ -1,0 +1,103 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/demand.tex
+
+\subsection{需要関数}
+\label{sec:chapter3_representative_household_demand}
+
+\subsubsection{自国の需要関数}
+\label{sec:chapter3_representative_household_demand_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_demand_home_original}
+式
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}および
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_F_eq}
+で示されたとおり、
+自国家計\(h\)が所与の総消費指数\(c_t^{h\to W}\)を達成するために
+自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)を調整して名目支出の総和
+\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)を最小化する問題のFOCは以下のようであった。
+\begin{align}
+\label{form:chapter3_representative_household_demand_home_original_c_h_W_problem_c_h_H_eq}
+    c_t^{h\to H}&=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{h\to W} \\
+\label{form:chapter3_representative_household_demand_home_original_c_h_W_problem_c_h_F_eq}
+    c_t^{h\to F}&=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{h\to W}
+\end{align}
+
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_demand_home_representative}
+式
+\eqref{form:chapter3_representative_household_demand_home_original_c_h_W_problem_c_h_H_eq}
+に対し式
+\eqref{form:chapter3_representative_household_goods_market_home_representative_c_H_H_def}および
+\eqref{form:chapter3_representative_household_lambda_home_representative_c_H_W_def}
+を代入すると自国代表的家計の自国財消費指数\(c_t^{H\to H}\)の需要関数が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
+    c_t^{H\to H}=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{H\to W}
+\end{equation}
+同様に式
+\eqref{form:chapter3_representative_household_demand_home_original_c_h_W_problem_c_h_F_eq}
+に対し式
+\eqref{form:chapter3_representative_household_goods_market_foreign_representative_c_H_F_def}および
+\eqref{form:chapter3_representative_household_lambda_home_representative_c_H_W_def}
+を代入すると自国代表的家計の外国財消費指数\(c_t^{H\to F}\)の需要関数が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
+    c_t^{H\to F}=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{H\to W}
+\end{equation}
+自国の消費者物価指数（CPI）\(p_t^{H\to W}\)の具体的な形の式
+\eqref{form:chapter3_households_stage1b_cpi_descriptions_p_H_W_eq}
+も再掲する。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_home_representative_p_H_W_eq}
+    p_t^{H\to W}=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
+\end{equation}
+
+\subsubsection{外国の需要関数}
+\label{sec:chapter3_representative_household_demand_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_demand_foreign_original}
+式
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_F_eq}および
+\eqref{form:chapter3_households_stage1b_foreign_c_f_W_problem_c_f_H_eq}
+で示されたとおり、
+外国家計\(f\)が所与の総消費指数\(c_t^{f\to W}\)を達成するために
+外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)を調整して名目支出の総和
+\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)を最小化する問題のFOCは以下のようであった。
+\begin{align}
+\label{form:chapter3_representative_household_demand_foreign_original_c_f_W_problem_c_f_F_eq}
+    c_t^{f\to F}&=\alpha^F\frac{p_t^{F\to W*}}{p_t^{F*}}c_t^{f\to W} \\
+\label{form:chapter3_representative_household_demand_foreign_original_c_f_W_problem_c_f_H_eq}
+    c_t^{f\to H}&=(1-\alpha^F)\frac{p_t^{F\to W*}}{p_t^{H*}}c_t^{f\to W}
+\end{align}
+
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_demand_foreign_representative}
+式
+\eqref{form:chapter3_representative_household_demand_foreign_original_c_f_W_problem_c_f_F_eq}
+に対し式
+\eqref{form:chapter3_representative_household_goods_market_foreign_representative_c_F_F_def}および
+\eqref{form:chapter3_representative_household_lambda_foreign_representative_c_F_W_def}
+を代入すると外国代表的家計の外国財消費指数\(c_t^{F\to F}\)の需要関数が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_foreign_representative_c_F_F_eq}
+    c_t^{F\to F}=\alpha^F\frac{p_t^{F\to W*}}{p_t^{F*}}c_t^{F\to W}
+\end{equation}
+同様に式
+\eqref{form:chapter3_representative_household_demand_foreign_original_c_f_W_problem_c_f_H_eq}
+に対し式
+\eqref{form:chapter3_representative_household_goods_market_home_representative_c_F_H_def}および
+\eqref{form:chapter3_representative_household_lambda_foreign_representative_c_F_W_def}
+を代入すると外国代表的家計の自国財消費指数\(c_t^{F\to H}\)の需要関数が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_c_F_H}
+    c_t^{F\to H}=(1-\alpha^F)\frac{p_t^{F\to W*}}{p_t^{H*}}c_t^{F\to W}
+\end{equation}
+外国の消費者物価指数（CPI）\(p_t^{F\to W*}\)の具体的な形の式
+\eqref{form:chapter3_households_stage1b_cpi_descriptions_p_F_W_star_eq}
+も再掲する。
+\begin{equation}
+\label{form:chapter3_representative_household_demand_foreign_representative_p_F_W_star_eq}
+    p_t^{F\to W*}=(p_t^{F*})^{\alpha^F}(p_t^{H*})^{1-\alpha^F}
+\end{equation}

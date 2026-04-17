@@ -1,4 +1,4 @@
-% !TeX root = ../../../../main.tex
+% !TeX root = ../../../../../main.tex
 % sections/chapter3/subsections/assumptions/household_optimization.tex
 
 \subsection{家計の最適化}
@@ -16,7 +16,7 @@
 \paragraph{自国家計の最適化の機会}
 \label{sec:household_optimization_home_opportunity}
 自国の家計\(h\)は毎期、総消費指数\(c_t^{h\to W}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
-および国際リスクフリー債券\(b_{t+1}^{h\to F}\)を最適化する機会を得る。
+および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)を最適化する機会を得る。
 
 \paragraph{自国家計の最適化の計算}
 \label{sec:household_optimization_home_calculation}
@@ -31,7 +31,7 @@
         \begin{itemize}
             \item 主観的割引因子\(\beta_{s+k}^H\)
             \item 前期から持ち越した自国コンティンジェント債券\(d_t^{h\to H}\)
-            \item 前期から持ち越した国際リスクフリー債券\(b_t^{h\to F}\)
+            \item 前期から持ち越した外国通貨建てリスクフリー債券\(b_t^{h\to F}\)
             \item 外国の名目利子率\(i_{t-1}^F\)
             \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
             \item 消費者物価指数\(p_t^{H\to W}\)
@@ -59,7 +59,7 @@
         \begin{itemize}
             \item 総消費指数\(c_t^{h\to W}\)
             \item 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)
-            \item 国際リスクフリー債券\(b_{t+1}^{h\to F}\)
+            \item 外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)
         \end{itemize}
 \end{itemize}
 
@@ -69,7 +69,7 @@
 \paragraph{外国家計の最適化の機会}
 \label{sec:household_optimization_foreign_opportunity}
 外国の家計\(f\)は毎期、総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
-および国際リスクフリー債券\(b_{t+1}^{f\to H*}\)を最適化する機会を得る。
+および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)を最適化する機会を得る。
 
 \paragraph{外国家計の最適化の計算}
 \label{sec:household_optimization_foreign_calculation}
@@ -84,7 +84,7 @@
         \begin{itemize}
             \item 主観的割引因子\(\beta_{s+k}^F\)
             \item 前期から持ち越した外国コンティンジェント債券\(d_t^{f\to F*}\)
-            \item 前期から持ち越した国際リスクフリー債券\(b_t^{f\to H*}\)
+            \item 前期から持ち越した自国通貨建てリスクフリー債券\(b_t^{f\to H*}\)
             \item 自国の名目利子率\(i_{t-1}^H\)
             \item 名目為替レート\(e_{t-1}^{/*}, e_t^{/*}\)
             \item 消費者物価指数\(p_t^{F\to W*}\)
@@ -111,6 +111,6 @@
         \begin{itemize}
             \item 総消費指数\(c_t^{f\to W}\)
             \item 外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)
-            \item 国際リスクフリー債券\(b_{t+1}^{f\to H*}\)
+            \item 自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)
         \end{itemize}
 \end{itemize}

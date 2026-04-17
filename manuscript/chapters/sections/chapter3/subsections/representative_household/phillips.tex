@@ -1,0 +1,321 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/phillips.tex
+
+\subsection{フィリップス曲線と関連方程式}
+\label{sec:chapter3_representative_household_phillips}
+
+\subsubsection{自国のフィリップス曲線と関連方程式}
+\label{sec:chapter3_representative_household_phillips_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_phillips_home_original}
+式
+\eqref{form:chapter3_producers_stage1_home_p_h_modified_eq}、
+\eqref{form:chapter3_producers_stage1_home_v_h_eq}および
+\eqref{form:chapter3_producers_stage1_home_w_h_eq}
+で示されたとおり、自国家計\(h\)が設定する最適価格\(p_t^h\)は以下のように記述される。
+\begin{align}
+    \label{form:chapter3_representative_household_phillips_home_original_p_h_eq}
+        (p_t^h)^{1+\theta^H}&=\frac{\theta^H}{\theta^H-1}\frac{v_t^h}{w_t^h} \\
+    \label{form:chapter3_representative_household_phillips_home_original_v_h_eq}
+        v_t^h&=\phi^H\frac{(Y_t^H)^2}{(a_t^H)^2}(p_t^H)^{2\theta^H}+\beta_t^H\xi^H\operatorname{E}_t[v_{t+1}^h] \\
+    \label{form:chapter3_representative_household_phillips_home_original_w_h_eq}
+        w_t^h&=\lambda_t^h(1-\tau_t^H)Y_t^H(p_t^H)^{\theta^H}+\beta_t^H\xi^H\operatorname{E}_t[w_{t+1}^h]
+\end{align}
+
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_phillips_home_representative}
+
+\subparagraph{自国のフィリップス曲線}
+\label{sec:chapter3_representative_household_phillips_home_representative_phillips}
+動学方程式
+\eqref{form:chapter3_representative_household_phillips_home_original_p_h_eq}、
+\eqref{form:chapter3_representative_household_phillips_home_original_v_h_eq}、
+\eqref{form:chapter3_representative_household_phillips_home_original_w_h_eq}、
+に含まれる\(p_t^h, v_t^h, w_t^h\)以外の変数はすべての自国家計\(h\)について共通である。
+そこでこの方程式群を用いて自国代表的家計の最適価格\(\widetilde{p}_t^H\)を以下のように定義する。
+\begin{align}
+    \label{form:chapter3_representative_household_phillips_home_representative_p_H_tilde_eq}
+        (\widetilde{p}_t^H)^{1+\theta^H}&=\frac{\theta^H}{\theta^H-1}\frac{v_t^H}{w_t^H} \\
+    \label{form:chapter3_representative_household_phillips_home_representative_v_H_eq}
+        v_t^H&=\phi^H\frac{(Y_t^H)^2}{(a_t^H)^2}(p_t^H)^{2\theta^H}+\beta_t^H\xi^H\operatorname{E}_t[v_{t+1}^H] \\
+    \label{form:chapter3_representative_household_phillips_home_representative_w_H_eq}
+        w_t^H&=\lambda_t^h(1-\tau_t^H)Y_t^H(p_t^H)^{\theta^H}+\beta_t^H\xi^H\operatorname{E}_t[w_{t+1}^H]
+\end{align}
+
+\subparagraph{自国の正規化された生産者物価指数（PPI）\(\bar{p}_t^H\)の動学方程式}
+\label{sec:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics}
+式
+\eqref{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_def}
+で定義されたとおり、正規化された生産者物価指数（PPI）\(\bar{p}_t^H\)は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_def}
+    \bar{p}_t^H
+    \equiv\left[\frac{1}{N}\sum_{h\in H}(p_t^{h})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+\end{equation}
+ここでカルボ型価格設定の仮定を思い出すと、毎期割合\(1-\xi^H\)の自国家計のみが価格を改定し
+残りの割合\(\xi^H\)の自国家計は価格を据え置く。
+そこで価格を改定する（Reset）自国家計の集合を\(R_t^H\)、
+価格を据え置く（Quiescent）自国家計の集合を\(Q_t^H\)により表す。
+さらにすべての\(q\in Q_t^H\)について\(p_t^q=p_{t-1}^q\)であることに気をつければ式
+\eqref{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_def}
+は以下のように書き換えられることがわかる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_modified_def}
+    (\bar{p}_t^H)^{1-\theta^H}
+    =\frac{1}{N}
+     \left(\sum_{r\in R_t^H}(p_t^r)^{1-\theta^H}+\sum_{q\in Q_t^H}(p_{t-1}^q)^{1-\theta^H}\right)
+\end{equation}
+ここで右辺括弧内の第1,2項の変形を考える。
+まず第1項について、定義式
+\eqref{form:chapter3_representative_household_phillips_home_representative_p_H_tilde_eq}
+により、すべての\(r\in R_t^H\)について\(p_t^r=\widetilde{p}_t^H\)である。
+また\(R_t^H\)の大きさは\((1-\xi^H)N\)により近似される。
+これにより第1項は以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_modified_first_term_def}
+    \sum_{r\in R_t^H}(p_t^r)^{1-\theta^H}
+    =\sum_{r\in R_t^H}(\widetilde{p}_t^H)^{1-\theta^H}
+    =(1-\xi^H)N(\widetilde{p}_t^H)^{1-\theta^H}
+\end{equation}
+次に第2項について、価格を据え置く自国家計の全体\(Q_t^H\)は自国家計全体の無作為標本である。
+そのため
+\((p_{t-1}^q)^{1-\theta^H}\)の\(q\in Q_t^H\)について総和は、
+\((p_{t-1}^h)^{1-\theta^H}\)の\(h\in H\)についての総和に割合\(\xi^H\)を掛けたものに等しくなる。
+さらに式
+\eqref{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_def}
+の\(t\)を\(t-1\)として第1,2辺を\({1-\theta^H}\)乗してから\(N\)をかけることにより
+\(N(\bar{p}_{t-1}^H)^{1-\theta^H}=\sum_{h\in H}(p_{t-1}^h)^{1-\theta^H}\)
+が得られる。
+これらを合わせると第2項は以下のように計算される。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_modified_second_term_def}
+    \sum_{q\in Q_t^H} (p_{t-1}^q)^{1-\theta^H}
+    =\xi^H \sum_{h\in H} (p_{t-1}^h)^{1-\theta^H}
+    =\xi^H N(\bar{p}_{t-1}^H)^{1-\theta^H}
+\end{equation}
+これを式
+\eqref{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_modified_def}
+に代入すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_p_H_bar_dynamics_p_H_bar_modified2_def}
+    (\bar{p}_t^H)^{1-\theta^H}
+    =\frac{1}{N}
+     \left((1-\xi^H)N(\widetilde{p}_t^H)^{1-\theta^H}+\xi^H N(\bar{p}_{t-1}^H)^{1-\theta^H}\right)
+    =(1-\xi^H)(\widetilde{p}_t^H)^{1-\theta^H}+\xi^H(\bar{p}_{t-1}^H)^{1-\theta^H}
+\end{equation}
+
+\subparagraph{自国の価格分散\(\Delta_t^H\)の動学方程式}
+\label{sec:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics}
+式
+\eqref{form:chapter3_producers_aggregated_production_function_home_definition_Delta_H_eq}
+で定義されたとおり、自国の価格分散\(\Delta_t^H\)は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_def}
+    \Delta_t^H
+    \equiv\sum_{h\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}
+\end{equation}
+ここですべての\(q\in Q_t^H\)について\(p_t^q=p_{t-1}^q\)であることに気をつければ式
+\eqref{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_def}
+は以下のように書き換えられることがわかる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified_def}
+    \Delta_t^H
+    =\sum_{r\in R_t^H}\left(\frac{p_t^r}{p_t^H}\right)^{-\theta^H}+\sum_{q\in Q_t^H}\left(\frac{p_{t-1}^q}{p_t^H}\right)^{-\theta^H}
+\end{equation}
+ここで右辺第1,2項の変形を考える。
+まず第1項について、定義式
+\eqref{form:chapter3_representative_household_phillips_home_representative_p_H_tilde_eq}
+により、すべての\(r\in R_t^H\)について\(p_t^r=\widetilde{p}_t^H\)である。
+また\(R_t^H\)の大きさは\((1-\xi^H)N\)により近似される。
+これにより第1項は以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified_first_term_def}
+    \sum_{r\in R_t^H}\left(\frac{p_t^r}{p_t^H}\right)^{-\theta^H}
+    =\sum_{r\in R_t^H}\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}
+    =(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}
+\end{equation}
+次に第2項について、価格を据え置く自国家計の全体\(Q_t^H\)は自国家計全体の無作為標本である。
+そのため
+\((p_{t-1}^q/p_{t-1}^H)^{-\theta^H}\)の\(q\in Q_t^H\)について総和は、
+\((p_{t-1}^h/p_{t-1}^H)^{-\theta^H}\)の\(h\in H\)についての総和に割合\(\xi^H\)を掛けたものに等しくなる。
+さらに式
+\eqref{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_def}
+の\(t\)を\(t-1\)とすることにより
+\(\Delta_{t-1}^H=\sum_{h\in H}(p_{t-1}^h/p_{t-1}^H)^{-\theta^H}\)
+が得られる。
+これらを合わせると第2項は以下のように計算される。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified_second_term_def}
+    \sum_{q\in Q_t^H}\left(\frac{p_{t-1}^q}{p_t^H}\right)^{-\theta^H}
+    =\sum_{q\in Q_t^H}\left[\left(\frac{p_{t-1}^q}{p_{t-1}^H}\right)^{-\theta^H}\left(\frac{p_{t-1}^H}{p_t^H}\right)^{-\theta^H}\right]
+    =\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\sum_{q\in Q_t^H}\left(\frac{p_{t-1}^q}{p_{t-1}^H}\right)^{-\theta^H}
+    =\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\sum_{h\in H}\left(\frac{p_{t-1}^h}{p_{t-1}^H}\right)^{-\theta^H}
+    =\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
+\end{equation}
+これを式
+\eqref{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified_def}
+に代入すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified2_def}
+    \Delta_t^H
+    =(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}+\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
+\end{equation}
+
+\subsubsection{外国のフィリップス曲線と関連方程式}
+\label{sec:chapter3_representative_household_phillips_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_phillips_foreign_original}
+式
+\eqref{form:chapter3_producers_stage1_foreign_p_f_modified_eq}、
+\eqref{form:chapter3_producers_stage1_foreign_v_f_eq}および
+\eqref{form:chapter3_producers_stage1_foreign_w_f_eq}
+で示されたとおり、外国家計\(f\)が設定する最適価格\(p_t^{f*}\)は以下のように記述される。
+\begin{align}
+    \label{form:chapter3_representative_household_phillips_foreign_original_p_f_eq}
+        (p_t^{f*})^{1+\theta^F}&=\frac{\theta^F}{\theta^F-1}\frac{v_t^f}{w_t^f} \\
+    \label{form:chapter3_representative_household_phillips_foreign_original_v_f_eq}
+        v_t^f&=\phi^F\frac{(Y_t^F)^2}{(a_t^F)^2}(p_t^{F*})^{2\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[v_{t+1}^f] \\
+    \label{form:chapter3_representative_household_phillips_foreign_original_w_f_eq}
+        w_t^f&=\lambda_t^{f/*}(1-\tau_t^F)Y_t^F(p_t^{F*})^{\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[w_{t+1}^f]
+\end{align}
+
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_phillips_foreign_representative}
+
+\subparagraph{外国のフィリップス曲線}
+\label{sec:chapter3_representative_household_phillips_foreign_representative_phillips}
+動学方程式
+\eqref{form:chapter3_representative_household_phillips_foreign_original_p_f_eq}、
+\eqref{form:chapter3_representative_household_phillips_foreign_original_v_f_eq}、
+\eqref{form:chapter3_representative_household_phillips_foreign_original_w_f_eq}、
+に含まれる\(p_t^{f*}, v_t^f, w_t^f\)以外の変数はすべての外国家計\(f\)について共通である。
+そこでこの方程式群を用いて外国代表的家計の最適価格\(\widetilde{p}_t^{F*}\)を以下のように定義する。
+\begin{align}
+    \label{form:chapter3_representative_household_phillips_foreign_representative_p_F_tilde_eq}
+        (\widetilde{p}_t^{F*})^{1+\theta^F}&=\frac{\theta^F}{\theta^F-1}\frac{v_t^F}{w_t^F} \\
+    \label{form:chapter3_representative_household_phillips_foreign_representative_v_F_eq}
+        v_t^F&=\phi^F\frac{(Y_t^F)^2}{(a_t^F)^2}(p_t^{F*})^{2\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[v_{t+1}^F] \\
+    \label{form:chapter3_representative_household_phillips_foreign_representative_w_F_eq}
+        w_t^F&=\lambda_t^{F/*}(1-\tau_t^F)Y_t^F(p_t^{F*})^{\theta^F}+\beta_t^F\xi^F\operatorname{E}_t[w_{t+1}^F]
+\end{align}
+
+\subparagraph{外国の正規化された生産者物価指数（PPI）\(\bar{p}_t^{F*}\)の動学方程式}
+\label{sec:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics}
+式
+\eqref{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_bar_def}
+で定義されたとおり、正規化された生産者物価指数（PPI）\(\bar{p}_t^{F*}\)は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_def}
+    \bar{p}_t^{F*}
+    \equiv\left[\frac{1}{M}\sum_{f\in F}(p_t^{f*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+\end{equation}
+ここでカルボ型価格設定の仮定を思い出すと、毎期割合\(1-\xi^F\)の外国家計のみが価格を改定し
+残りの割合\(\xi^F\)の外国家計は価格を据え置く。
+そこで価格を改定する（Reset）外国家計の集合を\(R_t^F\)、
+価格を据え置く（Quiescent）外国家計の集合を\(Q_t^F\)により表す。
+さらにすべての\(q\in Q_t^F\)について\(p_t^{q*}=p_{t-1}^{q*}\)であることに気をつければ式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_def}
+は以下のように書き換えられることがわかる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_modified_def}
+    (\bar{p}_t^{F*})^{1-\theta^F}
+    =\frac{1}{M}
+     \left(\sum_{r\in R_t^F}(p_t^{r*})^{1-\theta^F}+\sum_{q\in Q_t^F}(p_{t-1}^{q*})^{1-\theta^F}\right)
+\end{equation}
+ここで右辺括弧内の第1,2項の変形を考える。
+まず第1項について、定義式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_p_F_tilde_eq}
+により、すべての\(r\in R_t^F\)について\(p_t^{r*}=\widetilde{p}_t^{F*}\)である。
+また\(R_t^F\)の大きさは\((1-\xi^F)M\)により近似される。
+これにより第1項は以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_modified_first_term_def}
+    \sum_{r\in R_t^F}(p_t^{r*})^{1-\theta^F}
+    =\sum_{r\in R_t^F}(\widetilde{p}_t^{F*})^{1-\theta^F}
+    =(1-\xi^F)M(\widetilde{p}_t^{F*})^{1-\theta^F}
+\end{equation}
+次に第2項について、価格を据え置く外国家計の全体\(Q_t^F\)は外国家計全体の無作為標本である。
+そのため
+\((p_{t-1}^{q*})^{1-\theta^F}\)の\(q\in Q_t^F\)について総和は、
+\((p_{t-1}^{f*})^{1-\theta^F}\)の\(f\in F\)についての総和に割合\(\xi^F\)を掛けたものに等しくなる。
+さらに式
+\eqref{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_bar_def}
+の\(t\)を\(t-1\)として第1,2辺を\({1-\theta^F}\)乗してから\(M\)をかけることにより
+\(M(\bar{p}_{t-1}^{F*})^{1-\theta^F}=\sum_{f\in F}(p_{t-1}^{f*})^{1-\theta^F}\)
+が得られる。
+これらを合わせると第2項は以下のように計算される。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_modified_second_term_def}
+    \sum_{q\in Q_t^F} (p_{t-1}^{q*})^{1-\theta^F}
+    =\xi^F \sum_{f\in F} (p_{t-1}^{f*})^{1-\theta^F}
+    =\xi^F M(\bar{p}_{t-1}^{F*})^{1-\theta^F}
+\end{equation}
+これを式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_modified_def}
+に代入すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_p_F_bar_dynamics_p_F_bar_modified2_def}
+    (\bar{p}_t^{F*})^{1-\theta^F}
+    =\frac{1}{M}
+     \left((1-\xi^F)M(\widetilde{p}_t^{F*})^{1-\theta^F}+\xi^F M(\bar{p}_{t-1}^{F*})^{1-\theta^F}\right)
+    =(1-\xi^F)(\widetilde{p}_t^{F*})^{1-\theta^F}+\xi^F(\bar{p}_{t-1}^{F*})^{1-\theta^F}
+\end{equation}
+
+\subparagraph{外国の価格分散\(\Delta_t^F\)の動学方程式}
+\label{sec:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics}
+式
+\eqref{form:chapter3_producers_aggregated_production_function_foreign_definition_Delta_F_eq}
+で定義されたとおり、外国の価格分散\(\Delta_t^F\)は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_def}
+    \Delta_t^F
+    \equiv\sum_{f\in F}\left(\frac{p_t^{f*}}{p_t^{F*}}\right)^{-\theta^F}
+\end{equation}
+ここですべての\(q\in Q_t^F\)について\(p_t^{q*}=p_{t-1}^{q*}\)であることに気をつければ式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_def}
+は以下のように書き換えられることがわかる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_modified_def}
+    \Delta_t^F
+    =\sum_{r\in R_t^F}\left(\frac{p_t^{r*}}{p_t^{F*}}\right)^{-\theta^F}+\sum_{q\in Q_t^F}\left(\frac{p_{t-1}^{q*}}{p_t^{F*}}\right)^{-\theta^F}
+\end{equation}
+ここで右辺第1,2項の変形を考える。
+まず第1項について、定義式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_p_F_tilde_eq}
+により、すべての\(r\in R_t^F\)について\(p_t^{r*}=\widetilde{p}_t^{F*}\)である。
+また\(R_t^F\)の大きさは\((1-\xi^F)M\)により近似される。
+これにより第1項は以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_modified_first_term_def}
+    \sum_{r\in R_t^F}\left(\frac{p_t^{r*}}{p_t^{F*}}\right)^{-\theta^F}
+    =\sum_{r\in R_t^F}\left(\frac{\widetilde{p}_t^{F*}}{p_t^{F*}}\right)^{-\theta^F}
+    =(1-\xi^F)M\left(\frac{\widetilde{p}_t^{F*}}{p_t^{F*}}\right)^{-\theta^F}
+\end{equation}
+次に第2項について、価格を据え置く外国家計の全体\(Q_t^F\)は外国家計全体の無作為標本である。
+そのため
+\((p_{t-1}^{q*}/p_{t-1}^{F*})^{-\theta^F}\)の\(q\in Q_t^F\)について総和は、
+\((p_{t-1}^{f*}/p_{t-1}^{F*})^{-\theta^F}\)の\(f\in F\)についての総和に割合\(\xi^F\)を掛けたものに等しくなる。
+さらに式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_def}
+の\(t\)を\(t-1\)とすることにより
+\(\Delta_{t-1}^F=\sum_{f\in F}(p_{t-1}^{f*}/p_{t-1}^{F*})^{-\theta^F}\)
+が得られる。
+これらを合わせると第2項は以下のように計算される。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_modified_second_term_def}
+    \sum_{q\in Q_t^F}\left(\frac{p_{t-1}^{q*}}{p_t^{F*}}\right)^{-\theta^F}
+    =\sum_{q\in Q_t^F}\left[\left(\frac{p_{t-1}^{q*}}{p_{t-1}^{F*}}\right)^{-\theta^F}\left(\frac{p_{t-1}^{F*}}{p_t^{F*}}\right)^{-\theta^F}\right]
+    =\left(\frac{p_t^{F*}}{p_{t-1}^{F*}}\right)^{\theta^F}\sum_{q\in Q_t^F}\left(\frac{p_{t-1}^{q*}}{p_{t-1}^{F*}}\right)^{-\theta^F}
+    =\xi^F\left(\frac{p_t^{F*}}{p_{t-1}^{F*}}\right)^{\theta^F}\sum_{f\in F}\left(\frac{p_{t-1}^{f*}}{p_{t-1}^{F*}}\right)^{-\theta^F}
+    =\xi^F\left(\frac{p_t^{F*}}{p_{t-1}^{F*}}\right)^{\theta^F}\Delta_{t-1}^F
+\end{equation}
+これを式
+\eqref{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_modified_def}
+に代入すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_phillips_foreign_representative_Delta_F_dynamics_Delta_F_modified2_def}
+    \Delta_t^F
+    =(1-\xi^F)M\left(\frac{\widetilde{p}_t^{F*}}{p_t^{F*}}\right)^{-\theta^F}+\xi^F\left(\frac{p_t^{F*}}{p_{t-1}^{F*}}\right)^{\theta^F}\Delta_{t-1}^F
+\end{equation}
