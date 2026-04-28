@@ -3,74 +3,144 @@
 
 \subsection{自国の資源制約}
 \label{sec:chapter3_resource_constraints_aggregate_home}
-まず自国の総消費\(C_t^{H\to W}\)を以下のように定義する。
+式
+\eqref{form:chapter3_households_stage2_home_budget_eq}
+で示されたように、自国家計\(h\)の予算制約式は以下のようであった。
 \begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_C_H_W_def}
-    C_t^{H\to W}\equiv\sum_{h\in H}c_t^{h\to W}
+\label{form:chapter3_resource_constraints_aggregate_home_budget_eq}
+    \sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}
+    =d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
 \end{equation}
-次に自国の対外純資産\(B_t^H\)を以下のように定義する。
+この予算制約式をすべての自国家計\(h\)について足し合わせることで自国全体の資源制約式を導出する。
+まずすべての自国家計\(h\)について予算制約式の両辺を足し合わせると以下の式が得られる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_home_sum_budgets_eq}
+    \sum_{h\in H}\left(\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\right)
+    =\sum_{h\in H}\left(d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H\right)
+\end{equation}
+さらにこの和の記号を各項に分配し、家計\(h\)に依存しない変数（物価水準、利子率、為替レート、税率など）を和の記号の外にくくり出す。
+その際、左辺第1項のコンティンジェント債券の購入費用については、状態価格\(q_{t,t+1}(j')\)が家計に依存しないため、和の順序を入れ替えてくくり出すことができる。整理すると以下の展開式が得られる。
+\begin{align}
+\label{form:chapter3_resource_constraints_aggregate_home_sum_budgets_modified_eq}
+    &\sum_{j'\in J}q_{t,t+1}(j')\sum_{h\in H}d_{t+1}^{h\to H}(j')+\sum_{h\in H}b_{t+1}^{h\to F}+p_t^{H\to W}\sum_{h\in H}c_t^{h\to W} \nonumber \\
+    &\quad =\sum_{h\in H}d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}\sum_{h\in H}b_t^{h\to F}+(1-\tau_t^H)\sum_{h\in H}p_t^hy_t^h+\sum_{h\in H}t_t^H
+\end{align}
+次に、この展開式の各項に代入して整理するための条件を準備する。
+まず式
+\eqref{form:chapter3_assumptions_bond_markets_home_equilibrium}
+の自国コンティンジェント債券市場の均衡条件より、
+次期および今期の自国コンティンジェント債券の総和はそれぞれゼロとなる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_home_equilibrium_eq}
+    \sum_{h\in H}d_{t+1}^{h\to H}(j')=0\quad (\forall j'\in J)
+\end{equation}
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_home_equilibrium2_eq}
+    \sum_{h\in H}d_t^{h\to H}=0
+\end{equation}
+次に式
+\eqref{form:chapter3_policies_fiscal_home_budget_eq}
+の政府予算制約より、一括移転の総和\(\sum_{h\in H}t_t^H\)は以下のようになる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_home_fiscal_budget_eq}
+    \sum_{h\in H}t_t^H=Nt_t^H=\tau_t^H\sum_{h\in H}p_t^hy_t^h
+\end{equation}
+さらに式
+\eqref{form:chapter3_producers_aggregated_production_home_Y_H_definition_p_H_Y_H_eq}
+で示されたように、名目総生産\(\sum_{h\in H}p_t^hy_t^h\)は以下のように書き換えられる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_home_p_H_Y_H_eq}
+    \sum_{h\in H}p_t^hy_t^h=p_t^HY_t^H
+\end{equation}
+また自国の外国通貨建てリスクフリー債券\(B_t^H\)および総消費\(C_t^{H\to W}\)を以下のように定義する。
 \begin{equation}
 \label{form:chapter3_resource_constraints_aggregate_home_B_H_def}
     B_t^H\equiv\sum_{h\in H}b_t^{h\to F}
 \end{equation}
-そのうえで\(t\)期において成立するすべての自国家計\(h\)の予算制約式を足し合わせることで
-自国全体の資源制約式を導出する。
-まずすべての自国家計\(h\)について予算制約式の両辺を足し合わせると以下の式が得られる。
 \begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_budget_sum_eq}
-    \sum_{h\in H}\left(\operatorname{E}_t[q_{t,t+1}d_{t+1}^{h\to H}]+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\right)=\sum_{h\in H}\left(d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H\right)
+\label{form:chapter3_resource_constraints_aggregate_home_C_H_W_def}
+    C_t^{H\to W}\equiv\sum_{h\in H}c_t^{h\to W}
 \end{equation}
-式\eqref{eq:bond_markets_home_equilibrium}で仮定されたとおり、自国コンティンジェント債券市場の均衡条件は以下のようであった。
-\begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_bond_clearing_eq}
-    \sum_{h\in H}d_{t+1}^{h\to H}(j)=0 \quad (\forall t\ge s, \forall j\in J)
-\end{equation}
-この均衡条件は任意の期\(t\)について成立するため、
-今期支払われる債券の総和および次期に購入する債券の期待値の総和もそれぞれゼロとなる。
-\begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_bond_sum_zero_1_eq}
-    \sum_{h\in H}d_t^{h\to H}=0
-\end{equation}
-\begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_bond_sum_zero_2_eq}
-    \sum_{h\in H}\operatorname{E}_t[q_{t,t+1}d_{t+1}^{h\to H}]=0
-\end{equation}
-一方で式\eqref{form:chapter3_policies_fiscal_home_budget_eq}で仮定されたとおり、政府の予算制約式は以下のようであった。
-\begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_fiscal_budget_eq}
-    Nt_t^H=\sum_{h\in H}\tau_t^Hp_t^hy_t^h
-\end{equation}
-さらに資源制約式の導出に用いるため、名目生産の総和\(\sum_{h\in H}p_t^hy_t^h\)を計算しておく。
-財市場の均衡における個別財の需要関数
-\eqref{form:chapter3_producers_aggregated_production_function_home_definition_Y_H_assumption_y_h_eq}
-より\(y_t^h=(p_t^h/p_t^H)^{-\theta^H}Y_t^H\)であることを代入し、
-生産者物価指数\(p_t^H\)の定義\((p_t^H)^{1-\theta^H}=\sum_{h\in H}(p_t^h)^{1-\theta^H}\)を用いると、
-名目総生産は以下のように\(p_t^HY_t^H\)となることが導かれる。
-\begin{equation}
-\label{form:chapter3_resource_constraints_aggregate_home_nominal_output_eq}
-    \sum_{h\in H}p_t^hy_t^h=\sum_{h\in H}p_t^h\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}Y_t^H=Y_t^H(p_t^H)^{\theta^H}\sum_{h\in H}(p_t^h)^{1-\theta^H}=Y_t^H(p_t^H)^{\theta^H}(p_t^H)^{1-\theta^H}=p_t^HY_t^H
-\end{equation}
-これらの式
-\eqref{form:chapter3_resource_constraints_aggregate_home_bond_sum_zero_1_eq}、
-\eqref{form:chapter3_resource_constraints_aggregate_home_bond_sum_zero_2_eq}、
-\eqref{form:chapter3_resource_constraints_aggregate_home_fiscal_budget_eq}
-を集計された予算制約式
-\eqref{form:chapter3_resource_constraints_aggregate_home_budget_sum_eq}
-に代入し、総消費\(C_t^{H\to W}\)の定義
-\eqref{form:chapter3_resource_constraints_aggregate_home_C_H_W_def}、
-名目総生産\(p_t^HY_t^H\)の集計結果
-\eqref{form:chapter3_resource_constraints_aggregate_home_nominal_output_eq}、
-および対外純資産\(B_t^H\)の定義
-\eqref{form:chapter3_resource_constraints_aggregate_home_B_H_def}
-を適用すると以下のようになる。
+これらを代入すると以下の資源制約式が得られる。
 \begin{align}
-    \label{form:chapter3_resource_constraints_aggregate_home_remaining_terms_eq}
-        \sum_{h\in H}\left(p_t^{H\to W}c_t^{h\to W}+b_{t+1}^{h\to F}\right)
-        &=\sum_{h\in H}\left(p_t^hy_t^h+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}\right) \\
-        p_t^{H\to W}\sum_{h\in H}c_t^{h\to W}+\sum_{h\in H}b_{t+1}^{h\to F}
-        &=\sum_{h\in H}p_t^hy_t^h+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}\sum_{h\in H}b_t^{h\to F} \nonumber \\
-    \label{form:chapter3_resource_constraints_aggregate_home_eq}
-        p_t^{H\to W}C_t^{H\to W}+B_{t+1}^H
+    \label{form:chapter3_resource_constraints_aggregate_home_sum_budgets_modified2_eq}
+        0+B_{t+1}^H+p_t^{H\to W}C_t^{H\to W}
+        &=0+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H+(1-\tau_t^H)p_t^HY_t^H+\tau_t^Hp_t^HY_t^H \\
+    \label{form:chapter3_resource_constraints_aggregate_home_sum_budgets_modified3_eq}
+        B_{t+1}^H+p_t^{H\to W}C_t^{H\to W}
         &=p_t^HY_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H
 \end{align}
-この式は自国の消費と対外純資産の増加が自国の生産と既存の対外資産からの収益によって賄われることを示している。
+この式は自国の外国通貨建てリスクフリー債券と総消費が
+名目生産と前期からの外国通貨建てリスクフリー債券の収益によって賄われることを示している。
+
+\subsection{外国の資源制約}
+\label{sec:chapter3_resource_constraints_aggregate_foreign}
+式
+\eqref{form:chapter3_households_stage2_foreign_budget_eq}
+で示されたように、外国家計\(f\)の予算制約式は以下のようであった。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_budget_eq}
+    \sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}
+    =d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+\end{equation}
+この予算制約式をすべての外国家計\(f\)について足し合わせることで外国全体の資源制約式を導出する。
+まずすべての外国家計\(f\)について予算制約式の両辺を足し合わせると以下の式が得られる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_sum_budgets_eq}
+    \sum_{f\in F}\left(\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}\right)
+    =\sum_{f\in F}\left(d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}\right)
+\end{equation}
+さらにこの和の記号を各項に分配し、家計\(f\)に依存しない変数を和の記号の外にくくり出す。
+状態価格\(q_{t,t+1}^*(j')\)の和の順序を入れ替えて整理すると、以下の展開式が得られる。
+\begin{align}
+\label{form:chapter3_resource_constraints_aggregate_foreign_sum_budgets_modified_eq}
+    &\sum_{j'\in J}q_{t,t+1}^*(j')\sum_{f\in F}d_{t+1}^{f\to F*}(j')+\sum_{f\in F}b_{t+1}^{f\to H*}+p_t^{F\to W*}\sum_{f\in F}c_t^{f\to W} \nonumber \\
+    &\quad =\sum_{f\in F}d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}\sum_{f\in F}b_t^{f\to H*}+(1-\tau_t^F)\sum_{f\in F}p_t^{f*}y_t^f+\sum_{f\in F}t_t^{F*}
+\end{align}
+次に、この展開式の各項に代入して整理するための条件を準備する。
+まず式
+\eqref{form:chapter3_assumptions_bond_markets_foreign_equilibrium}
+の外国コンティンジェント債券市場の均衡条件より、
+次期および今期の外国コンティンジェント債券の総和はそれぞれゼロとなる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_equilibrium_eq}
+    \sum_{f\in F}d_{t+1}^{f\to F*}(j')=0\quad (\forall j'\in J)
+\end{equation}
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_equilibrium2_eq}
+    \sum_{f\in F}d_t^{f\to F*}=0
+\end{equation}
+次に式
+\eqref{form:chapter3_policies_fiscal_transfer_foreign_eq}
+の政府予算制約より、一括移転の総和\(\sum_{f\in F}t_t^{F*}\)は以下のようになる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_fiscal_budget_eq}
+    \sum_{f\in F}t_t^{F*}=\tau_t^F\sum_{f\in F}p_t^{f*}y_t^f
+\end{equation}
+さらに式
+\eqref{form:chapter3_producers_aggregated_production_foreign_Y_F_definition_p_F_Y_F_eq}
+で示されたように、名目総生産\(\sum_{f\in F}p_t^{f*}y_t^f\)は以下のように書き換えられる。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_p_F_Y_F_eq}
+    \sum_{f\in F}p_t^{f*}y_t^f=p_t^{F*}Y_t^F
+\end{equation}
+また外国の自国通貨建てリスクフリー債券\(B_t^{F*}\)および総消費\(C_t^{F\to W}\)を以下のように定義する。
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_B_F_def}
+    B_t^{F*}\equiv\sum_{f\in F}b_t^{f\to H*}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_resource_constraints_aggregate_foreign_C_F_W_def}
+    C_t^{F\to W}\equiv\sum_{f\in F}c_t^{f\to W}
+\end{equation}
+これらを代入すると以下の資源制約式が得られる。
+\begin{align}
+    \label{form:chapter3_resource_constraints_aggregate_foreign_sum_budgets_modified2_eq}
+        0+B_{t+1}^{F*}+p_t^{F\to W*}C_t^{F\to W}
+        &=0+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}B_t^{F*}+(1-\tau_t^F)p_t^{F*}Y_t^F+\tau_t^Fp_t^{F*}Y_t^F \\
+    \label{form:chapter3_resource_constraints_aggregate_foreign_sum_budgets_modified3_eq}
+        B_{t+1}^{F*}+p_t^{F\to W*}C_t^{F\to W}
+        &=p_t^{F*}Y_t^F+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}B_t^{F*}
+\end{align}
+この式は外国の自国通貨建てリスクフリー債券と総消費が
+名目生産と前期からの自国通貨建てリスクフリー債券の収益によって賄われることを示している。

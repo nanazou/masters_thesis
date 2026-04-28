@@ -33,13 +33,14 @@
 （労働\(l_t^h\)は自身が設定する財の価格に応じて自動で決定されるため操作変数ではない）\\
 期待生涯効用関数：
 \begin{equation}
-\label{form:sec_chapter3_households_stage2_home_utility_def}
+\label{form:chapter3_households_stage2_home_utility_def}
     \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\left(\log c_t^{h\to W}-\frac{\phi^H}{2}(l_t^h)^2\right)
 \end{equation}
 名目予算制約：
 \begin{equation}
-\label{form:sec_chapter3_households_stage2_home_budget_eq}
-    \sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}=d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
+\label{form:chapter3_households_stage2_home_budget_eq}
+    \sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}
+    =d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
 \end{equation}
 この問題のラグランジアンは以下のようになり、これを各操作変数について偏微分することでFOCが導かれる
 （付録\ref{chap:appendix_cost_minimization}TODO）。
@@ -98,12 +99,12 @@
 （労働\(l_t^f\)は自身が設定する財の価格に応じて自動で決定されるため操作変数ではない）\\
 期待生涯効用関数：
 \begin{equation}
-\label{form:sec_chapter3_households_stage2_foreign_utility_def}
+\label{form:chapter3_households_stage2_foreign_utility_def}
     \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\left(\log c_t^{f\to W}-\frac{\phi^F}{2}(l_t^f)^2\right)
 \end{equation}
 名目予算制約：
 \begin{equation}
-\label{form:sec_chapter3_households_stage2_foreign_budget_eq}
+\label{form:chapter3_households_stage2_foreign_budget_eq}
     \sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
 \end{equation}
 この問題のラグランジアンは以下のようになり、これを各操作変数について偏微分することでFOCが導かれる

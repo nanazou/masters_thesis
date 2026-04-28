@@ -2,8 +2,7 @@
 % sections/chap4/sec_preparation_shocks.tex
 
 \section{ショックの設定}
-\label{sec:model_preparation_shocks}
-
+\label{sec:chapter4_shocks}
 本稿のシミュレーションでは自国家計が貯蓄を好むようになる\(\beta\)ショック、
 および生産性が低下する\(a\)ショックを経済すなわち第\ref{chap:model}章の動学方程式系に対して与える。
 主観的割引因子\(\beta_t^H\)の上釈は家計が我慢強くなり、
@@ -16,13 +15,13 @@
 シミュレーションではこれらのショックが第0期（\(t=0\)）に発生し、
 その後は\(\beta\)および\(a\)の自己回帰プロセスにしたがって徐々に定常状態へと減衰していく。
 \begin{equation}
+\label{form:chapter4_shocks_stochastic_processes_eq}
 \begin{aligned}
 \log(\beta_t^H)&=(1-\rho_{\beta}^H)\log(\beta_{ss}^H)+\rho_{\beta}^H\log(\beta_{t-1}^H)+\varepsilon_t^{\beta,H} \\
 \log(a_t^H)&=(1-\rho_{a}^H)\log(a_{ss}^H)+\rho_{a}^H\log(a_{t-1}^H)+\varepsilon_t^{a,H}
 \end{aligned}
-\label{form:model_preparation_shocks_stochastic_processes}
 \end{equation}
-自己回帰係数についてはパラメータ設定の表\ref{tab:model_preparation_parameters_list}でも示したとおり
+自己回帰係数についてはパラメータ設定の表\ref{tab:chapter4_parameters_list}でも示したとおり
 \(\rho_{\beta}^H\)および\(\rho_{a}^H\)はともに1より小さい値に設定されており、
 ショックの影響が時間とともに消失する定常的な過程となっている。
 また外生的なショック項は第0期（\(t=0\)）においてのみ

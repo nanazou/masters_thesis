@@ -1,8 +1,8 @@
 % !TeX root = ../../../../../main.tex
-% sections/chap3/subsections/assumptions/bond_markets.tex
+% sections/chapter3/subsections/assumptions/bond_markets.tex
 
 \subsection{債券市場}
-\label{sec:bond_markets}
+\label{sec:chapter3_assumptions_bond_markets}
 本モデルにおける債券市場について自国コンティンジェント債券市場、
 外国コンティンジェント債券市場、国際リスクフリー債券市場の順に以下の通り仮定する。
 それらの仮定を理解するにあたって基本的な事柄をここで説明しておく。
@@ -26,68 +26,68 @@
 （\ref{appendix_...}）
 
 \subsubsection{自国コンティンジェント債券市場}
-\label{sec:bond_markets_home}
+\label{sec:chapter3_assumptions_bond_markets_home}
 
 \paragraph{自国コンティンジェント債券市場の参加者}
-\label{sec:bond_markets_home_participants}
+\label{sec:chapter3_assumptions_bond_markets_home_participants}
 自国コンティンジェント債券市場の参加者は自国家計のみである。
 
 \paragraph{自国コンティンジェント債券市場の債券}
-\label{sec:bond_markets_home_bonds}
+\label{sec:chapter3_assumptions_bond_markets_home_bonds}
 次期\(t+1\)に起こり得るすべての状態\(j\in J\)に対して、その状態が実現したときのみ1単位の自国通貨を支払う
 同質な自国コンティンジェント債券\(d_{t+1}^{h\to H}(j)\)を各自国家計\(h\)が発行、売買する。
 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j)\)の売買は
 中央清算機関である自国コンティンジェント債券市場を通じておこなわれ、自国家計間の個別売買はおこなわれない。
 これにより自国コンティンジェント債券市場は自国家計間のリスク共有が完全におこわれる\textbf{完備}なものとなり、
 すべての自国家計の可処分所得や消費が同一となることなどがのちに示される
-（\ref{sec:chapter3_risk_sharing_commonization_home}節）。
+（\ref{sec:chapter3_assumptions_chapter3_risk_sharing_commonization_home}節）。
 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j)\)の価格を\(q_{t,t+1}(j)\)とする。
 
 \paragraph{自国コンティンジェント債券市場の均衡}
-\label{sec:bond_markets_home_equilibrium}
+\label{sec:chapter3_assumptions_bond_markets_home_equilibrium}
 任意の\(j\in J\)について
 自国コンティンジェント債券\(d_{t+1}^{h\to H}(j)\)のすべての自国家計\(h\)についての和は0になる。
 \begin{equation}
-\label{eq:bond_markets_home_equilibrium}
+\label{form:chapter3_assumptions_bond_markets_home_equilibrium}
     \sum_{h\in H}d_{t+1}^{h\to H}(j)=0 \quad (\forall t\ge s, \forall j\in J)
 \end{equation}
 
 \subsubsection{外国コンティンジェント債券市場}
-\label{sec:bond_markets_foreign}
+\label{sec:chapter3_assumptions_bond_markets_foreign}
 
 \paragraph{外国コンティンジェント債券市場の参加者}
-\label{sec:bond_markets_foreign_participants}
+\label{sec:chapter3_assumptions_bond_markets_foreign_participants}
 外国コンティンジェント債券市場の参加者は外国家計のみである。
 
 \paragraph{外国コンティンジェント債券市場の債券}
-\label{sec:bond_markets_foreign_bonds}
+\label{sec:chapter3_assumptions_bond_markets_foreign_bonds}
 次期\(t+1\)に起こり得るすべての状態\(j\in J\)に対して、その状態が実現したときのみ1単位の外国通貨を支払う
 同質な外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j)\)を各外国家計\(f\)が発行、売買する。
 これにより外国コンティンジェント債券市場は外国家計間のリスク共有が完全におこわれる\textbf{完備}なものとなり、
 すべての外国家計の可処分所得や消費も同一となることなどが示される
-（\ref{sec:chapter3_risk_sharing_commonization_foreign}節）。
+（\ref{sec:chapter3_assumptions_chapter3_risk_sharing_commonization_foreign}節）。
 外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j)\)の売買は
 中央清算機関である外国コンティンジェント債券市場を通じておこなわれ、外国家計間の個別売買はおこなわれない。
 外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j)\)の価格を\(q_{t,t+1}^*(j)\)とする。
 
 \paragraph{外国コンティンジェント債券市場の均衡}
-\label{sec:bond_markets_foreign_equilibrium}
+\label{sec:chapter3_assumptions_bond_markets_foreign_equilibrium}
 任意の\(j\in J\)について
 外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j)\)のすべての外国家計\(f\)についての和は0になる。
 \begin{equation}
-\label{eq:bond_markets_foreign_equilibrium}
+\label{form:chapter3_assumptions_bond_markets_foreign_equilibrium}
     \sum_{f\in F}d_{t+1}^{f\to F*}(j)=0 \quad (\forall t\ge s, \forall j\in J)
 \end{equation}
 
 \subsubsection{国際リスクフリー債券市場}
-\label{sec:bond_markets_international}
+\label{sec:chapter3_assumptions_bond_markets_international}
 
 \paragraph{国際リスクフリー債券市場の参加者}
-\label{sec:bond_markets_international_participants}
+\label{sec:chapter3_assumptions_bond_markets_international_participants}
 国際リスクフリー債券市場の参加者は自国家計および外国家計である。
 
 \paragraph{国際リスクフリー債券市場の債券}
-\label{sec:bond_markets_international_bonds}
+\label{sec:chapter3_assumptions_bond_markets_international_bonds}
 次期\(t+1\)の状態\(j\)に依存せず、今期\(t\)に確定する外国利子率\(i_t^F\)が適用される
 同質な外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)を各自国家計が発行、売買する。
 次期\(t+1\)の状態\(j\)に依存せず、今期\(t\)に確定する自国利子率\(i_t^H\)が適用される
@@ -105,7 +105,7 @@
 自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)の価格は1とする。
 
 \paragraph{国際リスクフリー債券市場の均衡}
-\label{sec:bond_markets_international_equilibrium}
+\label{sec:chapter3_assumptions_bond_markets_international_equilibrium}
 前述のとおり中央清算機関は債券の変換をおこなうため、
 そのバランスシート上には自国家計との売買から生じる外国通貨および外国通貨建てリスクフリー債券と、
 外国家計との売買から生じる自国通貨および自国通貨建てリスクフリー債券が計上される。
@@ -115,7 +115,7 @@
 外国家計\(f\)による自国通貨建てリスクフリー債券\(b_t^{f\to H*}\)のすべての外国家計\(f\)についての和を
 名目為替レート\(e_t^{/*}\)を用いて自国通貨建てに変換したものの和が0になることとして定義する。
 \begin{equation}
-\label{eq:bond_markets_international_equilibrium}
+\label{form:chapter3_assumptions_bond_markets_international_equilibrium}
     \sum_{h\in H}b_t^{h\to F}+\sum_{f\in F}e_t^{/*}b_t^{f\to H*}=0 \quad (\forall t\ge s)
 \end{equation}
 この式により為替レートの変動を通じた純資産の移転の原理が表現されている。

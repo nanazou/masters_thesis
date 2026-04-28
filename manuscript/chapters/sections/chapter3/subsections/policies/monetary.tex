@@ -36,10 +36,10 @@
 \label{form:chapter3_policies_monetary_clt_accumulation_eq}
     \gamma_t^H&=\gamma_{t-1}^H+(\log(c_{t-1}^{H\to W})-\log(\chi_{t-1}^H))
 \end{align}
-本稿の各種水準目標（LT）ルールにおいて共通して用いられる目標パス\(\chi_t^H\)は、その定常状態の値\(\chi_{ss}^H\)の対数周囲での外生的な確率過程に従うものと仮定する。
+本稿の各種水準目標（LT）ルールにおいて共通して用いられる目標パス\(\chi_t^H\)は、定常状態\(\chi_{ss}^H\)を基準とした1次自己回帰（AR(1)）過程に従って外生的に変動すると仮定する。
 \begin{equation}
 \label{form:chapter3_policies_monetary_target_path_eq}
-    \log(\chi_t^H)=(1-\rho_{\chi}^H)\log(\chi_{ss}^H)+\rho_{\chi}^H\log(\chi_{t-1}^H)+\varepsilon_t^{\chi,H}
+    \log(\chi_t^H)-\log(\chi_{ss}^H)=\rho_{\chi}^H\left(\log(\chi_{t-1}^H)-\log(\chi_{ss}^H)\right)+\varepsilon_t^{\chi,H}
 \end{equation}
 
 \paragraph{2.消費者物価水準目標(CPLT)}

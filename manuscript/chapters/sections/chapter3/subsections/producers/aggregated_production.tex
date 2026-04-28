@@ -30,7 +30,8 @@
 を代入し、共通項\((p_t^h/p_t^H)^{-\theta^H}\)で括ると以下のようになる。
 \begin{align}
 \label{form:chapter3_producers_aggregated_production_home_nominal_aggregated_production_y_h_modified_eq}
-    y_t^h&=\sum_{h'\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}c_t^{h'\to H}+\sum_{f\in F}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}c_t^{f\to H} \nonumber \\
+    y_t^h
+    &=\sum_{h'\in H}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}c_t^{h'\to H}+\sum_{f\in F}\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}c_t^{f\to H} \nonumber \\
     &=\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]
 \end{align}
 この式を用いて名目総生産\(\sum_{h\in H}p_t^hy_t^h\)を計算する。
@@ -40,7 +41,8 @@
 を用いると以下のようになる。
 \begin{align}
 \label{form:chapter3_producers_aggregated_production_home_nominal_aggregated_production_sum_p_h_y_h_eq}
-    \sum_{h\in H}p_t^hy_t^h&=\sum_{h\in H}p_t^h\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right] \nonumber \\
+    \sum_{h\in H}p_t^hy_t^h
+    &=\sum_{h\in H}p_t^h\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right] \nonumber \\
     &=(p_t^H)^{\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]\sum_{h\in H}(p_t^h)^{1-\theta^H} \nonumber \\
     &=(p_t^H)^{\theta^H}\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right](p_t^H)^{1-\theta^H} \nonumber \\
     &=p_t^H\left[\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}\right]
@@ -55,9 +57,16 @@
 \label{form:chapter3_producers_aggregated_production_home_Y_H_definition_Y_H_def}
     Y_t^H\equiv\sum_{h'\in H}c_t^{h'\to H}+\sum_{f\in F}c_t^{f\to H}
 \end{equation}
-この定義を用いると式
+これを式
+\eqref{form:chapter3_producers_aggregated_production_home_nominal_aggregated_production_sum_p_h_y_h_eq}
+の右辺に代入して両辺を入れ替えると以下の名目総生産の式が得られる。
+\begin{equation}
+\label{form:chapter3_producers_aggregated_production_home_Y_H_definition_p_H_Y_H_eq}
+    p_t^HY_t^H=\sum_{h\in H}p_t^hy_t^h
+\end{equation}
+また式
 \eqref{form:chapter3_producers_aggregated_production_home_nominal_aggregated_production_y_h_modified_eq}
-は生産量\(y_t^h\)と集計生産指数\(Y_t^H\)の式として簡潔に表される。
+の右辺に代入すると以下が得られる。
 \begin{equation}
 \label{form:chapter3_producers_aggregated_production_home_Y_H_definition_y_h_eq}
     y_t^h=\left(\frac{p_t^h}{p_t^H}\right)^{-\theta^H}Y_t^H

@@ -6,41 +6,67 @@
 
 \subsubsection{自国の財政政策}
 \label{sec:chapter3_policies_fiscal_home}
-政府は均衡予算を達成し税収のすべてを家計への一括移転\(t_t^H\)として還元する。
-所得税率\(\tau_t^H\)はその定常状態の値\(\tau_{ss}^H\)の対数周囲での外生的な確率過程に従う。
+政府の財政は毎期均衡し、
+所得税\(\sum_{h\in H}\tau_t^Hp_t^hy_t^h\)を均等な一括還付\(\mathrm{t}_t^H\)として自国家計へ還元する。
+所得税率\(\tau_t^H\)は定常状態\(\tau_{ss}^H\)を基準とした1次自己回帰（AR(1)）過程に従って外生的に変動する。
 \begin{equation}
 \label{form:chapter3_policies_fiscal_home_tau_eq}
-    \log(\tau_t^H)=(1-\rho_{\tau}^H)\log(\tau_{ss}^H)+\rho_{\tau}^H\log(\tau_{t-1}^H)+\varepsilon_t^{\tau,H}
+    \log(\tau_t^H)-\log(\tau_{ss}^H)=\rho_{\tau}^H\left(\log(\tau_{t-1}^H)-\log(\tau_{ss}^H)\right)+\varepsilon_t^{\tau,H}
 \end{equation}
-政府の予算制約式は以下である。
+この式において\(\varepsilon_t^{\tau,H}\)は所得税率を突然変動させる予期せぬショックを表す。
+一方でパラメータ\(\rho_{\tau}^H \in [0,1)\)はショックの持続性を示しており、
+前期の定常状態からの乖離が今期に\(\rho_{\tau}^H\)の割合で引き継がれることを意味する。
+この式は、一度ショックによって定常状態\(\tau_{ss}^H\)から乖離しても、時間の経過とともにショックの影響は薄れ、
+定常状態\(\tau_{ss}^H\)へと引き戻されていく仕組みを表現している。
+政府の予算制約式は以下のようになる。
 \begin{equation}
 \label{form:chapter3_policies_fiscal_home_budget_eq}
-    Nt_t^H=\sum_{h\in H}\tau_t^Hp_t^hy_t^h
+    N\mathrm{t}_t^H=\sum_{h\in H}\tau_t^Hp_t^hy_t^h
 \end{equation}
-ここで付録A.4（定理4）において証明されるように総名目所得は以下の関係式で表すことができる。
+式
+\eqref{form:chapter3_producers_aggregated_production_home_Y_H_definition_p_H_Y_H_eq}
+により\(\sum_{h\in H}p_t^hy_t^h=p_t^HY_t^H\)であったから、
+政府の予算制約式は以下のように書き換えることもできる。
 \begin{equation}
-\label{form:chapter3_policies_fiscal_nominal_income_identity_eq}
-    \sum_{h\in H}p_t^hy_t^h=p_t^HY_t^H
+\label{form:chapter3_policies_fiscal_home_budget_modified_eq}
+    N\mathrm{t}_t^H=\tau_t^Hp_t^HY_t^H
 \end{equation}
-これらより集計レベルの予算制約式は以下のように決定される。
+これを一括還付\(\mathrm{t}_t^H\)について解けば以下のようになる。
 \begin{equation}
-\label{form:chapter3_policies_fiscal_gov_budget_aggregate_eq}
-    Nt_t^H=\tau_t^Hp_t^HY_t^H
-\end{equation}
-これより一人当たり移転額は以下のように決定される。
-\begin{equation}
-\label{form:chapter3_policies_fiscal_transfer_home_eq}
-    t_t^H=\tau_t^H\frac{p_t^HY_t^H}{N}
+\label{form:chapter3_policies_fiscal_home_budget_modified2_eq}
+    \mathrm{t}_t^H=\tau_t^H\frac{p_t^HY_t^H}{N}
 \end{equation}
 
 \subsubsection{外国の財政政策}
 \label{sec:chapter3_policies_fiscal_foreign}
-同様に外国政府の税率\(\tau_t^F\)は外生的な確率過程に従い、一人当たり移転額は以下のように決定される。
+外国政府の財政も同様に毎期均衡し、
+所得税\(\sum_{f\in F}\tau_t^Fp_t^{f*}y_t^f\)を均等な一括還付\(\mathrm{t}_t^{F*}\)として外国家計へ還元する。
+所得税率\(\tau_t^F\)も同様に定常状態\(\tau_{ss}^{F*}\)を基準とした1次自己回帰（AR(1)）過程に従って
+外生的に変動する。
 \begin{equation}
-\label{form:chapter3_policies_fiscal_transfer_foreign_eq}
-    t_t^{F*}=\tau_t^F\frac{p_t^{F*}Y_t^F}{M}
+\label{form:chapter3_policies_fiscal_foreign_tau_eq}
+    \log(\tau_t^F)-\log(\tau_{ss}^{F*})=\rho_{\tau}^F\left(\log(\tau_{t-1}^F)-\log(\tau_{ss}^{F*})\right)+\varepsilon_t^{\tau,F}
 \end{equation}
+この式において\(\varepsilon_t^{\tau,F}\)は所得税率を突然変動させる予期せぬショックを表す。
+一方でパラメータ\(\rho_{\tau}^F \in [0,1)\)はショックの持続性を示しており、
+前期の定常状態からの乖離が今期に\(\rho_{\tau}^F\)の割合で引き継がれることを意味する。
+この式は、一度ショックによって定常状態\(\tau_{ss}^{F*}\)から乖離しても、時間の経過とともにショックの影響は薄れ、
+定常状態\(\tau_{ss}^{F*}\)へと引き戻されていく仕組みを表現している。
+外国政府の予算制約式は以下のようになる。
 \begin{equation}
-\label{form:chapter3_policies_fiscal_tax_rule_foreign_eq}
-    \log(\tau_t^F)=(1-\rho_{\tau}^F)\log(\tau_{ss}^{F*})+\rho_{\tau}^F\log(\tau_{t-1}^F)+\varepsilon_t^{\tau,F}
+\label{form:chapter3_policies_fiscal_foreign_budget_eq}
+    M\mathrm{t}_t^{F*}=\sum_{f\in F}\tau_t^Fp_t^{f*}y_t^f
+\end{equation}
+式
+\eqref{form:chapter3_producers_aggregated_production_foreign_Y_F_definition_p_F_Y_F_eq}
+により\(\sum_{f\in F}p_t^{f*}y_t^f=p_t^{F*}Y_t^F\)であったから、
+外国政府の予算制約式は以下のように書き換えることもできる。
+\begin{equation}
+\label{form:chapter3_policies_fiscal_foreign_budget_modified_eq}
+    M\mathrm{t}_t^{F*}=\tau_t^Fp_t^{F*}Y_t^F
+\end{equation}
+これを一括還付\(\mathrm{t}_t^{F*}\)について解けば以下のようになる。
+\begin{equation}
+\label{form:chapter3_policies_fiscal_foreign_budget_modified2_eq}
+    \mathrm{t}_t^{F*}=\tau_t^F\frac{p_t^{F*}Y_t^F}{M}
 \end{equation}

@@ -3,35 +3,59 @@
 
 \subsection{財政政策}
 \label{sec:chapter3_representative_household_fiscal_policy}
-\paragraph{①出発点：政府の集計予算制約}\label{sec:chapter3_representative_household_fiscal_policy_origin}
-3.6.1節\eqref{form:model_final_gov_budget_agg}で示された通り、政府の税収と移転の関係は、以下の集計レベルの予算制約式で厳密に表される。
+
+\subsubsection{自国の財政政策}
+\label{sec:chapter3_representative_household_fiscal_policy_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_fiscal_policy_home_original}
+式
+\eqref{form:chapter3_policies_fiscal_home_budget_modified_eq}
+で示されたとおり、政府の予算制約は以下のようであった。
 \begin{equation}
-\label{form:chapter3_representative_household_fiscal_policy_gov_agg_restated}
-    Nt_t^H=\tau_t^Hp_t^HY_t^H
+\label{form:chapter3_representative_household_fiscal_policy_home_original_budget_eq}
+    N\mathrm{t}_t^H=\tau_t^Hp_t^HY_t^H
 \end{equation}
 
-\paragraph{②代表的家計モデルの方程式への変換}\label{sec:chapter3_representative_household_fiscal_policy_ra_eq}
-3.8.3.1節で定義した\(y_t^H\equiv Y_t^H/N\)を上記に代入する。
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_fiscal_policy_home_representative}
+定義
+\eqref{form:chapter3_representative_household_resource_constraints_home_y_H_def}
+\(y_t^H\equiv Y_t^H/N\)を上式に代入する。
 \begin{equation}
-\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_derivation}
-    Nt_t^H=\tau_t^Hp_t^H(Ny_t^H)
+\label{form:chapter3_representative_household_fiscal_policy_home_representative_budget_eq}
+    N\mathrm{t}_t^H=\tau_t^Hp_t^H(Ny_t^H)
 \end{equation}
-この式の両辺を人口\(N\)で割ることで、一人当たりの一括移転\(t_t^H\)が得られる。
+この式の両辺を人口\(N\)で割ることで一括還付\(\mathrm{t}_t^H\)が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_h}
-    t_t^H=\tau_t^Hp_t^Hy_t^H
+\label{form:chapter3_representative_household_fiscal_policy_home_representative_budget2_eq}
+    \mathrm{t}_t^H=\tau_t^Hp_t^Hy_t^H
 \end{equation}
 
-\paragraph{税率の決定ルール}\label{sec:chapter3_representative_household_fiscal_policy_tax_rule}
-税率は3.6.1節\eqref{form:model_tax_rule_H}で定義した確率過程に従う。
+\subsubsection{外国の財政政策}
+\label{sec:chapter3_representative_household_fiscal_policy_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_fiscal_policy_foreign_original}
+式
+\eqref{form:chapter3_policies_fiscal_foreign_budget_modified_eq}
+で示されたとおり、外国政府の予算制約は以下のようであった。
 \begin{equation}
-\label{form:chapter3_representative_household_fiscal_policy_gov_tax_rule_h_restated}
-    \log(\tau_t^H)=(1-\rho_\tau^H)\log(\tau_{ss}^H)+\rho_\tau^H\log(\tau_{t-1}^H)+\varepsilon_t^{\tau,H}
+\label{form:chapter3_representative_household_fiscal_policy_foreign_original_budget_eq}
+    M\mathrm{t}_t^{F*}=\tau_t^Fp_t^{F*}Y_t^F
 \end{equation}
-外国についても同様に定義される。
-\begin{align}
-\label{form:chapter3_representative_household_fiscal_policy_gov_transfer_f}
-    t_t^{F*}&=\tau_t^Fp_t^{F*}y_t^F \\
-\label{form:chapter3_representative_household_fiscal_policy_gov_tax_rule_f_restated}
-    \log(\tau_t^F)&=(1-\rho_\tau^F)\log(\tau_{ss}^{F*})+\rho_\tau^F\log(\tau_{t-1}^F)+\varepsilon_t^{\tau,F}
-\end{align}
+
+\paragraph{②外国の代表的家計の方程式}
+\label{sec:chapter3_representative_household_fiscal_policy_foreign_representative}
+定義
+\eqref{form:chapter3_representative_household_resource_constraints_foreign_y_F_def}
+\(y_t^F\equiv Y_t^F/M\)を上式に代入する。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_foreign_representative_budget_eq}
+    M\mathrm{t}_t^{F*}=\tau_t^Fp_t^{F*}(My_t^F)
+\end{equation}
+この式の両辺を人口\(M\)で割ることで一括還付\(\mathrm{t}_t^{F*}\)が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_fiscal_policy_foreign_representative_budget2_eq}
+    \mathrm{t}_t^{F*}=\tau_t^Fp_t^{F*}y_t^F
+\end{equation}

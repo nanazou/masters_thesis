@@ -1,54 +1,74 @@
 % !TeX root = ../../../../../main.tex
-% chapters/sections/chapter3/subsections/representative_household/resource_constraint.tex
+% chapters/sections/chapter3/subsections/representative_household/resource_constraints.tex
 
-\subsection{資源制約式}
-\label{sec:chapter3_representative_household_resource_constraint}
+\subsection{資源制約}
+\label{sec:chapter3_representative_household_resource_constraints}
 
-\subsubsection{自国の資源制約式}
-\label{sec:chapter3_representative_household_resource_constraint_home}
+\subsubsection{自国の資源制約}
+\label{sec:chapter3_representative_household_resource_constraints_home}
 
 \paragraph{①自国の元となる方程式}
-\label{sec:chapter3_representative_household_resource_constraint_home_original}
+\label{sec:chapter3_representative_household_resource_constraints_home_original}
 式
-
-で示されたとおり、...
-全ての家計の予算制約式を足し合わせ国内市場の均衡条件を適用すると、国の資源制約式が得られる。
+\eqref{form:chapter3_resource_constraints_aggregate_home_sum_budgets_modified3_eq}
+で導出されたとおり、自国全体の資源制約式は以下のようであった。
 \begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_home_original_budget_eq}
-    p_t^{H\to W}C_t^{H\to W}+B_{t+1}^H=p_t^HY_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H
+\label{form:chapter3_representative_household_resource_constraints_home_original_eq}
+    B_{t+1}^H+p_t^{H\to W}C_t^{H\to W}=p_t^HY_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}B_t^H
 \end{equation}
 
 \paragraph{②自国代表的家計の方程式}
-\label{sec:chapter3_representative_household_resource_constraint_home_representative}
-自国代表的家計の国際リスクフリー債券\(b_t^H\)を以下で定義する。
+\label{sec:chapter3_representative_household_resource_constraints_home_representative}
+ここで自国代表的家計の外国通貨建てリスクフリー債券\(b_t^H\)、総消費\(c_t^{H\to W}\)、
+および生産\(y_t^H\)をそれぞれ自国集計変数\(B_t^H, C_t^{H\to W}, Y_t^H\)を人口\(N\)で割ったものとして
+以下のように定義する。
+\begin{align}
+    \label{form:chapter3_representative_household_resource_constraints_home_b_H_def}
+        b_t^H&\equiv\frac{B_t^H}{N} \\
+    \label{form:chapter3_representative_household_resource_constraints_home_c_H_W_def}
+        c_t^{H\to W}&\equiv\frac{C_t^{H\to W}}{N} \\
+    \label{form:chapter3_representative_household_resource_constraints_home_y_H_def}
+        y_t^H&\equiv\frac{Y_t^H}{N}
+\end{align}
+これらの定義から導かれる式
+\(B_t^H=Nb_t^H\)、\(C_t^{H\to W}=Nc_t^{H\to W}\)、および\(Y_t^H=Ny_t^H\)を式
+\eqref{form:chapter3_representative_household_resource_constraints_home_original_eq}
+に代入し、両辺を自国人口\(N\)で割ると自国代表的家計の資源制約式が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_home_representative_b_H_def}
-    b_t^H\equiv B_t^H/N
+\label{form:chapter3_representative_household_resource_constraints_home_representative_eq}
+    b_{t+1}^H+p_t^{H\to W}c_t^{H\to W}=p_t^Hy_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^H
 \end{equation}
+
+\subsubsection{外国の資源制約}
+\label{sec:chapter3_representative_household_resource_constraints_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_resource_constraints_foreign_original}
 式
-\eqref{form:chapter3_representative_household_resource_constraint_home_original_budget_eq}
-に対し式
-、
-、
-
-より\(C_t^{H\to W}=Nc_t^{H\to W}\)、\(Y_t^H=Ny_t^H\)、および\(B_t^H=Nb_t^H\)を代入すると以下が得られる。
+\eqref{form:chapter3_resource_constraints_aggregate_foreign_sum_budgets_modified3_eq}
+で導出されたとおり、外国全体の資源制約式は以下のようであった。
 \begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_home_original_budget_modified_eq}
-    p_t^{H\to W}(Nc_t^{H\to W})+(Nb_{t+1}^H)=p_t^H(Ny_t^H)+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}(Nb_t^H)
-\end{equation}
-この両辺を\(N\)で割ると自国代表的家計の資源制約式が得られる。
-\begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_home_original_budget_modified2_eq}
-    p_t^{H\to W}c_t^{H\to W}+b_{t+1}^H=p_t^Hy_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^H
+\label{form:chapter3_representative_household_resource_constraints_foreign_original_eq}
+    B_{t+1}^{F*}+p_t^{F\to W*}C_t^{F\to W}=p_t^{F*}Y_t^F+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}B_t^{F*}
 \end{equation}
 
-外国についても同様に、代表的家計（人口\(M\)）の資源制約式が得られる。ここで\(b_t^F\equiv B_t^{F*}/M\)と定義する。
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_resource_constraints_foreign_representative}
+ここで外国代表的家計の自国通貨建てリスクフリー債券\(b_t^{F*}\)、総消費\(c_t^{F\to W}\)、
+および生産\(y_t^F\)をそれぞれ外国集計変数\(B_t^{F*}, C_t^{F\to W}, Y_t^F\)を人口\(M\)で割ったものとして
+以下のように定義する。
+\begin{align}
+    \label{form:chapter3_representative_household_resource_constraints_foreign_b_F_star_def}
+        b_t^{F*}&\equiv\frac{B_t^{F*}}{M} \\
+    \label{form:chapter3_representative_household_resource_constraints_foreign_c_F_W_def}
+        c_t^{F\to W}&\equiv\frac{C_t^{F\to W}}{M} \\
+    \label{form:chapter3_representative_household_resource_constraints_foreign_y_F_def}
+        y_t^F&\equiv\frac{Y_t^F}{M}
+\end{align}
+これらの定義から導かれる式\(B_t^{F*}=Mb_t^{F*}\)、\(C_t^{F\to W}=Mc_t^{F\to W}\)、および\(Y_t^F=My_t^F\)を式
+\eqref{form:chapter3_representative_household_resource_constraints_foreign_original_eq}
+に代入し、両辺を外国人口\(M\)で割ると外国代表的家計の資源制約式が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_f}
-    p_t^{F\to W*}c_t^{F\to W}+b_{t+1}^{F*}=p_t^{F*}y_t^F+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{F*}
-\end{equation}
-ここで、外国の代表的家計の対外純資産\(b_t^{F*}\)は、以下のように定義される。
-\begin{equation}
-\label{form:chapter3_representative_household_resource_constraint_ra_b_f_def}
-    b_t^{F*}\equiv-(N/M)(b_t^H/e_t^{/*})
+\label{form:chapter3_representative_household_resource_constraints_foreign_representative_eq}
+    b_{t+1}^{F*}+p_t^{F\to W*}c_t^{F\to W}=p_t^{F*}y_t^F+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{F*}
 \end{equation}

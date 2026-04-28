@@ -1,87 +1,173 @@
-% !TeX root = ../../main.tex
-% sections/chap4/sec_preparation_method.tex
+% !TeX root = ../../../../../main.tex
+% sections/chapter4/subsections/method.tex
 
 \section{シミュレーション手法}
-\label{sec:model_preparation_method_main}
-
+\label{sec:method_chapter4_method}
 本稿のシミュレーションではDynare6.3を使用する。
 Dynareを用いることによりショックに対する各変数の動的な反応をグラフとデータにより出力することができる。
 またゼロ金利制約の再現のために\textcite{GuerrieriIacoviello2015}によって開発されたライブラリOccbinを用いる。
 しかし初めに開発されたOccbinはDynare6.3に対応していないため、
-Johannes Pfeifer氏が最新のDynareとの互換性を維持するために修正した更新版リポジトリOccbin\_updateを使用する。
+Johannes Pfeiferが最新のDynareとの互換性を維持するために修正した更新版リポジトリOccbin\_updateを使用する。
 
 \subsection{Dynareによる数値計算}
-\label{sec:model_preparation_method_dynare}
+\label{sec:method_dynare}
+シミュレーションにあたり\ref{chap:chapter3}章の方程式系に加え、初期定常状態、パラメータおよびショック
+の具体的な値をDynareに与える。
+するとDynareはショックによって初期定常状態から飛ばされた内生変数のベクトル（これを便宜的に「経済」と呼ぶ）が
+方程式系を満たしながら初期定常状態へ戻ってくる様子をグラフに描いてくれる。
+以下ではこのシミュレーションの原理を直観的に説明する。
 
-シミュレーションにあたり3章の動学方程式系、定常状態、パラメータおよびショックをDynareに与える。
-するとDynareはショックによって定常状態から飛ばされた経済が
-動学方程式系をみたしながら元の定常状態へ戻ってくる様子をグラフに描いてくれる。
-ここではこのシミュレーションの原理を直観的に説明する。
-動学方程式系\(\mathbf{f}\)について、
-定常状態\(\mathbf{x}_{ss}\)はショックがない\(\mathbf{\epsilon}=0\)ときに
-経済が永続的に留まる点として以下を満たすものと定義される。
+\subsubsection{変数の分類：状態変数とジャンプ変数}
+\label{sec:method_variables_classification}
+Dynareにおけるシミュレーションを説明する準備として、
+経済を構成する変数を「期の添え字」によって以下の4種類に分類する。
+\begin{enumerate}
+    \item
+    \label{itm:method_variables_state}
+        \textbf{状態変数:}\\
+        方程式系に\(t\)期と\(t-1\)期のもののみが含まれる変数を指す。
+        本モデルにおける例として、自国の価格分散\(\Delta_t^H\)の動学方程式
+        \eqref{form:chapter3_representative_household_phillips_home_representative_Delta_H_dynamics_Delta_H_modified2_def}
+        を挙げる。
+        \begin{equation}
+        \label{form:method_state_example_delta}
+            \Delta_t^H
+            =(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}+\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
+        \end{equation}
+        この方程式は\(t\)期の変数（\(\Delta_t^H,\widetilde{p}_t^H,p_t^H\)）と\(t-1\)期の変数（\(\Delta_{t-1}^H,p_{t-1}^H\)）のみを含んでいる。また定義に従い、この\(\Delta^H\)は方程式系のほかのいかなる箇所においても\(t+1\)期の形（\(\Delta_{t+1}^H\)）で登場することはない。このように\(t+1\)期の変数には依存せず、\(t-1\)期の変数を含んで次期へと状態を引き継ぐ変数を状態変数として扱う。
+    \item
+    \label{itm:method_variables_jump}
+        \textbf{ジャンプ変数:}\\
+        方程式系に\(t\)期と\(t+1\)期のもののみが含まれる変数を指す。
+        例えば、自国代表的家計の自国コンティンジェント債券に関するオイラー方程式\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}は以下の通りであった。
+        \begin{equation}
+        \label{form:method_euler_example}
+            \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+        \end{equation}
+        この方程式は\(t\)期の変数（\(\lambda_t^H,\beta_t^H,i_t^H\)）と\(t+1\)期の変数（\(\lambda_{t+1}^H\)）のみを含んでいる。したがって定義に従いジャンプ変数として扱う。このように\(t+1\)期の変数を含むため、ショック発生時に\(t+1\)期の変数の予測が変化すると、方程式を成立させるために\(t\)期の変数もその影響を受けて瞬時に大きく変化（ジャンプ）する。
+    \item
+    \label{itm:method_variables_static}
+        \textbf{静学変数:}\\
+        方程式系に\(t\)期のもののみが含まれる変数を指す。
+        例えば本モデルにおける一人当たり生産\(y_t^H\)などが該当する。
+        これらは状態変数とジャンプ変数が確定すれば\(t\)期の中で連動して自動的に決まるため、
+        系の動学を規定する分析においては代入により消去可能な変数として扱われる。
+    \item
+    \label{itm:method_variables_mixed}
+        \textbf{混合変数（Mixed変数）:}\\
+        方程式系に\(t\)期と\(t-1\)期および\(t+1\)期のものが含まれる変数を指す。
+        状態変数とジャンプ変数の両方の性質を併せ持つ。本稿の方程式系には登場しない。
+\end{enumerate}
+
+\subsubsection{1つの状態変数のみからなる経済}
+\label{sec:method_single_variable}
+まずはじめに経済\(x_t\)が1つの状態変数のみからなる場合を考察する。
+このとき方程式系に\(t+1\)期の変数が含まれないため、方程式系は\(\operatorname{E}_t[x_{t+1}]\)を省いた
+残差関数を用いて以下のように記述される。
 \begin{equation}
-\mathbf{f}(\mathbf{x}_{ss},\mathbf{x}_{ss},0)=0
-\label{form:model_preparation_method_dynare_steady_state_definition}
+\label{form:method_single_system}
+    f(x_t,x_{t-1},\epsilon_t)=0
 \end{equation}
-この定常状態においてヤコビ行列が正則であれば陰関数定理によって点
-\((\mathbf{x}_{t+1},\mathbf{x}_t,\mathbf{\epsilon}_t)=(\mathbf{x}_{ss},\mathbf{x}_{ss},0)\)
-の近傍において
+しかしシミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
+そこで残差関数\(f\)を初期定常状態\((x_{ss},x_{ss},0)\)の周りで線形化すると以下のようになる。
 \begin{equation}
-\mathbf{x}_{t+1}=\mathbf{h}(\mathbf{x}_t,\mathbf{\epsilon}_t)
-\label{form:model_preparation_method_dynare_policy_function}
+\label{form:method_linearized_single}
+    b(x_t-x_{ss})+c(x_{t-1}-x_{ss})+d(\epsilon_t-0)=0
 \end{equation}
-というベクトル値関数\(\mathbf{h}\)の存在が数学的に保証される。
-また定常状態の定義から\(\mathbf{x}_{ss}=\mathbf{h}(\mathbf{x}_{ss},0)\)という関係が成立する。
-この関係を直観的に理解するため、経済の状態を一変数のスカラー\(x_t\)と仮定し、
-ショックの値を固定した関数\(h_{\epsilon}(x_t)\equiv h(x_t,\epsilon)\)を定義して
-\((x_t,x_{t+1})\)平面上でその挙動を考察する。
-
-ショックがない定常状態において、経済は\(x_{ss}=h_0(x_{ss})\)を満たす点に静止している。
-これは2次元平面上では\(h_0\)が45度線と交差している地点に相当する。
-\(t=0\)においてショック\(\epsilon_0\)が発生すると、
-グラフが\(h_{\epsilon_0}\)へと一時的に移動し、経済は定常状態\(x_{ss}\)から
-移動したグラフ上の点\(x_0=h_{\epsilon_0}(x_{ss})\)へとジャンプする。
-ショックが収まる\(t\ge1\)以降、グラフは元の\(h_0\)に戻る。
-経済は\(x_0\)という地点から、以下の帰納的なプロセスによって定常状態へと戻っていく。
-
-
-
+ここで\(b,c,d\)は残差関数\(f\)の各変数に関する偏微分から定まる定数である。
+これを変形すると陰関数\(h\)（政策関数とも呼ばれる）が以下のように導かれる。
 \begin{equation}
-x_1=h_0(x_0),\quad x_2=h_0(x_1),\quad\dots
-\label{form:model_preparation_method_dynare_iterative_convergence}
+\label{form:method_implicit_h_single}
+    x_t=h(x_{t-1},\epsilon_t)=x_{ss}-\frac{c}{b}(x_{t-1}-x_{ss})-\frac{d}{b}(\epsilon_t-0)
 \end{equation}
-この反復計算の結果\(x_t\)は\(x_{ss}\)へと収束する。
-この階段状の移動の軌跡を時間軸に沿ってプロットしたものがインパルス応答関数である。
-実用上の計算においてはこの曲線\(h_0\)そのものを非線形のまま直接求めることは困難である。
-そのため定常状態\((x_{ss},x_{ss})\)において曲線\(h_0\)に接する接線を導出する1次近似をおこなう。
-この接線の傾きが1より小さければ経済は定常状態へと収束する。
-ここで多次元の一般論へと議論を広げると以下の数理的な課題が生じる。
-まず非線形なベクトル値関数\(\mathbf{h}\)を厳密に特定することは実用上不可能である。
-さらに9本の方程式系を満かしながら定常状態へ向かう関数\(\mathbf{h}\)は数学的に複数存在する可能性があり、
-その場合、定常状態の周りにおける1次近似（接線の傾き）も一意に定まらない。
-そのため1次近似を一意に決定するためのBlanchard-Kahn（BK）条件がある。
-これは経済のジャンプ変数の数と
-係数行列（接線の傾きに相当する）の固有値のうち1より大きいもの（不安定根）の数が
-一致することを要求する条件である。
-この条件が満たされるとき、発散する経路を排除し定常状態へと収束する唯一のサドルパス安定解として
-接平面の傾きが一意に確定する。
-シミュレーションにおいて、経済はこの確定した接線（接平面）の上を
-ショックによって決まった初期値から帰納的に移動していくことで最終的な動学パスが算出されるのである。
+なお、定常状態の性質から\(x_{ss}=h(x_{ss},0)\)という関係が成立する。
+この陰関数\(h\)について\(\epsilon_t\)を固定すれば\(h_{\epsilon_t}\)が得られる。
+\begin{equation}
+\label{form:method_h_epsilon_single}
+    h_{\epsilon_t}(x_{t-1})\equiv h(x_{t-1},\epsilon_t)
+\end{equation}
+この関数\(h_{\epsilon_t}\)を用いて\((x_{t-1},x_t)\)平面上の点\((x_{t-1},x_t)\)の挙動を考察する。
+点\((x_{t-1},x_t)\)ははじめ初期定常状態\((x_{ss},x_{ss})\)で静止しているとする。
+これは\((x_{t-1},x_t)\)平面上では\(h_0\)が45度線と交差している点に相当する。
+\(t=0\)においてショックが発生すると\(h_0\)は\(h_{\epsilon_0}\)へと変化し、点\((x_{t-1},x_t)\)は
+初期定常状態\((x_{ss},x_{ss})\)から\((x_{ss},x_0=h_{\epsilon_0}(x_{ss}))\)へとジャンプする。
+ショックがなくなる\(t\ge 1\)以降は\(h_{\epsilon_t}\)は再び\(h_0\)となる。
+点\((x_{t-1},x_t)\)が\((x_{ss},x_0)\)を始点として
+\((x_{ss},x_0), 
+  (x_0,x_1=h_{\epsilon_0}(x_0)),\quad
+  (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots\)
+と移動していく様子は以下の階段状の動きを考えると視覚的に捉えやすい。
+\begin{equation}
+\label{form:method_iterative_convergence}
+    (x_{ss},x_0),\quad
+    (x_0,x_0),\quad (x_0,x_1=h_{\epsilon_0}(x_0)),\quad
+    (x_1,x_1),\quad (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots
+\end{equation}
+ショックが消滅した\(t\ge 1\)以降、状態変数はこの線形化された関数\(h_0\)の直線上を推移していくこととなる。
+このとき接線の傾きの絶対値が1より小さければ点\((x_{t-1},x_t)\)は初期定常状態\((x_{ss},x_{ss})\)へと収束する。
+この点\((x_{t-1},x_t)\)の移動の軌跡を時間軸に沿って点描したものがインパルス応答関数である。
+
+\subsubsection{状態変数とジャンプ変数からなる多変数の経済}
+\label{sec:method_multivariable}
+次に経済\(\mathbf{x}_t\)を状態変数とジャンプ変数からなるベクトルとする。
+このとき方程式系は\(t+1\)期の変数\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)を含んだ以下の一般的な形になる。
+\begin{equation}
+\label{form:method_multivariable_system_with_expectation}
+    f(\operatorname{E}_t[\mathbf{x}_{t+1}],\mathbf{x}_t,\mathbf{x}_{t-1},\mathbf{\epsilon}_t)=0
+\end{equation}
+前節で説明したように、シミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
+そこで残差関数\(f\)を初期定常状態\((\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{0})\)
+の周りで線形化して接平面を求めると以下のようになる。
+\begin{equation}
+\label{form:method_linearized_system}
+    A(\operatorname{E}_t[\mathbf{x}_{t+1}]-\mathbf{x}_{ss})+B(\mathbf{x}_t-\mathbf{x}_{ss})+C(\mathbf{x}_{t-1}-\mathbf{x}_{ss})+D(\mathbf{\epsilon}_t-\mathbf{0})=0
+\end{equation}
+ここで行列\(A,B,C,D\)は残差関数\(f\)の各変数ベクトルに関する偏微分から定まる定数行列である。
+この線形化された方程式系には\(t+1\)期の変数\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)が含まれている。
+こうした線形化された方程式系の性質により
+「来期の期待値\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)が決まらないと今期の値\(\mathbf{x}_t\)が決まらない」
+という複雑な状況が生じている。
+そこでシミュレーションをおこなうには、こうした複雑な状況を考慮したうえで、
+来期の期待値\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)に依存せず、
+前期の変数\(\mathbf{x}_{t-1}\)と今期のショック\(\mathbf{\epsilon}_t\)のみから
+今期の変数\(\mathbf{x}_t\)が決定される規則、すなわち以下の陰関数（政策関数）\(h\)を導出できればよい。
+\begin{equation}
+\label{form:method_implicit_h_multi}
+    \mathbf{x}_t=h(\mathbf{x}_{t-1},\mathbf{\epsilon}_t)
+\end{equation}
+そのために線形化された方程式系において
+今期と前期の変数\(\mathbf{x}_t,\mathbf{x}_{t-1}\)をベクトル\(\mathbf{y}_t\)にまとめ、
+方程式系を以下のような1階の差分方程式に変形する。
+\begin{equation}
+\label{form:method_first_order_difference}
+    \operatorname{E}_t[\mathbf{y}_{t+1}]=W\mathbf{y}_t+V\mathbf{\epsilon}_t
+\end{equation}
+ここで行列\(W\)と\(V\)は元の係数行列\(A,B,C,D\)を代数的に操作して得られる定数行列であり、
+特に推移行列\(W\)は経済の動学的な性質を決定づける。
+この線形化された方程式系において、
+ショックを受けた経済\(\mathbf{x}_t\)が初期定常状態\(\mathbf{x}_{ss}\)へ収束するような
+陰関数\(h\)がただ1つだけ存在するための判定基準が、Blanchard-Kahn（BK）条件である。
+具体的には
+「絶対値が1より大きい固有値（経済を発散させようとする力）の数」と
+「ジャンプ変数の数」が一致することが要求される。
+このBK条件が満たされていれば、経済\(\mathbf{x}_t\)が発散することなく
+初期定常状態\(\mathbf{x}_{ss}\)へ向かう安定な軌道（サドルパス）に乗るように、
+前期の状態変数\(\mathbf{x}_{t-1}\)と今期のショック\(\mathbf{\epsilon}_t\)に基づいて
+今期のジャンプ変数の値が一意に決定される（これをサドルパス安定解と呼ぶ）。
+それにより来期の期待値に依存しない陰関数\(h\)をただ1つに特定することができる。
 
 \subsection{Occbinの役割}
-\label{sec:model_preparation_method_occbin}
-
-前述の関数\(\mathbf{h}\)は経済の自然な移動を記述するものであるが、
+\label{sec:method_occbin}
+前述の関数\(h\)は経済の自然な移動を記述するものであるが、
 ゼロ金利制約は特定の区間においてその移動を壁のように遮断してしまう。
-したがってすべての区間において\(\mathbf{h}\)により描写することは不可能である。
+したがってすべての区間において\(h\)により描写することは不可能である。
 そこでOccbinは経済が自然に移動する区間とゼロ金利制約にかかる区間を別々のレジームとして定義する。
 そしてそれぞれのレジームにおいて1次近似をおこない得られた結果を繋ぎ合わせることでこの問題を解決している。
 
 \subsection{自国金融政策パラメータの決定に際するゲーム的状況の回避}
-\label{sec:model_preparation_method_game_theory}
+\label{sec:method_game_theory}
 シミュレーションをおこなうにあたり、
-まず外国金融政策は消費者物価指数を用いたインフレ目標に固定し政策パラメータも標準的な値に固定する。
+まず外国金融政策は生産者物価指数を用いたインフレ目標に固定し政策パラメータも標準的な値に固定する。
 そのうえで自国の各金融政策については政策パラメータは
 \(\beta\)ショックのシミュレーションにおいて自国の厚生を最大化するものとする。
 これらのパラメータを用いておこなった\(\beta\)ショックおよび\(a\)ショックのシミュレーション結果が
