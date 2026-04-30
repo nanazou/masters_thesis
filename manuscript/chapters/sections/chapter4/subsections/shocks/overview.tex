@@ -1,0 +1,27 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter4/subsections/shocks/overview.tex
+
+本稿のシミュレーションでは自国家計が貯蓄を好むようになる\(\beta\)ショック、
+および生産性が低下する\(a\)ショックを経済すなわち\ref{chap:chapter3}章の動学方程式系に対して与える。
+主観的割引因子\(\beta_t^H\)の上釈は家計が我慢強くなり、
+現在の消費よりも将来の消費をより高く評価するようになることを意味する。
+その結果、家計は現在の消費を減らし将来に備えて貯蓄を増やそうとする。
+これは負の需要ショックの一種である。
+生産性\(a_t^H\)の低下は生産に下落圧力を与え、
+もし同じ生産を保とうとするならばより多くの労働が必要となる。
+これは負の供給ショックの一種である。
+シミュレーションではこれらのショックが第0期（\(t=0\)）に発生し、
+その後は\(\beta\)および\(a\)の自己回帰プロセスにしたがって徐々に定常状態へと減衰していく。
+\begin{equation}
+\label{form:chapter4_shocks_stochastic_processes_eq}
+\begin{aligned}
+\log(\beta_t^H)&=(1-\rho_{\beta}^H)\log(\beta_{ss}^H)+\rho_{\beta}^H\log(\beta_{t-1}^H)+\varepsilon_t^{\beta,H} \\
+\log(a_t^H)&=(1-\rho_{a}^H)\log(a_{ss}^H)+\rho_{a}^H\log(a_{t-1}^H)+\varepsilon_t^{a,H}
+\end{aligned}
+\end{equation}
+自己回帰係数についてはパラメータ設定の表\ref{tab:chapter4_parameters_list}でも示したとおり
+\(\rho_{\beta}^H\)および\(\rho_{a}^H\)はともに1より小さい値に設定されており、
+ショックの影響が時間とともに消失する定常的な過程となっている。
+また外生的なショック項は第0期（\(t=0\)）においてのみ
+\(\varepsilon_0^{\beta,H}=0.02\)および\(\varepsilon_0^{a,H}=-0.1\)となり、
+それ以降の期間（\(t>0\)）では0となる。

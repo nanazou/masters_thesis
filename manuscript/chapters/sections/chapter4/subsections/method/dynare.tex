@@ -1,0 +1,267 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter4/subsections/method/dynare.tex
+
+\subsection{Dynareによる数値計算}
+\label{sec:method_dynare}
+シミュレーションにあたり\ref{chap:chapter3}章の方程式系に加え、初期定常状態、パラメータおよびショック
+の具体的な値をDynareに与える。
+するとDynareはショックによって初期定常状態から飛ばされた内生変数のベクトル（これを便宜的に「経済」と呼ぶ）が
+方程式系を満たしながら初期定常状態へ戻ってくる様子をグラフに描いてくれる。
+以下ではこのシミュレーションの原理を直観的に説明する。
+
+\subsubsection{変数の分類：状態変数とジャンプ変数}
+\label{sec:method_variables_classification}
+Dynareにおけるシミュレーションを説明する準備として、
+経済を構成する変数を「期の添え字」によって以下の4種類に分類する。
+\begin{enumerate}
+    \item
+    \label{itm:method_variables_state}
+        \textbf{状態変数:}\\
+        方程式系に\(t\)期と\(t-1\)期のもののみが含まれる変数を指す。
+        本モデルにおける例として、自国の価格分散\(\Delta_t^H\)の動学方程式
+        \eqref{form:method_state_example_delta}
+        を挙げる。
+        \begin{equation}
+        \label{form:method_state_example_delta}
+            \Delta_t^H
+            =(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}+\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
+        \end{equation}
+        この方程式は\(t\)期の変数（\(\Delta_t^H,\widetilde{p}_t^H,p_t^H\)）と\(t-1\)期の変数（\(\Delta_{t-1}^H,p_{t-1}^H\)）のみを含んでいる。また定義に従い、この\(\Delta^H\)は方程式系のほかのいかなる箇所においても\(t+1\)期の形（\(\Delta_{t+1}^H\)）で登場することはない。このように\(t+1\)期の変数には依存せず、\(t-1\)期の変数を含んで次期へと状態を引き継ぐ変数を状態変数として扱う。
+    \item
+    \label{itm:method_variables_jump}
+        \textbf{ジャンプ変数:}\\
+        方程式系に\(t\)期と\(t+1\)期のもののみが含まれる変数を指す。
+        例えば、自国代表的家計の自国コンティンジェント債券に関するオイラー方程式\eqref{form:method_euler_example}は以下の通りであった。
+        \begin{equation}
+        \label{form:method_euler_example}
+            \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+        \end{equation}
+        この方程式は\(t\)期の変数（\(\lambda_t^H,\beta_t^H,i_t^H\)）と\(t+1\)期の変数（\(\lambda_{t+1}^H\)）のみを含んでいる。したがって定義に従いジャンプ変数として扱う。このように\(t+1\)期の変数を含むため、ショック発生時に\(t+1\)期の変数の予測が変化すると、方程式を成立させるために\(t\)期の変数もその影響を受けて瞬時に大きく変化（ジャンプ）する。
+    \item
+    \label{itm:method_variables_static}
+        \textbf{静学変数:}\\
+        方程式系に\(t\)期のもののみが含まれる変数を指す。
+        例えば本モデルにおける一人当たり生産\(y_t^H\)などが該当する。
+        これらは状態変数とジャンプ変数が確定すれば\(t\)期の中で連動して自動的に決まるため、
+        系の動学を規定する分析においては代入により消去可能な変数として扱われる。
+    \item
+    \label{itm:method_variables_mixed}
+        \textbf{混合変数（Mixed変数）:}\\
+        方程式系に\(t\)期と\(t-1\)期および\(t+1\)期のものが含まれる変数を指す。
+        状態変数とジャンプ変数の両方の性質を併せ持つ。本稿の方程式系には登場しない。
+\end{enumerate}
+
+\subsubsection{1つの状態変数のみからなる経済}
+\label{sec:method_single_variable}
+まずはじめに経済\(x_t\)が1つの状態変数のみからなる場合を考察する。
+このとき方程式系に\(t+1\)期の変数が含まれないため、方程式系は\(\operatorname{E}_t[x_{t+1}]\)を省いた
+残差関数を用いて以下のように記述される。
+\begin{equation}
+\label{form:method_single_system}
+    f(x_t,x_{t-1},\epsilon_t)=0
+\end{equation}
+しかしシミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
+そこで残差関数\(f\)を初期定常状態\((x_{ss},x_{ss},0)\)の周りで線形化して接線を求めると以下のようになる。
+\begin{equation}
+\label{form:method_linearized_single}
+    b(x_t-x_{ss})+c(x_{t-1}-x_{ss})+d(\epsilon_t-0)=0
+\end{equation}
+ここで\(b,c,d\)は残差関数\(f\)の各変数に関する偏微分から定まる定数である。
+これを変形すると陰関数\(h\)（政策関数とも呼ばれる）が以下のように導かれる。
+\begin{equation}
+\label{form:method_implicit_h_single}
+    x_t=h(x_{t-1},\epsilon_t)=x_{ss}-\frac{c}{b}(x_{t-1}-x_{ss})-\frac{d}{b}(\epsilon_t-0)
+\end{equation}
+なお、定常状態の性質から\(x_{ss}=h(x_{ss},0)\)という関係が成立する。
+この陰関数\(h\)について\(\epsilon_t\)を固定すれば\(h_{\epsilon_t}\)が得られる。
+\begin{equation}
+\label{form:method_h_epsilon_single}
+    h_{\epsilon_t}(x_{t-1})\equiv h(x_{t-1},\epsilon_t)
+\end{equation}
+この関数\(h_{\epsilon_t}\)を用いて\((x_{t-1},x_t)\)平面上の点\((x_{t-1},x_t)\)の挙動を考察する。
+点\((x_{t-1},x_t)\)ははじめ初期定常状態\((x_{ss},x_{ss})\)で静止しているとする。
+これは\((x_{t-1},x_t)\)平面上では\(h_0\)が45度線と交差している点に相当する。
+\(t=0\)においてショックが発生すると\(h_0\)は\(h_{\epsilon_0}\)へと変化し、点\((x_{t-1},x_t)\)は
+初期定常状態\((x_{ss},x_{ss})\)から\((x_{ss},x_0=h_{\epsilon_0}(x_{ss}))\)へとジャンプする。
+ショックがなくなる\(t\ge1\)以降は\(h_{\epsilon_t}\)は再び\(h_0\)となる。
+点\((x_{t-1},x_t)\)が\((x_{ss},x_0)\)を始点として
+\((x_{ss},x_0), 
+  (x_0,x_0),\quad (x_0,x_1=h_{\epsilon_0}(x_0)),\quad
+  (x_1,x_1),\quad (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots\)
+と移動していく様子は以下の階段状の動きを考えると視覚的に捉えやすい。
+\begin{equation}
+\label{form:method_iterative_convergence}
+    (x_{ss},x_0),\quad
+    (x_0,x_0),\quad (x_0,x_1=h_{\epsilon_0}(x_0)),\quad
+    (x_1,x_1),\quad (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots
+\end{equation}
+ショックが消滅した\(t\ge1\)以降、状態変数はこの線形化された関数\(h_0\)の直線上を推移していくこととなる。
+このとき接線の傾きの絶対値が1より小さければ点\((x_{t-1},x_t)\)は初期定常状態\((x_{ss},x_{ss})\)へと収束する。
+この点\((x_{t-1},x_t)\)の移動の軌跡を時間軸に沿って点描したものがインパルス応答関数である。
+
+\subsubsection{状態変数とジャンプ変数からなる多変数の経済}
+\label{sec:method_multivariable}
+次に経済\(\mathbf{x}_t\)を状態変数とジャンプ変数からなるベクトルとする。
+このとき方程式系は\(t+1\)期の変数ベクトル\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)を含んだ以下の一般的な形になる。
+\begin{equation}
+\label{form:method_multivariable_system_with_expectation}
+    f(\operatorname{E}_t[\mathbf{x}_{t+1}],\mathbf{x}_t,\mathbf{x}_{t-1},\mathbf{\epsilon}_t)=0
+\end{equation}
+前節で説明したように、シミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
+そこで残差関数\(f\)を初期定常状態\((\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{0})\)
+の周りで線形化して接平面を求めると以下のようになる。
+\begin{equation}
+\label{form:method_linearized_system}
+    A(\operatorname{E}_t[\mathbf{x}_{t+1}]-\mathbf{x}_{ss})+B(\mathbf{x}_t-\mathbf{x}_{ss})+C(\mathbf{x}_{t-1}-\mathbf{x}_{ss})+D(\mathbf{\epsilon}_t-\mathbf{0})=0
+\end{equation}
+ここで行列\(A,B,C,D\)は残差関数\(f\)の各変数ベクトルに関する偏微分から定まる定数行列である。
+この線形化された方程式系には\(t+1\)期の変数ベクトル\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)が含まれている。
+こうした線形化された方程式系の性質により
+「来期の期待値\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)が決まらないと今期の値\(\mathbf{x}_t\)が決まらない」
+という複雑な状況が生じている。
+そこでシミュレーションをおこなうには、こうした複雑な状況を考慮したうえで、
+来期の期待値\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)に依存せず、
+前期の変数ベクトル\(\mathbf{x}_{t-1}\)と今期のショック\(\mathbf{\epsilon}_t\)のみから
+今期の変数ベクトル\(\mathbf{x}_t\)が決定される規則、すなわち以下の陰関数（政策関数）\(h\)を導出できればよい。
+\begin{equation}
+\label{form:method_implicit_h_multi}
+    \mathbf{x}_t=h(\mathbf{x}_{t-1},\mathbf{\epsilon}_t)
+\end{equation}
+そのためにまず
+今期の変数ベクトル\(\mathbf{x}_t\)の要素と
+前期の変数ベクトル\(\mathbf{x}_{t-1}\)の要素を縦に並べて変数ベクトル\(\mathbf{y}_t\)とし、
+この要素数を\(n\)とおく。
+また状態変数\(y_t^{(i)}\)の添え字の全体を\(P\)、
+ジャンプ変数\(y_t^{(i)}\)の添え字\(i\)の全体を\(J\)と定義する。
+このとき\(P=\{1,2,\dots,|P|\},J=\{|P|+1,|P|+2,\dots,n\},|P|+|J|=n\)が成立する。
+この変数ベクトル\(\mathbf{y}_t\)を用いると線形化された方程式系は以下のような1階の差分方程式に変形される。
+\begin{equation}
+\label{form:method_first_order_difference}
+    \operatorname{E}_t[\mathbf{y}_{t+1}]=W\mathbf{y}_t+V\mathbf{\epsilon}_t
+\end{equation}
+ここで行列\(W\)と\(V\)は元の係数行列\(A,B,C,D\)を代数的に操作して得られる定数行列であり、
+特に推移行列\(W\)は経済の動学的な性質を決定づける。
+ここで\(t\ge1\)の場合を考える。
+このときショックは発生しない（\(\mathbf{\epsilon}_t=0\)）から
+合理的期待の下で期待値は実現値と一致し\(\operatorname{E}_t[\mathbf{y}_{t+1}]=\mathbf{y}_{t+1}\)となる。
+これらを代入すると式\eqref{form:method_first_order_difference}は以下のようになる。
+\begin{equation}
+\label{form:method_first_order_difference2}
+    \mathbf{y}_{t+1}=W\mathbf{y}_t
+\end{equation}
+推移行列\(W\)が\(n\)個の線形独立な固有ベクトル\(\mathbf{v}_i\)を持つとき、
+変数ベクトル\(\mathbf{y}_t\)は固有ベクトル\(\mathbf{v}_i\)の線形結合により表される。
+\begin{equation}
+\label{form:method_eigen_sum_expanded}
+    \mathbf{y}_t=c_t^{(1)}\mathbf{v}_1+c_t^{(2)}\mathbf{v}_2+\dots+c_t^{(n)}\mathbf{v}_n
+\end{equation}
+固有ベクトル\(\mathbf{v}_i\)に対応する固有値を\(\lambda_i\)とすると、
+\(W\mathbf{v}_i=\lambda_i\mathbf{v}_i\)が成立するため
+次期の変数ベクトル\(\mathbf{y}_{t+1}\)は以下のようになる。
+\begin{align}
+\label{form:method_eigenvalue_derivation}
+    \mathbf{y}_{t+1}
+    &=W\mathbf{y}_t \nonumber \\
+    &=W(c_t^{(1)}\mathbf{v}_1+c_t^{(2)}\mathbf{v}_2+\dots+c_t^{(n)}\mathbf{v}_n) \nonumber \\
+    &=c_t^{(1)}W\mathbf{v}_1+c_t^{(2)}W\mathbf{v}_2+\dots+c_t^{(n)}W\mathbf{v}_n \nonumber \\
+    &=c_t^{(1)}\lambda_1\mathbf{v}_1+c_t^{(2)}\lambda_2\mathbf{v}_2+\dots+c_t^{(n)}\lambda_n\mathbf{v}_n \nonumber \\
+    &=\sum_{i=1}^n(\lambda_ic_t^{(i)})\mathbf{v}_i
+\end{align}
+この式から各固有ベクトル\(\mathbf{v}_i\)がもたらす変数ベクトル\(\mathbf{y}_t\)の推移は
+固有値\(\lambda_i\)の絶対値に応じて以下の通りに分かれることがわかる。
+\begin{itemize}
+    \item 
+    \label{itm:method_stable_direction_final}
+        \textbf{固有値\(\lambda_i\)の絶対値が1より小さいとき：}\\
+        この「安定な」固有ベクトル\(\mathbf{v}_i\)の成分は時間の経過とともに減衰し、
+        変数ベクトルを初期定常状態へと収束させる。
+    \item
+    \label{itm:method_unstable_direction_final}
+        \textbf{固有値\(\lambda_i\)の絶対値が1と同じかより大きいとき：}\\
+        この「不安定な」固有ベクトル\(\mathbf{v}_i\)の成分は維持または増幅され、
+        変数ベクトルは初期定常状態へ収束しない。
+\end{itemize}
+ここで添え字\(i\)を振りなおして安定な固有ベクトル\(\mathbf{v}_i\)に若い数字を割り当てる。
+さらに安定な固有ベクトル\(\mathbf{v}_i\)の添え字\(i\)の全体を\(S\)、
+不安定な固有ベクトル\(\mathbf{v}_i\)の添え字\(i\)の全体を\(U\)とする。
+これにより\(S=\{1,2,\dots,|S|\},U=\{|S|+1,|S|+2,\dots,n\},|S|+|U|=n\)が成立する。
+また上記の議論により、経済が定常状態へ収束するためには
+すべての期\(t\)において不安定な固有ベクトルの係数\(c_t^{(i)},i\in U\)が\(0\)でなければならないことがわかる。
+したがって変数ベクトル\(\mathbf{y}_t\)は安定な固有ベクトル\(\mathbf{v}_i, i\in S=\{1,2,\dots,|S|\}\)
+のみの線形結合として以下のように表現されなければならない。
+\begin{equation}
+\label{form:method_component_display_final}
+    \underbrace{
+        \begin{pmatrix}
+            y_t^{(1)} \\
+            \vdots \\
+            y_t^{(|P|)} \\
+            \hline
+            y_t^{(|P|+1)} \\
+            \vdots \\
+            y_t^{(n)}
+        \end{pmatrix}
+    }_{\mathbf{y}_t}
+    =
+    c_t^{(1)}
+    \underbrace{
+        \begin{pmatrix}
+            v_1^{(1)} \\
+            \vdots \\
+            v_1^{(|P|)} \\
+            \hline
+            v_1^{(|P|+1)} \\
+            \vdots \\
+            v_1^{(n)}
+        \end{pmatrix}
+    }_{\mathbf{v}_1}
+    +
+    c_t^{(2)}
+    \underbrace{
+        \begin{pmatrix}
+            v_2^{(1)} \\
+            \vdots \\
+            v_2^{(|P|)} \\
+            \hline
+            v_2^{(|P|+1)} \\
+            \vdots \\
+            v_2^{(n)}
+        \end{pmatrix}
+    }_{\mathbf{v}_2}
+    + \dots +
+    c_t^{(|S|)}
+    \underbrace{
+        \begin{pmatrix}
+            v_{|S|}^{(1)} \\
+            \vdots \\
+            v_{|S|}^{(|P|)} \\
+            \hline
+            v_{|S|}^{(|P|+1)} \\
+            \vdots \\
+            v_{|S|}^{(n)}
+        \end{pmatrix}
+    }_{\mathbf{v}_{|S|}}
+\end{equation}
+この連立方程式は上段ブロックと下段ブロックにわけられ以下のように解かれる。
+\begin{enumerate}
+    \item 
+    \textbf{上段ブロック：}\\
+    既知の値である既定変数の成分\(y_t^{(1)}\dots y_t^{(|P|)}\)を用いて、
+    未知数である安定な固有ベクトルの係数\(c_t^{(1)}\dots c_t^{(|S|)}\)を一意に決定する。
+    \item
+    \textbf{下段ブロック：}\\
+    決定された係数\(c_t^{(s)}\)を下段ブロックで代入することで、
+    現在の状況下で経済が収束するために必要なジャンプ変数の値\(y_t^{(|P|+1)}\dots y_t^{(n)}\)を算出する。
+\end{enumerate}
+この上段ブロックの連立方程式が一意に解けるためには
+式の数\(|P|\)と未知数の数\(|S|\)が一致しなければならない（\(|P|=|S|\)）。
+（線形代数において、この未知数は\(y_t^{(i)}\)あるいは\(c_t^{(i)}\)のいずれでもよいことが知られている）
+これによりジャンプ変数の数\(|J|\)が不安定な固有ベクトルの数に\(|U|\)に一致しなければならないという
+Blanchard-Kahn（BK）条件が導かれる。
+\begin{equation}
+\label{form:method_bk_condition_formula_complete}
+    |S|+|U|=n=|P|+|J|=|S|+|J|\quad\Longleftrightarrow\quad|U|=|J|
+\end{equation}
+またこのとき上記の連立方程式よりジャンプ変数\(y_t^{(|P|+1)}\dots y_t^{(n)}\)が決定され、
+経済\(\mathbf{x}_t\)を初期定常状態\(\mathbf{x}_{ss}\)へ収束させる
+一意の陰関数\(\mathbf{x}_t=h(\mathbf{x}_{t-1},\mathbf{\epsilon}_t)\)が求まるのである。
