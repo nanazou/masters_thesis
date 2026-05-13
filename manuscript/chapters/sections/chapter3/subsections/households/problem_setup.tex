@@ -6,76 +6,412 @@
 
 \subsubsection{自国家計の問題設定}
 \label{sec:chapter3_households_problem_setup_home}
+
+\paragraph{自国家計の元となる最適化問題}
+\label{sec:chapter3_households_problem_setup_home_original}
 まず価格\(p_t^h\)を所与とした上で家計\(h\)の最適化問題を考える。
 家計\(h\)は各期において名目予算制約の下で期待生涯効用関数を最大化する。
-このとき操作変数は消費\(c_t^{h\to h'}, c_t^{h\to f}\)、
-自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)である。
+このとき操作変数は
+消費\(c_t^{h\to h'},c_t^{h\to f}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
+および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)である。
 また\ref{itm:household_optimization_home_calculation_remark1}より
 他の変数はこれら操作変数の関数ではない。
-
-\paragraph{自国家計の期待生涯効用関数}
-\label{sec:chapter3_households_problem_setup_home_utility}
+まず各期\(t\)における家計\(h\)の効用を表す効用関数\(u_t^h\)を以下で定義する。
 \begin{equation}
-\label{form:chapter3_households_problem_setup_home_utility_def}
-    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)\left(\log\left(\frac{\left(\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{\alpha^H}\left(\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\right)-\frac{\phi^H}{2}(l_t^h)^2\right)
+\label{form:chapter3_households_problem_setup_home_original_u_h_def}
+    u_t^h\equiv\log\left(\frac{\left(\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{\alpha^H}\left(\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\right)-\frac{\phi^H}{2}(l_t^h)^2
 \end{equation}
-
-\paragraph{自国家計の名目予算制約}
-\label{sec:chapter3_households_problem_setup_home_budget}
+家計\(h\)の期待生涯効用関数\(U_s^h\)は効用関数\(u_t^h\)を用いて以下で定義される。
 \begin{equation}
-\label{form:chapter3_households_problem_setup_home_budget_eq}
+\label{form:chapter3_households_problem_setup_home_original_U_h_def}
+    U_s^h\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^H\right)u_t^h
+\end{equation}
+また各期\(t\)における名目予算制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_original_budget_eq}
+    \begin{split}
+        &\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}
+        +\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}
+        +\sum_{f\in F}p_t^fc_t^{h\to f}\\
+        &=d_t^{h\to H}
+        +(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}
+        +(1-\tau_t^H)p_t^hy_t^h+t_t^H
+    \end{split}
+\end{equation}
+家計\(h\)は以下の制約付き最大化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_original_max}
     \begin{aligned}
-        &\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}+\sum_{f\in F}p_t^fc_t^{h\to f} \\
-        &\qquad=d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
+        \max_{\{c_t^{h\to h'}\}_{h'\in H},\{c_t^{h\to f}\}_{f\in F},d_{t+1}^{h\to H}(j'),b_{t+1}^{h\to F}}
+        &U_s^h\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_home_original_budget_eq}
     \end{aligned}
 \end{equation}
 
-この最適化問題は他の家計の財の消費\(c_t^{h\to h'}, c_t^{h\to f}\)を個々に決定しなければならないため複雑である。
-そこでこの問題を扱いやすくするために全体として同値である以下の2つの問題に分割する。
+\paragraph{自国家計の二段階最適化問題}
+\label{sec:chapter3_households_problem_setup_home_two_stage}
+上記の最適化問題は他の家計\(h',f\)の財の消費\(c_t^{h\to h'},c_t^{h\to f}\)を
+個々に決定しなければならないため複雑である。
+そこでこの問題を扱いやすくするために全体として同値である以下の二段階の問題に分割する。
 （\ref{chap:appendix_equivalence}節TODO）
-第一段階：
-「所与の総消費指数
-（期待生涯効用関数におけるlogの引数全体。のちに総消費指数\(c_t^{h\to W}\)をこの式に一致するように定義する）
-をどのような消費\(c_t^{h\to h'},c_t^{h\to f}\)を組み合わせて最小費用で実現するか」という期内の問題
-第二段階：
-「どのように総消費指数\(c_t^{h\to W}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
-および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)を組み合わせて名目予算制約のもと期待生涯効用関数を最大化するか」
-という期をまたぐ問題
+この二段階の問題を考えるにあたって3つの消費指数、
+すなわち自国財消費指数\(c_t^{h\to H}\)、外国財消費指数\(c_t^{h\to F}\)、
+および総消費指数\(c_t^{h\to W}\)を定義する。
+まず、自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)は
+効用関数\(u_t^h\)におけるlogの引数の構成要素であり、以下で定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_c_h_H_def}
+    c_t^{h\to H}\equiv\left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_c_h_F_def}
+    c_t^{h\to F}\equiv\left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
+\end{equation}
+総消費指数\(c_t^{h\to W}\)は効用関数\(u_t^h\)におけるlogの引数全体であり、以下で定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_c_h_W_def}
+    c_t^{h\to W}\equiv\frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}
+\end{equation}
+\begin{description}
+    \item[第一段階：]
+    \label{itm:chapter3_households_problem_setup_home_two_stage_stage1}
+        \begin{description}
+            \item[ステップA：]
+            \label{itm:chapter3_households_problem_setup_home_two_stage_stage1a}
+                \begin{enumerate}
+                    \item
+                    \label{itm:chapter3_households_problem_setup_home_two_stage_stage1a_H}
+                        所与の自国財消費指数\(c_t^{h\to H}\)を保ちながら
+                        最小費用\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)を達成する問題
+                        \eqref{form:chapter3_households_problem_setup_home_stage1a_H_min_def}
+                    \item
+                    \label{itm:chapter3_households_problem_setup_home_two_stage_stage1a_F}
+                        所与の外国財消費指数\(c_t^{h\to F}\)を保ちながら
+                        最小費用\(\sum_{f\in F}p_t^{f}c_t^{h\to f}\)を達成する問題
+                        \eqref{form:chapter3_households_problem_setup_home_stage1a_F_min_def}
+                \end{enumerate}
+            \item[ステップB：]
+            \label{itm:chapter3_households_problem_setup_home_two_stage_stage1b}
+                所与の総消費指数\(c_t^{h\to W}\)を保ちながら
+                最小費用\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)を達成する問題
+                \eqref{form:chapter3_households_problem_setup_home_stage1b_min_def}
+        \end{description}
+    \item[第二段階：]
+    \label{itm:chapter3_households_problem_setup_home_two_stage_stage2}
+        総消費指数\(c_t^{h\to W}\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
+        および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)を適切に選び名目予算制約式
+        \eqref{form:chapter3_households_problem_setup_home_stage2_budget_def}
+        のもと期待生涯効用関数
+        \eqref{form:chapter3_households_problem_setup_home_stage2_U_h_def}
+        を最大化する問題
+        \eqref{form:chapter3_households_problem_setup_home_stage2_max_def}
+\end{description}
+
+\subparagraph{自国家計の第一段階ステップA：所与の自国財・外国財消費指数を保ちながら最小費用を達成する問題}
+\label{sec:chapter3_households_problem_setup_home_stage1a}
+自国家計\(h\)は所与の自国財消費指数\(c_t^{h\to H}\)を保ちながら
+費用\(\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}\)を最小化するように消費\(c_t^{h\to h'}\)を決定する。
+まず最小化する自国財消費の費用関数\(X_t^{h\to H}\)と、保つべき制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_H_X_def}
+    X_t^{h\to H}\equiv\sum_{h'\in H}p_t^{h'}c_t^{h\to h'}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_H_constraint_def}
+    \left[\sum_{h'\in H}(c_t^{h\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\ge c_t^{h\to H}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_H_min_def}
+    \begin{aligned}
+        \min_{\{c_t^{h\to h'}\}_{h'\in H}}
+        &X_t^{h\to H}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_home_stage1a_H_constraint_def}
+    \end{aligned}
+\end{equation}
+同様に自国家計\(h\)は所与の外国財消費指数\(c_t^{h\to F}\)を保ちながら
+費用\(\sum_{f\in F}p_t^{f}c_t^{h\to f}\)を最小化するように消費\(c_t^{h\to f}\)を決定する。
+最小化する外国財消費の費用関数\(X_t^{h\to F}\)と制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_F_X_def}
+    X_t^{h\to F}\equiv\sum_{f\in F}p_t^{f}c_t^{h\to f}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_F_constraint_def}
+    \left[\sum_{f\in F}(c_t^{h\to f})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\ge c_t^{h\to F}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1a_F_min_def}
+    \begin{aligned}
+        \min_{\{c_t^{h\to f}\}_{f\in F}}
+        &X_t^{h\to F}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_home_stage1a_F_constraint_def}
+    \end{aligned}
+\end{equation}
+
+\subparagraph{自国家計の第一段階ステップB：所与の総消費指数を保ちながら最小費用を達成する問題}
+\label{sec:chapter3_households_problem_setup_home_stage1b}
+次に自国家計\(h\)は所与の総消費指数\(c_t^{h\to W}\)を保ちながら
+費用\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)を最小化するように
+自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)を決定する。
+最小化する総消費の費用関数\(X_t^{h\to W}\)と、保つべき制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1b_X_def}
+    X_t^{h\to W}\equiv p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1b_constraint_def}
+    \frac{(c_t^{h\to H})^{\alpha^H}(c_t^{h\to F})^{1-\alpha^H}}{(\alpha^H)^{\alpha^H}(1-\alpha^H)^{1-\alpha^H}}\ge c_t^{h\to W}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage1b_min_def}
+    \begin{aligned}
+        \min_{c_t^{h\to H},c_t^{h\to F}}
+        &X_t^{h\to W}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_home_stage1b_constraint_def}
+    \end{aligned}
+\end{equation}
+
+\subparagraph{自国家計の第二段階：期待生涯効用最大化問題}
+\label{sec:chapter3_households_problem_setup_home_stage2}
+自国家計\(h\)は期待生涯効用関数\(U_t^h\)を最大化するように
+総消費指数\(c_t^{h\to W}\)、労働供給\(l_t^h\)、自国コンティンジェント債券\(d_{t+1}^{h\to H}(j')\)、
+および外国通貨建てリスクフリー債券\(b_{t+1}^{h\to F}\)を決定する。
+ここでの効用関数\(u_t^h\)は以下のように定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage2_u_h_def}
+    u_t^h\equiv\log(c_t^{h\to W})-\frac{\phi^H}{2}(l_t^h)^2
+\end{equation}
+ここでの期待生涯効用関数\(U_t^h\)は以下のように定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage2_U_h_def}
+    U_t^h\equiv\operatorname{E}_t\sum_{k=0}^{\infty}\left(\prod_{m=0}^{k-1}\beta_{t+m}^H\right)u_t^h
+\end{equation}
+また、前述の名目予算制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage2_budget_def}
+    \begin{split}
+        &\sum_{j'\in J}q_{t,t+1}(j')d_{t+1}^{h\to H}(j')+b_{t+1}^{h\to F}+p_t^{H\to W}c_t^{h\to W}\\
+        &=d_t^{h\to H}+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^{h\to F}+(1-\tau_t^H)p_t^hy_t^h+t_t^H
+    \end{split}
+\end{equation}
+すなわち、以下の最大化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_home_stage2_max_def}
+    \begin{aligned}
+        \max_{\{c_t^{h\to W},d_{t+1}^{h\to H}(j'),b_{t+1}^{h\to F}\}}
+        &U_t^h\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_home_stage2_budget_def}
+    \end{aligned}
+\end{equation}
 
 \subsubsection{外国家計の問題設定}
 \label{sec:chapter3_households_problem_setup_foreign}
+
+\paragraph{外国家計の元となる最適化問題}
+\label{sec:chapter3_households_problem_setup_foreign_problem}
 同様に価格\(p_t^{f*}\)を所与とした上で外国家計\(f\)の最適化問題を考える。
 外国家計\(f\)も各期において名目予算制約の下で期待生涯効用関数を最大化する。
-このとき操作変数は消費\(c_t^{f\to f'}, c_t^{f\to h'}\)、
-外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)である。
+このとき操作変数は
+消費\(c_t^{f\to f'},c_t^{f\to h'}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)である。
 また\ref{itm:household_optimization_foreign_calculation_remark1}より
 他の変数はこれら操作変数の関数ではない。
-
-\paragraph{外国家計の期待生涯効用関数}
-\label{sec:chapter3_households_problem_setup_foreign_utility}
+まず各期\(t\)における家計\(f\)の効用を表す効用関数\(u_t^f\)を以下で定義する。
 \begin{equation}
-\label{form:chapter3_households_problem_setup_foreign_utility_def}
-    \operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)\left(\log\left(\frac{\left(\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{\alpha^F}\left(\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}\right)-\frac{\phi^F}{2}(l_t^f)^2\right)
+\label{form:chapter3_households_problem_setup_foreign_original_u_f_def}
+    u_t^f\equiv\log\left(\frac{\left(\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\right)^{\alpha^F}\left(\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\right)^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}\right)-\frac{\phi^F}{2}(l_t^f)^2
 \end{equation}
-
-\paragraph{外国家計の名目予算制約}
-\label{sec:chapter3_households_problem_setup_foreign_budget}
+外国家計\(f\)の期待生涯効用関数\(U_s^f\)は効用関数\(u_t^f\)を用いて以下で定義される。
 \begin{equation}
-\label{form:chapter3_households_problem_setup_foreign_budget_eq}
+\label{form:chapter3_households_problem_setup_foreign_original_U_f_def}
+    U_s^f\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=0}^{t-s-1}\beta_{s+k}^F\right)u_t^f
+\end{equation}
+また各期\(t\)における名目予算制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_original_budget_eq}
+    \begin{split}
+        &\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}+\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}\\
+        &=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+    \end{split}
+\end{equation}
+外国家計\(f\)は以下の制約付き最大化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_original_max}
     \begin{aligned}
-        &\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}+\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'} \\
-        &\qquad=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+        \max_{\{c_t^{f\to f'}\}_{f'\in F},\{c_t^{f\to h'}\}_{h'\in H},d_{t+1}^{f\to F*}(j'),b_{t+1}^{f\to H*}}
+        &U_s^f\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_foreign_original_budget_eq}
     \end{aligned}
 \end{equation}
 
-この最適化問題は他の家計の財の消費\(c_t^{f\to f'}, c_t^{f\to h'}\)を個々に決定しなければならないため複雑である。
-そこでこの問題を扱いやすくするために全体として同値である以下の2つの問題に分割する。
+\paragraph{外国家計の二段階最適化問題}
+\label{sec:chapter3_households_problem_setup_foreign_two_stage}
+この最適化問題は他の家計の財の消費\(c_t^{f\to f'},c_t^{f\to h'}\)を個々に決定しなければならないため複雑である。
+そこでこの問題を扱いやすくするために全体として同値である以下の二段階の問題に分割する。
 （\ref{chap:appendix_equivalence}節TODO）
-第一段階：
-「所与の総消費指数
-（期待生涯効用関数におけるlogの引数全体。のちに総消費指数\(c_t^{f\to W}\)をこの式に一致するように定義する）
-をどのような消費\(c_t^{f\to f'},c_t^{f\to h'}\)を組み合わせて最小費用で実現するか」という期内の問題
-第二段階：
-「どのように総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
-および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)を組み合わせて名目予算制約のもと期待生涯効用関数を最大化するか」
-という期をまたぐ問題
+この二段階の問題を考えるにあたって3つの消費指数、
+すなわち外国財消費指数\(c_t^{f\to F}\)、自国財消費指数\(c_t^{f\to H}\)、
+および総消費指数\(c_t^{f\to W}\)を定義する。
+まず、外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)は
+効用関数\(u_t^f\)におけるlogの引数の構成要素であり、以下で定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_c_f_F_def}
+    c_t^{f\to F}\equiv\left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_c_f_H_def}
+    c_t^{f\to H}\equiv\left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}
+\end{equation}
+総消費指数\(c_t^{f\to W}\)は効用関数\(u_t^f\)におけるlogの引数全体であり、以下で定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_c_f_W_def}
+    c_t^{f\to W}\equiv\frac{(c_t^{f\to F})^{\alpha^F}(c_t^{f\to H})^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}
+\end{equation}
+\begin{description}
+    \item[第一段階：]
+    \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage1}
+        \begin{description}
+            \item[ステップA：]
+            \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage1_step_a}
+                \begin{enumerate}
+                    \item
+                    \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage1_step_a_1}
+                        所与の外国財消費指数\(c_t^{f\to F}\)を保ちながら
+                        最小費用\(\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}\)を達成する問題
+                        \eqref{form:chapter3_households_problem_setup_foreign_stage1a_F_min_def}
+                    \item
+                    \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage1_step_a_2}
+                        所与の自国財消費指数\(c_t^{f\to H}\)を保ちながら
+                        最小費用\(\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}\)を達成する問題
+                        \eqref{form:chapter3_households_problem_setup_foreign_stage1a_H_min_def}
+                \end{enumerate}
+            \item[ステップB：]
+            \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage1_step_b}
+                所与の総消費指数\(c_t^{f\to W}\)を保ちながら
+                最小費用\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)を達成する問題
+                \eqref{form:chapter3_households_problem_setup_foreign_stage1b_min_def}
+        \end{description}
+    \item[第二段階：]
+    \label{itm:chapter3_households_problem_setup_foreign_two_stage_stage2}
+        総消費指数\(c_t^{f\to W}\)、外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+        および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)を適切に選び名目予算制約式
+        \eqref{form:chapter3_households_problem_setup_foreign_stage2_budget_def}
+        のもと期待生涯効用関数
+        \eqref{form:chapter3_households_problem_setup_foreign_stage2_U_f_def}
+        を最大化する問題
+        \eqref{form:chapter3_households_problem_setup_foreign_stage2_max_def}
+\end{description}
+
+\subparagraph{外国家計の第一段階ステップA：所与の外国財・自国財消費指数を保ちながら最小費用を達成する問題}
+\label{sec:chapter3_households_problem_setup_foreign_stage1a}
+外国家計\(f\)は所与の外国財消費指数\(c_t^{f\to F}\)を保ちながら
+費用\(\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}\)を最小化するように消費\(c_t^{f\to f'}\)を決定する。
+まず最小化する外国財消費の費用関数\(X_t^{f\to F}\)と、保つべき制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_F_X_def}
+    X_t^{f\to F}\equiv\sum_{f'\in F}p_t^{f'*}c_t^{f\to f'}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_F_constraint_def}
+    \left[\sum_{f'\in F}(c_t^{f\to f'})^{\frac{\theta^F-1}{\theta^F}}\right]^{\frac{\theta^F}{\theta^F-1}}\ge c_t^{f\to F}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_F_min_def}
+    \begin{aligned}
+        \min_{\{c_t^{f\to f'}\}_{f'\in F}}
+        &X_t^{f\to F}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_foreign_stage1a_F_constraint_def}
+    \end{aligned}
+\end{equation}
+同様に外国家計\(f\)は所与の自国財消費指数\(c_t^{f\to H}\)を保ちながら
+費用\(\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}\)を最小化するように消費\(c_t^{f\to h'}\)を決定する。
+最小化する自国財消費の費用関数\(X_t^{f\to H}\)と制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_H_X_def}
+    X_t^{f\to H}\equiv\sum_{h'\in H}p_t^{h'*}c_t^{f\to h'}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_H_constraint_def}
+    \left[\sum_{h'\in H}(c_t^{f\to h'})^{\frac{\theta^H-1}{\theta^H}}\right]^{\frac{\theta^H}{\theta^H-1}}\ge c_t^{f\to H}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1a_H_min_def}
+    \begin{aligned}
+        \min_{\{c_t^{f\to h'}\}_{h'\in H}}
+        &X_t^{f\to H}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_foreign_stage1a_H_constraint_def}
+    \end{aligned}
+\end{equation}
+
+\subparagraph{外国家計の第一段階ステップB：所与の総消費指数を保ちながら最小費用を達成する問題}
+\label{sec:chapter3_households_problem_setup_foreign_stage1b}
+次に外国家計\(f\)は所与の総消費指数\(c_t^{f\to W}\)を保ちながら
+費用\(p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}\)を最小化するように
+外国財消費指数\(c_t^{f\to F}\)と自国財消費指数\(c_t^{f\to H}\)を決定する。
+最小化する総消費の費用関数\(X_t^{f\to W}\)と、保つべき制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1b_X_def}
+    X_t^{f\to W}\equiv p_t^{F*}c_t^{f\to F}+p_t^{H*}c_t^{f\to H}
+\end{equation}
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1b_constraint_def}
+    \frac{(c_t^{f\to F})^{\alpha^F}(c_t^{f\to H})^{1-\alpha^F}}{(\alpha^F)^{\alpha^F}(1-\alpha^F)^{1-\alpha^F}}\ge c_t^{f\to W}
+\end{equation}
+すなわち、以下の制約付き最小化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage1b_min_def}
+    \begin{aligned}
+        \min_{c_t^{f\to F},c_t^{f\to H}}
+        &X_t^{f\to W}\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_foreign_stage1b_constraint_def}
+    \end{aligned}
+\end{equation}
+
+\subparagraph{外国家計の第二段階：期待生涯効用最大化問題}
+\label{sec:chapter3_households_problem_setup_foreign_stage2}
+外国家計\(f\)は期待生涯効用関数\(U_t^f\)を最大化するように
+総消費指数\(c_t^{f\to W}\)、労働供給\(l_t^f\)、
+外国コンティンジェント債券\(d_{t+1}^{f\to F*}(j')\)、
+および自国通貨建てリスクフリー債券\(b_{t+1}^{f\to H*}\)を決定する。
+ここでの効用関数\(u_t^f\)は以下のように定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage2_u_f_def}
+    u_t^f\equiv\log(c_t^{f\to W})-\frac{\phi^F}{2}(l_t^f)^2
+\end{equation}
+ここでの期待生涯効用関数\(U_t^f\)は以下のように定義される。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage2_U_f_def}
+    U_t^f\equiv\operatorname{E}_t\sum_{k=0}^{\infty}\left(\prod_{m=0}^{k-1}\beta_{t+m}^F\right)u_t^f
+\end{equation}
+また、前述の名目予算制約式は以下の通りである。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage2_budget_def}
+    \begin{split}
+        &\sum_{j'\in J}q_{t,t+1}^*(j')d_{t+1}^{f\to F*}(j')+b_{t+1}^{f\to H*}+p_t^{F\to W*}c_t^{f\to W}\\
+        &=d_t^{f\to F*}+(1+i_{t-1}^H)\frac{e_{t-1}^{/*}}{e_t^{/*}}b_t^{f\to H*}+(1-\tau_t^F)p_t^{f*}y_t^f+t_t^{F*}
+    \end{split}
+\end{equation}
+すなわち、以下の最大化問題を解く。
+\begin{equation}
+\label{form:chapter3_households_problem_setup_foreign_stage2_max_def}
+    \begin{aligned}
+        \max_{\{c_t^{f\to W},d_{t+1}^{f\to F*}(j'),b_{t+1}^{f\to H*}\}}
+        &U_t^f\\
+        \text{subject to}
+        &\eqref{form:chapter3_households_problem_setup_foreign_stage2_budget_def}
+    \end{aligned}
+\end{equation}

@@ -1,0 +1,124 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter5/subsections/asad/ad.tex
+
+\subsection{総需要（AD）曲線}
+\label{sec:chapter5_asad_ad}
+需要側は価格以外の最適化を記述するすべての方程式によって構成される。
+注意点としては、自国財消費指数\(c_t^{h\to H}\)と外国財消費指数\(c_t^{h\to F}\)の需要関数
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_H_eq}および
+\eqref{form:chapter3_households_stage1b_home_c_h_W_problem_c_h_F_eq}
+を導出した所与の総消費指数\(c_t^{h\to W}\)を最小費用\(p_t^Hc_t^{h\to H}+p_t^Fc_t^{h\to F}\)
+で達成する問題において、すでに名目予算制約式
+\eqref{form:chapter3_households_problem_setup_home_stage1b_constraint_def}
+が用いられていた。
+したがってそれらを集計した資源制約式
+\eqref{form:chapter3_representative_household_resource_constraints_home_representative_eq}
+は需要関数
+\eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}および
+\eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
+に内包されている。
+よって資源制約式
+\eqref{form:chapter3_representative_household_resource_constraints_home_representative_eq}
+は以下の構成要素一覧に含めない。
+\begin{itemize}
+    \item 財市場の均衡式\eqref{form:chapter3_representative_household_goods_market_home_representative_y_H_eq}
+    \item 所得の限界効用の式\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
+    \item 自国コンティンジェント債券に関するオイラー方程式\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
+    \item 外国通貨建てリスクフリー債券に関するオイラー方程式\eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
+    \item 自国財消費指数の需要関数\eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
+    \item 外国財消費指数の需要関数\eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
+    \item 消費者物価指数（CPI）の定義式\eqref{form:chapter3_representative_household_demand_home_representative_p_H_W_eq}
+    \item 生産者物価指数（PPI）に関する一物一価の法則\eqref{form:chapter3_households_stage1a_ppi_definitions_p_H_lop}
+\end{itemize}
+まず自国財消費指数の需要関数
+\eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_c_H_H_eq}
+    c_t^{H\to H}=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{H\to W}
+\end{equation}
+外国財消費指数の需要関数
+\eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_c_H_F_eq}
+    c_t^{H\to F}=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{H\to W}
+\end{equation}
+生産者物価指数（PPI）に関する一物一価の法則
+\eqref{form:chapter3_households_stage1a_ppi_definitions_p_H_lop}
+\begin{equation}
+\label{form:chapter5_asad_ad_lop_eq}
+    p_t^H=e_t^{/*}p_t^{H*}
+\end{equation}
+および外国通貨建てリスクフリー債券に関するオイラー方程式
+\eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_lambda_H_i_F_eq}
+    \lambda_t^He_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t[\lambda_{t+1}^He_{t+1}^{/*}]
+\end{equation}
+を合わせることにより為替レートの式
+\eqref{form:chapter5_asad_ad_exchange_rate_eq}
+が導かれる。
+\begin{equation}
+\label{form:chapter5_asad_ad_e_slash_asterisk_eq}
+    e_t^{/*}=E_t[\mathcal{B}_t\Lambda_{\infty}]\times\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}
+\end{equation}
+この為替レートの式を財市場の均衡式
+\eqref{form:chapter3_representative_household_goods_market_home_representative_y_H_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_y_H_eq}
+    y_t^H=c_t^{H\to H}+\frac{M}{N}c_t^{F\to H}
+\end{equation}
+に代入すると、名目GDP\(p_t^Hy_t^H\)と名目総消費\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+\eqref{form:chapter5_asad_ad_p_H_y_H_eq}
+が以下のように得られる。
+\begin{equation}
+\label{form:chapter5_asad_ad_p_H_y_H_eq}
+p_t^Hy_t^H=\left[\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]\right]p_t^{H\to W}c_t^{H\to W}
+\end{equation}
+ここで\(\mathcal{B}_t\)は式
+\eqref{form:todo}
+で以下のように定義される
+\begin{equation}
+\label{form:chapter5_asad_ad_B_t_def}
+    \mathcal{B}_t\equiv\prod_{j=0}^{\infty}\frac{\beta_{t+j}^H}{\beta_{t+j}^F}
+\end{equation}
+\(\Lambda_{\infty}\)は式
+\eqref{form:todo}
+で以下のように定義される。
+\begin{equation}
+\label{form:chapter5_asad_ad_Lambda_infty_def}
+    \Lambda_{\infty}\equiv\lim_{t\to\infty}\frac{\lambda_t^{H/*}}{\lambda_t^{F/*}}
+\end{equation}
+次に上式の名目総消費\(p_t^{H\to W}c_t^{H\to W}\)に対し、所得の限界効用の式
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_lambda_H_p_H_W_c_H_W_eq}
+    \lambda_t^H=\frac{1}{p_t^{H\to W}c_t^{H\to W}}
+\end{equation}
+を名目総消費\(p_t^{H\to W}c_t^{H\to W}\)について解いた
+\(p_t^{H\to W}c_t^{H\to W}=1/\lambda_t^H\)を代入する。
+さらにそうして出てきた所得の限界効用\(\lambda_t^H\)に自国コンティンジェント債券に関するオイラー方程式
+\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
+\begin{equation}
+\label{form:chapter5_asad_ad_lambda_H_i_H_eq}
+    \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+\end{equation}
+を代入する。
+\begin{align}
+\label{form:chapter5_asad_ad_p_H_y_H_modified_eq}
+    p_t^Hy_t^H
+    &=\left[\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]\right]\frac{1}{\lambda_t^H} \nonumber \\
+    &=\frac{\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+\end{align}
+最後に\(y_t^H\)を右辺に移項することで以下の\textbf{AD曲線}が導出される。
+\begin{equation}
+\label{form:chapter5_asad_ad_p_H_eq}
+p_t^H=\frac{1}{y_t^H}\times\frac{\alpha^H+(1-\alpha^F)E_t[\mathcal{B}_t\Lambda_{\infty}]}{\beta_t^H(1+i_t^H)E_t[\lambda_{t+1}^H]}
+\end{equation}
+生産者物価指数\(p_t^H\)が生産\(y_t^H\)に反比例していることから、
+AD曲線は右下がりの\textbf{直角双曲線}となっていることがわかる。
+ここでAD曲線の分子に含まれる\(E_t[\mathcal{B}_t\Lambda_{\infty}]\)は自国金融政策の影響を受けない。
+なぜなら\(\mathcal{B}_t\equiv\prod_{j=0}^{\infty}(\beta_{t+j}^H/\beta_{t+j}^F)\)は
+両国の主観的割引因子の系列のみから構成され、
+また\(\Lambda_{\infty}\equiv\lambda_{\infty}^{H/*}/\lambda_{\infty}^{F/*}\)を構成する
+外国通貨建て所得の限界効用\(\lambda^{/*}\)は遮断効果により自国金融政策の影響を受けないためである。
+したがって金融政策の分析においてはこれらの項の動きは考慮しなくてよい。

@@ -2,7 +2,7 @@
 % chapters/sections/chapter4/subsections/method/dynare.tex
 
 \subsection{Dynareによる数値計算}
-\label{sec:method_dynare}
+\label{sec:chapter4_method_dynare}
 シミュレーションにあたり\ref{chap:chapter3}章の方程式系に加え、初期定常状態、パラメータおよびショック
 の具体的な値をDynareに与える。
 するとDynareはショックによって初期定常状態から飛ばされた内生変数のベクトル（これを便宜的に「経済」と呼ぶ）が
@@ -10,72 +10,72 @@
 以下ではこのシミュレーションの原理を直観的に説明する。
 
 \subsubsection{変数の分類：状態変数とジャンプ変数}
-\label{sec:method_variables_classification}
+\label{sec:chapter4_method_variables_classification}
 Dynareにおけるシミュレーションを説明する準備として、
 経済を構成する変数を「期の添え字」によって以下の4種類に分類する。
 \begin{enumerate}
     \item
-    \label{itm:method_variables_state}
+    \label{itm:chapter4_method_variables_state}
         \textbf{状態変数:}\\
         方程式系に\(t\)期と\(t-1\)期のもののみが含まれる変数を指す。
         本モデルにおける例として、自国の価格分散\(\Delta_t^H\)の動学方程式
-        \eqref{form:method_state_example_delta}
+        \eqref{form:chapter4_method_state_example_delta}
         を挙げる。
         \begin{equation}
-        \label{form:method_state_example_delta}
+        \label{form:chapter4_method_state_example_delta}
             \Delta_t^H
             =(1-\xi^H)N\left(\frac{\widetilde{p}_t^H}{p_t^H}\right)^{-\theta^H}+\xi^H\left(\frac{p_t^H}{p_{t-1}^H}\right)^{\theta^H}\Delta_{t-1}^H
         \end{equation}
         この方程式は\(t\)期の変数（\(\Delta_t^H,\widetilde{p}_t^H,p_t^H\)）と\(t-1\)期の変数（\(\Delta_{t-1}^H,p_{t-1}^H\)）のみを含んでいる。また定義に従い、この\(\Delta^H\)は方程式系のほかのいかなる箇所においても\(t+1\)期の形（\(\Delta_{t+1}^H\)）で登場することはない。このように\(t+1\)期の変数には依存せず、\(t-1\)期の変数を含んで次期へと状態を引き継ぐ変数を状態変数として扱う。
     \item
-    \label{itm:method_variables_jump}
+    \label{itm:chapter4_method_variables_jump}
         \textbf{ジャンプ変数:}\\
         方程式系に\(t\)期と\(t+1\)期のもののみが含まれる変数を指す。
-        例えば、自国代表的家計の自国コンティンジェント債券に関するオイラー方程式\eqref{form:method_euler_example}は以下の通りであった。
+        例えば、自国代表的家計の自国コンティンジェント債券に関するオイラー方程式\eqref{form:chapter4_method_euler_example}は以下の通りであった。
         \begin{equation}
-        \label{form:method_euler_example}
+        \label{form:chapter4_method_euler_example}
             \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
         \end{equation}
         この方程式は\(t\)期の変数（\(\lambda_t^H,\beta_t^H,i_t^H\)）と\(t+1\)期の変数（\(\lambda_{t+1}^H\)）のみを含んでいる。したがって定義に従いジャンプ変数として扱う。このように\(t+1\)期の変数を含むため、ショック発生時に\(t+1\)期の変数の予測が変化すると、方程式を成立させるために\(t\)期の変数もその影響を受けて瞬時に大きく変化（ジャンプ）する。
     \item
-    \label{itm:method_variables_static}
+    \label{itm:chapter4_method_variables_static}
         \textbf{静学変数:}\\
         方程式系に\(t\)期のもののみが含まれる変数を指す。
         例えば本モデルにおける一人当たり生産\(y_t^H\)などが該当する。
         これらは状態変数とジャンプ変数が確定すれば\(t\)期の中で連動して自動的に決まるため、
         系の動学を規定する分析においては代入により消去可能な変数として扱われる。
     \item
-    \label{itm:method_variables_mixed}
+    \label{itm:chapter4_method_variables_mixed}
         \textbf{混合変数（Mixed変数）:}\\
         方程式系に\(t\)期と\(t-1\)期および\(t+1\)期のものが含まれる変数を指す。
         状態変数とジャンプ変数の両方の性質を併せ持つ。本稿の方程式系には登場しない。
 \end{enumerate}
 
 \subsubsection{1つの状態変数のみからなる経済}
-\label{sec:method_single_variable}
+\label{sec:chapter4_method_single_variable}
 まずはじめに経済\(x_t\)が1つの状態変数のみからなる場合を考察する。
 このとき方程式系に\(t+1\)期の変数が含まれないため、方程式系は\(\operatorname{E}_t[x_{t+1}]\)を省いた
 残差関数を用いて以下のように記述される。
 \begin{equation}
-\label{form:method_single_system}
+\label{form:chapter4_method_single_system}
     f(x_t,x_{t-1},\epsilon_t)=0
 \end{equation}
 しかしシミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
 そこで残差関数\(f\)を初期定常状態\((x_{ss},x_{ss},0)\)の周りで線形化して接線を求めると以下のようになる。
 \begin{equation}
-\label{form:method_linearized_single}
+\label{form:chapter4_method_linearized_single}
     b(x_t-x_{ss})+c(x_{t-1}-x_{ss})+d(\epsilon_t-0)=0
 \end{equation}
 ここで\(b,c,d\)は残差関数\(f\)の各変数に関する偏微分から定まる定数である。
 これを変形すると陰関数\(h\)（政策関数とも呼ばれる）が以下のように導かれる。
 \begin{equation}
-\label{form:method_implicit_h_single}
+\label{form:chapter4_method_implicit_h_single}
     x_t=h(x_{t-1},\epsilon_t)=x_{ss}-\frac{c}{b}(x_{t-1}-x_{ss})-\frac{d}{b}(\epsilon_t-0)
 \end{equation}
 なお、定常状態の性質から\(x_{ss}=h(x_{ss},0)\)という関係が成立する。
 この陰関数\(h\)について\(\epsilon_t\)を固定すれば\(h_{\epsilon_t}\)が得られる。
 \begin{equation}
-\label{form:method_h_epsilon_single}
+\label{form:chapter4_method_h_epsilon_single}
     h_{\epsilon_t}(x_{t-1})\equiv h(x_{t-1},\epsilon_t)
 \end{equation}
 この関数\(h_{\epsilon_t}\)を用いて\((x_{t-1},x_t)\)平面上の点\((x_{t-1},x_t)\)の挙動を考察する。
@@ -90,7 +90,7 @@ Dynareにおけるシミュレーションを説明する準備として、
   (x_1,x_1),\quad (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots\)
 と移動していく様子は以下の階段状の動きを考えると視覚的に捉えやすい。
 \begin{equation}
-\label{form:method_iterative_convergence}
+\label{form:chapter4_method_iterative_convergence}
     (x_{ss},x_0),\quad
     (x_0,x_0),\quad (x_0,x_1=h_{\epsilon_0}(x_0)),\quad
     (x_1,x_1),\quad (x_1,x_2=h_{\epsilon_0}(x_1)),\quad\dots
@@ -100,18 +100,18 @@ Dynareにおけるシミュレーションを説明する準備として、
 この点\((x_{t-1},x_t)\)の移動の軌跡を時間軸に沿って点描したものがインパルス応答関数である。
 
 \subsubsection{状態変数とジャンプ変数からなる多変数の経済}
-\label{sec:method_multivariable}
+\label{sec:chapter4_method_multivariable}
 次に経済\(\mathbf{x}_t\)を状態変数とジャンプ変数からなるベクトルとする。
 このとき方程式系は\(t+1\)期の変数ベクトル\(\operatorname{E}_t[\mathbf{x}_{t+1}]\)を含んだ以下の一般的な形になる。
 \begin{equation}
-\label{form:method_multivariable_system_with_expectation}
+\label{form:chapter4_method_multivariable_system_with_expectation}
     f(\operatorname{E}_t[\mathbf{x}_{t+1}],\mathbf{x}_t,\mathbf{x}_{t-1},\mathbf{\epsilon}_t)=0
 \end{equation}
 前節で説明したように、シミュレーションにおいて非線形な残差関数\(f\)をそのまま扱うことは困難である。
 そこで残差関数\(f\)を初期定常状態\((\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{x}_{ss},\mathbf{0})\)
 の周りで線形化して接平面を求めると以下のようになる。
 \begin{equation}
-\label{form:method_linearized_system}
+\label{form:chapter4_method_linearized_system}
     A(\operatorname{E}_t[\mathbf{x}_{t+1}]-\mathbf{x}_{ss})+B(\mathbf{x}_t-\mathbf{x}_{ss})+C(\mathbf{x}_{t-1}-\mathbf{x}_{ss})+D(\mathbf{\epsilon}_t-\mathbf{0})=0
 \end{equation}
 ここで行列\(A,B,C,D\)は残差関数\(f\)の各変数ベクトルに関する偏微分から定まる定数行列である。
@@ -124,7 +124,7 @@ Dynareにおけるシミュレーションを説明する準備として、
 前期の変数ベクトル\(\mathbf{x}_{t-1}\)と今期のショック\(\mathbf{\epsilon}_t\)のみから
 今期の変数ベクトル\(\mathbf{x}_t\)が決定される規則、すなわち以下の陰関数（政策関数）\(h\)を導出できればよい。
 \begin{equation}
-\label{form:method_implicit_h_multi}
+\label{form:chapter4_method_implicit_h_multi}
     \mathbf{x}_t=h(\mathbf{x}_{t-1},\mathbf{\epsilon}_t)
 \end{equation}
 そのためにまず
@@ -136,7 +136,7 @@ Dynareにおけるシミュレーションを説明する準備として、
 このとき\(P=\{1,2,\dots,|P|\},J=\{|P|+1,|P|+2,\dots,n\},|P|+|J|=n\)が成立する。
 この変数ベクトル\(\mathbf{y}_t\)を用いると線形化された方程式系は以下のような1階の差分方程式に変形される。
 \begin{equation}
-\label{form:method_first_order_difference}
+\label{form:chapter4_method_first_order_difference}
     \operatorname{E}_t[\mathbf{y}_{t+1}]=W\mathbf{y}_t+V\mathbf{\epsilon}_t
 \end{equation}
 ここで行列\(W\)と\(V\)は元の係数行列\(A,B,C,D\)を代数的に操作して得られる定数行列であり、
@@ -144,22 +144,22 @@ Dynareにおけるシミュレーションを説明する準備として、
 ここで\(t\ge1\)の場合を考える。
 このときショックは発生しない（\(\mathbf{\epsilon}_t=0\)）から
 合理的期待の下で期待値は実現値と一致し\(\operatorname{E}_t[\mathbf{y}_{t+1}]=\mathbf{y}_{t+1}\)となる。
-これらを代入すると式\eqref{form:method_first_order_difference}は以下のようになる。
+これらを代入すると式\eqref{form:chapter4_method_first_order_difference}は以下のようになる。
 \begin{equation}
-\label{form:method_first_order_difference2}
+\label{form:chapter4_method_first_order_difference2}
     \mathbf{y}_{t+1}=W\mathbf{y}_t
 \end{equation}
 推移行列\(W\)が\(n\)個の線形独立な固有ベクトル\(\mathbf{v}_i\)を持つとき、
 変数ベクトル\(\mathbf{y}_t\)は固有ベクトル\(\mathbf{v}_i\)の線形結合により表される。
 \begin{equation}
-\label{form:method_eigen_sum_expanded}
+\label{form:chapter4_method_eigen_sum_expanded}
     \mathbf{y}_t=c_t^{(1)}\mathbf{v}_1+c_t^{(2)}\mathbf{v}_2+\dots+c_t^{(n)}\mathbf{v}_n
 \end{equation}
 固有ベクトル\(\mathbf{v}_i\)に対応する固有値を\(\lambda_i\)とすると、
 \(W\mathbf{v}_i=\lambda_i\mathbf{v}_i\)が成立するため
 次期の変数ベクトル\(\mathbf{y}_{t+1}\)は以下のようになる。
 \begin{align}
-\label{form:method_eigenvalue_derivation}
+\label{form:chapter4_method_eigenvalue_derivation}
     \mathbf{y}_{t+1}
     &=W\mathbf{y}_t \nonumber \\
     &=W(c_t^{(1)}\mathbf{v}_1+c_t^{(2)}\mathbf{v}_2+\dots+c_t^{(n)}\mathbf{v}_n) \nonumber \\
@@ -171,12 +171,12 @@ Dynareにおけるシミュレーションを説明する準備として、
 固有値\(\lambda_i\)の絶対値に応じて以下の通りに分かれることがわかる。
 \begin{itemize}
     \item 
-    \label{itm:method_stable_direction_final}
+    \label{itm:chapter4_method_stable_direction_final}
         \textbf{固有値\(\lambda_i\)の絶対値が1より小さいとき：}\\
         この「安定な」固有ベクトル\(\mathbf{v}_i\)の成分は時間の経過とともに減衰し、
         変数ベクトルを初期定常状態へと収束させる。
     \item
-    \label{itm:method_unstable_direction_final}
+    \label{itm:chapter4_method_unstable_direction_final}
         \textbf{固有値\(\lambda_i\)の絶対値が1と同じかより大きいとき：}\\
         この「不安定な」固有ベクトル\(\mathbf{v}_i\)の成分は維持または増幅され、
         変数ベクトルは初期定常状態へ収束しない。
@@ -190,7 +190,7 @@ Dynareにおけるシミュレーションを説明する準備として、
 したがって変数ベクトル\(\mathbf{y}_t\)は安定な固有ベクトル\(\mathbf{v}_i, i\in S=\{1,2,\dots,|S|\}\)
 のみの線形結合として以下のように表現されなければならない。
 \begin{equation}
-\label{form:method_component_display_final}
+\label{form:chapter4_method_component_display_final}
     \underbrace{
         \begin{pmatrix}
             y_t^{(1)} \\
@@ -259,7 +259,7 @@ Dynareにおけるシミュレーションを説明する準備として、
 これによりジャンプ変数の数\(|J|\)が不安定な固有ベクトルの数に\(|U|\)に一致しなければならないという
 Blanchard-Kahn（BK）条件が導かれる。
 \begin{equation}
-\label{form:method_bk_condition_formula_complete}
+\label{form:chapter4_method_bk_condition_formula_complete}
     |S|+|U|=n=|P|+|J|=|S|+|J|\quad\Longleftrightarrow\quad|U|=|J|
 \end{equation}
 またこのとき上記の連立方程式よりジャンプ変数\(y_t^{(|P|+1)}\dots y_t^{(n)}\)が決定され、

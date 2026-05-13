@@ -1,0 +1,137 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/utility.tex
+
+\subsection{効用}
+\label{sec:chapter3_representative_household_utility}
+
+\subsubsection{自国の効用\(u_t^H\)}
+\label{sec:chapter3_representative_household_utility_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_utility_home_original}
+式
+\eqref{form:chapter3_households_problem_setup_home_stage2_u_h_def}
+で定義されたとおり、自国家計の効用\(u_t^h\)は以下のようであった。
+\begin{equation}
+\label{form:utility_home_original_u_h_def}
+    u_t^h\equiv\log(c_t^{h\to W})-\frac{\phi^H}{2}(l_t^h)^2
+\end{equation}
+
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_utility_home_representative}
+上式を\(h\)について足し合わせ、両辺を自国の人口\(N\)で割ることで、
+自国家計の効用の平均\(\frac{1}{N}\sum_{h\in H}u_t^h\)を求める。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_average_u_h_eq}
+    \frac{1}{N}\sum_{h\in H}u_t^h
+    =\frac{1}{N}\sum_{h\in H}\log(c_t^{h\to W})-\frac{\phi^H}{2}\frac{1}{N}\sum_{h\in H}(l_t^h)^2
+\end{equation}
+ここで定義式
+\eqref{form:chapter3_representative_household_production_home_representative_l_H_def}
+により自国代表的家計の労働\(l_t^H\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_l_H_def}
+    l_t^H\equiv\frac{L_t^H}{N}=\frac{1}{N}\sum_{h\in H}l_t^h
+\end{equation}
+そこで\((l_t^h)^2\)を\(l_t^H\)の周りで1次近似すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_l_H_sq_eq}
+    (l_t^h)^2\approx(l_t^H)^2+2l_t^H(l_t^h-l_t^H)
+\end{equation}
+これを用いて\(\frac{1}{N}\sum_{h\in H}(l_t^h)^2\)を計算すると、以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_average_sum_l_H_sq_eq}
+\begin{aligned}
+    \frac{1}{N}\sum_{h\in H}(l_t^h)^2
+    &\approx\frac{1}{N}\sum_{h\in H}\left[(l_t^H)^2+2l_t^H(l_t^h-l_t^H)\right] \\
+    &=\frac{1}{N}\sum_{h\in H}(l_t^H)^2+\frac{2l_t^H}{N}\sum_{h\in H}(l_t^h-l_t^H) \\
+    &=(l_t^H)^2+\frac{2l_t^H}{N}\left(\sum_{h\in H}l_t^h-\sum_{h\in H}l_t^H\right) \\
+    &=(l_t^H)^2+2l_t^H(l_t^H-l_t^H) \\
+    &=(l_t^H)^2
+\end{aligned}
+\end{equation}
+一方で定義式
+\eqref{form:chapter3_representative_household_lambda_home_representative_c_H_W_def}
+より、代表的家計の総消費指数\(c_t^{H\to W}\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_c_H_W_def}
+    c_t^{H\to W}\equiv c_t^{h\to W}
+\end{equation}
+これらを式
+\eqref{form:chapter3_representative_household_utility_home_representative_average_u_h_eq}
+に代入すると以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_average_u_h_modified_eq}
+    \frac{1}{N}\sum_{h\in H}u_t^h\approx\log(c_t^{H\to W})-\frac{\phi^H}{2}(l_t^H)^2
+\end{equation}
+そこでこの右辺によって代表的家計の効用\(u_t^H\)を定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_home_representative_u_H_def}
+    u_t^H\equiv\log(c_t^{H\to W})-\frac{\phi^H}{2}(l_t^H)^2
+\end{equation}
+
+\subsubsection{外国の効用\(u_t^F\)}
+\label{sec:chapter3_representative_household_utility_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_utility_foreign_original}
+式
+\eqref{form:chapter3_households_problem_setup_foreign_stage2_u_f_def}
+で定義されたとおり、外国家計の効用\(u_t^f\)は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_original_u_f_def}
+    u_t^f\equiv\log(c_t^{f\to W})-\frac{\phi^F}{2}(l_t^f)^2
+\end{equation}
+
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_utility_foreign_representative}
+上式を\(f\)について足し合わせ、両辺を外国の人口\(M\)で割ることで、
+外国家計の効用の平均\(\frac{1}{M}\sum_{f\in F}u_t^f\)を求める。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_average_u_f_eq}
+    \frac{1}{M}\sum_{f\in F}u_t^f
+    =\frac{1}{M}\sum_{f\in F}\log(c_t^{f\to W})-\frac{\phi^F}{2}\frac{1}{M}\sum_{f\in F}(l_t^f)^2
+\end{equation}
+ここで定義式
+\eqref{form:chapter3_representative_household_production_foreign_representative_l_F_def}
+により外国代表的家計の労働\(l_t^F\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_l_F_def}
+    l_t^F\equiv\frac{L_t^F}{M}=\frac{1}{M}\sum_{f\in F}l_t^f
+\end{equation}
+そこで\((l_t^f)^2\)を\(l_t^F\)の周りで1次近似すると以下が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_l_F_sq_eq}
+    (l_t^f)^2\approx(l_t^F)^2+2l_t^F(l_t^f-l_t^F)
+\end{equation}
+これを用いて\(\frac{1}{M}\sum_{f\in F}(l_t^f)^2\)を計算すると、以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_average_sum_l_F_sq_eq}
+\begin{aligned}
+    \frac{1}{M}\sum_{f\in F}(l_t^f)^2
+    &\approx\frac{1}{M}\sum_{f\in F}\left[(l_t^F)^2+2l_t^F(l_t^f-l_t^F)\right] \\
+    &=\frac{1}{M}\sum_{f\in F}(l_t^F)^2+\frac{2l_t^F}{M}\sum_{f\in F}(l_t^f-l_t^F) \\
+    &=(l_t^F)^2+\frac{2l_t^F}{M}\left(\sum_{f\in F}l_t^f-\sum_{f\in F}l_t^F\right) \\
+    &=(l_t^F)^2+2l_t^F(l_t^F-l_t^F) \\
+    &=(l_t^F)^2
+\end{aligned}
+\end{equation}
+一方で定義式
+\eqref{form:chapter3_representative_household_lambda_foreign_representative_c_F_W_def}
+より、外国代表的家計の総消費指数\(c_t^{F\to W}\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_c_F_W_def}
+    c_t^{F\to W}\equiv c_t^{f\to W}
+\end{equation}
+これらを式
+\eqref{form:chapter3_representative_household_utility_foreign_representative_average_u_f_eq}
+に代入すると以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_average_u_f_modified_eq}
+    \frac{1}{M}\sum_{f\in F}u_t^f\approx\log(c_t^{F\to W})-\frac{\phi^F}{2}(l_t^F)^2
+\end{equation}
+そこでこの右辺によって外国代表的家計の効用\(u_t^F\)を定義する。
+\begin{equation}
+\label{form:chapter3_representative_household_utility_foreign_representative_u_F_def}
+    u_t^F\equiv\log(c_t^{F\to W})-\frac{\phi^F}{2}(l_t^F)^2
+\end{equation}
