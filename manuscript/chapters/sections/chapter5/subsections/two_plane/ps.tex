@@ -1,0 +1,60 @@
+% !TeX root = ../../../main.tex
+% chapters/sections/chapter5/subsections/two_plane/ps.tex
+
+\subsection{PS(純粋供給)曲線}
+\label{sec:chapter5_two_plane_ps}
+PS(純粋供給)曲線は供給群の式を統合することで導出される。
+PS(純粋供給)曲線は生産者物価指数(PPI)\(p_t^H\)を生産\(y_t^H\)の関数として記述したものとなり、
+したがって\((y_t^H,p_t^H)\)平面上に描かれるYS(生産供給)曲線となる。
+
+\subsubsection{PS(純粋供給)曲線を構成する式}
+\label{sec:chapter5_two_plane_ps_components}
+PS(純粋供給)曲線を構成する供給群の式は
+\ref{sec:chapter5_two_plane_classification_supply}
+節で述べられたとおり、以下のようであった。
+\begin{itemize}
+    \item \textbf{最適価格\(\widetilde{p}_t^H\)の定義式} \eqref{form:chapter5_two_plane_classification_supply_p_H_tilde_def}
+    \item \textbf{最適価格\(\widetilde{p}_t^H\)の補助変数\(v_t^H\)の式} \eqref{form:chapter5_two_plane_classification_supply_v_H_eq}
+    \item \textbf{最適価格\(\widetilde{p}_t^H\)の補助変数\(w_t^H\)の式} \eqref{form:chapter5_two_plane_classification_supply_w_H_eq}
+    \item \textbf{正規化された生産者物価指数(PPI)\(\bar{p}_t^H\)の式} \eqref{form:chapter5_two_plane_classification_supply_p_H_bar_eq}
+    \item \textbf{価格分散\(\Delta_t^H\)の式} \eqref{form:chapter5_two_plane_classification_supply_Delta_H_eq}
+    \item \textbf{生産関数} \eqref{form:chapter5_two_plane_classification_supply_y_H_eq}
+\end{itemize}
+
+\subsubsection{PS(純粋供給)曲線の導出}
+\label{sec:chapter5_two_plane_ps_derivation}
+式
+\ref{appendixTODO}
+で示されたとおり、上記の式を定常状態の周りで対数線形近似し補助変数\(v_t^H,w_t^H\)を消去して整理することにより、
+以下の線形化されたフィリップス曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ps_derivation_pi_H_eq}
+\hat{\pi}_t^H=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-\hat{\lambda}_t^H-\hat{\tau}_t^H)
+\end{equation}
+ここでハット記号\(\hat{}\)は定常状態からの対数乖離率を、下付き文字の\(ss\)は定常状態の値を意味する。
+\(\kappa^H\)は式
+\eqref{appendixTODO}
+で定義される価格の粘着性に依存する正の定数である。
+\(\hat{\pi}_t^H\)は式
+\eqref{appendixTODO}
+で以下のように定義されるインフレ率である。
+\begin{equation}
+\label{form:chapter5_two_plane_ps_derivation_pi_H_def}
+    \hat{\pi}_t^H\equiv\hat{p}_t^H-\hat{p}_{t-1}^H
+\end{equation}
+パラメータ設定の表\ref{tab:chapter4_parameters_list}でも述べたとおり、
+本稿では日本経済の実証データにもとづき自国の価格は極めて硬直的に設定している（\(\xi^H=0.99\)）。
+この条件下では\(\kappa^H\)が極めて小さいため本稿の分析では単純化して\(\kappa^H=0\)とおく。
+このときインフレ率\(\hat{\pi}_t^H\)は期待インフレ率\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)にのみ依存する形式となる。
+ここで定義式\eqref{form:chapter5_two_plane_ps_derivation_pi_H_def}より
+\(\hat{\pi}_t^H=\hat{p}_t^H-\hat{p}_{t-1}^H\)および
+\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]=\operatorname{E}_t[\hat{p}_{t+1}^H]-\hat{p}_t^H\)
+となるから、これらを代入して\(\hat{p}_t^H\)について整理すると以下の\textbf{PS(純粋供給)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ps_derivation_p_H_eq}
+\hat{p}_t^H=\frac{1}{1+\beta_{ss}^H}\hat{p}_{t-1}^H+\frac{\beta_{ss}^H}{1+\beta_{ss}^H}\operatorname{E}_t[\hat{p}_{t+1}^H]
+\end{equation}
+この式には生産\(\hat{y}_t^H\)が含まれていない。
+したがって\((y,p)\)平面においてPS(純粋供給)曲線は\textbf{水平な直線}として描かれる。
+この水平線の高さは前期の生産者物価指数\(\hat{p}_{t-1}^H\)と
+期待生産者物価指数\(\operatorname{E}_t[\hat{p}_{t+1}^H]\)のみによって決定される。

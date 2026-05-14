@@ -1,0 +1,87 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/lop.tex
+
+\subsection{一物一価の法則}
+\label{sec:chapter3_representative_household_lop}
+
+\subsubsection{自国財の一物一価}
+\label{sec:chapter3_representative_household_lop_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_lop_home_original}
+式
+\eqref{form:chapter3_assumptions_lop_home_p_h_eq}
+で仮定されたように、自国家計\(h\)の財の価格\(p_t^h\)について一物一価の法則は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_home_original_p_h_eq}
+    p_t^h=e_t^{/*}p_t^{h*}
+\end{equation}
+
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_lop_home_representative}
+自国の生産者物価指数（PPI）\(p_t^H\)は式
+\eqref{form:chapter3_households_stage1a_ppi_descriptions_p_H_eq}
+によって示されたとおり、以下のように表現された。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_home_representative_p_H_eq}
+    p_t^H=\left[\sum_{h\in H}(p_t^h)^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+\end{equation}
+この右辺に先ほどの一物一価の法則
+\eqref{form:chapter3_representative_household_lop_home_original_p_h_eq}
+を代入すると以下のようになる。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_home_representative_p_h_modified_eq}
+    \begin{aligned}
+        p_t^H&=\left[\sum_{h\in H}(e_t^{/*}p_t^{h*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}} \\
+        &=e_t^{/*}\left[\sum_{h\in H}(p_t^{h*})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}
+    \end{aligned}
+\end{equation}
+右辺の括弧は外国通貨建ての自国生産者物価指数\(p_t^{H*}\)の式
+\eqref{form:chapter3_households_stage1a_ppi_descriptions_p_H_star_eq}
+の右辺そのものであるから、代入すると\(p_t^{H*}\)に書き換えることができる。
+こうして自国代表的家計の一物一価の法則が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_home_representative_p_H_eq}
+    p_t^H=e_t^{/*}p_t^{H*}
+\end{equation}
+
+\subsubsection{外国財の一物一価}
+\label{sec:chapter3_representative_household_lop_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_lop_foreign_original}
+同様に式
+\eqref{form:chapter3_assumptions_lop_foreign_p_f_eq}
+で仮定されたように、外国家計\(f\)の財の価格\(p_t^f\)について一物一価の法則は以下のようであった。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_foreign_original_p_f_eq}
+    p_t^f=e_t^{/*}p_t^{f*}
+\end{equation}
+
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_lop_foreign_representative}
+外国の生産者物価指数（PPI）\(p_t^F\)は式
+\eqref{form:chapter3_households_stage1a_ppi_descriptions_p_F_eq}
+によって示されたとおり、以下のように表現された。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_foreign_representative_p_F_def_eq}
+    p_t^F=\left[\sum_{f\in F}(p_t^f)^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+\end{equation}
+この右辺に先ほどの一物一価の法則
+\eqref{form:chapter3_representative_household_lop_foreign_original_p_f_eq}
+を代入すると以下のようになる。
+\begin{equation}
+   \begin{aligned}
+\label{form:chapter3_representative_household_lop_foreign_representative_p_f_modified_eq}
+    p_t^F&=\left[\sum_{f\in F}(e_t^{/*}p_t^{f*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}} \\
+    &=e_t^{/*}\left[\sum_{f\in F}(p_t^{f*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+   \end{aligned}
+\end{equation}
+右辺の括弧は外国生産者物価指数\(p_t^{F*}\)の式
+\eqref{form:chapter3_households_stage1a_ppi_descriptions_p_F_star_eq}
+の右辺そのものであるから、代入すると\(p_t^{F*}\)に書き換えることができる。
+こうして外国代表的家計の一物一価の法則が得られる。
+\begin{equation}
+\label{form:chapter3_representative_household_lop_foreign_representative_p_F_lop_eq}
+    p_t^F=e_t^{/*}p_t^{F*}
+\end{equation}

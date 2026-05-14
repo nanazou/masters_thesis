@@ -312,15 +312,25 @@
 \(\bar{p}_t^H, \bar{p}_t^{F*}\)を以下のように定義する。
 \begin{align}
     \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_def}
-        \bar{p}_t^H&\equiv\left[\frac{1}{N}\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}}=N^{-\frac{1}{1-\theta^H}}p_t^H \\
-    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_star_bar_def}
-        \bar{p}_t^{F*}&\equiv\left[\frac{1}{M}\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}=M^{-\frac{1}{1-\theta^F}}p_t^{F*}
+        \bar{p}_t^H&\equiv\left[\frac{1}{N}\sum_{h'\in H}(p_t^{h'})^{1-\theta^H}\right]^{\frac{1}{1-\theta^H}} \\
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_star_bar_def}   
+        \bar{p}_t^{F*}&\equiv\left[\frac{1}{M}\sum_{f'\in F}(p_t^{f'*})^{1-\theta^F}\right]^{\frac{1}{1-\theta^F}}
+\end{align}
+またこれらは右辺に通常の生産者物価指数（PPI）の定義式
+\eqref{form:chapter3_households_stage1a_p_H_def}および
+\eqref{form:chapter3_households_stage1a_p_F_star_def}
+を代入することにより、以下のように書き換えられる。
+\begin{align}
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_eq}
+        \bar{p}_t^H&=N^{-\frac{1}{1-\theta^H}}p_t^H \\
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_star_bar_eq}   
+        \bar{p}_t^{F*}&=M^{-\frac{1}{1-\theta^F}}p_t^{F*}
 \end{align}
 するとこれらについても一物一価の法則が成立する。
 \begin{align}
-    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_lop}
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_H_bar_lop_eq}
         \bar{p}_t^H&=e_t^{/*}\bar{p}_t^{H*}\\
-    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_bar_lop}
+    \label{form:chapter3_households_stage1a_normalized_ppi_definitions_p_F_bar_lop_ea}
         \bar{p}_t^F&=e_t^{/*}\bar{p}_t^{F*}
 \end{align}
 

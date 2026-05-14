@@ -1,0 +1,59 @@
+% !TeX root = ../../../main.tex
+% chapters/sections/chapter5/subsections/two_plane/cs.tex
+
+\subsection{CS（消費供給）曲線}
+\label{sec:chapter5_two_plane_cs}
+CS（消費供給）曲線は消費者物価指数（CPI）\(p_t^{H\to W}\)を総消費指数\(c_t^{H\to W}\)の関数として
+記述したものであり、
+PS（純粋供給）曲線に接続群の式を統合することで導出される。
+PS（純粋供給）曲線は\((y_t^H,p_t^H)\)平面上に描かれるYS（生産供給）曲線であったが、
+これに接続群の式を統合することで、
+\((c_t^{H\to W},p_t^{H\to W})\)平面上に描かれるCS（消費供給）曲線へと変換するのである。
+
+\subsubsection{変換するための接続群の式}
+\label{sec:chapter5_two_plane_cs_connection}
+CS（消費供給）曲線への変換にあたっては式
+\eqref{chap:appendix_exchange_rate_and_gdpTODO}
+によって示された以下の名目為替レートの決定式を用いる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_connection_e_slash_asterisk_eq}
+    e_t^{/*}=\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}
+\end{equation}
+この名目為替レートの決定式は、以下の5つの接続群の式を統合して得られるものである。
+\begin{itemize}
+    \item \textbf{自国財消費指数の需要関数} \eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
+    \item \textbf{外国財消費指数の需要関数} \eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
+    \item \textbf{一物一価の法則（LOP）} \eqref{form:chapter5_two_plane_classification_connection_p_H_eq}
+    \item \textbf{外国通貨建てリスクフリー債券に関するオイラー方程式} \eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
+    \item \textbf{財市場の均衡条件} \eqref{form:chapter5_two_plane_classification_connection_y_H_eq}
+\end{itemize}
+
+\subsubsection{曲線の導出}
+\label{sec:chapter5_two_plane_cs_connection_derivation}
+消費者物価指数（CPI）\(p_t^{H\to W}\)の式
+\eqref{form:chapter5_two_plane_classification_connection_p_H_W_eq}
+に対して、外国の一物一価の法則
+\eqref{form:chapter3_representative_household_lop_foreign_representative_p_F_lop_eq}
+および名目為替レートの決定式
+\eqref{form:chapter5_two_plane_cs_connection_e_slash_asterisk_eq}
+を代入し、整理すると以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_connection_derivation_p_H_W_eq}
+    \begin{aligned}
+        p_t^{H\to W}&=(p_t^H)^{\alpha^H}(e_t^{/*}p_t^{F*})^{1-\alpha^H} \\
+        &=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}p_t^{F*}\right)^{1-\alpha^H} \\
+        (p_t^{H\to W})^{\alpha^H}&=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{1-\alpha^H} \\
+        p_t^{H\to W}&=p_t^H\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{\frac{1-\alpha^H}{\alpha^H}}
+    \end{aligned}
+\end{equation}
+最後に、PS（純粋供給）曲線
+\eqref{form:chapter5_two_plane_ps_derivation_p_H_eq}
+を上式の\(p_t^H\)に代入することで、以下の\textbf{CS（消費供給）曲線}が導出される。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_connection_derivation_p_H_W_modified_eq}
+    p_t^{H\to W}=\left(\frac{1}{1+\beta_{ss}^H}p_{t-1}^H+\frac{\beta_{ss}^H}{1+\beta_{ss}^H}\operatorname{E}_t[p_{t+1}^H]\right)\times\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{\frac{1-\alpha^H}{\alpha^H}}
+\end{equation}
+ホームバイアスが存在する\(\alpha^H>0.5\)の場合、指数部分\((1-\alpha^H)/\alpha^H\)は正となるため、
+消費者物価指数\(p_t^{H\to W}\)は総消費\(c_t^{H\to W}\)に対して単調増加する。
+したがってそのとき、\((c_t^{H\to W},p_t^{H\to W})\)平面において
+CS（消費供給）曲線は\textbf{右上がりの曲線}として描かれる。

@@ -1,0 +1,73 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter3/subsections/representative_household/steady_state.tex
+
+\subsection{初期定常状態における資産保有}
+\label{sec:chapter3_representative_household_steady_state}
+
+\subsubsection{自国の初期定常状態における資産保有}
+\label{sec:chapter3_representative_household_steady_state_home}
+
+\paragraph{①自国の元となる方程式}
+\label{sec:chapter3_representative_household_steady_state_home_original}
+式
+\eqref{form:chapter3_assumptions_steady_state_home_asset_holdings_b_s_h_eq}
+で仮定されたように、自国家計\(h\)は初期定常状態\(t=s\)においては資産を一切保有していない。
+すなわち外国通貨建てリスクフリー債券\(b_s^{h\to F}\)の保有は0であった。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_home_original_b_s_h_eq}
+    b_s^{h\to F}=0
+\end{equation}
+
+\paragraph{②自国代表的家計の方程式}
+\label{sec:chapter3_representative_household_steady_state_home_representative}
+定義式
+\eqref{form:chapter3_representative_household_resource_constraints_home_representative_b_H_def}
+により、自国代表的家計の外国通貨建てリスクフリー債券\(b_t^H\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_home_representative_b_H_def}
+    \begin{aligned}
+        b_t^H&\equiv\frac{B_t^H}{N} \\
+        &=\frac{\sum_{h\in H}b_t^{h\to F}}{N}
+    \end{aligned}
+\end{equation}
+ここで初期定常状態\(t=s\)を考えると、すべての自国家計\(h\)について式
+\eqref{form:chapter3_representative_household_steady_state_home_original_b_s_h_eq}
+が成立することから、自国代表的家計の外国通貨建てリスクフリー債券\(b_s^H\)の保有も0となる。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_home_representative_b_s_H_eq}
+    b_s^H=0
+\end{equation}
+
+\subsubsection{外国の初期定常状態における資産保有}
+\label{sec:chapter3_representative_household_steady_state_foreign}
+
+\paragraph{①外国の元となる方程式}
+\label{sec:chapter3_representative_household_steady_state_foreign_original}
+式
+\eqref{form:chapter3_assumptions_steady_state_foreign_asset_holdings_b_s_f_star_eq}
+で仮定されたように、外国家計\(f\)は初期定常状態\(t=s\)においては資産を一切保有していない。
+すなわち自国通貨建てリスクフリー債券\(b_s^{f\to H*}\)の保有は0であった。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_foreign_original_b_s_f_star_eq}
+    b_s^{f\to H*}=0
+\end{equation}
+
+\paragraph{②外国代表的家計の方程式}
+\label{sec:chapter3_representative_household_steady_state_foreign_representative}
+定義式
+\eqref{form:chapter3_representative_household_resource_constraints_foreign_b_F_star_def}
+により、外国代表的家計の自国通貨建てリスクフリー債券\(b_t^{F*}\)は以下のように定義されていた。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_foreign_representative_b_F_star_def}
+    \begin{aligned}
+        b_t^{F*}&\equiv\frac{B_t^{F*}}{M} \\
+        &=\frac{\sum_{f\in F}b_t^{f\to H*}}{M}
+    \end{aligned}
+\end{equation}
+ここで初期定常状態\(t=s\)を考えると、すべての外国家計\(f\)について式
+\eqref{form:chapter3_representative_household_steady_state_foreign_original_b_s_f_star_eq}
+が成立することから、外国代表的家計の自国通貨建てリスクフリー債券\(b_s^{F*}\)の保有も0となる。
+\begin{equation}
+\label{form:chapter3_representative_household_steady_state_foreign_representative_b_s_F_star_eq}
+    b_s^{F*}=0
+\end{equation}
