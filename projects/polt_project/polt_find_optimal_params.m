@@ -110,7 +110,15 @@ settings.constraint_relax = 'i_H_notional > -i_H_ss';
 settings.irfshock = char(target_shock, 'eps_y_H_potential');
 settings.shockssequence = zeros(400, 2);
 settings.shockssequence(1, 1) = shock_value;
-settings.shockssequence(:, 2) = eps_y_H_potential_vec;
+settings.shockssequence(1, 2) = eps_y_H_potential_vec(1); % ★1期目のみに変更
+
+% ★減衰パラメータの定義を追加
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+
 settings.nperiods = 400;
 settings.maxiter = 100;
 

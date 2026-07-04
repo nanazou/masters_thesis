@@ -4,56 +4,129 @@
 \subsection{CS（消費供給）曲線}
 \label{sec:chapter5_two_plane_cs}
 CS（消費供給）曲線は消費者物価指数（CPI）\(p_t^{H\to W}\)を総消費指数\(c_t^{H\to W}\)の関数として
-記述したものであり、
-PS（純粋供給）曲線に接続群の式を統合することで導出される。
-PS（純粋供給）曲線は\((y_t^H,p_t^H)\)平面上に描かれるYS（生産供給）曲線であったが、
-これに接続群の式を統合することで、
-\((c_t^{H\to W},p_t^{H\to W})\)平面上に描かれるCS（消費供給）曲線へと変換するのである。
+記述したものであり、YS曲線に外部群の式を統合することで導出される。
 
-\subsubsection{変換するための接続群の式}
-\label{sec:chapter5_two_plane_cs_connection}
-CS（消費供給）曲線への変換にあたっては式
-\eqref{chap:appendix_exchange_rate_and_gdpTODO}
-によって示された以下の名目為替レートの決定式を用いる。
-\begin{equation}
-\label{form:chapter5_two_plane_cs_connection_e_slash_asterisk_eq}
-    e_t^{/*}=\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}
-\end{equation}
-この名目為替レートの決定式は、以下の5つの接続群の式を統合して得られるものである。
-\begin{itemize}
-    \item \textbf{自国財消費指数の需要関数} \eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
-    \item \textbf{外国財消費指数の需要関数} \eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
-    \item \textbf{一物一価の法則（LOP）} \eqref{form:chapter5_two_plane_classification_connection_p_H_eq}
-    \item \textbf{外国通貨建てリスクフリー債券に関するオイラー方程式} \eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
-    \item \textbf{財市場の均衡条件} \eqref{form:chapter5_two_plane_classification_connection_y_H_eq}
-\end{itemize}
-
-\subsubsection{曲線の導出}
-\label{sec:chapter5_two_plane_cs_connection_derivation}
+\subsubsection{CS曲線導出の準備}
+\label{sec:chapter5_two_plane_cs_preparation}
+次節におけるCS曲線の導出にあたりいくつか式を準備しておく。
 消費者物価指数（CPI）\(p_t^{H\to W}\)の式
-\eqref{form:chapter5_two_plane_classification_connection_p_H_W_eq}
+\eqref{form:chapter5_two_plane_classification_external_p_H_W_eq}
 に対して、外国の一物一価の法則
-\eqref{form:chapter3_representative_household_lop_foreign_representative_p_F_lop_eq}
-および名目為替レートの決定式
-\eqref{form:chapter5_two_plane_cs_connection_e_slash_asterisk_eq}
-を代入し、整理すると以下のようになる。
+\eqref{form:chapter3_assumptions_lop_foreign_p_f_eq}、
+名目為替レートの決定式
+\eqref{appendixTODO}
 \begin{equation}
-\label{form:chapter5_two_plane_cs_connection_derivation_p_H_W_eq}
+\label{form:chapter5_two_plane_cs_preparation_e_slash_star_eq}
+e_t^{/*}=\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\lambda_t^{F/*}/\lambda_t^H
+\end{equation}
+および所得の限界効用の式
+\eqref{form:chapter5_two_plane_classification_external_lambda_H_p_H_W_c_H_W_eq}
+を順次代入する。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_p_H_W_eq}
     \begin{aligned}
-        p_t^{H\to W}&=(p_t^H)^{\alpha^H}(e_t^{/*}p_t^{F*})^{1-\alpha^H} \\
-        &=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{p_t^{H\to W}c_t^{H\to W}}{p_t^{F\to W*}c_t^{F\to W}}p_t^{F*}\right)^{1-\alpha^H} \\
-        (p_t^{H\to W})^{\alpha^H}&=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{1-\alpha^H} \\
-        p_t^{H\to W}&=p_t^H\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{\frac{1-\alpha^H}{\alpha^H}}
+        p_t^{H\to W}
+        &=(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H} \\
+        &=(p_t^H)^{\alpha^H}(e_t^{/*}p_t^{F*})^{1-\alpha^H} \\
+        &=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{\lambda_t^{F/*}}{\lambda_t^H}p_t^{F*}\right)^{1-\alpha^H} \\
+        &=(p_t^H)^{\alpha^H}\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\lambda_t^{F/*}p_t^{F*}(p_t^{H\to W}c_t^{H\to W})\right)^{1-\alpha^H}
     \end{aligned}
 \end{equation}
-最後に、PS（純粋供給）曲線
-\eqref{form:chapter5_two_plane_ps_derivation_p_H_eq}
-を上式の\(p_t^H\)に代入することで、以下の\textbf{CS（消費供給）曲線}が導出される。
+自国金融政策の影響を受けない外部変数群をまとめて
+\(Z_t\equiv\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\lambda_t^{F/*}p_t^{F*}\)
+とおき、両辺を\((p_t^{H\to W})^{1-\alpha^H}\)で割って\(1/\alpha^H\)乗すると以下のようになる。
 \begin{equation}
-\label{form:chapter5_two_plane_cs_connection_derivation_p_H_W_modified_eq}
-    p_t^{H\to W}=\left(\frac{1}{1+\beta_{ss}^H}p_{t-1}^H+\frac{\beta_{ss}^H}{1+\beta_{ss}^H}\operatorname{E}_t[p_{t+1}^H]\right)\times\left(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\frac{c_t^{H\to W}p_t^{F*}}{p_t^{F\to W*}c_t^{F\to W}}\right)^{\frac{1-\alpha^H}{\alpha^H}}
+\label{form:chapter5_two_plane_cs_preparation_p_H_W_modified_eq}
+    p_t^{H\to W}=p_t^H(Z_tc_t^{H\to W})^{\frac{1-\alpha^H}{\alpha^H}}
 \end{equation}
-ホームバイアスが存在する\(\alpha^H>0.5\)の場合、指数部分\((1-\alpha^H)/\alpha^H\)は正となるため、
-消費者物価指数\(p_t^{H\to W}\)は総消費\(c_t^{H\to W}\)に対して単調増加する。
-したがってそのとき、\((c_t^{H\to W},p_t^{H\to W})\)平面において
-CS（消費供給）曲線は\textbf{右上がりの曲線}として描かれる。
+これを対数線形化することで以下の1つ目の式が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_p_H_W_modified2_eq}
+    \hat{p}_t^{H\to W}=\hat{p}_t^H+\frac{1-\alpha^H}{\alpha^H}(\hat{Z}_t+\hat{c}_t^{H\to W})
+\end{equation}
+さらにこの式とこの式で\(t\)を\(t-1\)としたものの差をとることにより、
+消費者物価インフレ率\(\hat{\pi}_t^{H\to W}\)と
+生産者物価インフレ率\(\hat{\pi}_t^H\)の乖離を示す2つ目の式が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_pi_H_W_eq}
+    \hat{\pi}_t^{H\to W}=\hat{\pi}_t^H+\frac{1-\alpha^H}{\alpha^H}(\hat{Z}_t-\hat{Z}_{t-1}+\hat{c}_t^{H\to W}-\hat{c}_{t-1}^{H\to W})
+\end{equation}
+次に名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+\eqref{form:chapter5_two_plane_yd_preparation_p_H_y_H_eq}
+は以下のようであった。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_p_H_y_H_eq}
+    p_t^Hy_t^H=X_tp_t^{H\to W}c_t^{H\to W}
+\end{equation}
+ただし\(X_t\equiv\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\)であり、
+この\(X_t\)は遮断効果により自国金融政策の影響を受けない。
+これを対数線形化する。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_p_H_y_H_modified_eq}
+    \hat{p}_t^H+\hat{y}_t^H=\hat{X}_t+\hat{p}_t^{H\to W}+\hat{c}_t^{H\to W}
+\end{equation}
+これを\(\hat{y}_t^H\)について解き、先ほど導いた1つ目の式
+\eqref{form:chapter5_two_plane_cs_preparation_p_H_W_modified2_eq}
+を代入すると以下の3つ目の式が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_preparation_p_H_y_H_modified2_eq}
+\begin{aligned}
+    \hat{y}_t^H
+    &=\hat{X}_t+(\hat{p}_t^{H\to W}-\hat{p}_t^H)+\hat{c}_t^{H\to W} \\
+    &=\hat{X}_t+\frac{1-\alpha^H}{\alpha^H}(\hat{Z}_t+\hat{c}_t^{H\to W})+\hat{c}_t^{H\to W} \\
+    &=\hat{X}_t+\frac{1-\alpha^H}{\alpha^H}\hat{Z}_t+\frac{1}{\alpha^H}\hat{c}_t^{H\to W}
+\end{aligned}
+\end{equation}
+
+\subsubsection{CS曲線の導出}
+\label{sec:chapter5_two_plane_cs_derivation}
+前節で導いた3つ目の式
+\eqref{form:chapter5_two_plane_cs_preparation_p_H_y_H_modified2_eq}
+をYS-\(\pi\)曲線
+\eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+の右辺に代入する。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_derivation_pi_H_eq}
+\begin{aligned}
+    \hat{\pi}_t^H
+    &=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H\left(2\left(\hat{X}_t+\frac{1-\alpha^H}{\alpha^H}\hat{Z}_t+\frac{1}{\alpha^H}\hat{c}_t^{H\to W}\right)-2\hat{a}_t^H-\hat{X}_t-\hat{\tau}_t^H\right) \\
+    &=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{2\kappa^H}{\alpha^H}\hat{c}_t^{H\to W}
+\end{aligned}
+\end{equation}
+ここで自国金融政策の影響を受けない外生変数群（\(\hat{a}_t^H\)を除く）をまとめて
+\(\hat{\Omega}_t\equiv\hat{X}_t+\frac{2(1-\alpha^H)}{\alpha^H}\hat{Z}_t-\hat{\tau}_t^H\)
+とおいた。
+これを前節の2つ目の式
+\eqref{form:chapter5_two_plane_cs_preparation_pi_H_W_eq}
+の右辺に代入すると、
+CS曲線の\(\pi_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{\pi}\)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_derivation_pi_H_W_modified_eq}
+    \hat{\pi}_t^{H\to W}=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{1-\alpha^H}{\alpha^H}(\hat{Z}_t-\hat{Z}_{t-1})+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}-\frac{1-\alpha^H}{\alpha^H}\hat{c}_{t-1}^{H\to W}
+\end{equation}
+次に2平面分析に向けてこれを物価水準ベースの式に変換する。
+YS-\(\hat{p}\)曲線
+\eqref{form:chapter5_two_plane_ys_derivation_p_H_modified_eq}
+に対しても同様に、前節で導いた3つ目の式
+\eqref{form:chapter5_two_plane_cs_preparation_p_H_y_H_modified2_eq}
+を代入して整理する。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_derivation_p_H_eq}
+    \hat{p}_t^H=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{2\kappa^H}{\alpha^H}\hat{c}_t^{H\to W}
+\end{equation}
+これを前節の1つ目の式
+\eqref{form:chapter5_two_plane_cs_preparation_p_H_W_modified2_eq}
+の右辺に代入し整理すると、
+CS曲線の\(p_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{p}\)曲線}が導出される。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_derivation_p_H_W_eq}
+    \hat{p}_t^{H\to W}=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{1-\alpha^H}{\alpha^H}\hat{Z}_t+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}
+\end{equation}
+価格の粘着性パラメータ\(\kappa^H\)や主観的割引因子の定常値\(\beta_{ss}^H\)は正の定数であり、
+自国財の消費割合\(\alpha^H\)は\(0<\alpha^H<1\)を満たす。
+これにより\(\hat{c}_t^{H\to W}\)の係数は正の値をとるため
+消費者物価指数\(\hat{p}_t^{H\to W}\)は総消費指数\(\hat{c}_t^{H\to W}\)の増加関数であることがわかる。
+したがって\((c_t^{H\to W},p_t^{H\to W})\)平面においてCS曲線は\textbf{右上がり}の曲線として描かれる。
+CS-\(\hat{p}\)曲線に含まれる\(\hat{Z}_t\)、\(\hat{\Omega}_t\)および\(\hat{a}_t^H\)は自国金融政策の影響を受けず、
+また\(\lambda_t^{F/*}\)および\(p_t^{F*}\)も遮断効果により自国金融政策の影響を受けない。
+したがって金融政策の分析においてはこれらの項の動きは考慮しなくてよい。

@@ -22,7 +22,7 @@
 定常状態におけるグロス・インフレ率\(\pi_{ss}^H\)は\(1\)である。
 したがってグロス・インフレ率の対数乖離\(\hat{\pi}_t^H\)は以下のように計算される。
 \begin{equation}
-\label{form:chapter3_policies_monetary_pi_H_eq}
+\label{form:chapter3_policies_monetary_hat_pi_H_eq}
     \begin{aligned}
         \hat{\pi}_t^H&\equiv\log(\pi_t^H)-\log(\pi_{ss}^H) \\
         &=\log(\pi_t^H)-\log(1) \\
@@ -33,13 +33,13 @@
 
 \subsubsection{自国の金融政策}
 \label{sec:chapter3_policies_monetary_home}
-自国の中央銀行は利子率\(i_t^H\)を操作する。
+自国の中央銀行は名目利子率\(i_t^H\)を操作する。
 本稿ではシミュレーションにおいて自国が従う以下の11種類の政策ルールを比較分析する。
 すべての変数は一人当たりの変数で記述される。
 
 \paragraph{1.総消費水準目標(CLT)}
 \label{sec:chapter3_policies_monetary_home_clt}
-利子率は実質総消費（\(c_t^{H\to W}\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離（\(\log(c_t^{H\to W})-\log(\chi_t^H)\)）に反応し、さらに過去の乖離の累積\(\gamma_t^H\)にも反応する。ここで\(i_{ss}^H\)は利子率の定常状態の値である。
+名目利子率は総消費指数（\(c_t^{H\to W}\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離（\(\log(c_t^{H\to W})-\log(\chi_t^H)\)）に反応し、さらに過去の乖離の累積\(\gamma_t^H\)にも反応する。ここで\(i_{ss}^H\)は名目利子率の定常状態の値である。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_clt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(c_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
@@ -57,10 +57,10 @@
 \label{form:chapter3_policies_monetary_home_clt_chi_H_eq}
     \log(\chi_t^H)-\log(\chi_{ss}^H)=\rho_{\chi}^H\left(\log(\chi_{t-1}^H)-\log(\chi_{ss}^H)\right)+\varepsilon_t^{\chi,H}
 \end{equation}
-
+ここで\(\varepsilon_t^{\chi,H}\)は外生ショック項である。
 \paragraph{2.消費者物価水準目標(CPLT)}
 \label{sec:chapter3_policies_monetary_home_cplt}
-利子率は消費者物価水準（\(p_t^{H\to W}\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+名目利子率は消費者物価水準（\(p_t^{H\to W}\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_cplt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
@@ -70,7 +70,7 @@
 
 \paragraph{3.消費者物価インフレ目標(IT-CPI)}
 \label{sec:chapter3_policies_monetary_home_it_cpi}
-利子率は消費者物価指数を用いたグロス・インフレ率（\(\pi_t^{H\to W}\)）の定常状態からの乖離に反応する。
+名目利子率は消費者物価指数を用いたグロス・インフレ率（\(\pi_t^{H\to W}\)）の定常状態からの乖離に反応する。
 \begin{equation}
 \label{form:chapter3_policies_monetary_home_it_cpi_i_H_eq}
     i_t^H=i_{ss}^H+\phi_{\pi}^H(\pi_t^{H\to W}-\pi_{ss}^{H\to W})+\varepsilon_t^{i,H}
@@ -78,7 +78,7 @@
 
 \paragraph{4.生産者物価インフレ目標(IT-PPI)}
 \label{sec:chapter3_policies_monetary_home_it_ppi}
-利子率\(i_t^H\)は生産者物価指数を用いたグロス・インフレ率（\(\pi_t^H\)）の定常状態からの乖離に反応する。
+名目利子率\(i_t^H\)は生産者物価指数を用いたグロス・インフレ率（\(\pi_t^H\)）の定常状態からの乖離に反応する。
 \begin{equation}
 \label{form:chapter3_policies_monetary_home_it_ppi_i_H_eq}
     i_t^H=i_{ss}^H+\phi_{\pi}^H(\pi_t^H-\pi_{ss}^H)+\varepsilon_t^{i,H}
@@ -86,7 +86,7 @@
 
 \paragraph{5.名目総消費水準目標(NCLT)}
 \label{sec:chapter3_policies_monetary_home_nclt}
-利子率は一人当たりの名目総消費（\(p_t^{H\to W}c_t^{H\to W}\)）の目標パス\(\chi_t^H\)からの対数乖離と
+名目利子率は一人当たりの名目総消費\(p_t^{H\to W}c_t^{H\to W}\)の目標パス\(\chi_t^H\)からの対数乖離と
 その累積に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_nclt_i_H_eq}
@@ -97,7 +97,7 @@
 
 \paragraph{6.名目GDP水準目標(NGDPLT)}
 \label{sec:chapter3_policies_monetary_home_ngdplt}
-利子率は一人当たりの名目GDP（\(p_t^Hy_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+名目利子率は一人当たりの名目GDP（\(p_t^Hy_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_ngdplt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^Hy_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
@@ -107,7 +107,7 @@
 
 \paragraph{7.生産水準目標(OLT)}
 \label{sec:chapter3_policies_monetary_home_olt}
-利子率は実質産出量（\(y_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
+名目利子率は産出（\(y_t^H\)）の目標パス\(\chi_t^H\)からの対数乖離とその累積に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_olt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(y_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
@@ -117,7 +117,7 @@
 
 \paragraph{8.潜在生産水準目標(POLT)}
 \label{sec:chapter3_policies_monetary_home_polt}
-利子率は実質産出量（\(y_t^H\)）と潜在産出量（\(y_t^{H,pot}\)）の対数乖離（産出量ギャップ）、および過去のギャップの累積に反応する。本ルールでは外生的な目標パスの代わりに潜在産出量との乖離が指標として用いられる。
+名目利子率は産出（\(y_t^H\)）と潜在産出（\(y_t^{H,pot}\)）の対数乖離（産出量ギャップ）、および過去のギャップの累積に反応する。本ルールでは外生的な目標パスの代わりに潜在産出との乖離が指標として用いられる。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_polt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(y_t^H)-\log(y_t^{H,pot}))+\phi_{level}^H\gamma_t^H \\
@@ -127,7 +127,7 @@
 
 \paragraph{9.生産者物価水準目標(PPLT)}
 \label{sec:chapter3_policies_monetary_home_pplt}
-利子率は生産者物価水準（\(p_t^H\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離とその累積\(\gamma_t^H\)に反応する。
+名目利子率は生産者物価水準（\(p_t^H\)）のあらかじめ定められた目標パス\(\chi_t^H\)からの対数乖離とその累積\(\gamma_t^H\)に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_pplt_i_H_eq}
     i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
@@ -137,7 +137,7 @@
 
 \paragraph{10.消費者物価テイラー・ルール(TR-CPI)}
 \label{sec:chapter3_policies_monetary_home_tr_cpi}
-利子率は金利平滑化を伴い、消費者物価インフレ率（\(\pi_t^{H\to W}\)）の対数、および産出量ギャップに反応する。
+名目利子率は金利平滑化を伴い、消費者物価インフレ率（\(\pi_t^{H\to W}\)）の対数、および産出量ギャップに反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_tr_cpi_i_H_notional_eq}
     i_t^{H,notional}&=\rho_i^Hi_{t-1}^{H,notional}+(1-\rho_i^H)\left(i_{ss}^H+\phi_{\pi}^H\log(\pi_t^{H\to W})+\phi_y^H(\log(y_t^H)-\log(y_t^{H,pot}))\right)+\varepsilon_t^{i,H} \\
@@ -147,7 +147,7 @@
 
 \paragraph{11.生産者物価テイラー・ルール(TR-PPI)}
 \label{sec:chapter3_policies_monetary_tr_ppi}
-利子率は金利平滑化（スムージング）を伴い、生産者物価インフレ率（\(\pi_t^H\)）の対数、および実質産出量（\(y_t^H\)）と潜在産出量（\(y_t^{H,pot}\)）の対数乖離に反応する。
+名目利子率は金利平滑化（スムージング）を伴い、生産者物価インフレ率（\(\pi_t^H\)）の対数、および産出（\(y_t^H\)）と潜在産出（\(y_t^{H,pot}\)）の対数乖離に反応する。
 \begin{align}
 \label{form:chapter3_policies_monetary_home_tr_ppi_i_H_notional_eq}
     i_t^{H,notional}&=\rho_i^Hi_{t-1}^{H,notional}+(1-\rho_i^H)\left(i_{ss}^H+\phi_{\pi}^H\log(\pi_t^H)+\phi_y^H(\log(y_t^H)-\log(y_t^{H,pot}))\right)+\varepsilon_t^{i,H} \\
@@ -162,7 +162,7 @@
 
 \paragraph{生産者物価インフレ目標(IT-PPI)}
 \label{sec:chapter3_policies_monetary_foreign_it_ppi}
-外国の利子率\(i_t^F\)は、外国の生産者物価指数を用いたグロス・インフレ率（\(\pi_t^{F*}\)）の定常状態からの乖離に反応する。
+外国の名目利子率\(i_t^F\)は、外国の生産者物価指数を用いたグロス・インフレ率（\(\pi_t^{F*}\)）の定常状態からの乖離に反応する。
 \begin{equation}
 \label{form:chapter3_policies_monetary_foreign_it_ppi_i_H_eq}
     i_t^F=i_{ss}^F+\phi_{\pi}^F(\pi_t^{F*}-\pi_{ss}^{F*})+\varepsilon_t^{i,F}

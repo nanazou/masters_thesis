@@ -124,8 +124,14 @@ settings.irfshock = char(target_shock, 'eps_y_H_potential');
 % ショックシーケンスの構築 (2列行列: 第1列は主ショック、第2列は潜在産出量パス)
 shockssequence = zeros(settings.nperiods, 2);
 shockssequence(1, 1) = primary_shock_magnitude;
-len_pot = min(settings.nperiods, length(eps_y_H_potential_vec));
-shockssequence(1:len_pot, 2) = eps_y_H_potential_vec(1:len_pot);
+shockssequence(1, 2) = eps_y_H_potential_vec(1);
+
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+
 settings.shockssequence = shockssequence;
 
 % =========================================================================

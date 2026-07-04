@@ -109,7 +109,7 @@ fprintf('グラフを作成し、PDFに保存中...\n');
         'p_H_W', 'p_F_W_star', ...
         'p_H_W_bar', 'p_F_W_star_bar', ... % ★ 統計ベースのCPIを追加
         'p_H_bar', 'p_F_star_bar', ...
-        'p_H_bar_y_H', 'p_H_W_c_H_W', ... 
+        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
         'pi_H', 'pi_F_star', ...
         'pi_H_W', 'pi_F_W_star', ...       % インフレ率のセット
         'p_H_tilde', 'p_F_star_tilde', ...
@@ -188,9 +188,11 @@ for i = 1:plots_per_page:num_vars
                 latex_title = ['\epsilon_{', tex_middle, '}'];
             end
         elseif strcmp(var_name, 'p_H_bar_y_H') 
-            latex_title = 'Nominal GDP (\bar{p}^H y^H)';
+            latex_title = '\bar{p}^H y^H';
         elseif strcmp(var_name, 'p_H_W_c_H_W') 
-            latex_title = 'Nominal Total Cons (p^{H \to W} c^{H \to W})';
+            latex_title = 'p^{H \to W} c^{H \to W}';
+        elseif strcmp(var_name, 'p_H_W_slash_p_H') 
+            latex_title = 'p^{H \to W} / p^H';
         elseif strcmp(var_name, 'p_H_tilde')
             latex_title = '\tilde{p}^H';
         elseif strcmp(var_name, 'p_F_star_tilde')

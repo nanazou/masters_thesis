@@ -194,11 +194,15 @@ lambda_H_slash_star_lin = e_slash_star_lin + lambda_H_lin;
 lambda_F_pie = lambda_H_slash_star_pie - e_slash_star_pie;
 lambda_F_lin = lambda_H_slash_star_lin - e_slash_star_lin;
 
-% 名目GDPおよび名目総消費
+% --- 【新規追加: 変数名を積の形に変更】 ---
 p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie;
 p_H_bar_y_H_lin = p_H_bar_lin + y_H_lin;
 p_H_W_c_H_W_pie = p_H_W_pie + c_H_W_pie;
-p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin; 
+p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin;
+
+% --- 【新規追加: 変数名を商の形に変更】 ---
+p_H_W_slash_p_H_pie = p_H_W_pie - p_H_pie;
+p_H_W_slash_p_H_lin = p_H_W_lin - p_H_lin;
 
 % --- [11] 戻り値の整理 ---
 % whoコマンドを用いて計算結果をirf_results構造体にまとめます

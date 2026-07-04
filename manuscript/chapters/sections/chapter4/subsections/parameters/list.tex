@@ -139,15 +139,23 @@
     \\
     \midrule
 
-\multicolumn{3}{l}{\textit{米国（\(F\)）の金融政策}} \\
+  \multicolumn{3}{l}{\textit{米国（\(F\)）の金融政策}} \\
     \noalign{\smallskip}
-    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{消費者物価インフレ目標（IT-CPI）} \hrulefill} \\
+    \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{生産者物価インフレ目標（IT-PPI）} \hrulefill} \\
+    \(\varepsilon_t^{i,F}\) & 0 & 外生ショック項（定常状態） \\
     \(\phi_{\pi}^F\) & 1.5 & インフレへの反応係数。\textcite{Taylor1993}が提唱した標準的な値。 \\
-    \(\phi_{y}^F\) & 0.5 & 生産ギャップへの反応係数。\textcite{Taylor1993}が提唱した標準的な値。 \\
-    \(\rho_{i}^F\) & 0.8 & 利子率平滑化係数。\textcite{SmetsWouters2007}の推定値と整合的な値。 \\
-    \midrule
 
-    \multicolumn{3}{l}{\textit{日本（\(H\)）の金融政策}} \\
+  \multicolumn{3}{l}{\textit{日本（\(H\)）の金融政策}} \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\quad \textit{共通（ショック・補助パラメータ）}} \\
+    \(\rho_{\chi}^H\) & 0.9 & 目標パスの持続性 \\
+    \(\chi_{ss}^H\) & 1.0 & 目標パスの定常状態値 \\
+    \(\rho_{i}^H\) & 0.8 & 利子率平滑化係数 \\
+    \(\varepsilon_{ss}^{\chi,H}, \varepsilon_{ss}^{i,H}\) & 0 & 外生ショック項（定常状態） \\
+    \(\varepsilon_1^{\chi,H}, \varepsilon_1^{i,H}\) & 0.02 / -0.1 & 外生ショック項（\(\beta\)ショック / \(a\)ショック発生期） \\
+    \(\varepsilon_t^{\chi,H}, \varepsilon_t^{i,H}\) (\(t \neq 1\)) & 0 & 外生ショック項（それ以外） \\
+    \noalign{\smallskip}
+    \multicolumn{3}{l}{\quad \textit{各政策の反応係数}} \\
     \noalign{\smallskip}
     \multicolumn{3}{l}{\rule[0.4ex]{1em}{0.4pt} \textbf{総消費水準目標（CLT）} \hrulefill} \\
     \(\phi_{gap}^H\) & 0.17 & 目標乖離への反応係数 \\

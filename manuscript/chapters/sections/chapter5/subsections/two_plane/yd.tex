@@ -4,58 +4,42 @@
 \subsection{YD（生産需要）曲線}
 \label{sec:chapter5_two_plane_yd}
 YD（生産需要）曲線は生産者物価指数（PPI）\(p_t^H\)を生産\(y_t^H\)の関数として記述したものであり、
-PD（純粋需要）曲線に接続群の式を統合することで導出される。
-PD（純粋需要）曲線は\((c_t^{H\to W},p_t^{H\to W})\)平面上に描かれるCD（消費需要）曲線であったが、
-これに接続群の式を統合することで、\((y_t^H,p_t^H)\)平面上に描かれるYD（生産需要）曲線へと変換するのである。
+CD曲線に外部群の式を統合することで導出される。
 
-\subsubsection{変換するための接続群の式}
-\label{sec:chapter5_two_plane_yd_connection}
-YD（生産需要）曲線への変換にあたっては式
-\ref{chap:appendix_exchange_rate_and_gdp}
-によって示された以下の名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式を用いる。
+\subsubsection{YD曲線導出のための準備}
+\label{sec:chapter5_two_plane_yd_preparation}
+次節におけるYD曲線の導出にあたり式を準備しておく。
+名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+\eqref{appendixTODO}
+は以下のようであった。
 \begin{equation}
-\label{form:chapter5_two_plane_yd_connection_expenditure_p_H_y_H_eq}
-    p_t^Hy_t^H=\left[\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\right]p_t^{H\to W}c_t^{H\to W}
+\label{form:chapter5_two_plane_yd_preparation_p_H_y_H_eq}
+    p_t^Hy_t^H=X_tp_t^{H\to W}c_t^{H\to W}
 \end{equation}
-名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式は
-以下の5つの接続群の式を統合して得られるものである。（付録\ref{appendixTODO}）
-自国財消費指数の需要関数
-\eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
-外国財消費指数の需要関数
-\eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
-一物一価の法則（LOP）
-\eqref{form:chapter5_two_plane_classification_connection_p_H_eq}
-外国通貨建てリスクフリー債券に関するオイラー方程式
-\eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
-財市場の均衡条件
-\eqref{form:chapter5_two_plane_classification_connection_y_H_eq}
+ただし\(X_t\equiv\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\)であり、
+この\(X_t\)は遮断効果により自国金融政策の影響を受けない。
 
-\subsubsection{曲線の導出}
-\label{sec:chapter5_two_plane_yd_connection_derivation}
-PD（純粋需要）曲線
-\eqref{form:chapter5_two_plane_pd_derivation_p_H_W_c_H_W_modified_eq}
-に対して上記の名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式を代入し
-整理すると以下のようになる。
+\subsubsection{YD曲線の導出}
+\label{sec:chapter5_two_plane_yd_derivation}
+CD曲線
+\eqref{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_modified_eq}
+に対して前節で示した名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+\eqref{form:chapter5_two_plane_yd_preparation_p_H_y_H_eq}
+を代入し整理する。
 \begin{equation}
-\label{form:chapter5_two_plane_yd_connection_derivation_p_H_y_H_eq}
+\label{form:chapter5_two_plane_yd_derivation_p_H_y_H_eq}
     \begin{aligned}
-        p_t^Hy_t^H&=\left[\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\right]p_t^{H\to W}c_t^{H\to W} \\
-        &=\left[\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\right]\frac{1}{\lambda_t^H} \\
-        &=\left[\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\right]\frac{1}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]} \\
-        &=\frac{\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+        p_t^Hy_t^H
+        &=X_tp_t^{H\to W}c_t^{H\to W} \\
+        &=X_t\frac{1}{\lambda_t^H} \\
+        &=X_t\frac{1}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]} \\
+        &=\frac{X_t}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
     \end{aligned}
 \end{equation}
-最後に\(y_t^H\)を右辺に移項することで以下の\textbf{YD（生産需要）曲線}が導出される。
+最後に\(y_t^H\)を右辺に移項することで以下の\textbf{YD曲線}が導出される。
 \begin{equation}
-\label{form:chapter5_two_plane_yd_connection_derivation_p_H_eq}
-p_t^H=\frac{1}{y_t^H}\times\frac{\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+\label{form:chapter5_two_plane_yd_derivation_p_H_eq}
+    p_t^H=\frac{1}{y_t^H}\frac{X_t}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
 \end{equation}
 生産者物価指数\(p_t^H\)が生産\(y_t^H\)に反比例していることから、
-YD（生産需要）曲線は右下がりの\textbf{直角双曲線}となっていることがわかる。
-ここでYD（生産需要）曲線の分子に含まれる\(\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\)は
-自国金融政策の影響を受けない。
-なぜなら\(\mathcal{B}_t\equiv\prod_{j=0}^{\infty}(\beta_{t+j}^H/\beta_{t+j}^F)\)は
-両国の主観的割引因子の系列のみから構成され、
-また\(\Lambda_{\infty}\equiv\lambda_{\infty}^{H/*}/\lambda_{\infty}^{F/*}\)を構成する
-外国通貨建て所得の限界効用\(\lambda^{/*}\)は遮断効果により自国金融政策の影響を受けないためである。
-したがって金融政策の分析においてはこれらの項の動きは考慮しなくてよい。
+YD曲線は右下がりの\textbf{直角双曲線}となっていることがわかる。

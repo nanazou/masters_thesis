@@ -1,0 +1,91 @@
+### TR-CPI/TR-PPI/POLTモデル群の期待形成ズレ問題に対する完全修正手順
+
+【概要】
+Stage1から潜在産出量パスを全期間分引き継ぐことによって生じていた「毎期予期せぬサプライズが発生する」という期待形成の歪みを解消する。NCLTモデルと同様にモデル内部にAR(1)プロセスを導入し、外部からは1期目の初期ショックのみを与えることで完全な事前予測（Perfect Foresight）を実現する。
+
+以下の5ステップ（対象ファイル6つ）でコードを修正する（以下は tr_ppi を例とする）。
+
+#### 1. メインスクリプトの修正
+対象ファイル: src/tr_ppi_stage2_main.m
+
+変更内容: 全期間パスの代入を廃止し、t=1の初期ショックのみを渡す。あわせてショックに応じた減衰パラメータを定義する。
+
+```matlab
+% 変更前: shockssequence(1:len_data, 2) = eps_y_H_potential_vec(1:len_data);
+% 変更後: 以下の通り書き換える
+shockssequence(1, 2) = eps_y_H_potential_vec(1);
+
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+```
+
+#### 2. 最適化スクリプトの修正
+対象ファイル: tr_ppi_find_optimal_params.m (またはそれに類するファイル)
+
+変更内容: 最適化を回す際にも古い「全期間サプライズ方式」が使われないよう、メインスクリプトと同様の修正を行う。
+
+```matlab
+% 変更前: shockssequence(:, 2) = eps_y_H_potential_vec;
+% 変更後: 以下の通り書き換える
+shockssequence(1, 2) = eps_y_H_potential_vec(1);
+
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+```
+
+#### 3. ソルバー関数の修正
+対象ファイル: src/stage2/tr_ppi_stage2_solve_core.m
+
+変更内容: スクリプト側で定義した減衰パラメータを、Dynareが参照するbaseワークスペースへ渡す。
+
+```matlab
+% 変更箇所: assignin処理群に以下を追記する
+assignin('base', 'phi_pi_H_value', phi_pi_H_value);
+assignin('base', 'phi_y_H_value', phi_y_H_value);
+assignin('base', 'rho_potential_value', evalin('base', 'rho_potential_value')); % ★これを追記
+```
+
+#### 4. 変数宣言ファイルの修正
+対象ファイル: src/stage2/tr_ppi_stage2_model_declarations.inc
+
+変更内容: AR(1)プロセス用のギャップ変数、減衰パラメータの宣言、およびMATLABからの値の受け取りを追記する。
+
+```matlab
+// (1) 内生変数の宣言部（var ...）の末尾に追記
+    y_H_potential y_H_potential_gap;
+
+// (2) パラメータの宣言部（parameters ...）に追記
+           phi_pi_H phi_y_H rho_i_H rho_potential
+
+// (3) パラメータのキャリブレーション部の末尾に追記
+rho_i_H    = 0.8;
+phi_pi_H   = phi_pi_H_value;
+phi_y_H    = phi_y_H_value;
+rho_potential = rho_potential_value; // ★これを追記
+```
+
+#### 5. モデル方程式の修正
+対象ファイル: src/stage2/tr_ppi_stage2_model.mod および _zlb.mod （※両ファイル共通）
+
+変更内容: 外生変数としての単純加算を廃止し、AR(1)の動学方程式に書き換える。また定常状態（0）を明記する。
+
+```matlab
+    // --- IV. 潜在産出量の定義 ---
+    // 変更前: y_H_potential = y_H_ss + eps_y_H_potential;
+    // 変更後: 以下の2行に書き換える
+    y_H_potential_gap = rho_potential * y_H_potential_gap(-1) + eps_y_H_potential;
+    y_H_potential = y_H_ss + y_H_potential_gap;
+
+/* --------------------------------------------------- */
+/* steady_state_model ブロック内（※非ZLBモデルのみ該当） */
+/* --------------------------------------------------- */
+    gamma_H = 0;
+    y_H_potential_gap = 0; // ★これを追記
+    y_H_potential = y_H_ss;
+```

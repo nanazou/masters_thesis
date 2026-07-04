@@ -1,0 +1,136 @@
+% !TeX root = ../../../../../main.tex
+% chapters/sections/chapter5/subsections/a_shock/subsubsections/interpretations/flat.tex
+
+\subsubsection{\(i_t^H\)がほぼ維持される政策群（CLT, NCLT, NGDPLT, OLT）の解釈}
+\label{sec:chapter5_a_shock_interpretations_flat}
+
+\begin{enumerate}
+    \item
+    \label{itm:chapter5_a_shock_interpretations_flat_first}
+        \textbf{1期：\(y_t^H,c_t^{H\to W}\)の維持と価格の上昇}
+        \begin{description}[style=nextline]
+            \item[\(\hat{a}_1^H\)の負への下落と\(i_1^H\)の維持]
+            \label{itm:chapter5_a_shock_interpretations_rise_first_a_H}
+                \(a\)ショックが発生し、予期せず\(\hat{a}_1^H\)が負へ大きく下落する。
+                負へ下落した\(\hat{a}_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_a_eq}
+                にしたがって増加し、やがて初期定常状態\(0\)へ回帰する。
+                また後述の諸変数の変動により\(i_1^H\)は金融政策の式を通じて
+                ほぼ初期定常状態\(i_{ss}^H\)付近に維持される。
+            \item[\(\hat{a}_1^H\)が負になることによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の上移動]
+            \label{itm:chapter5_a_shock_interpretations_rise_first_a_H_YS_CS}
+                \(\hat{a}_1^H\)が負になることを受けて供給側では以下のような反応が起こる。
+                \(\hat{p}_0^H=0\)であり、また\(\hat{a}_1^H\)が動き始めるこの時点においてまだ
+                \(\operatorname{E}_1[\hat{\pi}_2^H]=0\)である。
+                したがってYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の切片の主決定要因
+                \(\hat{p}_0^H+\beta_{ss}^H\operatorname{E}_1[\hat{\pi}_2^H]-2\kappa^H\hat{a}_1^H
+                =-2\kappa^H\hat{a}_1^H\)
+                が正となる。
+                よってYS-\(\hat{p}\),CS-\(\hat{p}\)曲線は切片が上昇し、上へ移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)は下落し、\(p_1^H,p_1^{H\to W}\)は上昇する。
+            \item[\(\hat{p}_1^H\)が正になることによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線のさらなる上移動]
+            \label{itm:chapter5_a_shock_interpretations_rise_first_p_H_YS_CS}
+                \(\hat{\pi}_1^H=\hat{p}_1^H-\hat{p}_0^H=\hat{p}_1^H\)が正となった。
+                そこで\(\operatorname{E}_1[\hat{\pi}_2^H]\)も正であると仮定する。
+                するとYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の切片の主決定要因
+                \(\hat{p}_0^H+\beta_{ss}^H\operatorname{E}_1[\hat{\pi}_2^H]-2\kappa^H\hat{a}_1^H
+                =\beta_{ss}^H\operatorname{E}_1[\hat{\pi}_2^H]-2\kappa^H\hat{a}_1^H
+                \approx\operatorname{E}_1[\hat{\pi}_2^H]-2\kappa^H\hat{a}_1^H\)
+                がさらに上昇する。
+                よってYS-\(\hat{p}\),CS-\(\hat{p}\)曲線は切片がさらに上昇し、さらに上へ移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)はさらに減少し、\(p_1^H,p_1^{H\to W}\)はさらに増加する。
+            \item[\(i_1^H\)の維持によるYD,CD曲線の維持]
+            \label{itm:chapter5_a_shock_interpretations_flat_first_i_H_YD_CD}
+                \(i_1^H\)は\(i_{ss}^H\)付近に維持されるため、
+                YD,CD曲線の\(i_1^H\)による移動は起こらない。
+            \item[\(\operatorname{E}_1[\lambda_2^H]\)の維持によるYD,CD曲線の維持]
+            \label{itm:chapter5_a_shock_interpretations_flat_first_E_lambda_YD_CD}
+                自国コンティンジェント債券に関する前方展開されたオイラー方程式
+                \eqref{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+                により、\(\operatorname{E}_1[\lambda_2^H]\)は
+                数列(\(i_{1+k}^H\))と\(\lim_{k\to\infty}p_{1+k+1}^{H\to W}\)によって一意に決定されるが、
+                これらは金融政策の式により一意に定められる。
+                現実において数列(\(i_{1+k}^H\))については
+                政策によりある程度の予想ができると考えられることから、
+                ここでは数列(\(i_{1+k}^H\))は正確に知っているものとする。
+                一方で\(\lim_{k\to\infty}p_{1+k+1}^{H\to W}\)を正確に知ることは困難であるため、
+                ここでは
+                \(\lim_{k\to\infty}p_{1+k+1}^{H\to W}\)を
+                \(p_{ss}^{H\to W}\)として予想するものとする。
+                すると
+                \(\lim_{k\to\infty}p_{1+k+1}^{H\to W}\)と(\(i_{1+k}^H\))はともに
+                定常状態を維持するから
+                \(\operatorname{E}_1[\lambda_2^H]\)
+                は定常状態を維持し、YD,CD曲線も維持される。
+            \item[1期のまとめ]
+            \label{itm:chapter5_a_shock_interpretations_flat_first_summary}
+                \(\hat{a}_1^H\)が負になることによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の上移動
+                \(\hat{p}_1^H\)が正になることによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線のさらなる上移動
+                \(i_1^H\)の維持によるYD,CD曲線の維持
+                \(\operatorname{E}_1[\lambda_2^H]\)の維持によるYD,CD曲線の維持
+                これらを合わせることにより
+                \(y_1^H,c_1^{H\to W}\)は下落し\(p_1^H,p_1^{H\to W}\)は上昇する。
+        \end{description}
+    \item
+    \label{itm:chapter5_a_shock_interpretations_flat_second}
+        \textbf{2期以降：\(y_t^H,c_t^{H\to W}\)の初期定常状態への収束}
+        \begin{description}[style=nextline]
+            \item[負の\(\hat{a}_t^H\)の増加と\(i_t^H\)の維持]
+            \label{itm:chapter5_a_shock_interpretations_flat_second_a_H_i_H}
+                負の\(\hat{a}_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_a_eq}
+                にしたがい\(0\)へ向かって増加する。
+                \(i_t^H\)は\(i_{ss}^H\)付近に保たれる。
+            \item[\(\hat{y}_t^H-\hat{a}_t^H\)が正で\(0\)に収束することにより\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)が減少幅を縮小していくこと]
+            \label{itm:chapter5_a_shock_interpretations_rise_second_y_H_YS_CS}
+                供給側では以下のような反応が起こる。
+                \(\hat{a}_t^H\)と\(\hat{y}_t^H\)はともに負になった。
+                ここで\(\hat{y}_t^H-\hat{a}_t^H\)は正とする。
+                またDynareのシミュレーションの仕組みにより
+                \(\hat{y}_t^H\)は\(0\)に収束するから\(\hat{y}_t^H-\hat{a}_t^H\)も\(0\)に収束する。
+                よってYS-\(\pi\)曲線（差分形式）において右辺の主決定要因
+                \(\hat{y}_t^H-\hat{a}_t^H\)
+                が正で\(0\)に収束するから、左辺の
+                \(\hat{\pi}_t^H-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]
+                =\operatorname{E}_{t-1}[\hat{\pi}_t^H]-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]
+                \approx\operatorname{E}_{t-1}[\hat{\pi}_t^H]-\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)
+                も正で\(0\)に収束し、
+                よって\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)は減少幅を縮小していく。
+            \item[\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)が減少幅を縮小していくことと\(\hat{a}_t^H\)が増加幅を縮小していくことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の上移動の縮小]
+            \label{itm:chapter5_a_shock_interpretations_rise_second_p_H_YS_CS}
+                \(\operatorname{E}_t[\hat{\pi}_{t+1}^H]
+                =\hat{\pi}_{t+1}^H\)
+                が減少していくということは\(\hat{p}_{t+1}^H\)の増加幅が縮小していくことを意味する。
+                また\(\hat{a}_t^H\)は増加幅を縮小していくのだから
+                正の\(-2\kappa^H\hat{a}_t^H\)も減少幅を縮小していく。
+                するとYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の切片の主決定要因
+                \(\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]-2\kappa^H\hat{a}_t^H\)
+                において
+                \(\hat{p}_{t-1}^H\)が増加幅を縮小していき、
+                \(\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)が減少幅を縮小していき、
+                \(-2\kappa^H\hat{a}_t^H\)が減少幅を縮小していく。
+                よって主決定要因は増加幅を縮小していくか、あるいは減少幅を縮小していく。
+                主決定要因が増加幅を縮小していく場合、
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は切片が増加幅を縮小していき、上移動を縮小していく。
+                よって
+                \(y_t^H,c_t^{H\to W}\)は減少幅を縮小していき、
+                \(p_t^H,p_t^{H\to W}\)は増加幅を縮小していく。
+                主決定要因が減少幅を縮小していく場合、
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は切片が減少幅を縮小していき、下移動を縮小していく。
+                よって
+                \(y_t^H,c_t^{H\to W}\)は増加幅を縮小していき、
+                \(p_t^H,p_t^{H\to W}\)は減少幅を縮小していく。
+            \item[\(i_t^H\)が維持されることによりYD,CD曲線が維持されること]
+            \label{itm:chapter5_a_shock_interpretations_rise_second_E_lambda_YD_CD}
+                1期と同様に\(i_t^H\)は\(i_{ss}^H\)付近に維持されるため、
+                YD,CD曲線の\(i_t^H\)による移動は起こらない。
+            \item[2期以降のまとめ]
+            \label{itm:chapter5_a_shock_interpretations_rise_second_summary}
+                \(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)が減少幅を縮小していくことと
+                \(\hat{a}_t^H\)が増加幅を縮小していくことにより
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は上移動を縮小していくか下移動を縮小していく。
+                \(i_t^H\)が維持されることによりYD,CD曲線は維持される。
+                これらにより\(y_t^H,c_t^{H\to W}\)および\(p_1^H,p_1^{H\to W}\)は
+                減少幅を縮小していくか増加幅を縮小していく。
+        \end{description}
+\end{enumerate}

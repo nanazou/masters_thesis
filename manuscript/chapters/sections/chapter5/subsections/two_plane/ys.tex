@@ -3,8 +3,125 @@
 
 \subsection{YS(生産供給)曲線}
 \label{sec:chapter5_two_plane_ys}
-YS(生産供給)曲線はPS(純粋供給)曲線と同じもので以下のようになる。
+YS(生産供給)曲線は生産者物価指数(PPI)\(p_t^H\)を生産\(y_t^H\)の関数として記述したものであり、
+主に供給群の式を統合することにより導出される。
+
+\subsubsection{YS曲線導出の準備}
+\label{sec:chapter5_two_plane_ys_preparation}
+次節におけるYS曲線の導出にあたりいくつか式を準備しておく。
+外部群の名目GDP\(p_t^Hy_t^H\)と名目総消費\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+\eqref{form:chapter5_two_plane_yd_preparation_p_H_y_H_eq}
+は以下のようであった。
 \begin{equation}
-\label{form:chapter5_two_plane_ys_p_H_eq}
-\hat{p}_t^H=\frac{1}{1+\beta_{ss}^H}\hat{p}_{t-1}^H+\frac{\beta_{ss}^H}{1+\beta_{ss}^H}\operatorname{E}_t[\hat{p}_{t+1}^H]
+\label{form:chapter5_two_plane_ys_preparation_p_H_y_H_eq}
+    p_t^Hy_t^H=X_tp_t^{H\to W}c_t^{H\to W}
+\end{equation}
+ただし\(X_t\equiv\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\)であり、
+この\(X_t\)は遮断効果により自国金融政策の影響を受けなかった。
+さらに所得の限界効用\(\lambda_t^H\)の式
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_lambda_H_p_H_W_c_H_W_eq}
+    \lambda_t^H=\frac{1}{p_t^{H\to W}c_t^{H\to W}}
+\end{equation}
+を変形して\(p_t^{H\to W}c_t^{H\to W}=1/\lambda_t^H\)とする。
+これを式
+\eqref{form:chapter5_two_plane_ys_preparation_p_H_y_H_eq}
+に代入して\(\lambda_t^H\)について解くと以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_lambda_H_p_H_y_H_eq}
+    \lambda_t^H=X_t/(p_t^Hy_t^H)
+\end{equation}
+さらにこれを対数線形化することで以下の式が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_lambda_H_p_H_y_H_modified_eq}
+    \hat{\lambda}_t^H=\hat{X}_t-\hat{p}_t^H-\hat{y}_t^H
+\end{equation}
+次にグロス・インフレ率\(\pi_t^H\)の定義式
+\eqref{form:chapter3_policies_monetary_pi_H_def}
+は以下のようであった。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_pi_H_def}
+    \pi_t^H\equiv\frac{p_t^H}{p_{t-1}^H}
+\end{equation}
+これを対数線形化すると2つ目の式が得られる。
+\label{form:chapter3_policies_monetary_hat_pi_H_eq}
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_pi_H_eq}
+    \hat{\pi}_t^H=\hat{p}_t^H-\hat{p}_{t-1}^H
+\end{equation}
+さらにこの両辺において\(t\)を\(t+1\)とし、期待値\(\operatorname{E}_t\)をとれば3つ目の式が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_preparation_E_pi_H_eq}
+    \operatorname{E}_t[\hat{\pi}_{t+1}^H]=\operatorname{E}_t[\hat{p}_{t+1}^H]-\hat{p}_t^H
+\end{equation}
+
+\subsubsection{YS曲線の導出}
+\label{sec:chapter5_two_plane_ys_derivation}
+式
+\eqref{chap:appendixTODO}
+で示されたとおり、主に供給群の式を統合することにより以下の線形化されたフィリップス曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_derivation_pi_H_eq}
+\hat{\pi}_t^H=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-\hat{\lambda}_t^H-\hat{\tau}_t^H)
+\end{equation}
+ここでハット記号\(\hat{}\)は定常状態からの対数乖離率を、下付き文字の\(ss\)は定常状態の値を意味する。
+\(\kappa^H\)は付録で定義される価格の粘着性に依存する正の定数である。
+ここで前節で導いた1つ目の式
+\eqref{form:chapter5_two_plane_ys_preparation_lambda_H_p_H_y_H_modified_eq}
+を右辺\(\kappa^H\)の括弧内に代入すると括弧は以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_derivation_pi_H_right_eq}
+\begin{aligned}
+    \hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-\hat{\lambda}_t^H-\hat{\tau}_t^H
+    &=\hat{y}_t^H-2\hat{a}_t^H-\hat{p}_t^H-(\hat{X}_t-\hat{p}_t^H-\hat{y}_t^H)-\hat{\tau}_t^H \\
+    &=2\hat{y}_t^H-2\hat{a}_t^H-\hat{X}_t-\hat{\tau}_t^H
+\end{aligned}
+\end{equation}
+これにより全体は以下のように整理され、
+YS曲線の\(\pi_t^H\)を用いた表現である\textbf{YS-\(\hat{\pi}\)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+    \hat{\pi}_t^H=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(2\hat{y}_t^H-2\hat{a}_t^H-\hat{X}_t-\hat{\tau}_t^H)
+\end{equation}
+次に2平面分析に向けてこれを物価水準ベースの式に変換する。
+前節で導いた2つ目の式
+\eqref{form:chapter5_two_plane_ys_preparation_pi_H_eq}
+を左辺に代入し、\(\hat{p}_t^H\)について整理すると、
+YS曲線の\(p_t^H\)を用いた表現である\textbf{YS-\(\hat{p}\)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_derivation_p_H_modified_eq}
+    \hat{p}_t^H=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(2\hat{y}_t^H-2\hat{a}_t^H-\hat{X}_t-\hat{\tau}_t^H)
+\end{equation}
+この式は生産者物価指数\(\hat{p}_t^H\)が生産\(\hat{y}_t^H\)の増加関数であることを示している。
+したがって\((\hat{y}_t^H,\hat{p}_t^H)\)平面においてYS-\(\hat{p}\)曲線は\textbf{右上がり}の曲線として描かれる。
+
+\subsubsection{YS-\(\hat{\pi}\)曲線の前方展開}
+\label{sec:chapter5_two_plane_ys_forward}
+\ref{chap:chapter5}
+YS-\(\hat{\pi}\)曲線
+\eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+を前方展開して\(\hat{\pi}_t^H\)の決定式を導いておく。
+来期\(t+1\)においても同式が成立するため、それを代入し反復期待値の法則
+\(\operatorname{E}_t[\operatorname{E}_{t+1}[\cdot]]=\operatorname{E}_t[\cdot]\)
+を適用する操作を\(k\)期先まで繰り返すと以下が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_forward_pi_H_k_eq}
+    \hat{\pi}_t^H=(\beta_{ss}^H)^k\operatorname{E}_t[\hat{\pi}_{t+k}^H]+\operatorname{E}_t\left[\sum_{j=0}^{k-1}(\beta_{ss}^H)^j\kappa^H(2\hat{y}_{t+j}^H-2\hat{a}_{t+j}^H-\hat{X}_{t+j}-\hat{\tau}_{t+j}^H)\right]
+\end{equation}
+本稿が使用するDynareによるシミュレーションにおいてはショックを受けた経済は
+唯一の安定パス（サドルパス）をたどり定常状態へ回帰する。
+このときグロス・インフレ率の初期定常状態からの対数乖離\(\hat{\pi}_t^H\)は\(0\)に収束するため
+\(\lim_{k\to\infty}\operatorname{E}_t[\hat{\pi}_{t+k}^H]=0\)となる。
+したがって上式の両辺について極限\(\lim_{k\to\infty}\)をとり第2項を消去すると以下の
+前方展開されたYS-\(\hat{\pi}\)曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_forward_pi_H_lim_eq}
+    \begin{aligned}
+        \hat{\pi}_t^H
+        &=\lim_{k\to\infty}\left((\beta_{ss}^H)^k\operatorname{E}_t[\hat{\pi}_{t+k}^H]+\operatorname{E}_t\left[\sum_{j=0}^{k-1}(\beta_{ss}^H)^j\kappa^H(2\hat{y}_{t+j}^H-2\hat{a}_{t+j}^H-\hat{X}_{t+j}-\hat{\tau}_{t+j}^H)\right]\right) \\
+        &=\lim_{k\to\infty}(\beta_{ss}^H)^k\operatorname{E}_t[\hat{\pi}_{t+k}^H]+\lim_{k\to\infty}\operatorname{E}_t\left[\sum_{j=0}^{k-1}(\beta_{ss}^H)^j\kappa^H(2\hat{y}_{t+j}^H-2\hat{a}_{t+j}^H-\hat{X}_{t+j}-\hat{\tau}_{t+j}^H)\right] \\
+        &=0+\operatorname{E}_t\left[\sum_{j=0}^{\infty}(\beta_{ss}^H)^j\kappa^H(2\hat{y}_{t+j}^H-2\hat{a}_{t+j}^H-\hat{X}_{t+j}-\hat{\tau}_{t+j}^H)\right] \\
+        &=\operatorname{E}_t\sum_{k=0}^{\infty}(\beta_{ss}^H)^k\kappa^H(2\hat{y}_{t+k}^H-2\hat{a}_{t+k}^H-\hat{X}_{t+k}-\hat{\tau}_{t+k}^H)
+    \end{aligned}
 \end{equation}

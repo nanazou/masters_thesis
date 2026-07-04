@@ -3,24 +3,18 @@
 
 \subsection{方程式体系に含まれる式の分類}
 \label{sec:chapter5_two_plane_classification}
-本節では、代表的家計の方程式体系に含まれる全式を「供給群」「需要群」「接続群」の3つの群に分類する。
+本節では、代表的家計の方程式体系に含まれる全式を「供給群」「需要群」「外部群」の3つの群に分類する。
 後述のように、
-供給群の方程式を統合してPS(純粋供給)曲線が導出され、
-需要群の方程式を統合してPD(純粋供給)曲線が導出される。
-PS(純粋供給)曲線はYS(生産供給)曲線でもあり、
-PS(純粋供給)曲線に接続群の方程式を合わせることによりCS(消費供給)曲線が導かれる。
-PD(純粋需要)曲線はCD(消費需要)曲線でもある。
-PD(純粋需要)曲線に接続群の方程式を合わせることによりYD(生産需要)曲線が導かれる。
-このようにして導かれた
-YS(生産供給)曲線およびYD(生産供給)曲線を用いて
-\((y_t^H,p_t^H)\)平面における均衡分析がおこなわれる。
-CS(消費供給)曲線およびCD(消費需要)曲線を用いて
-\((c_t^{H\to W},p_t^{H\to W})\)平面における均衡分析がおこなわれる。
+主に供給群の式を統合することによりYS（生産供給）曲線およびCS（消費供給）曲線が導出され、
+主に需要群の式を統合することによりYD（生産需要）曲線およびCD（消費需要）曲線が導出される。
+YS曲線とCS曲線は外部群の式を統合することにより互いに他に変換可能であり、
+YD曲線とCD曲線も外部群の式を統合することにより互いに他に変換可能である。
+このようにして導かれたYS曲線とYD曲線を用いて\((y_t^H,p_t^H)\)平面における均衡分析がおこなわれる。
+同様にCS曲線とCD曲線を用いて\((c_t^{H\to W},p_t^{H\to W})\)平面における均衡分析がおこなわれる。
 
 \subsubsection*{1.供給群}
 \label{sec:chapter5_two_plane_classification_supply}
-財市場における供給側の均衡条件を表す方程式群であり、これら統合してPS(純粋供給)曲線が導かれる。
-PS(純粋供給)曲線はYS(生産供給)曲線でもある。
+財市場における供給側の均衡条件を表す方程式群であり、主にこれらを統合することによりYS曲線が導かれる。
 \begin{itemize}
     \item
     \label{itm:chapter5_two_plane_classification_supply_p_H_tilde}
@@ -93,21 +87,20 @@ PS(純粋供給)曲線はYS(生産供給)曲線でもある。
             y_t^H=\frac{a_t^H l_t^H}{\Delta_t^H}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_pi_H}
+    \label{itm:chapter5_two_plane_classification_external_pi_H}
         \textbf{生産者物価指数\(p_t^H\)のグロス・インフレ率\(\pi_t^H\)の定義式}:
         式
         \eqref{form:chapter3_policies_monetary_pi_H_def}
         により定義された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_pi_H_def}
+        \label{form:chapter5_two_plane_classification_external_pi_H_def}
             \pi_t^H\equiv\frac{p_t^H}{p_{t-1}^H}
         \end{equation}
 \end{itemize}
 
 \subsubsection*{2.需要群}
 \label{sec:chapter5_two_plane_classification_demand}
-財市場における需要側の均衡条件を表す方程式群であり、これら統合してPD(純粋需要)曲線が導かれる。
-PD(純粋需要)曲線はCD(消費需要)曲線でもある。
+財市場における需要側の均衡条件を表す方程式群であり、主にこれら統合することによりCD曲線が導かれる。
 \begin{itemize}
     \item
     \label{itm:chapter5_two_plane_classification_demand_lambda_H_i_H}
@@ -131,123 +124,122 @@ PD(純粋需要)曲線はCD(消費需要)曲線でもある。
         \end{equation}
 \end{itemize}
 
-\subsubsection*{3.接続群}
+\subsubsection*{3.外部群}
 \label{sec:chapter5_two_plane_classification_connection}
 財市場以外における均衡条件を表す方程式群である。
-これらをYS(生産供給)曲線に合わせることによりCS(消費供給)曲線が導かれ、
-CD(消費需要)曲線に合わせることによりYD(生産需要)曲線が導かれる。
+これらを合わせることによりYS曲線とCS曲線を互いに他に変換でき、YD曲線とCD曲線も互いに他に変換できる。
 \begin{itemize}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_euler}
+    \label{itm:chapter5_two_plane_classification_external_euler}
         \textbf{外国通貨建てリスクフリー債券のオイラー方程式}:
         式
         \eqref{form:chapter3_representative_household_euler_risk_free_home_representative_lambda_H_i_F_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_lambda_H_i_F_eq}
+        \label{form:chapter5_two_plane_classification_external_lambda_H_i_F_eq}
             \lambda_t^H e_t^{/*}=(1+i_t^F)\beta_t^H\operatorname{E}_t[\lambda_{t+1}^H e_{t+1}^{/*}]
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_lambda}
+    \label{itm:chapter5_two_plane_classification_external_lambda}
         \textbf{所得の限界効用\(\lambda_t^H\)の式}:
         式
         \eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_lambda_H_p_H_W_c_H_W_eq}
+        \label{form:chapter5_two_plane_classification_external_lambda_H_p_H_W_c_H_W_eq}
             \lambda_t^H=\frac{1}{p_t^{H\to W}c_t^{H\to W}}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_lambda_H_star_def}
+    \label{itm:chapter5_two_plane_classification_external_lambda_H_star_def}
         \textbf{外国通貨所得の限界効用\(\lambda_t^{H/*}\)の定義式}:
         付録
         \ref{chap:appendix_insulation_effect}
         において定義された、名目為替レートと所得の限界効用を結合する定義式である。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_lambda_H_star_def_eq}
+        \label{form:chapter5_two_plane_classification_external_lambda_H_star_def_eq}
             \lambda_t^{H/*}\equiv e_t^{/*} \lambda_t^H
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_demand_home_goods}
+    \label{itm:chapter5_two_plane_classification_external_demand_home_goods}
         \textbf{自国財消費指数\(c_t^{H\to H}\)の需要関数}:
         式
         \eqref{form:chapter3_representative_household_demand_home_representative_c_H_H_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_c_H_H_eq}
+        \label{form:chapter5_two_plane_classification_external_c_H_H_eq}
             c_t^{H\to H}=\alpha^H\frac{p_t^{H\to W}}{p_t^H}c_t^{H\to W}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_demand_foreign_goods}
+    \label{itm:chapter5_two_plane_classification_external_demand_foreign_goods}
         \textbf{外国財消費指数\(c_t^{H\to F}\)の需要関数}:
         式
         \eqref{form:chapter3_representative_household_demand_home_representative_c_H_F_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_c_H_F_eq}
+        \label{form:chapter5_two_plane_classification_external_c_H_F_eq}
             c_t^{H\to F}=(1-\alpha^H)\frac{p_t^{H\to W}}{p_t^F}c_t^{H\to W}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_lop}
+    \label{itm:chapter5_two_plane_classification_external_lop}
         \textbf{一物一価の法則(LOP)}:
         式
         \eqref{form:chapter3_representative_household_lop_home_representative_p_H_eq}
         により仮定された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_p_H_eq}
+        \label{form:chapter5_two_plane_classification_external_p_H_eq}
             p_t^H=e_t^{/*}p_t^{H*}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_cpi}
+    \label{itm:chapter5_two_plane_classification_external_cpi}
         \textbf{消費者物価指数(CPI)\(p_t^{H\to W}\)の式}:
         式
         \eqref{form:chapter3_households_stage1b_cpi_descriptions_p_H_W_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_p_H_W_eq}
+        \label{form:chapter5_two_plane_classification_external_p_H_W_eq}
             p_t^{H\to W}\equiv(p_t^H)^{\alpha^H}(p_t^F)^{1-\alpha^H}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_constraint}
+    \label{itm:chapter5_two_plane_classification_external_constraint}
         \textbf{資源制約式}:
         式
         \eqref{form:chapter3_representative_household_resource_constraints_home_representative_constraint_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_constraint_eq}
+        \label{form:chapter5_two_plane_classification_external_constraint_eq}
             b_{t+1}^H+p_t^{H\to W}c_t^{H\to W}=p_t^H y_t^H+(1+i_{t-1}^F)\frac{e_t^{/*}}{e_{t-1}^{/*}}b_t^H
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_goods_market}
+    \label{itm:chapter5_two_plane_classification_external_goods_market}
         \textbf{財市場の均衡条件}:
         式
         \eqref{form:chapter3_representative_household_goods_market_home_representative_y_H_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_y_H_eq}
+        \label{form:chapter5_two_plane_classification_external_y_H_eq}
             y_t^H=c_t^{H\to H}+\frac{M}{N}c_t^{F\to H}
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_international_bond_equilibrium}
+    \label{itm:chapter5_two_plane_classification_external_international_bond_equilibrium}
         \textbf{国際リスクフリー債券市場の均衡条件}:
         式
         \eqref{form:chapter3_assumptions_bond_markets_international_equilibrium}
         により示された、世界全体の債券市場における均衡条件である。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_international_bond_equilibrium_eq}
+        \label{form:chapter5_two_plane_classification_external_international_bond_equilibrium_eq}
             \sum_{h\in H}b_t^{h\to F}+\sum_{f\in F}e_t^{/*}b_t^{f\to H*}=0
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_steady_state}
+    \label{itm:chapter5_two_plane_classification_external_steady_state}
         \textbf{初期定常状態における外国通貨建てリスクフリー債券\(b_s^H\)の無保有}:
         式
         \eqref{form:chapter3_representative_household_steady_state_home_representative_b_s_H_eq}
         により示された。
         \begin{equation}
-        \label{form:chapter5_two_plane_classification_connection_b_s_H_eq}
+        \label{form:chapter5_two_plane_classification_external_b_s_H_eq}
             b_s^H=0
         \end{equation}
     \item
-    \label{itm:chapter5_two_plane_classification_connection_foreign_system}
+    \label{itm:chapter5_two_plane_classification_external_foreign_system}
         \textbf{外国の方程式系に含まれる全方程式}
 \end{itemize}

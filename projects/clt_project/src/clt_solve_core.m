@@ -203,7 +203,11 @@ lambda_F_lin = lambda_H_slash_star_lin - e_slash_star_lin;
 p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie;
 p_H_bar_y_H_lin = p_H_bar_lin + y_H_lin;
 p_H_W_c_H_W_pie = p_H_W_pie + c_H_W_pie;
-p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin; 
+p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin;
+
+% --- 【新規追加: 変数名を商の形に変更】 ---
+p_H_W_slash_p_H_pie = p_H_W_pie - p_H_pie;
+p_H_W_slash_p_H_lin = p_H_W_lin - p_H_lin;
 
 % --- 戻り値の整理 ---
 % who の引数を個別に取得して連結 (MATLAB/Octaveの構文エラー回避)

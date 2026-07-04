@@ -1,6 +1,5 @@
 import scipy.io
 import matplotlib.pyplot as plt
-import japanize_matplotlib # 日本語表示のためにインポート
 import numpy as np
 import os
 import sys
@@ -8,6 +7,9 @@ import sys
 # =========================================================================
 # --- 1. 設定項目 ---
 # =========================================================================
+
+# Windows標準の日本語フォントを指定（文字化けを防ぐ）
+plt.rcParams["font.family"] = "MS Gothic"
 
 # 比較する政策のリスト定義
 policies = [
@@ -48,8 +50,8 @@ root_dir = base_dir
 # グラフを保存するルートディレクトリ
 output_root_dir = os.path.join(base_dir, 'comparison_graphs')
 
-# プロットする期間（100期まで）
-plot_periods = 100
+# プロットする期間（400期まで）
+plot_periods = 400
 x_axis = np.arange(plot_periods)
 
 # グラフ化する変数のリスト (MATLAB側の var_list と完全に同期)
@@ -68,7 +70,7 @@ var_list = [
     'p_H_W', 'p_F_W_star',
     'p_H_W_bar', 'p_F_W_star_bar', 
     'p_H_bar', 'p_F_star_bar', 
-    'p_H_bar_y_H', 'p_H_W_c_H_W', 
+    'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H',
     'pi_H', 'pi_F_star', 
     'pi_H_W', 'pi_F_W_star', 
     'p_H_tilde', 'p_F_star_tilde',
@@ -127,6 +129,7 @@ title_map = {
     'p_F_W_star_bar': r'外国の正規化された消費者物価指数（CPI）（ $\bar{p}^{F \to W*}$ ）',
     'p_H_bar_y_H': r'自国の名目GDP（ $\bar{p}^H y^H$ ）',
     'p_H_W_c_H_W': r'自国の名目総消費（ $p^{H \to W} c^{H \to W}$ ）',
+    'p_H_W_slash_p_H': r'自国の消費者物価指数と生産者物価指数の比（$p^{H \to W}/p^H$）',
     'p_H_tilde': r'自国の最適生産者物価（ $\tilde{p}^H$ ）',
     'p_F_star_tilde': r'外国の最適生産者物価（ $\tilde{p}^{F*}$ ）',
     'v_H': r'自国の最適生産者物価の補助変数1（ $v^H$ ）',
@@ -146,9 +149,9 @@ title_map = {
     'a_H': r'自国の生産性（ $a^H$ ）',
     'a_F': r'外国の生産性（ $a^F$ ）',
     'tau_H': r'自国の税率（ $\tau^H$ ）',
-    'tau_F': r'外国の税率（ $\tau^F$ ）',
+    'tau_F': r'外国の税率（ $\tau^Y$ ）',
     'chi_H': r'自国金融政策の目標パス（ $\chi^H$ ）',
-    'eps_beta_H': r'需要ショック（ $\epsilon^{\beta^H}$ ）',
+    'eps_beta_H': r'開拓需要ショック（ $\epsilon^{\beta^H}$ ）',
     'eps_beta_F': r'外国環境需要ショック（ $\epsilon^{\beta^F}$ ）',
     'eps_a_H': r'生産性ショック（ $\epsilon^{a^H}$ ）',
     'eps_a_F': r'外国生産性ショック（ $\epsilon^{a^F}$ ）',
@@ -256,6 +259,7 @@ for shock in shocks:
         ax.set_title(f'{title_text}の比較（{shock_plot_name}）', fontsize=16)
 
         legend_handles = []
+        has_flex_ppi = False  # 完全伸縮価格がプロットされたかどうかのフラグ
         
         for policy in policies:
             key = policy['key']
@@ -263,10 +267,19 @@ for shock in shocks:
                 data_series = results[key][var_name]
                 plot_len = min(plot_periods, len(data_series))
                 
+                # --- 追加：完全伸縮価格をプロットする直前に、他のルールで決まったy軸の範囲を保存 ---
+                if key == 'flex_ppi':
+                    ymin_saved, ymax_saved = ax.get_ylim()
+                    has_flex_ppi = True
+                
                 line, = ax.plot(x_axis[:plot_len], data_series[:plot_len], 
                                 color=policy['color'], linestyle=policy['ls'], 
                                 label=policy['label'], linewidth=2, alpha=0.8)
                 legend_handles.append(line)
+
+        # --- 追加：完全伸縮価格をプロットしていた場合、保存したy軸の範囲を再設定して枠を元に戻す ---
+        if has_flex_ppi:
+            ax.set_ylim(ymin_saved, ymax_saved)
 
         ax.set_xlabel('期（四半期）', fontsize=12)
         ax.set_ylabel('定常状態からの乖離', fontsize=12)

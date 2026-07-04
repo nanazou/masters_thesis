@@ -1,0 +1,76 @@
+\paragraph{生産水準目標（OLT）}
+\label{sec:chapter5_beta_shock_policies_olt}
+式
+\eqref{form:chapter3_policies_monetary_home_olt_i_H_eq}、
+\eqref{form:chapter3_policies_monetary_home_olt_gamma_H_eq}および
+\eqref{form:chapter3_policies_monetary_home_olt_chi_H_eq}
+により記述されたとおり、OLTの式は以下のようであった。
+\begin{align}
+\label{form:chapter5_beta_shock_policies_olt_i_H_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(y_t^H)-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter5_beta_shock_policies_olt_gamma_H_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(y_{t-1}^H)-\log(\chi_{t-1}^H)) \\
+\label{form:chapter5_beta_shock_policies_olt_chi_H_eq}
+    \log(\chi_t^H)-\log(\chi_{ss}^H)&=\rho_{\chi}^H\left(\log(\chi_{t-1}^H)-\log(\chi_{ss}^H)\right)+\varepsilon_t^{\chi,H}
+\end{align}
+ここで
+\(\phi_{gap}^H, \phi_{level}^H\)は反応係数、
+\(y_t^H\)は生産水準、
+\(\chi_t^H\)は目標パス、
+\(\gamma_t^H\)は過去の乖離の累積、
+\(\varepsilon_t^{\chi,H}\)は外生ショック項である。
+\begin{enumerate}
+    \item
+    \label{itm:chapter5_beta_shock_policies_olt_c_H_W}
+        \(c_t^{H\to W}\)：
+        総消費指数\(c_t^{H\to W}\)の図
+        \ref{fig:chapter5_beta_shock_graphs_c_H_W}
+        を見ると、OLTの軌道は名目GDP水準目標（NGDPLT）とほぼ完全に重なっていることがわかる。
+        100期までの前半において、OLTは総消費水準目標（CLT）や名目総消費水準目標（NCLT）には及ばないものの、
+        消費者物価水準目標（CPLT）や消費者物価インフレ目標（IT-CPI）のような極端な大暴落を免れている。
+        一方で中盤以降のプラス圏での推移を見ると、厚生を改善させる消費の増加幅が小規模にとどまっている。
+        CPLTやIT-CPIが描く巨大な山や、NCLTが長期にわたって維持する高い水準と比較すると、
+        消費の増加による厚生の押し上げ効果は限定的となっている。
+    \item
+    \label{itm:chapter5_beta_shock_policies_olt_y_H}
+        \(y_t^H\)：
+        生産\(y_t^H\)の図
+        \ref{fig:chapter5_beta_shock_graphs_y_H}
+        を見ると、OLTの軌道は総消費指数\(c_t^{H\to W}\)と同様に
+        名目GDP水準目標（NGDPLT）とほぼ完全に重なっていることがわかる。
+        100期までの前半において、OLTの落ち込みは総消費水準目標（CLT）や名目総消費水準目標（NCLT）よりは大きいが、
+        消費者物価水準目標（CPLT）や消費者物価インフレ目標（IT-CPI）のような極端な落ち込みには至っていない。
+        生産の低下は労働の減少を意味するため厚生にはプラスに働くが、
+        OLTにおける前半の厚生押し上げ効果はCPLTやIT-CPIほど大きくはない。
+        一方で50期前後のオーバーシュートを見ると、生産の増加は労働の非効用を通じて厚生を悪化させる要因となる。
+        OLTのオーバーシュートはCLTやNCLTよりも低く抑えられており、
+        またCPLTやIT-CPIのような遅くて巨大な山を作ることもないため、
+        後半の生産過剰に伴う厚生のマイナス効果は比較的小さくとどまっている。
+    \item
+    \label{itm:chapter5_beta_shock_policies_olt_pi_H}
+        \(\pi_t^H\)：
+        グロス・インフレ率\(\pi_t^H\)の図
+        \ref{fig:chapter5_beta_shock_graphs_pi_H}
+        を見ると、OLTの定常状態からの乖離は、消費者物価インフレ目標（IT-CPI）のような極端な初期の下落や、
+        総消費水準目標（CLT）のような大きな変動に比べれば小さく抑えられていることがわかる。
+        しかし、名目総消費水準目標（NCLT）や生産者物価水準目標（PPLT）が達成している
+        ゼロ近傍での極めて平坦な推移と比較すると、明確な乖離が継続している。
+        図
+        \ref{fig:chapter5_beta_shock_graphs_p_H}
+        に見られる名目アンカーの欠如に伴う物価の上昇ドリフトを反映し、
+        中盤以降もインフレ率がプラス圏で推移し続けており、
+        この継続的な乖離が価格分散を通じて厚生を悪化させる要因となっている。
+    \item
+    \label{itm:chapter5_beta_shock_policies_olt_Delta_t_minus_1_H}
+        \(\Delta_{t-1}^H\)：
+        価格分散\(\Delta_{t-1}^H\)の図
+        \ref{fig:chapter5_beta_shock_welfare_Delta_H}
+        を見ると、OLTの定常状態からの乖離は、総消費水準目標（CLT）のような著しい増大や、
+        消費者物価水準目標（CPLT）および消費者物価インフレ目標（IT-CPI）のような大きな山を作ることはなく、
+        相対的に低い水準に抑えられている。
+        しかし、名目総消費水準目標（NCLT）や生産者物価水準目標（PPLT）、
+        名目GDP水準目標（NGDPLT）が達成しているほぼゼロの水準と比較すると、
+        中盤以降もわずかながら高い水準で推移していることがわかる。
+        これは前述のインフレ率のプラス圏での継続的な乖離が蓄積した結果であり、
+        この価格分散の高止まりが生産効率を悪化させ、厚生を継続的に押し下げる要因となっている。
+\end{enumerate}

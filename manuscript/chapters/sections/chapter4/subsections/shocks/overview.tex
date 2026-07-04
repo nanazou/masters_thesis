@@ -11,14 +11,13 @@
 もし同じ生産を保とうとするならばより多くの労働が必要となる。
 これは負の供給ショックの一種である。
 シミュレーションではこれらのショックが第0期（\(t=0\)）に発生し、
-その後は\(\beta\)および\(a\)の自己回帰プロセスにしたがって徐々に定常状態へと減衰していく。
-\begin{equation}
-\label{form:chapter4_shocks_stochastic_processes_eq}
-\begin{aligned}
-\log(\beta_t^H)&=(1-\rho_{\beta}^H)\log(\beta_{ss}^H)+\rho_{\beta}^H\log(\beta_{t-1}^H)+\varepsilon_t^{\beta,H} \\
-\log(a_t^H)&=(1-\rho_{a}^H)\log(a_{ss}^H)+\rho_{a}^H\log(a_{t-1}^H)+\varepsilon_t^{a,H}
-\end{aligned}
-\end{equation}
+その後は\(\beta\)および\(a\)の自己回帰過程にしたがって徐々に定常状態へと減衰していく。
+\begin{align}
+    \label{form:chapter4_shocks_beta_eq}
+        \log(\beta_t^H)&=(1-\rho_{\beta}^H)\log(\beta_{ss}^H)+\rho_{\beta}^H\log(\beta_{t-1}^H)+\varepsilon_t^{\beta,H} \\
+    \label{form:chapter4_shocks_a_eq}
+        \log(a_t^H)&=(1-\rho_{a}^H)\log(a_{ss}^H)+\rho_{a}^H\log(a_{t-1}^H)+\varepsilon_t^{a,H}
+\end{align}
 自己回帰係数についてはパラメータ設定の表\ref{tab:chapter4_parameters_list}でも示したとおり
 \(\rho_{\beta}^H\)および\(\rho_{a}^H\)はともに1より小さい値に設定されており、
 ショックの影響が時間とともに消失する定常的な過程となっている。

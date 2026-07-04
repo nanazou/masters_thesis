@@ -1,0 +1,266 @@
+\subsection{2平面分析によるグラフの解釈}
+\label{sec:chapter5_beta_shock_interpretations}
+ここでは\(\beta\)ショックが発生してからの主要変数の動きについて2平面分析による解釈をおこなう。
+\begin{enumerate}
+    \item
+    \label{itm:chapter5_beta_shock_interpretations_first}
+        \textbf{1期：\(\beta\)ショックの発生と波及}
+        \begin{description}[style=nextline]
+            \item[\(\beta_1^H\)の\(1\)を超えての上昇と\(i_1^H\)の\(0\)への下落]
+            \label{itm:chapter5_beta_shock_interpretations_first_beta_H}
+                \(\beta\)ショックが発生し、予期せず\(\beta_1^H\)が\(1\)を超えて上昇する。
+                \(1\)を超えて上昇した\(\beta_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_beta_eq}
+                にしたがって減少し、やがて初期定常状態\(\beta_{ss}^H\)へ回帰する。
+                また後述の諸変数の下落により\(i_1^H\)は金融政策の式を通じて\(0\)に下落する。
+                \(0\)に下落した\(i_t^H\)は金融政策の式にしたがって将来のいずれかの期から上昇しはじめ、
+                やがて初期定常状態\(i_{ss}^H\)へ回帰する。
+            \item[\(\beta_1^H\)が上昇したことによるYD,CD曲線の左下移動]
+            \label{itm:chapter5_beta_shock_interpretations_first_beta_H_YD_CD}
+                \(\beta_1^H\)の上昇を受けて需要側では以下のような反応が起こる。
+                YD,CD曲線において右辺の\(\beta_1^H\)が上昇するため、YD,CD曲線は左下へ移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)および\(p_1^H,p_1^{H\to W}\)が下落する。
+            \item[\(i_1^H\)が\(0\)に下落したことによるYD,CD曲線の右上移動]
+            \label{itm:chapter5_beta_shock_interpretations_first_i_H_YD_CD}
+                こうした諸変数の下落により、\(i_1^H\)は金融政策の式を通じて\(0\)に下落する。
+                YD,CD曲線において右辺の\(i_1^H\)が下落するため、YD,CD曲線は右上へ移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)および\(p_1^H,p_1^{H\to W}\)が上昇する。
+            \item[\(\operatorname{E}_1[\lambda_2^H]\)の上昇によるYD,CD曲線の左下移動]
+            \label{itm:chapter5_beta_shock_interpretations_first_E_lambda_YD_CD}
+                自国コンティンジェント債券に関する前方展開されたオイラー方程式
+                \eqref{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+                により、\(\operatorname{E}_1[\lambda_2^H]\)は
+                数列(\(i_{1+k}^H\))と\(\lim_{k\to\infty}p_{1+k+1}^{H\to W}\)によって一意に決定されるが、
+                これらは金融政策の式により一意に定められる。
+                すると右辺の
+                \(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})c_{ss}^{H\to W}}\)
+                は固定されるのだから、
+                \(\operatorname{E}_1[\lambda_{2}^H]\)がどのように変化するかは右辺の無限乗積
+                \(\operatorname{E}_1\left[\prod_{k=1}^{\infty}\beta_{1+k}^H(1+i_{1+k}^H)\right]\)
+                がどのように変化するかによる。
+                そうして数列(\(\beta_{1+k}^H\))全体の上昇はこの無限乗積の増加要因となり、
+                数列(\(i_{1+k}^H\))全体の下落はこの無限乗積の減少要因となる。
+                このうち数列(\(\beta_{1+k}^H\))全体の上昇の影響が大きいため、無限乗積は増加し、
+                \(\operatorname{E}_1[\lambda_2^H]\)は上昇する。
+                そのためYD,CD曲線は左下へ移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)および\(p_1^H,p_1^{H\to W}\)は下落する。
+            \item[\(\hat{p}_1^H\)が負になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下移動]
+            \label{itm:chapter5_beta_shock_interpretations_first_y_H_YS_CS}
+                このとき供給側においても変化が生じる。
+                ここまでの合計として\(p_1^H\)は減少するため\(\hat{p}_1^H\)が負であり、
+                \(\hat{\pi}_1^H=\hat{p}_1^H-\hat{p}_0^H=\hat{p}_1^H\)も負である。
+                このときYS-\(\hat{p}\),CS-\(\hat{p}\)曲線は右辺において\(\hat{p}_0^H=0\)のため
+                切片は主に\(\operatorname{E}_1[\hat{\pi}_2^H]\)によって決まる。
+                そこで\(\operatorname{E}_1[\hat{\pi}_2^H]\)は負であるとし、
+                またこの影響で切片も負になったとすると、YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は右下に移動する。
+                これにより\(y_1^H,c_1^{H\to W}\)は増加し、\(p_1^H,p_1^{H\to W}\)は減少する。
+            \item[1期のまとめ]
+            \label{itm:chapter5_beta_shock_interpretations_first_summary}
+                \(\beta_1^H\)が上昇したことによるYD,CD曲線の左下移動
+                \(i_1^H\)が\(0\)に下落したことによるYD,CD曲線の右上移動
+                \(\operatorname{E}_1[\lambda_2^H]\)の上昇によるYD,CD曲線の左下移動
+                \(\hat{p}_1^H\)が負になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下移動
+                これらを合わせることにより
+                YD,CD曲線は大きく左下移動
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は小さく右下移動
+                となる。その結果として
+                \(y_1^H,c_1^{H\to W}\)および\(p_1^H,p_1^{H\to W}\)は下落する。
+        \end{description}
+    \item
+    \label{itm:chapter5_beta_shock_interpretations_second}
+        \textbf{2期から山の頂点まで}
+        \begin{description}[style=nextline]
+            \item[\(\hat{y}_1^H\)が負になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の左上への圧力]
+            \label{itm:chapter5_beta_shock_interpretations_second_y_H_YS_CS}
+                \(\hat{y}_1^H\)が負になったため\(\hat{y}_t^H\)はしばらく負であるとする。
+                この期間においてYS-\(\pi\)曲線（差分形式）
+                \eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+                の右辺は負になる。すると左辺も負になるから
+                \(\operatorname{E}_{t-1}[\hat{\pi}_t^H]=\hat{\pi}_t^H
+                <\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)
+                となるが、ここで\(\beta_{ss}^H\)は\(1\)に近いため、
+                \(\operatorname{E}_{t-1}[\hat{\pi}_t^H]=\hat{\pi}_t^H
+                <\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)
+                と考えてよい。
+                この増加数列(\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\))は
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線の切片に対して増加圧力を与えていくが、
+                右辺には前期\(t-1\)からの慣性として残る\(\hat{p}_{t-1}^H\)が含まれているため
+                ただちに増加するとはかぎらない。
+                その場合、YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は前述の右下移動を徐々に縮小し、
+                停止してから左上への移動を始める。
+                これにより\(y_t^H,c_t^{H\to W}\)は増加から減少へと徐々に転じ、
+                \(p_t^H,p_t^{H\to W}\)は減少から増加へと徐々に転じる。
+            \item[\(1<\beta_t^H\)の減少と\(i_t^H=0\)の継続]
+            \label{itm:chapter5_beta_shock_interpretations_second_beta_H_i_H}
+                \(\beta_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_beta_eq}
+                にしたがい\(1\)へ向かって減少する。
+                \(i_t^H\)は引き続き\(0\)に保たれる。
+            \item[\(1<\beta_t^H\)の減少と\(i_t^H=0\)の継続によるYD,CD曲線の右上移動]
+            \label{itm:chapter5_beta_shock_interpretations_second_beta_H_i_H_YD_CD}
+                このとき需要側では以下のような反応が起こる。
+                \(i_t^H\)は\(0\)のままで\(\beta_t^H\)が減少していくため
+                YD,CD曲線は右上へ移動していく。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)が上昇していく。
+            \item[\(1<\beta_t^H\)の減少と目標達成後の\(i_t^H=0\)の継続によるYD,CD曲線のさらなる右上移動]
+            \label{itm:chapter5_beta_shock_interpretations_second_beta_H_i_H_YD_CD_2}
+                水準目標政策の場合、目標変数が初期定常状態まで戻った時点においても
+                過去の目標未達分の累積である\(\gamma_t^H\)は依然として負の値をとっている。
+                そのため金融政策の式を通じて、この負の\(\gamma_t^H\)が\(i_t^H\)を\(0\)に保ち続ける。
+                すると引き続き\(i_t^H\)は\(0\)のままで\(\beta_t^H\)が減少していくため
+                YD,CD曲線はさらに右上へ移動していく。
+                これにより引き続き\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)が上昇していく。
+                目標変数は初期定常状態を上回ってオーバーシュートする。
+            \item[\(\operatorname{E}_t[\lambda_{t+1}^H]\)の下落によるYD,CD曲線の右上移動]
+            \label{itm:chapter5_beta_shock_interpretations_second_E_lambda_YD_CD}
+                自国コンティンジェント債券に関する前方展開されたオイラー方程式
+                \eqref{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+                により、\(\operatorname{E}_t[\lambda_{t+1}^H]\)は
+                数列(\(i_{t+k}^H\))と\(\lim_{k\to\infty}p_{t+k+1}^{H\to W}\)によって一意に決定されるが、
+                これらは金融政策の式により一意に定められる。
+                すると右辺の
+                \(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})c_{ss}^{H\to W}}\)
+                は固定されるのだから、1期進んだときに
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)がどのように変化するかは右辺の無限乗積
+                \(\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]\)
+                がどのように変化するかによる。
+                そして1期進んだときに無限乗積がどのように変化するかは、無限乗積から除外される因数
+                \(\beta_{t+1}^H(1+i_{t+1}^H)\)が\(1\)より大きいか小さいかによる。
+                いま\(\beta_t^H>1,i_t^H=0\)であるから\(\beta_{t+1}^H(1+i_{t+1}^H)\)は\(1\)より大きく、
+                したがって無限乗積全体は下落していき、
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)も下落していく。
+                そのためYD,CD曲線は右上へ移動していく。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)は上昇していく。
+            \item[\(\hat{y}_t^H\)が正になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下への圧力]
+            \label{itm:chapter5_beta_shock_interpretations_second_y_H_YS_CS_2}
+                このとき供給側においても変化が生じる。
+                オーバーシュートにより\(\hat{y}_t^H\)は正になり山の頂点へ登っていくとする。
+                この期間においてYS-\(\pi\)曲線（差分形式）
+                \eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+                の右辺は正になる。すると左辺も正になるから
+                \(\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]<\hat{\pi}_t^H
+                =\operatorname{E}_{t-1}[\hat{\pi}_t^H]\)
+                となるが、ここで\(\beta_{ss}^H\)は\(1\)に近いため、
+                \(\operatorname{E}_t[\hat{\pi}_{t+1}^H]<\hat{\pi}_t^H
+                =\operatorname{E}_{t-1}[\hat{\pi}_t^H]\)
+                と考えてよい。
+                この減少数列\(\operatorname{E}_t[\hat{\pi}_{t+1}^H]\)は
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線の切片に対して減少圧力を与えていくが、
+                右辺には前期\(t-1\)からの慣性として残る\(\hat{p}_{t-1}^H\)が含まれているため
+                ただちに減少するとはかぎらない。
+                その場合、YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は前述の左上移動を徐々に縮小し、
+                停止してから右下への移動を始める。
+                これにより\(y_t^H,c_t^{H\to W}\)は減少から増加へと徐々に転じ、
+                \(p_t^H,p_t^{H\to W}\)は増加から減少へと徐々に転じる。
+            \item[2期から山の頂点までのまとめ]
+            \label{itm:chapter5_beta_shock_interpretations_second_summary}
+                \(\hat{y}_1^H\)が負になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の左上への圧力
+                \(1<\beta_t^H\)の減少と\(i_t^H=0\)の継続によるYD,CD曲線の右上移動
+                \(1<\beta_t^H\)の減少と目標達成後の\(i_t^H=0\)の継続によるYD,CD曲線のさらなる右上移動
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)の下落によるYD,CD曲線の右上移動
+                \(\hat{y}_t^H\)が正になったことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下への圧力
+                これらを合わせることにより
+                YD,CD曲線は大きく右上移動
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は小さく左上移動のち小さく右下移動
+                となる。その結果として
+                \(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)は上昇する。
+        \end{description}
+    \item
+    \label{itm:chapter5_beta_shock_interpretations_third}
+        \textbf{山の頂点から山が終わるまで}
+        \begin{description}[style=nextline]
+            \item[\(1>\beta_t^H\)の減少と目標達成後の\(i_t^H=0\)の継続]
+            \label{itm:chapter5_beta_shock_interpretations_third_beta_H_i_H}
+                \(\beta_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_beta_eq}
+                にしたがい\(1\)から\(\beta_{ss}^H\)へ向かって減少する。
+                \(i_t^H\)は引き続き\(\gamma_t^H\)が負であることにより\(0\)に保たれる。
+            \item[\(1>\beta_t^H\)の減少と\(i_t^H=0\)の継続によるYD,CD曲線の右上移動]
+            \label{itm:chapter5_beta_shock_interpretations_third_beta_H_i_H_YD_CD}
+                引き続き\(i_t^H\)は\(0\)のままで\(\beta_t^H\)が減少していくため
+                YD,CD曲線は右上へ移動していく。
+                これにより引き続き\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)が上昇していく。
+            \item[\(\operatorname{E}_t[\lambda_{t+1}^H]\)の上昇によるYD,CD曲線の左下移動]
+            \label{itm:chapter5_beta_shock_interpretations_third_E_lambda_YD_CD}
+                自国コンティンジェント債券に関する前方展開されたオイラー方程式
+                \eqref{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+                より、1期進んだときに
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)がどのように変化するかは右辺の無限乗積
+                \(\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]\)
+                がどのように変化するかによるのであった。
+                1期進んだときにこの無限乗積がどのように変化するかは、無限乗積から除外される因数
+                \(\beta_{t+1}^H(1+i_{t+1}^H)\)が\(1\)より大きいか小さいかによる。
+                いま\(\beta_t^H<1,i_t^H=0\)であるから\(\beta_{t+1}^H(1+i_{t+1}^H)\)は\(1\)より小さく、
+                したがって無限乗積全体は上昇していき、
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)も上昇していく。
+                そのためYD,CD曲線は左下へ移動していく。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)は下落していく。
+            \item[\(\hat{y}_t^H\)が正から\(0\)へ下落していくことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下への圧力の減少]
+            \label{itm:chapter5_beta_shock_interpretations_third_y_H_YS_CS_3}
+                このとき供給側においても変化が生じる。
+                \(\hat{y}_t^H\)は正から減少をはじめて\(0\)へ向かう。
+                そのためYS-\(\hat{p}\),CS-\(\hat{p}\)曲線は前述の右下移動を徐々に縮小する。
+                これにより\(y_t^H,c_t^{H\to W}\)は増加を徐々に縮小し、
+                \(p_t^H,p_t^{H\to W}\)は減少を徐々に縮小する。
+            \item[山の頂点から山が終わるまでのまとめ]
+            \label{itm:chapter5_beta_shock_interpretations_third_summary}
+                \(1>\beta_t^H\)の減少と\(i_t^H=0\)の継続によるYD,CD曲線の右上移動
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)の上昇によるYD,CD曲線の左下移動
+                \(\hat{y}_t^H\)が正から\(0\)へ下落していくことによるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の右下への圧力の減少
+                これらを合わせることにより
+                YD,CD曲線は\(\operatorname{E}_t[\lambda_{t+1}^H]\)の上昇による圧力が勝り大きく左下移動
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は小さく右下移動
+                となる。その結果として
+                \(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)は下落する。
+        \end{description}
+    \item
+    \label{itm:chapter5_beta_shock_interpretations_fourth}
+        \textbf{定常状態への収束}
+        \begin{description}[style=nextline]
+            \item[\(1>\beta_t^H\)と\(0<i_t^H\)の初期定常状態への収束]
+            \label{itm:chapter5_beta_shock_interpretations_fourth_beta_H_i_H}
+                \(1>\beta_t^H\)は自己回帰過程の式
+                \eqref{form:chapter4_shocks_beta_eq}
+                にしたがい\(\beta_{ss}^H\)へと収束していく。
+                また目標変数のオーバーシュートにより\(0>\gamma_t^H\)は上昇して\(0\)に達し、
+                これにより\(i_t^H\)は金融政策の式を通じて\(0\)から脱して上昇をはじめ\(i_{ss}^H\)へと収束していく。
+            \item[\(1>\beta_t^H\)と\(0<i_t^H\)の初期定常状態への収束によるYD,CD曲線の移動停止]
+            \label{itm:chapter5_beta_shock_interpretations_fourth_beta_H_i_H_YD_CD}
+                \(i_t^H\)と\(\beta_t^H\)は初期定常状態へ収束するためYD,CD曲線は移動を停止する。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)も移動を停止する。
+            \item[\(\operatorname{E}_t[\lambda_{t+1}^H]\)の定常状態への収束によるYD,CD曲線の移動停止]
+            \label{itm:chapter5_beta_shock_interpretations_fourth_E_lambda_YD_CD}
+                自国コンティンジェント債券に関する前方展開されたオイラー方程式
+                \eqref{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+                より、1期進んだときに
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)がどのように変化するかは右辺の無限乗積
+                \(\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]\)
+                がどのように変化するかによるのであった。
+                1期進んだときにこの無限乗積がどのように変化するかは、無限乗積から除外される因数
+                \(\beta_{t+1}^H(1+i_{t+1}^H)\)が\(1\)より大きいか小さいかによる。
+                いま\(\beta_t^H<1,i_t^H>0\)であるから\(\beta_{t+1}^H(1+i_{t+1}^H)\)は\(1\)に近く、
+                時間とともに\(1\)に収束していく。
+                したがって無限乗積全体も\(1\)に収束していき、
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)は
+                \(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})c_{ss}^{H\to W}}\)
+                に収束していく。
+                そのためYD,CD曲線は移動を停止する。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)も移動を停止する。
+            \item[\(\hat{y}_t^H\)の\(0\)への収束によるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の移動停止]
+            \label{itm:chapter5_beta_shock_interpretations_fourth_y_H_YS_CS}
+                このとき供給側においても変化が生じる。
+                \(\hat{y}_t^H\)は\(0\)へ向かって収束する。
+                そのためYS-\(\hat{p}\),CS-\(\hat{p}\)曲線は移動を停止する。
+                これにより\(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)も移動を停止する。
+            \item[定常状態への収束のまとめ]
+            \label{itm:chapter5_beta_shock_interpretations_fourth_summary}
+                \(1>\beta_t^H\)と\(0<i_t^H\)の初期定常状態への収束によるYD,CD曲線の移動停止
+                \(\operatorname{E}_t[\lambda_{t+1}^H]\)の定常状態への収束によるYD,CD曲線の移動停止
+                \(\hat{y}_t^H\)の\(0\)への収束によるYS-\(\hat{p}\),CS-\(\hat{p}\)曲線の移動停止
+                これらを合わせることにより
+                YD,CD曲線は移動停止
+                YS-\(\hat{p}\),CS-\(\hat{p}\)曲線は移動停止
+                となる。その結果として
+                \(y_t^H,c_t^{H\to W}\)および\(p_t^H,p_t^{H\to W}\)は移動を停止する。
+        \end{description}
+\end{enumerate}

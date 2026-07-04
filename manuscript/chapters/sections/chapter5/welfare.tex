@@ -1,0 +1,36 @@
+\subsection{厚生\(W_s^H\)}
+\label{sec:chapter5_welfare}
+厚生\(W_s^H\)の定義は式
+\eqref{form:chapter3_representative_household_welfare_home_representative_W_H_def}
+によって与えられた。
+この厚生\(W_s^H\)を具体的に計算するために以下の調整をおこなう。
+まず計算期間については、Dynareの仕様に基づきショック発生期\(s\)を0と置き換え、
+外生ショックの影響が十分に減衰する\(t=0\)から\(t=100\)までの有限期間の合計値を厚生の近似値として採用する。
+次に効用関数\(u_t^H\)の扱いについてである。
+本稿では、効用関数\(u_t^H\)を定常状態の周りでテイラー展開し、
+定常状態における効用水準\(u_{ss}^H\)を左辺へ移行することで効用の水準乖離\(u_t^H-u_{ss}^H\)を求めている。
+この展開式において価格分散の定常状態からの乖離\(\hat{\Delta}_t^H\)は2次の項として現れる。
+一方で、本稿のシミュレーションはDynareとOccbinにより1次近似を用いておこなわれるため、
+計算の過程で2次以上の項が消失してしまう。
+その結果、本来考慮されるべき価格分散の乖離\(\hat{\Delta}_t^H\)が
+厚生\(W_s^H\)に反映されないという問題が生じる。
+しかし価格分散\(\Delta_t^H\)による生産効率の悪化が厚生\(W_s^H\)に与える損失は無視できないほど重要である。
+そこで\textcite{Woodford2003}にならい、1次近似されたシミュレーション結果に対し、
+別途2次近似で導出した価格分散の乖離\(\hat{\Delta}_t^H\)の項を手計算で算入する補正をおこなう。
+こうして付録\ref{chap:appendix_welfare_correction}のように補正をおこなうと、
+シミュレーションで用いる効用の水準乖離\(u_t^H-u_{ss}^H\)は以下のようになる。
+\begin{equation}
+\label{form:chapter5_welfare_u_H_minus_u_H_ss_eq}
+    u_t^H-u_{ss}^H\approx\hat{c}_t^{H\to W}-\phi^H(l_{ss}^H)^2(\hat{y}_t^H-\hat{a}_t^H)-\phi^H(l_{ss}^H)^2\left(\xi^H\hat{\Delta}_{t-1}^H+\frac{\theta^H\xi^H}{2(1-\xi^H)}(\hat{\pi}_t^H)^2\right)
+\end{equation}
+ここで右辺第3項の括弧内が、手計算により復元された価格分散の対数乖離\(\hat{\Delta}_t^H\)である。
+この効用の水準乖離\(u_t^H-u_{ss}^H\)の近似式を、厚生\(W_s^H\)の定義式
+\eqref{form:chapter3_representative_household_welfare_home_representative_W_H_def}
+に代入すると、シミュレーションで計算される厚生\(W^H\)（\(\Delta\)有り）は以下のように記述される。
+\begin{equation}
+\label{form:chapter5_welfare_W_H_eq}
+W_s^H\approx\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[\hat{c}_t^{H\to W}-\phi^H(l_{ss}^H)^2(\hat{y}_t^H-\hat{a}_t^H)-\phi^H(l_{ss}^H)^2\left(\xi^H\hat{\Delta}_{t-1}^H+\frac{\theta^H\xi^H}{2(1-\xi^H)}(\hat{\pi}_t^H)^2\right)\right]
+\end{equation}
+この式から明らかなように、厚生\(W_s^H\)は消費\(c_t^{H\to W}\)の増加によって改善する。
+一方で、労働を伴う生産\(y_t^H\)や前期の価格分散\(\hat{\Delta}_{t-1}^H\)の増大、
+およびグロス・インフレ率\(\pi_t^H\)の乖離の拡大によって悪化する。

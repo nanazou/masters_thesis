@@ -114,7 +114,7 @@ fprintf('グラフを作成し、PDFに保存中...\n');
         'p_H_W', 'p_F_W_star', ...
         'p_H_W_bar', 'p_F_W_star_bar', ... % 統計ベースの消費者物価指数
         'p_H_bar', 'p_F_star_bar', ...
-        'p_H_bar_y_H', 'p_H_W_c_H_W', ... 
+        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
         'pi_H', 'pi_F_star', ...
         'pi_H_W', 'pi_F_W_star', ...
         'p_H_tilde', 'p_F_star_tilde', ...
@@ -193,20 +193,22 @@ for i = 1:plots_per_page:num_vars
                 latex_title = ['\epsilon_{', tex_middle, '}'];
             end
         elseif strcmp(var_name, 'p_H_bar_y_H') 
-            latex_title = 'Nominal GDP (\bar{p}^H y^H)';
+            latex_title = '\bar{p}^H y^H';
         elseif strcmp(var_name, 'p_H_W_c_H_W') 
-            latex_title = 'Nominal Total Cons (p^{H \to W} c^{H \to W})';
+            latex_title = 'p^{H \to W} c^{H \to W}';
+        elseif strcmp(var_name, 'p_H_W_slash_p_H') 
+            latex_title = 'p^{H \to W} / p^H';
         elseif strcmp(var_name, 'p_H_W_bar')
-            latex_title = 'Normalized CPI (\bar{p}^{H \rightarrow W})';
-        elseif strcmp(var_name, 'p_F_W_star_bar') % 修正
-            latex_title = 'Normalized CPI (\bar{p}^{F \rightarrow W*})';
+            latex_title = '\bar{p}^{H \rightarrow W}';
+        elseif strcmp(var_name, 'p_F_W_star_bar')
+            latex_title = '\bar{p}^{F \rightarrow W*}';
         elseif strcmp(var_name, 'pi_H_W')
-            latex_title = 'CPI Inflation (\pi^{H \rightarrow W})';
+            latex_title = '\pi^{H \rightarrow W}';
         elseif strcmp(var_name, 'pi_F_W_star')
-            latex_title = 'CPI Inflation (\pi^{F \rightarrow W*})';
+            latex_title = '\pi^{F \rightarrow W*}';
         elseif strcmp(var_name, 'p_H_tilde')
             latex_title = '\tilde{p}^H';
-        elseif strcmp(var_name, 'p_F_star_tilde') % 修正
+        elseif strcmp(var_name, 'p_F_star_tilde')
             latex_title = '\tilde{p}^{F*}';
         elseif strcmp(var_name, 'i_H_notional')
             latex_title = 'i^{H,notional}';

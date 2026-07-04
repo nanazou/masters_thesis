@@ -1,10 +1,45 @@
 % !TeX root = ../../../main.tex
 % chapters/sections/chapter5/subsections/two_plane/cd.tex
 
-\subsection{CD(消費需要)曲線}
+\subsection{CD（消費需要）曲線}
 \label{sec:chapter5_two_plane_cd}
-CD(消費需要)曲線はPD(純粋需要)曲線と同じもので以下のようになる。
+CD（消費需要）曲線は消費者物価指数（CPI）\(p_t^{H\to W}\)を総消費指数\(c_t^{H\to W}\)の関数として
+記述したものであり、主に需要群の式を統合することにより導出される。
+
+\subsubsection{CD曲線導出の準備}
+\label{sec:chapter5_two_plane_cd_preparation}
+次節におけるCD曲線の導出に式を準備しておく。
+所得の限界効用\(\lambda_t^H\)の式
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
+は以下のようであった。
 \begin{equation}
-\label{form:chapter5_two_plane_cd_p_H_W_eq}
+\label{form:chapter5_two_plane_cd_preparation_lambda_H_p_H_W_c_H_W_eq}
+    \lambda_t^H=\frac{1}{p_t^{H\to W}c_t^{H\to W}}
+\end{equation}
+
+\subsubsection{CD曲線の導出}
+\label{sec:chapter5_two_plane_cd_derivation}
+自国コンティンジェント債券のオイラー方程式
+\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
+は以下のようであった。
+\begin{equation}
+\label{form:chapter5_two_plane_cd_derivation_lambda_H_i_H_eq}
+    \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+\end{equation}
+左辺の所得の限界効用\(\lambda_t^H\)に前節で示した式
+\eqref{form:chapter5_two_plane_cd_preparation_lambda_H_p_H_W_c_H_W_eq}
+を代入すると以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_eq}
+    \frac{1}{p_t^{H\to W}c_t^{H\to W}}=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+\end{equation}
+これを消費者物価指数（CPI）\(p_t^{H\to W}\)について解くと以下の\textbf{CD曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_modified_eq}
     p_t^{H\to W}=\frac{1}{c_t^{H\to W}}\times\frac{1}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
 \end{equation}
+これにより消費者物価指数（CPI）\(p_t^{H\to W}\)と総消費指数\(c_t^{H\to W}\)は反比例の関係にあることがわかる。
+したがって\((c_t^{H\to W},p_t^{H\to W})\)平面において
+CD曲線は右下がりの\textbf{直角双曲線}として描かれる。
+この曲線の位置は右辺の名目利子率\(i_t^H\)や来期の期待限界効用\(\operatorname{E}_t[\lambda_{t+1}^H]\)によって決定される。
+そのため金融政策はこれらの変数を制御することによりこの曲線を移動させ総消費指数\(c_t^{H\to W}\)を調整する。

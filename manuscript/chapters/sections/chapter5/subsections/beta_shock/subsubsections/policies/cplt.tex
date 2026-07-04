@@ -1,0 +1,77 @@
+\paragraph{消費者物価水準目標（CPLT）}
+\label{sec:chapter5_beta_shock_policies_cplt}
+式
+\eqref{form:chapter3_policies_monetary_home_cplt_i_H_eq}、
+\eqref{form:chapter3_policies_monetary_cplt_gamma_H_eq}および
+\eqref{form:chapter3_policies_monetary_home_cplt_chi_H_eq}
+により記述されたとおり、CPLTの式は以下のようであった。
+\begin{align}
+\label{form:chapter5_beta_shock_policies_cplt_i_H_eq}
+    i_t^H&=i_{ss}^H+\phi_{gap}^H(\log(p_t^{H\to W})-\log(\chi_t^H))+\phi_{level}^H\gamma_t^H \\
+\label{form:chapter5_beta_shock_policies_cplt_gamma_H_eq}
+    \gamma_t^H&=\gamma_{t-1}^H+(\log(p_{t-1}^{H\to W})-\log(\chi_{t-1}^H)) \\
+\label{form:chapter5_beta_shock_policies_cplt_chi_H_eq}
+    \log(\chi_t^H)-\log(\chi_{ss}^H)&=\rho_{\chi}^H\left(\log(\chi_{t-1}^H)-\log(\chi_{ss}^H)\right)+\varepsilon_t^{\chi,H}
+\end{align}
+ここで
+\(\phi_{gap}^H,\phi_{level}^H\)は反応係数、
+\(p_t^{H\to W}\)は消費者物価水準、
+\(\chi_t^H\)は目標パス、
+\(\gamma_t^H\)は過去の乖離の累積、
+\(\varepsilon_t^{\chi,H}\)は外生ショック項である。
+\begin{enumerate}
+    \item
+    \label{itm:chapter5_beta_shock_policies_cplt_c_H_W}
+        \(c_t^{H\to W}\)：
+        総消費指数\(c_t^{H\to W}\)の図
+        \ref{fig:chapter5_beta_shock_graphs_c_H_W}
+        を見ると、CPLTは消費者物価インフレ目標（IT-CPI）や消費者物価テイラールール（TR-CPI）と同様に、
+        極めて不安定な軌道を描いていることがわかる。
+        ショック直後の前半において、CPLTは極端な大暴落を引き起こしており、
+        総消費水準目標（CLT）や名目総消費水準目標（NCLT）のように落ち込みを小さく抑えることができていない。
+        消費の減少は厚生にマイナスに働くため、
+        この前半における深刻な消費の低下は厚生を大きく悪化させる要因となっている。
+        一方で中盤以降を見ると、遅れて巨大なプラス方向への乖離（オーバーシュート）を形成している。
+        この後半における大幅な消費の増加自体は厚生を改善させる効果を持つものの、波打ちが大きく、
+        定常状態への収束には極めて長い時間を要している。
+    \item
+    \label{itm:chapter5_beta_shock_policies_cplt_y_H}
+        \(y_t^H\)：
+        生産\(y_t^H\)の図
+        \ref{fig:chapter5_beta_shock_graphs_y_H}
+        を見ると、CPLTの軌道は総消費指数\(c_t^{H\to W}\)と同様に、
+        消費者物価インフレ目標（IT-CPI）や消費者物価テイラールール（TR-CPI）と極めて類似した
+        大きな波打ちを見せていることがわかる。
+        ショック直後の前半において、CPLTは極端な生産の落ち込みを引き起こしている。
+        生産の低下は労働の減少を意味するため、
+        この前半部分においては労働の非効用を減らして厚生にプラスに働く効果が他の政策よりも大きくなっている。
+        一方で中盤以降のプラス圏での推移（オーバーシュート）を見ると、遅れて巨大な山を形成している。
+        生産の増加は労働の非効用を通じて厚生を悪化させる要因となるため、
+        この後半における大規模な生産過剰に伴うマイナス効果が厚生を大きく押し下げる要因となっている。
+    \item
+    \label{itm:chapter5_beta_shock_policies_cplt_pi_H}
+        \(\pi_t^H\)：
+        グロス・インフレ率\(\pi_t^H\)の図
+        \ref{fig:chapter5_beta_shock_graphs_pi_H}
+        を見ると、CPLTの軌道は消費者物価インフレ目標（IT-CPI）や消費者物価テイラールール（TR-CPI）と同様に、
+        定常状態から極めて大きく乖離していることがわかる。
+        ショック直後の前半において、CPLTは大きくマイナス（デフレ）方向へ落ち込んでおり、
+        生産者物価水準目標（PPLT）が達成しているゼロ近傍の極めて平坦な推移とは対照的である。
+        また中盤以降は、下落した物価水準を元の軌道に戻そうとするメカニズムが働くため
+        一転してプラス圏（インフレ）へと大きく急浮上し、激しい波打ちを伴いながら乖離が継続している。
+        この全期間を通じたインフレ率の極端かつ不安定な変動が、次項で述べる価格分散の莫大な蓄積をもたらし、
+        結果として厚生を著しく悪化させる要因となっている。
+    \item
+    \label{itm:chapter5_beta_shock_policies_cplt_Delta_t_minus_1_H}
+        \(\Delta_{t-1}^H\)：
+        価格分散\(\Delta_{t-1}^H\)の図
+        \ref{fig:chapter5_beta_shock_welfare_Delta_H}
+        を見ると、CPLTの定常状態からの乖離は、
+        消費者物価インフレ目標（IT-CPI）や消費者物価テイラールール（TR-CPI）と同様に、
+        70期から150期にかけて極めて大きな山を形成していることがわかる。
+        下落した物価水準を目標経路に引き戻す過程で生じる激しいインフレ率の変動が反映されており、
+        生産者物価水準目標（PPLT）や名目総消費水準目標（NCLT）が
+        全期間を通じてほぼゼロの水準を維持していることと比較すると、その乖離の規模は極めて大きい。
+        前述のインフレ率の極端な変動によって価格分散が莫大に蓄積しており、
+        この著しい生産効率の悪化がCPLTの厚生を著しく押し下げる決定的な要因となっている。
+\end{enumerate}

@@ -206,9 +206,12 @@ lambda_F_lin = lambda_F_slash_star_lin - e_slash_star_lin;
 % --- 変数名を積の形に変更 ---
 p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie;
 p_H_bar_y_H_lin = p_H_bar_lin + y_H_lin;
-% 名目消費の近似（理論ベース）
 p_H_W_c_H_W_pie = p_H_W_pie + c_H_W_pie;
 p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin; 
+
+% --- 【新規追加: 変数名を商の形に変更】 ---
+p_H_W_slash_p_H_pie = p_H_W_pie - p_H_pie;
+p_H_W_slash_p_H_lin = p_H_W_lin - p_H_lin;
 
 % --- [10] 戻り値の整理 ---
 vars = [who('*_pie'); who('*_lin'); who('Delta_H_*'); who('Delta_F_*'); who('utility_*')];

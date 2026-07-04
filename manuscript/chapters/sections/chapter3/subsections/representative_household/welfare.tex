@@ -9,34 +9,44 @@
 
 \paragraph{①自国の元となる方程式}
 \label{sec:chapter3_representative_household_welfare_home_original}
-自国家計\(h\)の厚生\(W_s^h\)は、期待生涯効用関数の定常状態からの乖離\(U_t^h-u_{ss}^h\)となるよう以下により定義される。
+自国家計\(h\)の厚生\(W_s^h\)は期待生涯効用関数の定常状態からの乖離\(U_t^h-U_{ss}^h\)として
+以下により定義される。ただし各期の主観的割引因子\(\beta_t^H\)は\(\beta_{ss}^H\)に固定する。
+これは主観的割引因子\(\beta_t^H\)を各期の値にあわせて変動させると、
+\(\beta_t^H\)ショックによる\(\beta_t^H\)の上昇が
+将来の無限期にわたる評価ウェイト\(\prod_{k=s}^{t-1}\beta_k^H\)に重みを与えつづけ、
+これによりショック発生後の不況期における効用\(u_t^h\)の落ち込みの評価がかき消されてしまうためである。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_home_original_W_h_def}
-    W_s^h\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^H\right)\left[u_t^h-u_{ss}^h\right]
+    W_s^h\equiv\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[u_t^h-u_{ss}^h\right]
 \end{equation}
-ここで\(t=s\)期における割引項は\(\prod_{k=s}^{s-1}\beta_k^H=1\)である。
 
 \paragraph{②自国代表的家計の方程式}
 \label{sec:chapter3_representative_household_welfare_home_representative}
-式\eqref{form:chapter3_representative_household_utility_home_representative_average_u_h_modified_eq}および\eqref{form:chapter3_representative_household_utility_home_representative_u_H_def}より、自国家計の効用の平均\(\frac{1}{N}\sum_{h\in H}u_t^h\)は以下のようになるのであった。
+式
+\eqref{form:chapter3_representative_household_utility_home_representative_average_u_h_modified_eq}および
+\eqref{form:chapter3_representative_household_utility_home_representative_u_H_def}
+より、自国家計の効用の平均\(\frac{1}{N}\sum_{h\in H}u_t^h\)は以下のようになるのであった。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_home_representative_u_H_eq}
     \frac{1}{N}\sum_{h\in H}u_t^h\approx u_t^H
 \end{equation}
-このことに注意しながら式\eqref{form:chapter3_representative_household_welfare_home_original_W_h_def}を\(h\)について足し合わせ、両辺を自国の人口\(N\)で割ることで、自国家計の厚生の平均\(\frac{1}{N}\sum_{h\in H}W_s^h\)を求める。
+このことに注意しながら式
+\eqref{form:chapter3_representative_household_welfare_home_original_W_h_def}
+を\(h\)について足し合わせ、両辺を自国の人口\(N\)で割ることで、
+自国家計の厚生の平均\(\frac{1}{N}\sum_{h\in H}W_s^h\)を求める。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_home_representative_average_W_h_eq}
 \begin{aligned}
     \frac{1}{N}\sum_{h\in H}W_s^h
-    &=\frac{1}{N}\sum_{h\in H}\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^H\right)\left[u_t^h-u_{ss}^h\right] \\
-    &=\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^H\right)\left[\frac{1}{N}\sum_{h\in H}u_t^h-u_{ss}^h\right] \\
-    &\approx\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^H\right)\left[u_t^H-u_{ss}^H\right]
+    &=\frac{1}{N}\sum_{h\in H}\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[u_t^h-u_{ss}^h\right] \\
+    &=\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[\frac{1}{N}\sum_{h\in H}u_t^h-u_{ss}^h\right] \\
+    &\approx\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[u_t^H-u_{ss}^H\right]
 \end{aligned}
 \end{equation}
 そこでこの右辺によって代表的家計の厚生\(W_s^H\)を定義する。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_home_representative_W_H_def}
-    W_s^H\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^H\right)\left[u_t^H-u_{ss}^H\right]
+    W_s^H\equiv\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^H)^{t-s}\left[u_t^H-u_{ss}^H\right]
 \end{equation}
 
 \subsubsection{外国の厚生\(W_s^F\)}
@@ -44,32 +54,42 @@
 
 \paragraph{①外国の元となる方程式}
 \label{sec:chapter3_representative_household_welfare_foreign_original}
-外国家計\(f\)の厚生\(W_s^f\)は、期待生涯効用関数の定常状態からの乖離\(U_t^f-u_{ss}^f\)となるよう以下により定義される。
+外国家計\(f\)の厚生\(W_s^f\)は期待生涯効用関数の定常状態からの乖離\(U_t^f-U_{ss}^f\)として
+以下により定義される。ただし各期の主観的割引因子\(\beta_t^F\)は\(\beta_{ss}^F\)に固定する。
+これは主観的割引因子\(\beta_t^F\)を各期の値にあわせて変動させると、
+\(\beta_t^F\)ショックによる\(\beta_t^F\)の上昇が
+将来の無限期にわたる評価ウェイト\(\prod_{k=s}^{t-1}\beta_k^F\)に重みを与えつづけ、
+これによりショック発生後の不況期における効用\(u_t^f\)の落ち込みの評価がかき消されてしまうためである。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_foreign_original_W_f_def}
-    W_s^f\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^F\right)\left[u_t^f-u_{ss}^f\right]
+    W_s^f\equiv\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_(ss)^F)^{t-s}\left[u_t^f-u_{ss}^f\right]
 \end{equation}
-ここで\(t=s\)期における割引項は\(\prod_{k=s}^{s-1}\beta_k^F=1\)である。
 
 \paragraph{②外国代表的家計の方程式}
 \label{sec:chapter3_representative_household_welfare_foreign_representative}
-式\eqref{form:chapter3_representative_household_utility_foreign_representative_average_u_f_modified_eq}および\eqref{form:chapter3_representative_household_utility_foreign_representative_u_F_def}より、外国家計の効用の平均\(\frac{1}{M}\sum_{f\in F}u_t^f\)は以下のようになるのであった。
+式
+\eqref{form:chapter3_representative_household_utility_foreign_representative_average_u_f_modified_eq}および
+\eqref{form:chapter3_representative_household_utility_foreign_representative_u_F_def}
+より、外国家計の効用の平均\(\frac{1}{M}\sum_{f\in F}u_t^f\)は以下のようになるのであった。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_foreign_representative_u_F_eq}
     \frac{1}{M}\sum_{f\in F}u_t^f\approx u_t^F
 \end{equation}
-このことに注意しながら式\eqref{form:chapter3_representative_household_welfare_foreign_original_W_f_def}を\(f\)について足し合わせ、両辺を外国の人口\(M\)で割ることで、外国家計の厚生の平均\(\frac{1}{M}\sum_{f\in F}W_s^f\)を求める。
+このことに注意しながら式
+\eqref{form:chapter3_representative_household_welfare_foreign_original_W_f_def}
+を\(f\)について足し合わせ、両辺を外国の人口\(M\)で割ることで、
+外国家計の厚生の平均\(\frac{1}{M}\sum_{f\in F}W_s^f\)を求める。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_foreign_representative_average_W_f_eq}
 \begin{aligned}
     \frac{1}{M}\sum_{f\in F}W_s^f
-    &=\frac{1}{M}\sum_{f\in F}\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^F\right)\left[u_t^f-u_{ss}^f\right] \\
-    &=\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^F\right)\left[\frac{1}{M}\sum_{f\in F}u_t^f-u_{ss}^f\right] \\
-    &\approx\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^F\right)\left[u_t^F-u_{ss}^F\right]
+    &=\frac{1}{M}\sum_{f\in F}\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^F)^{t-s}\left[u_t^f-u_{ss}^f\right] \\
+    &=\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^F)^{t-s}\left[\frac{1}{M}\sum_{f\in F}u_t^f-u_{ss}^f\right] \\
+    &\approx\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^F)^{t-s}\left[u_t^F-u_{ss}^F\right]
 \end{aligned}
 \end{equation}
 そこでこの右辺によって外国代表的家計の厚生\(W_s^F\)を定義する。
 \begin{equation}
 \label{form:chapter3_representative_household_welfare_foreign_representative_W_F_def}
-    W_s^F\equiv\operatorname{E}_s\sum_{t=s}^{\infty}\left(\prod_{k=s}^{t-1}\beta_k^F\right)\left[u_t^F-u_{ss}^F\right]
+    W_s^F\equiv\operatorname{E}_s\sum_{t=s}^{\infty}(\beta_{ss}^F)^{t-s}\left[u_t^F-u_{ss}^F\right]
 \end{equation}

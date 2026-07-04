@@ -76,11 +76,16 @@ elseif strcmp(shock_scenario, 'a')
 end
 
 % ショックシーケンスの構築 (2つの外生変数を同時に投入)
-% 第1列: 主ショック (t=1のみ), 第2列: 自然産出量パス (全期間)
+% 第1列: 主ショック (t=1のみ), 第2列: 自然産出量パス (初期値のみ)
 shockssequence = zeros(settings.nperiods, 2);
 shockssequence(1, 1) = primary_shock_magnitude; 
-len_data = min(settings.nperiods, length(eps_y_H_potential_vec));
-shockssequence(1:len_data, 2) = eps_y_H_potential_vec(1:len_data);
+shockssequence(1, 2) = eps_y_H_potential_vec(1);
+
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
 
 settings.shockssequence = shockssequence;
 
@@ -128,7 +133,7 @@ fprintf('グラフを作成し、PDFに保存中...\n');
         'p_H_W', 'p_F_W_star', ...
         'p_H_W_bar', 'p_F_W_star_bar', ... % 統計ベースのCPI
         'p_H_bar', 'p_F_star_bar', ...
-        'p_H_bar_y_H', 'p_H_W_c_H_W', ... 
+        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
         'pi_H', 'pi_F_star', ...
         'pi_H_W', 'pi_F_W_star', ...
         'p_H_tilde', 'p_F_star_tilde', ...
@@ -216,17 +221,19 @@ for i = 1:plots_per_page:num_vars
                 latex_title = ['\epsilon_{', tex_middle, '}'];
             end
         elseif strcmp(var_name, 'p_H_bar_y_H') 
-            latex_title = 'Nominal GDP (\bar{p}^H y^H)';
+            latex_title = '\bar{p}^H y^H';
         elseif strcmp(var_name, 'p_H_W_c_H_W') 
-            latex_title = 'Nominal Total Cons (p^{H \to W} c^{H \to W})';
+            latex_title = 'p^{H \to W} c^{H \to W}';
+        elseif strcmp(var_name, 'p_H_W_slash_p_H') 
+            latex_title = 'p^{H \to W} / p^H';
         elseif strcmp(var_name, 'p_H_W_bar')
-            latex_title = 'Normalized CPI (\bar{p}^{H \rightarrow W})';
+            latex_title = '\bar{p}^{H \rightarrow W}';
         elseif strcmp(var_name, 'p_F_W_star_bar')
-            latex_title = 'Normalized CPI (\bar{p}^{F \rightarrow W*})';
+            latex_title = '\bar{p}^{F \rightarrow W*}';
         elseif strcmp(var_name, 'pi_H_W')
-            latex_title = 'CPI Inflation (\pi^{H \rightarrow W})';
+            latex_title = '\pi^{H \rightarrow W}';
         elseif strcmp(var_name, 'pi_F_W_star')
-            latex_title = 'CPI Inflation (\pi^{F \rightarrow W*})';
+            latex_title = '\pi^{F \rightarrow W*}';
         elseif strcmp(var_name, 'p_H_tilde')
             latex_title = '\tilde{p}^H';
         elseif strcmp(var_name, 'p_F_star_tilde')

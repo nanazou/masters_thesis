@@ -121,7 +121,15 @@ settings.maxiter = 100;
 settings.irfshock = char(target_shock, 'eps_y_H_potential');
 shockssequence = zeros(settings.nperiods, 2);
 shockssequence(1, 1) = primary_shock_magnitude;
-shockssequence(:, 2) = eps_y_H_potential_vec;
+shockssequence(1, 2) = eps_y_H_potential_vec(1); % ★全期間パスではなく1期目のみに変更
+
+% ★減衰パラメータの定義を追加
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+
 settings.shockssequence = shockssequence;
 
 % =========================================================================
