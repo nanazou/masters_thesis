@@ -75,13 +75,13 @@ CD曲線
     \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
 \end{equation}
 自国コンティンジェント債券に関する前方展開されたオイラー方程式
-\eqref{form:chapter3_representative_household_euler_contingent_home_representative_E_lambda_H_i_H_lim_eq}
 \begin{equation}
-\label{form:chapter5_beta_shock_policies_overview_euler_contingent_lim}
+\label{form:chapter5_beta_shock_policies_overview_euler_contingent_lim_eq}
     \begin{aligned}
-        \operatorname{E}_t[\lambda_{t+1}^H]
-        &=(\lim_{k\to\infty}\lambda_{t+k+1}^H)\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})(\lim_{k\to\infty}c_{t+k+1}^{H\to W})})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]
+        \lambda_t^H
+        &=(\lim_{k\to\infty}\lambda_{t+k}^H)\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\lim_{k\to\infty}\frac{1}{p_{t+k}^{H\to W}c_{t+k}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})(\lim_{k\to\infty}c_{t+k}^{H\to W})})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right]
     \end{aligned}
 \end{equation}

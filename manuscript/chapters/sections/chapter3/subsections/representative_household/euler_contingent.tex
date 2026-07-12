@@ -40,22 +40,22 @@
 \(\operatorname{E}_t[\operatorname{E}_{t+1}[\cdot]]=\operatorname{E}_t[\cdot]\)
 を適用する操作を\(k\)期先まで繰り返すと以下が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_euler_contingent_home_representative_E_lambda_H_i_H_eq}
-    \operatorname{E}_t[\lambda_{t+1}^H]
-    =\operatorname{E}_t\left[\left(\prod_{k=1}^{k}\beta_{t+k}^H(1+i_{t+k}^H)\right)\lambda_{t+k+1}^H\right]
+\label{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_forward_eq}
+    \lambda_t^H
+    =\operatorname{E}_t\left[\left(\prod_{j=0}^{k-1}\beta_{t+j}^H(1+i_{t+j}^H)\right)\lambda_{t+k}^H\right]
 \end{equation}
 本稿が使用するDynareによるシミュレーションにおいてはショックを受けた経済は
 唯一の安定パス（サドルパス）をたどり新たな定常状態へ収束する。ただし実質変数は初期定常状態に収束する。
 上式の両辺について極限\(\lim_{k\to\infty}\)をとると以下の
 自国コンティンジェント債券に関する前方展開されたオイラー方程式が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_euler_contingent_home_representative_E_lambda_H_i_H_lim_eq}
+\label{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_lim_eq}
     \begin{aligned}
-        \operatorname{E}_t[\lambda_{t+1}^H]
-        &=(\lim_{k\to\infty}\lambda_{t+k+1}^H)\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right] \\
-        &=(\lim_{k\to\infty}\frac{1}{p_{t+k+1}^{H\to W}c_{t+k+1}^{H\to W}})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})(\lim_{k\to\infty}c_{t+k+1}^{H\to W})})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^H(1+i_{t+k}^H)\right]
+        \lambda_t^H
+        &=(\lim_{k\to\infty}\lambda_{t+k}^H)\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\lim_{k\to\infty}\frac{1}{p_{t+k}^{H\to W}c_{t+k}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})(\lim_{k\to\infty}c_{t+k}^{H\to W})})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right]
     \end{aligned}
 \end{equation}
 
@@ -94,21 +94,21 @@ FOCを\(j'\)について集計することで以下のオイラー方程式が�
 \(\operatorname{E}_t[\operatorname{E}_{t+1}[\cdot]]=\operatorname{E}_t[\cdot]\)
 を適用する操作を\(k\)期先まで繰り返すと以下が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_euler_contingent_foreign_representative_E_lambda_F_slash_star_i_F_eq}
-    \operatorname{E}_t[\lambda_{t+1}^{F/*}]
-    =\operatorname{E}_t\left[\left(\prod_{k=1}^{k}\beta_{t+k}^F(1+i_{t+k}^F)\right)\lambda_{t+k+1}^{F/*}\right]
+\label{form:chapter3_representative_household_euler_contingent_foreign_representative_lambda_F_slash_star_i_F_forward_eq}
+    \lambda_t^{F/*}
+    =\operatorname{E}_t\left[\left(\prod_{j=0}^{k-1}\beta_{t+j}^F(1+i_{t+j}^F)\right)\lambda_{t+k}^{F/*}\right]
 \end{equation}
 本稿が使用するDynareによるシミュレーションにおいてはショックを受けた経済は
 唯一の安定パス（サドルパス）をたどり新たな定常状態へ収束する。ただし実質変数は初期定常状態に収束する。
 上式の両辺について極限\(\lim_{k\to\infty}\)をとると以下の
 外国コンティンジェント債券に関する前方展開されたオイラー方程式が得られる。
 \begin{equation}
-\label{form:chapter3_representative_household_euler_contingent_foreign_representative_E_lambda_F_slash_star_i_F_lim_eq}
+\label{form:chapter3_representative_household_euler_contingent_foreign_representative_lambda_F_slash_star_i_F_lim_eq}
     \begin{aligned}
-        \operatorname{E}_t[\lambda_{t+1}^{F/*}]
-        &=(\lim_{k\to\infty}\lambda_{t+k+1}^{F/*})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^F(1+i_{t+k}^F)\right] \\
-        &=(\lim_{k\to\infty}\frac{1}{p_{t+k+1}^{F\to W*}c_{t+k+1}^{F\to W}})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^F(1+i_{t+k}^F)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{F\to W*})(\lim_{k\to\infty}c_{t+k+1}^{F\to W})})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^F(1+i_{t+k}^F)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k+1}^{F\to W*})c_{ss}^{F\to W}})\operatorname{E}_t\left[\prod_{k=1}^{\infty}\beta_{t+k}^F(1+i_{t+k}^F)\right]
+        \lambda_t^{F/*}
+        &=(\lim_{k\to\infty}\lambda_{t+k}^{F/*})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^F(1+i_{t+j}^F)\right] \\
+        &=(\lim_{k\to\infty}\frac{1}{p_{t+k}^{F\to W*}c_{t+k}^{F\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^F(1+i_{t+j}^F)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{F\to W*})(\lim_{k\to\infty}c_{t+k}^{F\to W})})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^F(1+i_{t+j}^F)\right] \\
+        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{F\to W*})c_{ss}^{F\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^F(1+i_{t+j}^F)\right]
     \end{aligned}
 \end{equation}

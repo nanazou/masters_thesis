@@ -79,7 +79,7 @@ YS(生産供給)曲線は生産者物価指数(PPI)\(p_t^H\)を生産\(y_t^H\)�
 \end{aligned}
 \end{equation}
 これにより全体は以下のように整理され、
-YS曲線の\(\pi_t^H\)を用いた表現である\textbf{YS-\(\hat{\pi}\)曲線}が得られる。
+YS曲線の\(\hat{\pi}_t^H\)を用いた表現である\textbf{YS-\(\hat{\pi}\)曲線}が得られる。
 \begin{equation}
 \label{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
     \hat{\pi}_t^H=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(2\hat{y}_t^H-2\hat{a}_t^H-\hat{X}_t-\hat{\tau}_t^H)
@@ -125,3 +125,32 @@ YS-\(\hat{\pi}\)曲線
         &=\operatorname{E}_t\sum_{k=0}^{\infty}(\beta_{ss}^H)^k\kappa^H(2\hat{y}_{t+k}^H-2\hat{a}_{t+k}^H-\hat{X}_{t+k}-\hat{\tau}_{t+k}^H)
     \end{aligned}
 \end{equation}
+
+\subsubsection{右上がりのYS-\(\hat{p}\)曲線と垂直なYS-\(\hat{p}\)曲線の幾何学的な関係}
+\label{sec:chapter5_two_plane_ys_potential}
+ここで\ref{chap:chapter5}におけるシミュレーション結果の解釈の準備として、
+粘着価格\(\xi^H=\text{定数}\)による右上がりのYS-\(\hat{p}\)曲線と
+完全伸縮価格\(\xi^H\to0\)による垂直なYS-\(\hat{p}\)曲線との幾何学的な関係について考察しておく。
+粘着価格における右上がりのYS-\(\hat{p}\)曲線
+\eqref{form:chapter5_two_plane_ys_derivation_p_H_modified_eq}
+を生産\(\hat{y}_t^H\)について解くと以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_potential_y_H_eq}
+    \hat{y}_t^H=\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H)+\frac{1}{2\kappa^H}(\hat{p}_t^H-\hat{p}_{t-1}^H-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H])
+\end{equation}
+ここで価格が完全に伸縮的である場合を考え、両辺について\(\lim_{\xi^H\to0}\)をとる。
+すると式
+\eqref{form:chapter3_producers_stage2_home_kappa_eq}
+より\(\kappa^H\to\infty\)よって右辺第3項は\(0\)となるため
+以下の垂直なYS-\(\hat{p}\)曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_potential_y_H_pot_eq}
+    \hat{y}_t^H=\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H)
+\end{equation}
+この垂直なYS-\(\hat{p}\)曲線によって定まる産出\(\hat{y}_t^H\)を潜在産出と呼び
+\(\hat{y}_t^{H,pot}\)により表す。
+これら2つのYS-\(\hat{p}\)曲線は\(\hat{y}_t^H\)切片が
+\(\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H)\)で共通していることに注意する。
+遮断効果により自国金融政策および\(a_t^H\)は\(X_t\)に影響を与えないのであった。
+そのため特に\(a\)ショック時には\(\hat{X}_t=\hat{\tau}_t^H=0\)となる。
+このとき2つのYS-\(\hat{p}\)曲線の\(\hat{y}_t^H\)切片はともに\(\hat{a}_t^H\)となる。

@@ -99,7 +99,7 @@ e_t^{/*}=\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]\lambda_t^{F/*}/\lambd
 これを前節の2つ目の式
 \eqref{form:chapter5_two_plane_cs_preparation_pi_H_W_eq}
 の右辺に代入すると、
-CS曲線の\(\pi_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{\pi}\)曲線}が得られる。
+CS曲線の\(\hat{\pi}_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{\pi}\)曲線}が得られる。
 \begin{equation}
 \label{form:chapter5_two_plane_cs_derivation_pi_H_W_modified_eq}
     \hat{\pi}_t^{H\to W}=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{1-\alpha^H}{\alpha^H}(\hat{Z}_t-\hat{Z}_{t-1})+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}-\frac{1-\alpha^H}{\alpha^H}\hat{c}_{t-1}^{H\to W}
@@ -117,7 +117,7 @@ YS-\(\hat{p}\)曲線
 これを前節の1つ目の式
 \eqref{form:chapter5_two_plane_cs_preparation_p_H_W_modified2_eq}
 の右辺に代入し整理すると、
-CS曲線の\(p_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{p}\)曲線}が導出される。
+CS曲線の\(\hat{p}_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{p}\)曲線}が導出される。
 \begin{equation}
 \label{form:chapter5_two_plane_cs_derivation_p_H_W_eq}
     \hat{p}_t^{H\to W}=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(\hat{\Omega}_t-2\hat{a}_t^H)+\frac{1-\alpha^H}{\alpha^H}\hat{Z}_t+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}
@@ -130,3 +130,37 @@ CS曲線の\(p_t^{H\to W}\)を用いた表現である\textbf{CS-\(\hat{p}\)曲�
 CS-\(\hat{p}\)曲線に含まれる\(\hat{Z}_t\)、\(\hat{\Omega}_t\)および\(\hat{a}_t^H\)は自国金融政策の影響を受けず、
 また\(\lambda_t^{F/*}\)および\(p_t^{F*}\)も遮断効果により自国金融政策の影響を受けない。
 したがって金融政策の分析においてはこれらの項の動きは考慮しなくてよい。
+
+\subsubsection{右上がりのCS-\(\hat{p}\)曲線と垂直なCS-\(\hat{p}\)曲線の幾何学的な関係}
+\label{sec:chapter5_two_plane_cs_potential}
+ここで\ref{chap:chapter5}におけるシミュレーション結果の解釈の準備として、
+粘着価格\(\xi^H=定数\)による右上がりのCS-\(\hat{p}\)曲線と
+完全伸縮価格\(\xi^H\to0\)による垂直なCS-\(\hat{p}\)曲線との幾何学的な関係について考察しておく。
+粘着価格における右上がりのCS-\(\hat{p}\)曲線
+\eqref{form:chapter5_two_plane_cs_derivation_p_H_W_eq}
+を総消費指数\(\hat{c}_t^{H\to W}\)について解くと以下のようになる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_potential_c_H_W_eq}
+    \begin{aligned}
+        \hat{c}_t^{H\to W}&=-\frac{\alpha^H\kappa^H}{2\kappa^H+1-\alpha^H}(\hat{\Omega}_t-2\hat{a}_t^H)-\frac{1-\alpha^H}{2\kappa^H+1-\alpha^H}\hat{Z}_t+\frac{\alpha^H}{2\kappa^H+1-\alpha^H}(\hat{p}_t^{H\to W}-\hat{p}_{t-1}^H-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]) \\
+        &=-\frac{\alpha^H}{2+\frac{1-\alpha^H}{\kappa^H}}(\hat{\Omega}_t-2\hat{a}_t^H)-\frac{\frac{1-\alpha^H}{\kappa^H}}{2+\frac{1-\alpha^H}{\kappa^H}}\hat{Z}_t+\frac{\frac{\alpha^H}{\kappa^H}}{2+\frac{1-\alpha^H}{\kappa^H}}(\hat{p}_t^{H\to W}-\hat{p}_{t-1}^H-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H])
+    \end{aligned}
+\end{equation}
+ここで価格が完全に伸縮的である場合を考え、両辺について\(\lim_{\xi^H\to0}\)をとる。
+すると式
+\eqref{form:chapter3_producers_stage2_home_kappa_eq}
+より\(\kappa^H\to\infty\)よって右辺第2項および第3項は\(0\)となり、
+第1項の係数は\(-\alpha^H/2\)に収束するため以下の垂直なCS-\(\hat{p}\)曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cs_potential_c_H_W_pot_eq}
+    \hat{c}_t^{H\to W}=\alpha^H\hat{a}_t^H-\frac{\alpha^H}{2}\hat{\Omega}_t
+\end{equation}
+この垂直なCS-\(\hat{p}\)曲線によって定まる総消費指数\(\hat{c}_t^{H\to W}\)を潜在消費と呼び
+\(\hat{c}_t^{H\to W,pot}\)により表す。
+これら2つのCS-\(\hat{p}\)曲線はYS-\(\hat{p}\)曲線とは異なり\(\hat{c}_t^{H\to W}\)切片が
+共通していないことに注意する。
+遮断効果により自国金融政策および\(a_t^H\)は\(Z_t\)および\(\Omega_t\)に影響を与えないのであった。
+そのため特に\(a\)ショック時には\(\hat{Z}_t=\hat{\Omega}_t=0\)となる。
+しかしこのとき2つのCS-\(\hat{p}\)曲線の\(\hat{c}_t^{H\to W}\)切片はそれぞれ
+\(\frac{2\alpha^H\kappa^H}{2\kappa^H+1-\alpha^H}\hat{a}_t^H\)および
+\(\alpha^H\hat{a}_t^H\)となり一致しない。

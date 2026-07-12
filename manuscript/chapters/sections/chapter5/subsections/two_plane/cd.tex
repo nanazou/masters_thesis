@@ -1,4 +1,3 @@
-% !TeX root = ../../../main.tex
 % chapters/sections/chapter5/subsections/two_plane/cd.tex
 
 \subsection{CD（消費需要）曲線}
@@ -19,27 +18,28 @@ CD（消費需要）曲線は消費者物価指数（CPI）\(p_t^{H\to W}\)を�
 
 \subsubsection{CD曲線の導出}
 \label{sec:chapter5_two_plane_cd_derivation}
-自国コンティンジェント債券のオイラー方程式
-\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
-は以下のようであった。
-\begin{equation}
-\label{form:chapter5_two_plane_cd_derivation_lambda_H_i_H_eq}
-    \lambda_t^H=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
-\end{equation}
-左辺の所得の限界効用\(\lambda_t^H\)に前節で示した式
+前節で示した所得の限界効用の式
 \eqref{form:chapter5_two_plane_cd_preparation_lambda_H_p_H_W_c_H_W_eq}
-を代入すると以下のようになる。
-\begin{equation}
-\label{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_eq}
-    \frac{1}{p_t^{H\to W}c_t^{H\to W}}=\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
-\end{equation}
-これを消費者物価指数（CPI）\(p_t^{H\to W}\)について解くと以下の\textbf{CD曲線}が得られる。
+を消費者物価指数（CPI）\(p_t^{H\to W}\)について解くと以下の\textbf{CD曲線}が得られる。
 \begin{equation}
 \label{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_modified_eq}
-    p_t^{H\to W}=\frac{1}{c_t^{H\to W}}\times\frac{1}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+    p_t^{H\to W}=\frac{1}{c_t^{H\to W}}\frac{1}{\lambda_t^H}
 \end{equation}
 これにより消費者物価指数（CPI）\(p_t^{H\to W}\)と総消費指数\(c_t^{H\to W}\)は反比例の関係にあることがわかる。
-したがって\((c_t^{H\to W},p_t^{H\to W})\)平面において
-CD曲線は右下がりの\textbf{直角双曲線}として描かれる。
-この曲線の位置は右辺の名目利子率\(i_t^H\)や来期の期待限界効用\(\operatorname{E}_t[\lambda_{t+1}^H]\)によって決定される。
-そのため金融政策はこれらの変数を制御することによりこの曲線を移動させ総消費指数\(c_t^{H\to W}\)を調整する。
+したがって\((c_t^{H\to W},p_t^{H\to W})\)平面においてCD曲線は右下がりの\textbf{直角双曲線}として描かれる。
+さらに両辺について定常状態からの対数乖離（\(\hat{\ }\)）をとると
+CD曲線の\(\hat{p}_t^H\)を用いた表現である\textbf{CD-\(\hat{p}\)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_cd_derivation_p_H_W_hat_eq}
+    \hat{p}_t^{H\to W}=-\hat{c}_t^{H\to W}-\hat{\lambda}_t^H
+\end{equation}
+傾きが\(-1\)であることからCD-\(\hat{p}\)曲線は\textbf{右下がりの直線}として描かれることがわかる。
+切片は\(-\hat{\lambda}_t^H\)である。
+前方展開されたオイラー方程式
+\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_lim_eq}
+が示すとおり、\(\lambda_t^H\)したがって
+\(\hat{\lambda}_t^H\approx(\lambda_t^H-\lambda_{ss}^H)/\lambda_{ss}^H\)は
+名目利子率\(i_t^H\)の将来にわたる経路によって決定される。
+そのため金融政策は名目利子率\(i_t^H\)の将来にわたる経路を制御することにより
+切片\(-\hat{\lambda}_t^H\)を動かしてCD-\(\hat{p}\)曲線を移動させ、
+総消費指数\(\hat{c}_t^{H\to W}\)を調整する。

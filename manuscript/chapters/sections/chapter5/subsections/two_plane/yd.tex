@@ -1,15 +1,21 @@
-% !TeX root = ../../../main.tex
 % chapters/sections/chapter5/subsections/two_plane/yd.tex
 
 \subsection{YD（生産需要）曲線}
 \label{sec:chapter5_two_plane_yd}
 YD（生産需要）曲線は生産者物価指数（PPI）\(p_t^H\)を生産\(y_t^H\)の関数として記述したものであり、
-CD曲線に外部群の式を統合することで導出される。
+所得の限界効用の式に外部群の式を統合することで導出される。
 
 \subsubsection{YD曲線導出のための準備}
 \label{sec:chapter5_two_plane_yd_preparation}
 次節におけるYD曲線の導出にあたり式を準備しておく。
-名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+所得の限界効用\(\lambda_t^H\)の式
+\eqref{form:chapter3_representative_household_lambda_home_representative_lambda_H_p_H_W_c_H_W_eq}
+は以下のようであった。
+\begin{equation}
+\label{form:chapter5_two_plane_yd_preparation_lambda_H_p_H_W_c_H_W_eq}
+    \lambda_t^H=\frac{1}{p_t^{H\to W}c_t^{H\to W}}
+\end{equation}
+また、名目GDP\(p_t^Hy_t^H\)と名目総消費\(p_t^{H\to W}c_t^{H\to W}\)の関係式
 \eqref{appendixTODO}
 は以下のようであった。
 \begin{equation}
@@ -21,25 +27,41 @@ CD曲線に外部群の式を統合することで導出される。
 
 \subsubsection{YD曲線の導出}
 \label{sec:chapter5_two_plane_yd_derivation}
-CD曲線
-\eqref{form:chapter5_two_plane_cd_derivation_p_H_W_c_H_W_modified_eq}
-に対して前節で示した名目GDP\(p_t^Hy_t^H\)と名目総生産\(p_t^{H\to W}c_t^{H\to W}\)の関係式
+前節で示した名目GDP\(p_t^Hy_t^H\)と名目総消費\(p_t^{H\to W}c_t^{H\to W}\)の関係式
 \eqref{form:chapter5_two_plane_yd_preparation_p_H_y_H_eq}
-を代入し整理する。
+に対し、所得の限界効用の式
+\eqref{form:chapter5_two_plane_yd_preparation_lambda_H_p_H_W_c_H_W_eq}
+を\(p_t^{H\to W}c_t^{H\to W}\)について解いたものを代入し整理する。
 \begin{equation}
 \label{form:chapter5_two_plane_yd_derivation_p_H_y_H_eq}
     \begin{aligned}
         p_t^Hy_t^H
         &=X_tp_t^{H\to W}c_t^{H\to W} \\
-        &=X_t\frac{1}{\lambda_t^H} \\
-        &=X_t\frac{1}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]} \\
-        &=\frac{X_t}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+        &=X_t\frac{1}{\lambda_t^H}
     \end{aligned}
 \end{equation}
-最後に\(y_t^H\)を右辺に移項することで以下の\textbf{YD曲線}が導出される。
+ここで\(y_t^H\)を右辺に移項すると以下の\textbf{YD曲線}が導出される。
 \begin{equation}
 \label{form:chapter5_two_plane_yd_derivation_p_H_eq}
-    p_t^H=\frac{1}{y_t^H}\frac{X_t}{\beta_t^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+    p_t^H=\frac{1}{y_t^H}\frac{X_t}{\lambda_t^H}
 \end{equation}
 生産者物価指数\(p_t^H\)が生産\(y_t^H\)に反比例していることから、
-YD曲線は右下がりの\textbf{直角双曲線}となっていることがわかる。
+YD曲線は\textbf{右下がりの直角双曲線}となっていることがわかる。
+さらに両辺について定常状態からの対数乖離\(\hat{\ }\)をとると、
+YD曲線の\(\hat{p}_t^H\)を用いた表現である\textbf{YD-\(\hat{p}\)曲線}が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_yd_derivation_p_H_hat_eq}
+    \hat{p}_t^H=-\hat{y}_t^H+\hat{X}_t-\hat{\lambda}_t^H
+\end{equation}
+傾きが\(-1\)であることからYD-\(\hat{p}\)曲線は\textbf{右下がりの直線}として描かれることがわかる。
+切片は\(\hat{X}_t-\hat{\lambda}_t^H\)である。
+遮断効果により自国金融政策および\(a_t^H\)は\(X_t\)に影響を与えないのであった。
+そのため特に\(a\)ショック時には\(\hat{X}_t=0\)となり切片は\(-\hat{\lambda}_t^H\)となる。
+前方展開されたオイラー方程式
+\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_lim_eq}
+が示すとおり、\(\lambda_t^H\)したがって
+\(\hat{\lambda}_t^H\approx(\lambda_t^H-\lambda_{ss}^H)/\lambda_{ss}^H\)は
+名目利子率\(i_t^H\)の将来にわたる経路によって決定される。
+そのため金融政策は名目利子率\(i_t^H\)の将来にわたる経路を制御することにより
+切片を動かしてCD-\(\hat{p}\)曲線を移動させ、
+生産\(\hat{y}_t^H\)を調整する。
