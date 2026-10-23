@@ -397,6 +397,34 @@ try
         fprintf(fid_scalar, 'welfare_F_without_delta_pie (ZLB): %.8f\n', S.welfare_F_without_delta_pie);
         fprintf(fid_scalar, 'welfare_F_without_delta_lin (Non-ZLB): %.8f\n', S.welfare_F_without_delta_lin);
         fclose(fid_scalar);
+
+        % =========================================================
+        % projects フォルダ直下の data_for_plotting フォルダへコピー
+        % =========================================================
+        % polt_stage2_main.m の場所 (src/stage2) から projects 階層まで遡る
+        src_dir = fileparts(mpath);          % .../polt_project/src
+        proj_dir = fileparts(src_dir);       % .../polt_project
+        projects_root = fileparts(proj_dir); % .../projects
+        
+        central_data_folder = fullfile(projects_root, 'data_for_plotting');
+        if ~exist(central_data_folder, 'dir')
+            mkdir(central_data_folder);
+        end
+        
+        % プロジェクト名からポリシーキーを自動抽出 (例: polt_project -> polt)
+        [~, proj_folder_name] = fileparts(proj_dir);
+        policy_key = strrep(proj_folder_name, '_project', '');
+        
+        % コピー先のファイル名を生成 (例: data_for_plotting_polt_beta_shock.csv)
+        dest_csv_name = sprintf('data_for_plotting_%s_%s.csv', policy_key, shock_folder);
+        dest_txt_name = sprintf('data_for_plotting_welfare_%s_%s.txt', policy_key, shock_folder);
+        
+        % 該当フォルダへファイルをコピー
+        copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));
+        copyfile(scalar_save_path, fullfile(central_data_folder, dest_txt_name));
+        
+        fprintf('一覧用フォルダにコピーしました: %s, %s\n', dest_csv_name, dest_txt_name);
+        % =========================================================
     end
 catch ME
     fprintf('CSV書き出しエラー: %s\n', ME.message);

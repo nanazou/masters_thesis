@@ -367,6 +367,31 @@ for s_idx = 1:length(scenarios)
             
             fclose(fid_scalar);
             fprintf('CSV/Text保存完了: %s\n', current_scen.name);
+
+            % =========================================================
+            % projects フォルダ直下の data_for_plotting フォルダへコピー
+            % =========================================================
+            % 1つ上の階層 (projects) の直下にフォルダを作成
+            projects_root = fileparts(mpath);
+            central_data_folder = fullfile(projects_root, 'data_for_plotting');
+            if ~exist(central_data_folder, 'dir')
+                mkdir(central_data_folder);
+            end
+            
+            % 現在のプロジェクト名からポリシーキーを自動抽出 (例: clt_project -> clt)
+            [~, proj_folder_name] = fileparts(mpath);
+            policy_key = strrep(proj_folder_name, '_project', '');
+            
+            % コピー先のファイル名を生成 (例: data_for_plotting_clt_beta_shock.csv)
+            dest_csv_name = sprintf('data_for_plotting_%s_%s.csv', policy_key, current_scen.name);
+            dest_txt_name = sprintf('data_for_plotting_welfare_%s_%s.txt', policy_key, current_scen.name);
+            
+            % 該当フォルダへファイルをコピー
+            copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));
+            copyfile(scalar_save_path, fullfile(central_data_folder, dest_txt_name));
+            
+            fprintf('一覧用フォルダにコピーしました: %s, %s\n', dest_csv_name, dest_txt_name);
+            % =========================================================
         end
         
     catch ME

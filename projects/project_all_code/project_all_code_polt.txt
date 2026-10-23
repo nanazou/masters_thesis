@@ -1,0 +1,2070 @@
+--- Consolidated Project Files: polt_project ---
+Target Directory: C:\git\masters_thesis\projects\polt_project
+Generated on: 2026-10-22 13:14:34
+
+
+================================================================================
+FILE: polt_find_optimal_params.m
+================================================================================
+
+% polt_find_optimal_params.m
+% このスクリプトは、POLT政策の最適パラメータを探索します。
+% Stage 1 で潜在産出量パスを算出し、Stage 2 の計算エンジンとして src/stage2/polt_stage2_solve_core.m を呼び出します。
+
+clear;
+close all;
+clc;
+
+% スクリプトがある場所を特定してカレントフォルダを移動
+mpath = fileparts(mfilename('fullpath'));
+cd(mpath);
+
+% --- パスの設定 ---
+addpath(fullfile(mpath, 'src'));
+% addpath('C:\dynare\Occbin_update-master\toolkit_files');
+
+global M_ oo_ options_;
+
+fprintf('====================================================\n');
+fprintf('Starting optimization for POLT Policy...\n');
+fprintf('====================================================\n\n');
+
+% ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+% --- 設定エリア ---
+% ▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼▼
+
+% --- 1. 探索モードを選択 ---
+% 'coarse' : 広範囲を粗く探索
+% 'fine'   : 特定座標の周辺を詳細に探索
+search_mode = 'coarse'; 
+
+% --- 2. ショック・シナリオを選択 ---
+% 'beta' : 需要ショック (eps_beta_H = 0.02)
+% 'a'    : 供給ショック (eps_a_H = -0.1)
+shock_scenario = 'beta'; 
+
+% --- 3. 粗い探索 (coarse mode) の設定 --- a final
+%phi_gap_H_range_coarse   = 0.005:0.0001:0.0052;
+%phi_level_H_range_coarse = 0:1:1;
+
+% --- 4. 詳細な探索 (fine mode) の設定 --- beta final
+%center_phi_gap_H   = 0.3; 
+%center_phi_level_H = 0.06; 
+%fine_search_radius_gap_H   = 0.02; 
+%fine_search_step_gap_H     = 0.01; 
+%fine_search_radius_level_H = 0.01; 
+%fine_search_step_level_H   = 0.005;
+
+% ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
+% --- 設定エリアここまで ---
+
+%% --- [1] ショック設定およびフォルダ作成 ---
+if strcmp(shock_scenario, 'beta')
+    target_shock = 'eps_beta_H';
+    shock_value  = 0.02;
+    shock_folder = 'beta_shock';
+elseif strcmp(shock_scenario, 'a')
+    target_shock = 'eps_a_H';
+    shock_value  = -0.1;
+    shock_folder = 'a_shock';
+else
+    error("Invalid shock_scenario. Choose 'beta' or 'a'.");
+end
+
+% 出力フォルダの定義: results/optimal_params/[shock_folder]/ 直下にすべて出力
+base_res_dir = fullfile(mpath, 'results', 'optimal_params', shock_folder);
+if ~exist(base_res_dir, 'dir'), mkdir(base_res_dir); end
+
+%% --- [2] POLT Stage 1: 潜在産出量パスの自動計算 ---
+fprintf('\n--- POLT Stage 1: Calculating target path for %s shock ---\n', shock_scenario);
+
+% Stage 1 フォルダへ移動して実行
+root_dir = pwd;
+cd(fullfile(mpath, 'src', 'stage1'));
+
+% パラメータダミー
+phi_gap_H_value = 0; phi_level_H_value = 0;
+assignin('base', 'phi_gap_H_value', phi_gap_H_value);
+assignin('base', 'phi_level_H_value', phi_level_H_value);
+
+% Stage 1 モデルの実行 (以前定義した polt_stage1_model を参照)
+eval(['dynare polt_stage1_model.mod noclearall nolog']);
+
+% ショックパスの計算 (simult_ を使用)
+ex_flex = zeros(400, M_.exo_nbr);
+s_idx = strmatch(target_shock, M_.exo_names, 'exact');
+ex_flex(1, s_idx) = shock_value;
+y_flex_sim = simult_(M_, options_, oo_.dr.ys, oo_.dr, ex_flex, 1);
+y_H_idx = strmatch('y_H', M_.endo_names, 'exact');
+eps_y_H_potential_vec = y_flex_sim(y_H_idx, 2:end)' - oo_.dr.ys(y_H_idx);
+
+% ルートに戻る
+cd(root_dir);
+
+% Stage 1 のパスを保存
+save(fullfile(base_res_dir, 'stage1_potential_path.mat'), 'eps_y_H_potential_vec');
+
+fprintf('Stage 1 完了。Stage 2 最適化を開始します...\n');
+
+%% --- [3] Stage 2 (OccBin) 用の共通設定 ---
+% Stage 2 のエンジン（src/stage2/polt_stage2_solve_core.m）をパスに追加
+addpath(fullfile(mpath, 'src', 'stage2'));
+
+settings.modnam = 'polt_stage2_model';
+settings.modnamstar = 'polt_stage2_model_zlb';
+settings.constraint = 'i_H_notional < -i_H_ss';
+settings.constraint_relax = 'i_H_notional > -i_H_ss';
+
+% 構造ショックと潜在産出量ショックの2つをセット
+settings.irfshock = char(target_shock, 'eps_y_H_potential');
+settings.shockssequence = zeros(400, 2);
+settings.shockssequence(1, 1) = shock_value;
+settings.shockssequence(1, 2) = eps_y_H_potential_vec(1); % ★1期目のみに変更
+
+% ★減衰パラメータの定義を追加
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+
+settings.nperiods = 400;
+settings.maxiter = 100;
+
+% =========================================================================
+%% --- [4] グリッド設定とループ実行 ---
+% =========================================================================
+if strcmp(search_mode, 'coarse')
+    fprintf('--- Starting COARSE grid search ---\n');
+    phi_gap_H_range_final   = phi_gap_H_range_coarse;
+    phi_level_H_range_final = phi_level_H_range_coarse;
+    plot_title_prefix = 'POLT Coarse Search';
+elseif strcmp(search_mode, 'fine')
+    fprintf('--- Starting FINE grid search around (gap_H=%.2f, level_H=%.2f) ---\n', center_phi_gap_H, center_phi_level_H);
+    phi_gap_H_range_final   = (center_phi_gap_H - fine_search_radius_gap_H):fine_search_step_gap_H:(center_phi_gap_H + fine_search_radius_gap_H);
+    phi_level_H_range_final = (center_phi_level_H - fine_search_radius_level_H):fine_search_step_level_H:(center_phi_level_H + fine_search_radius_level_H);
+    phi_gap_H_range_final(phi_gap_H_range_final <= 0) = [];
+    phi_level_H_range_final(phi_level_H_range_final <= 0) = [];
+    plot_title_prefix = 'POLT Fine Search';
+else
+    error("Invalid search_mode. Choose 'coarse' or 'fine'.");
+end
+
+if isempty(phi_gap_H_range_final) || isempty(phi_level_H_range_final)
+    error("The parameter range for the search is empty. Check your settings.");
+end
+
+results_welfare_H_final   = zeros(length(phi_level_H_range_final), length(phi_gap_H_range_final));
+results_welfare_F_final   = zeros(length(phi_level_H_range_final), length(phi_gap_H_range_final));
+results_welfare_SUM_final = zeros(length(phi_level_H_range_final), length(phi_gap_H_range_final));
+
+total_iterations = length(phi_level_H_range_final) * length(phi_gap_H_range_final);
+current_iter = 0;
+
+for i = 1:length(phi_level_H_range_final)
+    for j = 1:length(phi_gap_H_range_final)
+        current_iter = current_iter + 1;
+        phi_gap_H_val = phi_gap_H_range_final(j);
+        phi_level_H_val = phi_level_H_range_final(i);
+        
+        fprintf('\nTrial (%d/%d): phi_gap_H = %.2f, phi_level_H = %.2f ... ', ...
+            current_iter, total_iterations, phi_gap_H_val, phi_level_H_val);
+        
+        try
+            % src/stage2/polt_stage2_solve_core.m を呼び出す
+            res = polt_stage2_solve_core(phi_gap_H_val, phi_level_H_val, settings);
+            
+            welfare_H   = res.welfare_H_with_delta_pie;
+            welfare_F   = res.welfare_F_with_delta_pie;
+            welfare_SUM = res.welfare_SUM_with_delta_pie;
+        catch ME
+            fprintf('Error during trial: %s\n', ME.message);
+            cd(mpath);
+            welfare_H = -999; welfare_F = -999; welfare_SUM = -999;
+        end
+        
+        results_welfare_H_final(i, j)   = welfare_H;
+        results_welfare_F_final(i, j)   = welfare_F;
+        results_welfare_SUM_final(i, j) = welfare_SUM;
+        
+        if welfare_SUM > -999
+            fprintf('Welfare H: %.4f, F: %.4f, Sum: %.4f\n', welfare_H, welfare_F, welfare_SUM);
+        else
+            fprintf('Calculation Error.\n');
+        end
+    end
+end
+
+if max(results_welfare_SUM_final(:)) <= -999
+    fprintf('--- SEARCH FAILED: All parameter combinations resulted in an error. ---\n');
+    return;
+end
+
+% =========================================================================
+%% --- [5] 最適パラメータの特定とパッケージング ---
+% =========================================================================
+% Home厚生最大
+[max_w_H, idx_H] = max(results_welfare_H_final(:));
+[row_H, col_H] = ind2sub(size(results_welfare_H_final), idx_H);
+final_results.opt_phi_gap_H_H   = phi_gap_H_range_final(col_H);
+final_results.opt_phi_level_H_H = phi_level_H_range_final(row_H);
+final_results.max_welfare_H = max_w_H;
+final_results.welfare_F_at_H_opt = results_welfare_F_final(row_H, col_H);
+final_results.welfare_SUM_at_H_opt = results_welfare_SUM_final(row_H, col_H);
+
+% Foreign厚生最大
+[max_w_F, idx_F] = max(results_welfare_F_final(:));
+[row_F, col_F] = ind2sub(size(results_welfare_F_final), idx_F);
+final_results.opt_phi_gap_H_F   = phi_gap_H_range_final(col_F);
+final_results.opt_phi_level_H_F = phi_level_H_range_final(row_F);
+final_results.max_welfare_F = max_w_F;
+
+% Global厚生最大
+[max_w_SUM, idx_SUM] = max(results_welfare_SUM_final(:));
+[row_SUM, col_SUM] = ind2sub(size(results_welfare_SUM_final), idx_SUM);
+final_results.opt_phi_gap_H_SUM   = phi_gap_H_range_final(col_SUM);
+final_results.opt_phi_level_H_SUM = phi_level_H_range_final(row_SUM);
+final_results.max_welfare_SUM = max_w_SUM;
+final_results.welfare_H_at_SUM_opt = results_welfare_H_final(row_SUM, col_SUM);
+final_results.welfare_F_at_SUM_opt = results_welfare_F_final(row_SUM, col_SUM);
+
+% 全データの保存 (all_data.mat)
+save(fullfile(base_res_dir, 'all_data.mat'), ...
+    'final_results', 'results_welfare_H_final', 'results_welfare_F_final', 'results_welfare_SUM_final', ...
+    'phi_gap_H_range_final', 'phi_level_H_range_final');
+
+% =========================================================================
+%% --- [6] ログ出力 ---
+% =========================================================================
+fprintf('\n--- POLT Final Optimal Policy Results (Shock: %s) ---\n', shock_scenario);
+fprintf('1. Optimal for Home:\n');
+fprintf('   Parameters: phi_gap_H = %.2f, phi_level_H = %.2f\n', final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H);
+fprintf('   Resulting Welfare: Home = %.4f, Foreign = %.4f, Sum = %.4f\n\n', final_results.max_welfare_H, final_results.welfare_F_at_H_opt, final_results.welfare_SUM_at_H_opt);
+fprintf('2. Optimal for Global (Sum):\n');
+fprintf('   Parameters: phi_gap_H = %.2f, phi_level_H = %.2f\n', final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM);
+fprintf('   Resulting Welfare: Home = %.4f, Foreign = %.4f, Sum = %.4f\n', final_results.welfare_H_at_SUM_opt, final_results.welfare_F_at_SUM_opt, final_results.max_welfare_SUM);
+fprintf('--------------------------------------------------------------\n\n');
+
+% =========================================================================
+%% --- [7] グラフ描画と保存 ---
+% =========================================================================
+fprintf('Plotting and saving results...\n');
+graphics_toolkit("gnuplot");
+
+title_pos_line1 = [0, 0.96, 1, 0.05];
+title_pos_line2 = [0, 0.91, 1, 0.05];
+
+% --- Graph 1: Home Welfare ---
+h_home = figure('Name', 'POLT: Home Welfare', 'Visible', 'off');
+surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_H_final);
+colorbar; view(3); hold on;
+plot3(final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H, 'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
+z_limits = zlim;
+plot3([final_results.opt_phi_gap_H_H, final_results.opt_phi_gap_H_H], ...
+      [final_results.opt_phi_level_H_H, final_results.opt_phi_level_H_H], ...
+      [z_limits(1), final_results.max_welfare_H], 'k--', 'LineWidth', 1);
+hold off;
+xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
+line1 = sprintf('%s: Optimal for Home (%s)', plot_title_prefix, shock_scenario);
+line2 = sprintf('\\phi_{gap}^H=%.10f, \\phi_{level}^H=%.10f, Welfare=%.4f', final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H);
+annotation('textbox', title_pos_line1, 'String', line1, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 12);
+annotation('textbox', title_pos_line2, 'String', line2, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 10);
+print(h_home, fullfile(base_res_dir, 'graph_home.pdf'), '-dpdf');
+close(h_home);
+
+% Home個別データ保存
+data_x = phi_gap_H_range_final; data_y = phi_level_H_range_final; data_z = results_welfare_H_final;
+opt_pt = [final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H];
+save(fullfile(base_res_dir, 'data_for_plotting_home.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+
+% --- Graph 2: Foreign Welfare ---
+h_foreign = figure('Name', 'POLT: Foreign Welfare', 'Visible', 'off');
+surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_F_final);
+colorbar; view(3); hold on;
+plot3(final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F, final_results.max_welfare_F, 'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
+z_limits_F = zlim;
+plot3([final_results.opt_phi_gap_H_F, final_results.opt_phi_gap_H_F], ...
+      [final_results.opt_phi_level_H_F, final_results.opt_phi_level_H_F], ...
+      [z_limits_F(1), final_results.max_welfare_F], 'k--', 'LineWidth', 1);
+hold off;
+xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
+print(h_foreign, fullfile(base_res_dir, 'graph_foreign.pdf'), '-dpdf');
+close(h_foreign);
+
+% Foreign個別データ保存
+data_z = results_welfare_F_final;
+opt_pt = [final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F, final_results.max_welfare_F];
+save(fullfile(base_res_dir, 'data_for_plotting_foreign.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+
+% --- Graph 3: Global Welfare ---
+h_global = figure('Name', 'POLT: Global Welfare', 'Visible', 'off');
+surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_SUM_final);
+colorbar; view(3); hold on;
+plot3(final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM, 'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
+z_limits = zlim;
+plot3([final_results.opt_phi_gap_H_SUM, final_results.opt_phi_gap_H_SUM], ...
+      [final_results.opt_phi_level_H_SUM, final_results.opt_phi_level_H_SUM], ...
+      [z_limits(1), final_results.max_welfare_SUM], 'k--', 'LineWidth', 1);
+hold off;
+xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
+line1 = sprintf('%s: Optimal for Global (%s)', plot_title_prefix, shock_scenario);
+line2 = sprintf('\\phi_{gap}^H=%.10f, \\phi_{level}^H=%.10f, Welfare=%.4f', final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM);
+annotation('textbox', title_pos_line1, 'String', line1, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 12);
+annotation('textbox', title_pos_line2, 'String', line2, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 10);
+print(h_global, fullfile(base_res_dir, 'graph_global.pdf'), '-dpdf');
+close(h_global);
+
+% Global個別データ保存
+data_z = results_welfare_SUM_final;
+opt_pt = [final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM];
+save(fullfile(base_res_dir, 'data_for_plotting_global.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+
+fprintf('\n====================================================\n');
+fprintf('POLT Policy optimization has finished for %s.\n', shock_scenario);
+fprintf('All results (PDF and .mat) saved in: %s\n', base_res_dir);
+fprintf('====================================================\n');
+
+================================================================================
+FILE: polt_main.m
+================================================================================
+
+% polt_main.m
+
+% POLT (Price Output Level Targeting) Comprehensive Execution Script
+%
+% 目的: 
+%   1. 需要ショック（Betaショック）に対する Stage 1 と Stage 2 を実行
+%   2. 供給ショック（Aショック）に対する Stage 1 と Stage 2 を実行
+%
+% 動作の仕組み:
+%   このスクリプトは 'shock_scenario' 変数を定義した上で、
+%   src フォルダ内の 'polt_stage1_main.m' と 'polt_stage2_main.m' を順番に呼び出します。
+%   各ステージの結果は、results フォルダ内の各ショック専用フォルダに集約されます。
+
+clear;
+close all;
+clc;
+
+% --- [1] 実行環境の固定 ---
+% スクリプトが存在する場所（Rootフォルダ）をカレントディレクトリに設定
+root_mpath = fileparts(mfilename('fullpath'));
+cd(root_mpath);
+
+% 実行したいショックシナリオのリストを定義
+% 'beta' = 需要ショック, 'a' = 供給ショック
+scenarios = {'beta', 'a'};
+
+fprintf('========================================================================\n');
+fprintf('        POLT (Price Output Level Targeting) 全自動シミュレーション開始\n');
+fprintf('========================================================================\n');
+
+% シナリオ（Beta と A）のループを開始
+for s = 1:length(scenarios)
+    
+    % 子スクリプト（polt_stage1_main, polt_stage2_main）に渡す共通変数をセット
+    shock_scenario = scenarios{s};
+    
+    fprintf('\n************************************************************************\n');
+    fprintf('  【実行中シナリオ】: [%s]\n', upper(shock_scenario));
+    fprintf('************************************************************************\n');
+    
+    % --- Step 1: Stage 1 (Flexible Price / Potential Output) の実行 ---
+    fprintf('\n>> Step 1: src/polt_stage1_main.m を実行しています (潜在産出量パスの計算)...\n');
+    try
+        % 'run' コマンドにより、現在のワークスペースの変数(shock_scenario)を維持したまま実行
+        % 修正: ファイル名を polt_stage1_main.m に指定
+        run(fullfile(root_mpath, 'src', 'polt_stage1_main.m'));
+    catch ME
+        fprintf('\n[エラー発生] Stage 1 (%s) でエラーが発生しました:\n', shock_scenario);
+        disp(ME.message);
+        continue; % 次のショックシナリオへ進む
+    end
+    
+    % --- Step 2: Stage 2 (Sticky Price + ZLB / Policy Simulation) の実行 ---
+    fprintf('\n>> Step 2: src/polt_stage2_main.m を実行しています (政策シミュレーション)...\n');
+    try
+        % Stage 1 で保存された 'potential_output.mat' が自動的にロードされます
+        % 修正: ファイル名を polt_stage2_main.m に指定
+        run(fullfile(root_mpath, 'src', 'polt_stage2_main.m'));
+    catch ME
+        fprintf('\n[エラー発生] Stage 2 (%s) でエラーが発生しました:\n', shock_scenario);
+        disp(ME.message);
+        continue; % 次のショックシナリオへ進む
+    end
+    
+    fprintf('\n--- シナリオ [%s] の全計算と保存が完了しました ---\n', upper(shock_scenario));
+    
+end
+
+fprintf('\n========================================================================\n');
+fprintf('        全てのシミュレーション工程が正常に終了しました。\n');
+fprintf('========================================================================\n');
+fprintf('結果の確認先 (project_root基準):\n');
+fprintf('  - Stage 1 結果 (潜在産出量データ/グラフ):\n');
+fprintf('    results/stage1/[shock_scenario]/\n');
+fprintf('  - Stage 2 結果 (最終IRFグラフ/CSV/厚生データ):\n');
+fprintf('    results/stage2/[shock_scenario]/\n');
+fprintf('========================================================================\n');
+
+================================================================================
+FILE: src\polt_model_equations_common.inc
+================================================================================
+
+// src/polt_model_equations_common.inc
+
+// --- I. 家計の最適化条件 (5本) ---
+lambda_H = 1 / (p_H_W * c_H_W);
+lambda_F_slash_star = 1 / (p_F_W_star * c_F_W);
+lambda_H = beta_H * (1+i_H) * lambda_H(+1);
+lambda_F_slash_star = beta_F * (1+i_F) * lambda_F_slash_star(+1);
+lambda_H * e_slash_star = beta_H * (1+i_F) * lambda_H(+1) * e_slash_star(+1);
+
+// --- II. 価格設定（非線形モデル） (8本) ---
+v_H = phi_H * N^2 * (y_H/a_H)^2 * p_H^(2*theta_H) + beta_H * xi_H * v_H(+1);
+w_H = lambda_H * N * (1-tau_H) * y_H * p_H^(theta_H) + beta_H * xi_H * w_H(+1);
+p_H_tilde^(1+theta_H) = (theta_H/(theta_H-1)) * (v_H / w_H);
+p_H_bar^(1-theta_H) = (1-xi_H)*p_H_tilde^(1-theta_H) + xi_H*p_H_bar(-1)^(1-theta_H);
+
+v_F = phi_F * M^2 * (y_F/a_F)^2 * p_F_star^(2*theta_F) + beta_F * xi_F * v_F(+1);
+w_F = lambda_F_slash_star * M * (1-tau_F) * y_F * p_F_star^(theta_F) + beta_F * xi_F * w_F(+1);
+p_F_star_tilde^(1+theta_F) = (theta_F/(theta_F-1)) * (v_F / w_F);
+p_F_star_bar^(1-theta_F) = (1-xi_F)*p_F_star_tilde^(1-theta_F) + xi_F*p_F_star_bar(-1)^(1-theta_F);
+
+// --- III. 生産、需要、各種定義式 (25本) ---
+p_H = (N^(1/(1-theta_H)))*p_H_bar;
+p_F_star = (M^(1/(1-theta_F)))*p_F_star_bar;
+
+// 生産関数に Delta を追加
+y_H = a_H*l_H / Delta_H;
+y_F = a_F*l_F / Delta_F;
+
+// 価格分散の動学方程式
+Delta_H = (1-xi_H) * (p_H_tilde / p_H_bar)^(-theta_H) + xi_H * (pi_H)^theta_H * Delta_H(-1);
+Delta_F = (1-xi_F) * (p_F_star_tilde / p_F_star_bar)^(-theta_F) + xi_F * (pi_F_star)^theta_F * Delta_F(-1);
+
+// 理論上の消費者物価指数（生計費指数：予算制約や効用計算に使用）
+p_H_W = p_H^alpha_H * (e_slash_star*p_F_star)^(1-alpha_H);
+p_F_W_star = p_F_star^alpha_F * (p_H/e_slash_star)^(1-alpha_F);
+
+// 正規化された消費者物価指数（統計局ベース：金融政策のターゲットに使用）
+p_H_W_bar = p_H_bar^alpha_H * (e_slash_star*p_F_star_bar)^(1-alpha_H);
+p_F_W_star_bar = p_F_star_bar^alpha_F * (p_H_bar/e_slash_star)^(1-alpha_F);
+
+c_H_H = alpha_H * (p_H_W / p_H) * c_H_W;
+c_H_F = (1-alpha_H) * (p_H_W / (e_slash_star*p_F_star)) * c_H_W;
+c_F_F = alpha_F * (p_F_W_star / p_F_star) * c_F_W;
+c_F_H = (1-alpha_F) * (p_F_W_star / (p_H/e_slash_star)) * c_F_W;
+
+t_H = tau_H*p_H*y_H;
+t_F = tau_F*p_F_star*y_F;
+p_F_bar = e_slash_star*p_F_star_bar;
+p_H_star_bar = p_H_bar/e_slash_star;
+
+// インフレ率の定義（正規化された指数に基づく）
+pi_H = p_H_bar/p_H_bar(-1);
+pi_F_star = p_F_star_bar/p_F_star_bar(-1);
+pi_H_W = p_H_W_bar / p_H_W_bar(-1);
+pi_F_W_star = p_F_W_star_bar / p_F_W_star_bar(-1);
+
+y_H = c_H_H + (M/N)*c_F_H;
+y_F = c_F_F + (N/M)*c_H_F;
+
+p_H_W*c_H_W + b_H = p_H*y_H + (1+i_F(-1))*(e_slash_star/e_slash_star(-1))*b_H(-1);
+
+// --- IV. ショックのプロセス (6本) ---
+log(beta_H) = (1-rho_beta_H)*log(beta_H_ss) + rho_beta_H*log(beta_H(-1)) + eps_beta_H;
+log(a_H)    = (1-rho_a_H)*log(a_H_ss)       + rho_a_H*log(a_H(-1))       + eps_a_H;
+log(tau_H)  = (1-rho_tau_H)*log(tau_H_ss)   + rho_tau_H*log(tau_H(-1))   + eps_tau_H;
+log(beta_F) = (1-rho_beta_F)*log(beta_F_ss) + rho_beta_F*log(beta_F(-1)) + eps_beta_F;
+log(a_F)    = (1-rho_a_F)*log(a_F_ss)       + rho_a_F*log(a_F(-1))       + eps_a_F;
+log(tau_F)  = (1-rho_tau_F)*log(tau_F_ss)   + rho_tau_F*log(tau_F(-1))   + eps_tau_F;
+
+================================================================================
+FILE: src\polt_stage1_main.m
+================================================================================
+
+% src/polt_stage1_main.m
+% Stage 1: Flexible Price Model Simulation (Beta or A Shock)
+% このスクリプトは、選択されたショックに基づいて潜在産出量（Potential Output）を計算します。
+% 成果物を results > stage1 > [shock] 直下に集約します。
+
+% 注: このスクリプトは src フォルダ内に配置され、実行されます。
+
+% clear; % 統合メインスクリプトから呼ばれる際、変数を維持するためコメントアウト
+close all;
+% clc;
+
+% --- [1] パス設定 ---
+% スクリプトの場所（src フォルダ）を基準にパスを設定
+mpath = fileparts(mfilename('fullpath'));
+addpath(fullfile(mpath, 'stage1'));
+% addpath('C:\dynare\Occbin_update-master\toolkit_files');
+
+global M_ oo_ options_;
+
+% 外部（統合メインスクリプト）から shock_scenario が指定されていない場合のデフォルト値
+if ~exist('shock_scenario', 'var')
+    % 'beta' : 需要ショック (eps_beta_H = 0.02)
+    % 'a'    : 供給ショック (eps_a_H = -0.1)
+    shock_scenario = 'beta'; 
+end
+
+% --- [2] ショックパラメータおよびフォルダ名の自動設定 ---
+if strcmp(shock_scenario, 'beta')
+    target_shock = 'eps_beta_H';
+    shock_value  = 0.02; 
+    shock_folder = 'beta_shock'; % フォルダ構成用
+elseif strcmp(shock_scenario, 'a')
+    target_shock = 'eps_a_H';
+    shock_value  = -0.1; 
+    shock_folder = 'a_shock';    % フォルダ構成用
+else
+    error("Invalid shock_scenario. Choose 'beta' or 'a'.");
+end
+
+% 出力パスを project_root/results/stage1/[shock] 直下に設定
+output_root_folder = fullfile(mpath, '..', 'results', 'stage1', shock_folder);
+
+% フォルダの自動生成 (存在しない場合)
+if ~exist(output_root_folder, 'dir'), mkdir(output_root_folder); end
+
+% シミュレーション設定の構築
+settings.stage = 1;
+settings.modnam = 'polt_stage1_model'; % src/stage1/polt_stage1_model.mod を参照
+settings.nperiods = 400;
+settings.irfshock = target_shock;
+settings.shockssequence = shock_value;
+
+% Stage 1 用ダミーパラメータ (形式統一のために保持)
+phi_gap_H_value = 0;
+phi_level_H_value = 0;
+
+% --- [3] 【核心】stage1/polt_stage1_solve_core.m の呼び出し ---
+fprintf('Stage 1 (Flexible Price) シミュレーションを開始します。シナリオ: %s (%s)\n', shock_scenario, shock_folder);
+[welfares, irf_results, Mbase_, oobase_] = polt_stage1_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+% 厚生変数を個別に展開
+welfare_H_with_delta_pie = welfares.welfare_H_with_delta_pie;
+welfare_H_with_delta_lin = welfares.welfare_H_with_delta_lin;
+welfare_H_without_delta_pie = welfares.welfare_H_without_delta_pie;
+welfare_H_without_delta_lin = welfares.welfare_H_without_delta_lin;
+welfare_F_with_delta_pie = welfares.welfare_F_with_delta_pie;
+welfare_F_with_delta_lin = welfares.welfare_F_with_delta_lin;
+welfare_F_without_delta_pie = welfares.welfare_F_without_delta_pie;
+welfare_F_without_delta_lin = welfares.welfare_F_without_delta_lin;
+
+% IRF結果構造体の全フィールドを現在のワークスペースに展開
+fnames = fieldnames(irf_results);
+for k = 1:length(fnames)
+    eval([fnames{k}, ' = irf_results.', fnames{k}, ';']);
+end
+
+% --- [4] Stage 2 連携用データの保存 ---
+% Stage 2 のショックとして使用する潜在産出量データ
+% 伸縮的価格モデルなので y_H_pie がそのまま潜在産出量 (偏差) となる
+eps_y_H_potential = y_H_pie; 
+
+% Stage 2 が直接参照するファイル名で保存
+save_path_potential = fullfile(output_root_folder, 'potential_output.mat');
+save(save_path_potential, 'eps_y_H_potential');
+
+fprintf('Stage 1 潜在産出量を保存しました: %s\n', save_path_potential);
+
+% --- [5] グラフの描画 ---
+fprintf('グラフを作成し、PDFに保存中...\n');
+
+% 表示変数のリスト (統計ベース物価指数および全ショック変数を補完)
+    var_list = { ...
+        'e_slash_star', ... 
+        'lambda_H', ...
+        'lambda_H_slash_star', ...
+        'lambda_F_slash_star', ...
+        'lambda_F', ...
+        'utility_H_with_delta', 'utility_F_with_delta', ...
+        'utility_H_without_delta', 'utility_F_without_delta', ... 
+        'gamma_H', ...
+        'p_H', 'p_F_star', ...
+        'i_H_notional', ...
+        'i_H', 'i_F', ...
+        'c_H_W', 'c_F_W', ...
+        'c_H_H', 'c_F_H', ...
+        'c_H_F', 'c_F_F', ...
+        'y_H', 'y_F', ...
+        'l_H', 'l_F', ...
+        'p_H_W', 'p_F_W_star', ...
+        'p_H_W_bar', 'p_F_W_star_bar', ... % ★ 統計ベースの消費者物価指数を追加
+        'p_H_bar', 'p_F_star_bar', ...
+        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
+        'pi_H', 'pi_F_star', ...
+        'pi_H_W', 'pi_F_W_star', ...
+        'p_H_tilde', 'p_F_star_tilde', ...
+        'v_H', 'v_F', ...
+        'w_H', 'w_F', ...
+        'p_F_bar', 'p_H_star_bar', ...
+        't_H', 't_F', ...
+        'b_H', 'b_F_star', ... 
+        'beta_H', 'beta_F', ...
+        'a_H', 'a_F', ...
+        'tau_H', 'tau_F', ...
+        'eps_beta_H', 'eps_beta_F', ...
+        'eps_a_H', 'eps_a_F', ...
+        'eps_tau_H', 'eps_tau_F', ...
+        'eps_i_H', 'eps_i_F', ...
+        'Delta_H', 'Delta_F', ...
+    };
+
+graphics_toolkit("gnuplot");
+
+% 出力ファイル名の設定 (results > stage1 > [shock] > graphs.pdf)
+output_filename = fullfile(output_root_folder, 'graphs.pdf'); 
+
+if isfile(output_filename), delete(output_filename); end
+
+plots_per_page = 6;
+rows = 2;
+cols = 3;
+num_vars = length(var_list);
+nperiods = settings.nperiods;
+
+for i = 1:plots_per_page:num_vars
+    h = figure('Visible', 'off', 'PaperType', 'a4', 'PaperOrientation', 'landscape', 'PaperUnits', 'centimeters');
+    
+    graph_width = 25;
+    graph_height = 18;
+    left_margin = (29.7 - graph_width) / 2;
+    bottom_margin = (21.0 - graph_height) / 2;
+    set(h, 'PaperPosition', [left_margin, bottom_margin, graph_width, graph_height]);
+    
+    for j = 1:plots_per_page
+        plot_index = i + j - 1;
+        if plot_index > num_vars, break; end
+        subplot(rows, cols, j);
+        
+        var_name = var_list{plot_index};
+        
+        if strncmp(var_name, 'eps_', 4)
+            data_shock = zeros(nperiods, 1);
+            if strcmp(var_name, settings.irfshock)
+                data_shock(1) = shock_value;
+            end
+            plot(1:nperiods, data_shock, 'b-', 'LineWidth', 1.5);
+        else
+            plot(1:nperiods, eval([var_name, '_pie']), 'b-', 'LineWidth', 1.5);
+            hold on;
+            plot(1:nperiods, eval([var_name, '_lin']), 'r--', 'LineWidth', 1.5);
+        end
+        grid on;
+        xlim([0, nperiods]);
+        
+        % --- タイトル生成ロジック ---
+        if strncmp(var_name, 'eps_', 4)
+            parts = strsplit(var_name, '_');
+            middle = parts{2};
+            tex_middle = middle; 
+            switch middle
+                case 'beta', tex_middle = '\beta';
+                case 'tau',  tex_middle = '\tau';
+                case 'chi',  tex_middle = '\chi';
+            end
+            if length(parts) > 2
+                endpoint = parts{3};
+                latex_title = ['\epsilon^{', tex_middle, '^{', endpoint, '}}'];
+            else
+                latex_title = ['\epsilon_{', tex_middle, '}'];
+            end
+        elseif strcmp(var_name, 'p_H_bar_y_H') 
+            latex_title = '\bar{p}^H y^H';
+        elseif strcmp(var_name, 'p_H_W_c_H_W') 
+            latex_title = 'p^{H \to W} c^{H \to W}';
+        elseif strcmp(var_name, 'p_H_W_slash_p_H') 
+            latex_title = 'p^{H \to W} / p^H';
+        elseif strcmp(var_name, 'p_H_tilde')
+            latex_title = '\tilde{p}^H';
+        elseif strcmp(var_name, 'p_F_star_tilde')
+            latex_title = '\tilde{p}^{F*}';
+        elseif strcmp(var_name, 'i_H_notional')
+            latex_title = 'i^{H,notional}';
+        elseif endsWith(var_name, '_bar')
+            temp_name = regexprep(var_name, '_bar$', '');
+            parts = strsplit(temp_name, '_');
+            base = parts{1}; 
+            if length(parts) > 1
+                superscript = strjoin(parts(2:end), ''); 
+                superscript = strrep(superscript, 'star', '*'); 
+                latex_title = [base, '\_bar^{', superscript, '}'];
+            else
+                latex_title = [base, '\_bar'];
+            end
+        elseif strcmp(var_name, 'lambda_H_slash_star')
+            latex_title = '\lambda^{H/*}';
+        elseif strcmp(var_name, 'lambda_F')
+            latex_title = '\lambda^F';
+        elseif strcmp(var_name, 'lambda_F_slash_star')
+            latex_title = '\lambda^{F/*}';
+        elseif strcmp(var_name, 'pi_F_star')
+            latex_title = '\pi^{F*}';
+        elseif strcmp(var_name, 'b_F_star')
+            latex_title = 'b^{F*}';
+        elseif strcmp(var_name, 'e_slash_star')
+            latex_title = 'e^{/*}';
+        elseif strcmp(var_name, 'utility_H_without_delta')
+            latex_title = 'utility^H (without \Delta)';
+        elseif strcmp(var_name, 'utility_F_without_delta')
+            latex_title = 'utility^F (without \Delta)';
+        elseif strcmp(var_name, 'utility_H_with_delta')
+            latex_title = 'utility^H (with \Delta)';
+        elseif strcmp(var_name, 'utility_F_with_delta')
+            latex_title = 'utility^F (with \Delta)';
+        else
+            parts = strsplit(var_name, '_');
+            base = parts{1};
+            switch base
+                case 'pi', base = '\pi';
+                case 'lambda', base = '\lambda';
+                case 'gamma', base = '\gamma';
+                case 'beta', base = '\beta';
+                case 'mu', base = '\mu';
+                case 'chi', base = '\chi';
+                case 'tau', base = '\tau';
+                case 'utility', base = 'utility';
+                case 'Delta', base = '\Delta'; 
+            end
+            if length(parts) > 1
+                superscript = strjoin(parts(2:end), '_');
+                superscript = strrep(superscript, '_', '\rightarrow'); 
+                superscript = strrep(superscript, '\rightarrowstar', '*'); 
+                latex_title = [base '^{' superscript '}'];
+            else
+                latex_title = base;
+            end
+        end
+        
+        set(gca, 'FontSize', 8);
+        title(latex_title, 'Interpreter', 'tex');
+
+        if plot_index == 1
+            legend('Stage 1 (Flex)', 'Location', 'northeast');
+        end
+        
+        % 厚生値の表示
+        if strcmp(var_name, 'utility_H_with_delta')
+            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
+            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            text_H_pie = sprintf('Welfare (with Delta): %.4f', welfare_H_with_delta_pie);
+            text(x_pos, y_pos_top, text_H_pie, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+        elseif strcmp(var_name, 'utility_H_without_delta')
+            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
+            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            text_H_pie = sprintf('Welfare (without Delta): %.4f', welfare_H_without_delta_pie);
+            text(x_pos, y_pos_top, text_H_pie, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+        end
+    end
+    
+    page_num = floor((i-1) / plots_per_page) + 1;
+    if page_num == 1
+        print(h, output_filename, '-dpdf');
+    else
+        print(h, output_filename, '-dpdf', '-append');
+    end
+    close(h);
+end
+
+% --- [6] 全データの保存 (.mat) ---
+fprintf('全てのシミュレーション結果を.matファイルに保存中...\n');
+
+vars_to_save = {};
+for i = 1:length(var_list)
+    v_name = var_list{i};
+    if ~strncmp(v_name, 'eps_', 4) 
+        if exist([v_name, '_pie'], 'var')
+            vars_to_save{end+1} = [v_name, '_pie']; 
+            vars_to_save{end+1} = [v_name, '_lin']; 
+        end
+    end
+end
+
+% 厚生変数のリスト作成
+w_list = {'welfare_H_with_delta_pie','welfare_H_with_delta_lin','welfare_F_with_delta_pie','welfare_F_with_delta_lin',...
+          'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin'};
+vars_to_save = [vars_to_save, w_list];
+
+% 簡潔な名前 (data_for_plotting.mat) で保存
+full_save_path = fullfile(output_root_folder, 'data_for_plotting.mat');
+save(full_save_path, vars_to_save{:});
+fprintf('全てのデータが "%s" に保存されました。\n', full_save_path);
+
+% --- [7] CSVへの書き出し ---
+fprintf('CSVファイルへの書き出しを開始します...\n');
+try
+    S = load(full_save_path);
+    header = {}; data_matrix = []; 
+    for i = 1:length(vars_to_save)
+        v_name = vars_to_save{i};
+        % スカラー値（Welfare）以外を時系列としてCSVに含める
+        if ~strncmp(v_name, 'welfare_', 8)
+            if isfield(S, v_name) && isvector(S.(v_name)) && length(S.(v_name)) == nperiods
+                header{end+1} = v_name;
+                data_matrix = [data_matrix, S.(v_name)(:)]; 
+            end
+        end
+    end
+    
+    csv_save_path = fullfile(output_root_folder, 'data_for_plotting.csv');
+    fid = fopen(csv_save_path, 'w');
+    if fid == -1, error('CSVファイルを開けませんでした: %s', csv_save_path); end
+    fprintf(fid, '%s', header{1}); 
+    for i = 2:length(header), fprintf(fid, ',%s', header{i}); end
+    fprintf(fid, '\n'); 
+    fclose(fid);
+    dlmwrite(csv_save_path, data_matrix, '-append', 'delimiter', ',', 'precision', '%.8g');
+    
+    % --- [8] 厚生データのテキスト保存 ---
+    scalar_save_path = fullfile(output_root_folder, 'data_for_plotting_welfare.txt');
+    fid_scalar = fopen(scalar_save_path, 'w');
+    if fid_scalar ~= -1
+        fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 1 Flex - Scenario: %s):\n\n', shock_scenario);
+        fprintf(fid_scalar, '--- with Price Dispersion Cost (Delta included) ---\n');
+        fprintf(fid_scalar, 'welfare_H_with_delta_pie: %.8f\n', S.welfare_H_with_delta_pie);
+        fprintf(fid_scalar, 'welfare_H_with_delta_lin: %.8f\n', S.welfare_H_with_delta_lin);
+        fprintf(fid_scalar, 'welfare_F_with_delta_pie: %.8f\n', S.welfare_F_with_delta_pie);
+        fprintf(fid_scalar, 'welfare_F_with_delta_lin: %.8f\n', S.welfare_F_with_delta_lin);
+        fprintf(fid_scalar, '\n');
+        fprintf(fid_scalar, '--- without Price Dispersion Cost (Delta = 0) ---\n');
+        fprintf(fid_scalar, 'welfare_H_without_delta_pie: %.8f\n', S.welfare_H_without_delta_pie);
+        fprintf(fid_scalar, 'welfare_H_without_delta_lin: %.8f\n', S.welfare_H_without_delta_lin);
+        fprintf(fid_scalar, 'welfare_F_without_delta_pie: %.8f\n', S.welfare_F_without_delta_pie);
+        fprintf(fid_scalar, 'welfare_F_without_delta_lin: %.8f\n', S.welfare_F_without_delta_lin);
+        fclose(fid_scalar);
+    end
+catch ME
+    fprintf('CSV書き出しエラー: %s\n', ME.message);
+end
+
+fprintf('DONE. Stage 1 [%s] の処理が完了しました。フォルダ: %s\n', shock_scenario, output_root_folder);
+
+================================================================================
+FILE: src\polt_stage2_main.m
+================================================================================
+
+% src/polt_stage2_main.m
+% Stage 2: Sticky Price Model with OccBin (POLT / Beta or A Shock)
+% このスクリプトは Stage 1 の潜在産出量データを読み込み、polt_stage2_solve_core.m を実行します。
+% 成果物を results > stage2 > [shock] 直下に集約します。
+
+% 注: このスクリプトは src フォルダ内に配置され、実行されます。
+
+% clear;
+close all;
+% clc;
+
+% --- [1] パス設定 ---
+% スクリプトの場所（src フォルダ）を基準にパスを設定
+mpath = fileparts(mfilename('fullpath'));
+addpath(fullfile(mpath, 'stage2'));
+% addpath('C:\dynare\Occbin_update-master\toolkit_files');
+
+global M_ oo_ options_;
+
+if ~exist('shock_scenario', 'var')
+    shock_scenario = 'beta'; 
+end
+
+if strcmp(shock_scenario, 'beta')
+    shock_folder = 'beta_shock';
+elseif strcmp(shock_scenario, 'a')
+    shock_folder = 'a_shock';
+else
+    error("Invalid shock_scenario. Choose 'beta' or 'a'.");
+end
+
+% ▼▼▼【計算に使用するパラメータ設定 (POLT STAGE2用)】▼▼▼
+phi_gap_H_value   = 0.20;
+phi_level_H_value = 0.06;
+% ▲▲▲【設定完了】▲▲▲
+
+% 出力パスを project_root/results/stage2/[shock] 直下に設定
+output_root_folder = fullfile(mpath, '..', 'results', 'stage2', shock_folder);
+
+if ~exist(output_root_folder, 'dir'), mkdir(output_root_folder); end
+
+%% --- [2] Stage 1 データの読み込み ---
+% Stage 1 の成果物 (results/stage1/[shock]/potential_output.mat) を参照
+stage1_file = fullfile(mpath, '..', 'results', 'stage1', shock_folder, 'potential_output.mat');
+
+if ~exist(stage1_file, 'file')
+    error('Stage 1 の結果ファイルが見つかりません: %s\n先に polt_stage1_main.m を実行してください。', stage1_file);
+end
+
+Stage1Data = load(stage1_file); 
+
+if isfield(Stage1Data, 'eps_y_H_potential')
+    eps_y_H_potential_vec = Stage1Data.eps_y_H_potential(:);
+else
+    error('読み込んだファイル内に eps_y_H_potential が見つかりません。');
+end
+fprintf('Stage 1 潜在産出量データをロードしました。シナリオ: %s\n', shock_scenario);
+
+%% --- [3] シミュレーションの設定 ---
+% 独自名に変更した統一ファイル名 ('polt_stage2_model', 'polt_stage2_model_zlb') を参照
+settings.modnam = 'polt_stage2_model';
+settings.modnamstar = 'polt_stage2_model_zlb';
+settings.constraint = 'i_H_notional < -i_H_ss';
+settings.constraint_relax = 'i_H_notional > -i_H_ss';
+settings.nperiods = 400;
+settings.maxiter = 100;
+
+% ショックの定義 (主ショック + Stage1から引き継いだ潜在産出量パス)
+if strcmp(shock_scenario, 'beta')
+    settings.irfshock = char('eps_beta_H', 'eps_y_H_potential');
+    primary_shock_magnitude = 0.02;
+elseif strcmp(shock_scenario, 'a')
+    settings.irfshock = char('eps_a_H', 'eps_y_H_potential');
+    primary_shock_magnitude = -0.1;
+end
+
+% ショックシーケンスの構築
+shockssequence = zeros(settings.nperiods, 2);
+shockssequence(1, 1) = primary_shock_magnitude;
+shockssequence(1, 2) = eps_y_H_potential_vec(1); % ★1期目のみに変更
+
+% ★減衰パラメータの定義を追加
+if strcmp(shock_scenario, 'beta')
+    assignin('base', 'rho_potential_value', 0.977);
+elseif strcmp(shock_scenario, 'a')
+    assignin('base', 'rho_potential_value', 0.950);
+end
+
+settings.shockssequence = shockssequence;
+
+%% --- [4] 【核心】stage2/polt_stage2_solve_core.m の呼び出し ---
+fprintf('Stage 2 (Sticky Price + ZLB) シミュレーションを開始します...\n');
+[welfares, irf_results, Mbase_, oobase_] = polt_stage2_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+% 取得した厚生変数を個別に展開
+welfare_H_with_delta_pie = welfares.welfare_H_with_delta_pie;
+welfare_H_with_delta_lin = welfares.welfare_H_with_delta_lin;
+welfare_H_without_delta_pie = welfares.welfare_H_without_delta_pie;
+welfare_H_without_delta_lin = welfares.welfare_H_without_delta_lin;
+welfare_F_with_delta_pie = welfares.welfare_F_with_delta_pie;
+welfare_F_with_delta_lin = welfares.welfare_F_with_delta_lin;
+welfare_F_without_delta_pie = welfares.welfare_F_without_delta_pie;
+welfare_F_without_delta_lin = welfares.welfare_F_without_delta_lin;
+
+% irf_results構造体の中身を現在のワークスペースに展開
+fnames = fieldnames(irf_results);
+for k = 1:length(fnames)
+    eval([fnames{k}, ' = irf_results.', fnames{k}, ';']);
+end
+
+% 表示変数のリスト (統計ベース物価指数および eps_y_H_potential を補完)
+    var_list = { ...
+        'e_slash_star', ... 
+        'lambda_H', ...
+        'lambda_H_slash_star', ...
+        'lambda_F_slash_star', ...
+        'lambda_F', ...
+        'utility_H_with_delta', 'utility_F_with_delta', ...
+        'utility_H_without_delta', 'utility_F_without_delta', ... 
+        'gamma_H', ...
+        'p_H', 'p_F_star', ...
+        'i_H_notional', ...
+        'i_H', 'i_F', ...
+        'c_H_W', 'c_F_W', ...
+        'c_H_H', 'c_F_H', ...
+        'c_H_F', 'c_F_F', ...
+        'y_H', 'y_F', ...
+        'l_H', 'l_F', ...
+        'p_H_W', 'p_F_W_star', ...
+        'p_H_W_bar', 'p_F_W_star_bar', ... % ★ 統計ベースの消費者物価指数を追加
+        'p_H_bar', 'p_F_star_bar', ...
+        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
+        'pi_H', 'pi_F_star', ...
+        'pi_H_W', 'pi_F_W_star', ...
+        'p_H_tilde', 'p_F_star_tilde', ...
+        'v_H', 'v_F', ...
+        'w_H', 'w_F', ...
+        'p_F_bar', 'p_H_star_bar', ...
+        't_H', 't_F', ...
+        'b_H', 'b_F_star', ... 
+        'beta_H', 'beta_F', ...
+        'a_H', 'a_F', ...
+        'tau_H', 'tau_F', ...
+        'y_H_potential', ... % 内生変数としての潜在産出量
+        'eps_beta_H', 'eps_beta_F', ...
+        'eps_a_H', 'eps_a_F', ...
+        'eps_tau_H', 'eps_tau_F', ...
+        'eps_i_F', ...
+        'eps_y_H_potential', ...
+        'Delta_H', 'Delta_F', ...
+    };
+
+graphics_toolkit("gnuplot");
+
+% 出力ファイル名の設定 (results > stage2 > [shock] > graphs.pdf)
+output_filename = fullfile(output_root_folder, 'graphs.pdf'); 
+
+if isfile(output_filename), delete(output_filename); end
+
+plots_per_page = 6;
+rows = 2;
+cols = 3;
+num_vars = length(var_list);
+nperiods = settings.nperiods;
+irfshock = settings.irfshock;
+
+for i = 1:plots_per_page:num_vars
+    h = figure('Visible', 'off', 'PaperType', 'a4', 'PaperOrientation', 'landscape', 'PaperUnits', 'centimeters');
+    
+    graph_width = 25;
+    graph_height = 18;
+    left_margin = (29.7 - graph_width) / 2;
+    bottom_margin = (21.0 - graph_height) / 2;
+    set(h, 'PaperPosition', [left_margin, bottom_margin, graph_width, graph_height]);
+    
+    for j = 1:plots_per_page
+        plot_index = i + j - 1;
+        if plot_index > num_vars, break; end
+        subplot(rows, cols, j);
+        
+        var_name = var_list{plot_index};
+        
+        if strncmp(var_name, 'eps_', 4)
+            shock_row_idx = 0;
+            for r = 1:size(irfshock, 1)
+                if strcmp(strtrim(irfshock(r,:)), var_name)
+                    shock_row_idx = r; break;
+                end
+            end
+            if shock_row_idx > 0
+                plot(1:nperiods, shockssequence(:, shock_row_idx), 'b-', 'LineWidth', 1.5);
+            else
+                plot(1:nperiods, zeros(nperiods, 1), 'b-', 'LineWidth', 1.5);
+            end
+        else
+            plot(1:nperiods, eval([var_name, '_pie']), 'b-', 'LineWidth', 1.5);
+            hold on;
+            plot(1:nperiods, eval([var_name, '_lin']), 'r--', 'LineWidth', 1.5);
+        end
+        grid on;
+        xlim([0, nperiods]);
+        
+        % --- タイトル生成ロジック (一切の要約・省略なし) ---
+        if strncmp(var_name, 'eps_', 4)
+            parts = strsplit(var_name, '_');
+            middle = parts{2};
+            tex_middle = middle; 
+            switch middle
+                case 'beta', tex_middle = '\beta';
+                case 'tau',  tex_middle = '\tau';
+                case 'chi',  tex_middle = '\chi';
+            end
+            if length(parts) > 2
+                endpoint = parts{3};
+                latex_title = ['\epsilon^{', tex_middle, '^{', endpoint, '}}'];
+            else
+                latex_title = ['\epsilon_{', tex_middle, '}'];
+            end
+        elseif strcmp(var_name, 'p_H_bar_y_H') 
+            latex_title = '\bar{p}^H y^H';
+        elseif strcmp(var_name, 'p_H_W_c_H_W') 
+            latex_title = 'p^{H \to W} c^{H \to W}';
+        elseif strcmp(var_name, 'p_H_W_slash_p_H') 
+            latex_title = 'p^{H \to W} / p^H';
+        elseif strcmp(var_name, 'p_H_tilde')
+            latex_title = '\tilde{p}^H';
+        elseif strcmp(var_name, 'p_F_star_tilde')
+            latex_title = '\tilde{p}^{F*}';
+        elseif strcmp(var_name, 'i_H_notional')
+            latex_title = 'i^{H,notional}';
+        elseif endsWith(var_name, '_bar')
+            temp_name = regexprep(var_name, '_bar$', '');
+            parts = strsplit(temp_name, '_');
+            base = parts{1}; 
+            if length(parts) > 1
+                superscript = strjoin(parts(2:end), ''); 
+                superscript = strrep(superscript, 'star', '*'); 
+                latex_title = [base, '\_bar^{', superscript, '}'];
+            else
+                latex_title = [base, '\_bar'];
+            end
+        elseif strcmp(var_name, 'lambda_H_slash_star')
+            latex_title = '\lambda^{H/*}';
+        elseif strcmp(var_name, 'lambda_F')
+            latex_title = '\lambda^F';
+        elseif strcmp(var_name, 'lambda_F_slash_star')
+            latex_title = '\lambda^{F/*}';
+        elseif strcmp(var_name, 'pi_F_star')
+            latex_title = '\pi^{F*}';
+        elseif strcmp(var_name, 'pi_H_W')
+            latex_title = '\pi^{H \to W}';
+        elseif strcmp(var_name, 'pi_F_W_star')
+            latex_title = '\pi^{F \to W*}';
+        elseif strcmp(var_name, 'b_F_star')
+            latex_title = 'b^{F*}';
+        elseif strcmp(var_name, 'y_H_potential')
+            latex_title = 'y^{H,pot}';
+        elseif strcmp(var_name, 'e_slash_star')
+            latex_title = 'e^{/*}';
+        elseif strcmp(var_name, 'utility_H_without_delta')
+            latex_title = 'utility^H (without \Delta)';
+        elseif strcmp(var_name, 'utility_F_without_delta')
+            latex_title = 'utility^F (without \Delta)';
+        elseif strcmp(var_name, 'utility_H_with_delta')
+            latex_title = 'utility^H (with \Delta)';
+        elseif strcmp(var_name, 'utility_F_with_delta')
+            latex_title = 'utility^F (with \Delta)';
+        else
+            parts = strsplit(var_name, '_');
+            base = parts{1};
+            switch base
+                case 'pi', base = '\pi';
+                case 'lambda', base = '\lambda';
+                case 'gamma', base = '\gamma';
+                case 'beta', base = '\beta';
+                case 'mu', base = '\mu';
+                case 'chi', base = '\chi';
+                case 'tau', base = '\tau';
+                case 'utility', base = 'utility';
+                case 'Delta', base = '\Delta'; 
+            end
+            if length(parts) > 1
+                superscript = strjoin(parts(2:end), '_');
+                superscript = strrep(superscript, '_', '\rightarrow'); 
+                superscript = strrep(superscript, '\rightarrowstar', '*'); 
+                superscript = strrep(superscript, 'star', '*'); 
+                latex_title = [base '^{' superscript '}'];
+            else
+                latex_title = base;
+            end
+        end
+        
+        set(gca, 'FontSize', 8);
+        title(latex_title, 'Interpreter', 'tex');
+
+        if plot_index == 1
+            legend('ZLB (OccBin)', 'Non-ZLB', 'Location', 'northeast');
+        end
+        
+        % 厚生値のグラフ内表示
+        if strcmp(var_name, 'utility_H_with_delta')
+            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
+            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            y_pos_bottom = ylim_vals(1) + 0.05 * (ylim_vals(2) - ylim_vals(1));
+            text_H_pie_str = sprintf('Welfare (with Delta, ZLB): %.4f', welfare_H_with_delta_pie);
+            text_H_lin_str = sprintf('Welfare (with Delta, Non-ZLB): %.4f', welfare_H_with_delta_lin);
+            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_top, text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+        elseif strcmp(var_name, 'utility_H_without_delta')
+            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
+            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            y_pos_bottom = ylim_vals(1) + 0.05 * (ylim_vals(2) - ylim_vals(1));
+            text_H_pie_str = sprintf('Welfare (without Delta, ZLB): %.4f', welfare_H_without_delta_pie);
+            text_H_lin_str = sprintf('Welfare (without Delta, Non-ZLB): %.4f', welfare_H_without_delta_lin);
+            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_top, text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+        end
+    end
+    
+    if i == 1
+        print(h, output_filename, '-dpdf');
+    else
+        print(h, output_filename, '-dpdf', '-append');
+    end
+    close(h);
+end
+
+%% --- [6] データの保存 (.mat) ---
+fprintf('全てのシミュレーション結果を.matファイルに保存中...\n');
+
+vars_to_save = {};
+for i = 1:length(var_list)
+    vn = var_list{i};
+    if ~strncmp(vn, 'eps_', 4) 
+        if exist([vn, '_pie'], 'var')
+            vars_to_save{end+1} = [vn, '_pie']; 
+            vars_to_save{end+1} = [vn, '_lin']; 
+        end
+    end
+end
+
+% 厚生変数の追加
+w_list = {'welfare_H_with_delta_pie','welfare_H_with_delta_lin','welfare_F_with_delta_pie','welfare_F_with_delta_lin',...
+          'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin'};
+vars_to_save = [vars_to_save, w_list];
+
+% 成果物フォルダ直下に保存
+full_save_path = fullfile(output_root_folder, 'data_for_plotting.mat');
+save(full_save_path, vars_to_save{:});
+fprintf('全てのデータが "%s" に保存されました。\n', full_save_path);
+
+%% --- [7] CSVへの書き出し ---
+fprintf('CSVファイルへの書き出しを開始します...\n');
+try
+    S = load(full_save_path);
+    header = {}; data_matrix = []; 
+    for i = 1:length(vars_to_save)
+        vn = vars_to_save{i};
+        if ~strncmp(vn, 'welfare_', 8)
+            if isfield(S, vn) && isvector(S.(vn)) && length(S.(vn)) == nperiods
+                header{end+1} = vn;
+                data_matrix = [data_matrix, S.(vn)(:)]; 
+            end
+        end
+    end
+    
+    csv_save_path = fullfile(output_root_folder, 'data_for_plotting.csv');
+    fid = fopen(csv_save_path, 'w');
+    if fid == -1, error('CSVファイルを開けませんでした: %s', csv_save_path); end
+    fprintf(fid, '%s', header{1}); 
+    for i = 2:length(header), fprintf(fid, ',%s', header{i}); end
+    fprintf(fid, '\n'); 
+    fclose(fid);
+    dlmwrite(csv_save_path, data_matrix, '-append', 'delimiter', ',', 'precision', '%.8g');
+    
+    % --- [8] 厚生データのテキスト保存 ---
+    scalar_save_path = fullfile(output_root_folder, 'data_for_plotting_welfare.txt');
+    fid_scalar = fopen(scalar_save_path, 'w');
+    if fid_scalar ~= -1
+        fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 2 Sticky - Scenario: %s):\n\n', shock_scenario);
+        fprintf(fid_scalar, '--- with Price Dispersion Cost (Delta included) ---\n');
+        fprintf(fid_scalar, 'welfare_H_with_delta_pie (ZLB): %.8f\n', S.welfare_H_with_delta_pie);
+        fprintf(fid_scalar, 'welfare_H_with_delta_lin (Non-ZLB): %.8f\n', S.welfare_H_with_delta_lin);
+        fprintf(fid_scalar, 'welfare_F_with_delta_pie (ZLB): %.8f\n', S.welfare_F_with_delta_pie);
+        fprintf(fid_scalar, 'welfare_F_with_delta_lin (Non-ZLB): %.8f\n', S.welfare_F_with_delta_lin);
+        fprintf(fid_scalar, '\n');
+        fprintf(fid_scalar, '--- without Price Dispersion Cost (Delta = 0) ---\n');
+        fprintf(fid_scalar, 'welfare_H_without_delta_pie (ZLB): %.8f\n', S.welfare_H_without_delta_pie);
+        fprintf(fid_scalar, 'welfare_H_without_delta_lin (Non-ZLB): %.8f\n', S.welfare_H_without_delta_lin);
+        fprintf(fid_scalar, 'welfare_F_without_delta_pie (ZLB): %.8f\n', S.welfare_F_without_delta_pie);
+        fprintf(fid_scalar, 'welfare_F_without_delta_lin (Non-ZLB): %.8f\n', S.welfare_F_without_delta_lin);
+        fclose(fid_scalar);
+
+        % =========================================================
+        % projects フォルダ直下の data_for_plotting フォルダへコピー
+        % =========================================================
+        % polt_stage2_main.m の場所 (src/stage2) から projects 階層まで遡る
+        src_dir = fileparts(mpath);          % .../polt_project/src
+        proj_dir = fileparts(src_dir);       % .../polt_project
+        projects_root = fileparts(proj_dir); % .../projects
+        
+        central_data_folder = fullfile(projects_root, 'data_for_plotting');
+        if ~exist(central_data_folder, 'dir')
+            mkdir(central_data_folder);
+        end
+        
+        % プロジェクト名からポリシーキーを自動抽出 (例: polt_project -> polt)
+        [~, proj_folder_name] = fileparts(proj_dir);
+        policy_key = strrep(proj_folder_name, '_project', '');
+        
+        % コピー先のファイル名を生成 (例: data_for_plotting_polt_beta_shock.csv)
+        dest_csv_name = sprintf('data_for_plotting_%s_%s.csv', policy_key, shock_folder);
+        dest_txt_name = sprintf('data_for_plotting_welfare_%s_%s.txt', policy_key, shock_folder);
+        
+        % 該当フォルダへファイルをコピー
+        copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));
+        copyfile(scalar_save_path, fullfile(central_data_folder, dest_txt_name));
+        
+        fprintf('一覧用フォルダにコピーしました: %s, %s\n', dest_csv_name, dest_txt_name);
+        % =========================================================
+    end
+catch ME
+    fprintf('CSV書き出しエラー: %s\n', ME.message);
+end
+
+fprintf('DONE. Stage 2 [%s] の処理が完了しました。フォルダ: %s\n', shock_scenario, output_root_folder);
+
+================================================================================
+FILE: src\stage1\polt_stage1_model.mod
+================================================================================
+
+// src/stage1/polt_stage1_model.mod
+
+// Stage 1 専用の宣言ファイルを読み込む
+@#include "polt_stage1_model_declarations.inc"
+
+model;
+    // 上の階層にある共通数式ファイルを読み込む
+    @#include "../polt_model_equations_common.inc"
+    
+    // Stage 1 では累積ギャップ（履歴効果）は計算に使用しないためゼロ固定
+    gamma_H = 0;
+
+    // --- V. 金融政策ルール ---
+    // 外国は生産者物価インフレ目標 (IT PPI)
+    i_F = i_F_ss + phi_pi_F*(pi_F_star - pi_F_star_ss) + eps_i_F;
+    
+    // 自国は生産者物価インフレ目標 (IT PPI)
+    i_H_notional = i_H_ss + phi_pi_H*(pi_H - pi_H_ss) + eps_i_H;
+    i_H = i_H_notional;
+end;
+
+steady_state_model;
+    beta_H = beta_H_ss;
+    beta_F = beta_F_ss;
+    a_H = a_H_ss;
+    a_F = a_F_ss;
+    tau_H = tau_H_ss;
+    tau_F = tau_F_ss;
+    gamma_H = 0;
+    
+    y_H = y_H_ss;
+    y_F = y_F_ss;
+    pi_H = pi_H_ss;
+    pi_F_star = pi_F_star_ss;
+    
+    // 消費者物価インフレ率の定常状態 (統一ルール pi_F_W_star に準拠)
+    pi_H_W = pi_H_W_ss;
+    pi_F_W_star = pi_F_W_star_ss;
+
+    i_H = i_H_ss;
+    i_F = i_F_ss;
+    i_H_notional = i_H_ss;
+    b_H = 0;
+    
+    e_slash_star = 1;
+
+    l_H = y_H / a_H;
+    l_F = y_F / a_F;
+    
+    // 命名規則に従い修正: star_bar の順序に統一
+    p_H_bar = 1;
+    p_F_star_bar = 1;
+
+    p_F_bar = e_slash_star * p_F_star_bar;
+    p_H_star_bar = p_H_bar / e_slash_star;
+
+    p_H = (N^(1/(1-theta_H)))*p_H_bar;
+    p_F_star = (M^(1/(1-theta_F)))*p_F_star_bar;
+    
+    // 理論的な消費者物価指数（生計費指数）
+    p_H_W = p_H^alpha_H * (e_slash_star*p_F_star)^(1-alpha_H);
+    p_F_W_star = p_F_star^alpha_F * (p_H/e_slash_star)^(1-alpha_F);
+
+    // 【追加】統計ベースの消費者物価指数 (値札ベース) の定常状態
+    p_H_W_bar = p_H_bar^alpha_H * (e_slash_star*p_F_star_bar)^(1-alpha_H);
+    p_F_W_star_bar = p_F_star_bar^alpha_F * (p_H_bar/e_slash_star)^(1-alpha_F);
+    
+    c_H_W = (p_H/p_H_W)*y_H;
+    c_F_W = (p_F_star/p_F_W_star)*y_F;
+    c_H_H = alpha_H * (p_H_W / p_H) * c_H_W;
+    
+    c_H_F = (1-alpha_H) * (p_H_W / (e_slash_star*p_F_star)) * c_H_W;
+    c_F_F = alpha_F * (p_F_W_star / p_F_star) * c_F_W;
+    c_F_H = (1-alpha_F) * (p_F_W_star / (p_H/e_slash_star)) * c_F_W;
+    
+    lambda_H = 1 / (p_H_W * c_H_W);
+    lambda_F_slash_star = 1 / (p_F_W_star * c_F_W);
+    t_H = tau_H * p_H * y_H;
+    t_F = tau_F * p_F_star * y_F;
+    
+    // 命名規則に従い修正: star_tilde の順序に統一
+    p_H_tilde = p_H_bar;
+    p_F_star_tilde = p_F_star_bar;
+    
+    v_H = (phi_H * N^2 * (y_H/a_H)^2 * p_H^(2*theta_H)) / (1 - beta_H*xi_H);
+    w_H = (lambda_H * N * (1-tau_H) * y_H * p_H^(theta_H)) / (1 - beta_H*xi_H);
+    v_F = (phi_F * M^2 * (y_F/a_F)^2 * p_F_star^(2*theta_F)) / (1 - beta_F*xi_F);
+    w_F = (lambda_F_slash_star * M * (1-tau_F) * y_F * p_F_star^(theta_F)) / (1 - beta_F*xi_F);
+    
+    Delta_H = 1;
+    Delta_F = 1;
+end;
+
+// ★ 伸縮的価格モデルとするため、価格硬直性パラメータを一時的にゼロとして上書きする
+xi_H = 0;
+xi_F = 0;
+
+check;
+steady;
+// デフォルトはorder=2だが、occbinはorder=1しか使用しない
+stoch_simul(order=1, irf=0);
+
+================================================================================
+FILE: src\stage1\polt_stage1_model_declarations.inc
+================================================================================
+
+// src/stage1/polt_stage1_model_declarations.inc
+
+// --- 1. 内生変数の宣言 ---
+var y_H l_H c_H_W c_H_H c_H_F t_H p_H_bar p_F_bar p_H_W p_H_W_bar pi_H pi_H_W lambda_H b_H v_H w_H p_H_tilde beta_H a_H tau_H p_H gamma_H Delta_H
+    y_F l_F c_F_W c_F_F c_F_H t_F p_F_star_bar p_H_star_bar p_F_W_star p_F_W_star_bar pi_F_star pi_F_W_star lambda_F_slash_star v_F w_F p_F_star_tilde beta_F a_F tau_F p_F_star Delta_F
+    e_slash_star
+    i_H i_F i_H_notional;
+
+// --- 2. 外生ショック変数の宣言 ---
+varexo eps_beta_H eps_a_H eps_tau_H
+       eps_beta_F eps_a_F eps_tau_F eps_i_F
+       eps_i_H; // Stage1用 (テイラー・ルール等へのショック)
+
+// --- 3. パラメータの宣言 ---
+parameters theta_H theta_F phi_H phi_F alpha_H alpha_F N M
+           xi_H xi_F
+           beta_H_ss rho_beta_H
+           beta_F_ss rho_beta_F
+           a_H_ss rho_a_H
+           a_F_ss rho_a_F
+           tau_H_ss rho_tau_H
+           tau_F_ss rho_tau_F
+           phi_pi_F phi_pi_H    // Stage1用の政策反応係数
+           y_H_ss pi_H_ss i_H_ss pi_H_W_ss
+           y_F_ss pi_F_star_ss i_F_ss pi_F_W_star_ss;
+
+// --- 4. パラメータのキャリブレーション ---
+beta_H_ss  = 0.995;
+rho_beta_H = 0.977;
+beta_F_ss  = 0.995;
+rho_beta_F = 0.9;
+theta_H    = 11.0;
+theta_F    = 11.0;
+tau_H_ss    = 0.2;
+rho_tau_H  = 0.9;
+tau_F_ss    = 0.2;
+rho_tau_F  = 0.9;
+phi_H      = 8/11;
+phi_F      = 8/11;
+a_H_ss     = 1.0;
+rho_a_H    = 0.95;
+a_F_ss     = 1.0;
+rho_a_F    = 0.95;
+alpha_H    = 0.85;
+alpha_F    = 0.85;
+xi_H       = 0.99; 
+xi_F       = 0.75;
+N          = 1.0;
+M          = 1.0;
+
+// 政策パラメータ
+phi_pi_F   = 1.5;
+phi_pi_H   = 1.5;
+
+// 定常状態の値
+pi_H_ss = 1.0;
+pi_F_star_ss = 1.0;
+pi_H_W_ss = 1.0;
+pi_F_W_star_ss = 1.0;
+i_H_ss = 1/beta_H_ss * pi_H_ss - 1;
+i_F_ss = 1/beta_F_ss * pi_F_star_ss - 1;
+y_H_ss = 1.0;
+y_F_ss = 1.0;
+
+================================================================================
+FILE: src\stage1\polt_stage1_solve_core.m
+================================================================================
+
+function [welfares, irf_results, Mbase_, oobase_] = polt_stage1_solve_core(phi_gap_H_value, phi_level_H_value, settings)
+
+% src/stage1/polt_stage1_solve_core.m
+% =========================================================================
+% Stage 1: Flexible Price Model Simulation (Linear)
+%
+% この関数は、伸縮価格モデル（Stage 1）を実行し、
+% 自然水準（Potential Output）のパスと厚生（Welfare）を計算します。
+% 実行時に一時的に src/stage1/ フォルダに移動し、終了時に呼び出し元に戻ります。
+% =========================================================================
+global M_ oo_ options_;
+
+% --- [1] ディレクトリ管理 ---
+% 呼び出し元のディレクトリ（src フォルダ）のパスを保存
+root_dir = pwd;
+
+% この関数ファイルが存在する場所（project_polt/src/stage1/）のパスを取得
+mpath = fileparts(mfilename('fullpath'));
+
+% 自分自身の場所（stage1/）に移動する
+% これにより、Dynare のビルドファイルが stage1 内に生成され、ルートを汚しません
+cd(mpath);
+
+% --- [2] パラメータの橋渡し ---
+% .mod ファイル内の Steady State 計算や式で使用するパラメータをベースワークスペースへ
+assignin('base', 'phi_gap_H_value', phi_gap_H_value);
+assignin('base', 'phi_level_H_value', phi_level_H_value);
+
+% --- [3] モデルの初期化と実行 ---
+% settings.modnam = 'polt_stage1_model' を参照
+% noclearall: 既存の変数を消さずに実行 / nolog: コマンドウィンドウへのログを抑制
+eval(['dynare ', settings.modnam, ' noclearall nolog']);
+
+% シミュレーション設定の展開
+nperiods = settings.nperiods;
+irfshock = settings.irfshock;
+shock_magnitude = settings.shockssequence;
+
+% --- [4] ショック行列の作成 ---
+% 全期間ゼロで初期化されたショック行列を作成
+ex_flex = zeros(nperiods, M_.exo_nbr);
+
+% 指定されたショック名のインデックスを特定
+shock_idx = strmatch(irfshock, M_.exo_names, 'exact');
+if isempty(shock_idx)
+    error('指定されたショック変数 %s がモデル内に見つかりません。', irfshock);
+end
+
+% 第1期（t=1）にショック値（大きさ）を代入
+% shockssequenceは列ベクトルのため、1行目のみ抽出
+if length(shock_magnitude) > 1
+    ex_flex(1:nperiods, shock_idx) = shock_magnitude;
+else
+    ex_flex(1, shock_idx) = shock_magnitude;
+end
+
+% --- [5] シミュレーション実行 ---
+% Stage 1 は伸縮価格モデルのため、1次近似（Linear）の simult_ を使用します
+fprintf('Stage 1 (Flexible Price) シミュレーションを実行中... シナリオ: %s\n', irfshock);
+
+y0 = oo_.dr.ys; % 定常状態の値を取得
+dr = oo_.dr;   % 決定ルール（Decision Rules）
+iorder = 1;    % 1次近似（Linear approximation）
+
+% シミュレーション実行（1期からnperiods期まで）
+y_flex_sim = simult_(M_, options_, y0, dr, ex_flex, iorder);
+
+% --- [6] 呼び出し元のディレクトリ（src）に戻る ---
+cd(root_dir);
+
+% --- [7] 結果の展開 (偏差として取得) ---
+% Dynareの生出力 y_flex_sim から定常状態 y0 を引き、偏差データを生成
+for i=1:M_.endo_nbr
+    % _pie 命名規則 (偏差データ)
+    eval([M_.endo_names{i,:},'_pie = y_flex_sim(i, 2:end)'' - y0(i);']);
+    % _lin も同一値として作成（Stage 1 では比較対象がないため）
+    eval([M_.endo_names{i,:},'_lin = y_flex_sim(i, 2:end)'' - y0(i);']);
+end
+
+% グラフ描画および Stage 2 への受け渡し用としてマッピング
+% Stage 1 の y_H (伸縮価格下) こそが Stage 2 における Potential Output となる
+y_H_potential_pie = y_H_pie;
+y_H_potential_lin = y_H_lin;
+
+%% --- [8] パラメータと定常状態の一括取得 ---
+% 厚生計算や補助変数の生成に必要な定数値をモデルから抽出
+N_val         = M_.params(strcmp('N', M_.param_names));
+M_val         = M_.params(strcmp('M', M_.param_names));
+phi_H_val     = M_.params(strcmp('phi_H', M_.param_names));
+phi_F_val     = M_.params(strcmp('phi_F', M_.param_names));
+beta_H_ss_val = M_.params(strcmp('beta_H_ss', M_.param_names));
+beta_F_ss_val = M_.params(strcmp('beta_F_ss', M_.param_names));
+
+% 各変数の定常状態水準値
+e_slash_star_ss_val = y0(strcmp('e_slash_star', M_.endo_names));
+c_H_W_ss_val         = y0(strcmp('c_H_W', M_.endo_names));
+l_H_ss_val           = y0(strcmp('l_H', M_.endo_names));
+c_F_W_ss_val         = y0(strcmp('c_F_W', M_.endo_names));
+l_F_ss_val           = y0(strcmp('l_F', M_.endo_names));
+b_H_ss_val           = y0(strcmp('b_H', M_.endo_names)); 
+
+%% --- [9] 追加変数の計算 ---
+% 水準（Level）データの復元（偏差＋定常状態）
+e_slash_star_level_pie = e_slash_star_ss_val + e_slash_star_pie;
+e_slash_star_level_lin = e_slash_star_ss_val + e_slash_star_lin;
+
+b_H_level_pie = b_H_ss_val + b_H_pie;
+b_H_level_lin = b_H_ss_val + b_H_lin;
+
+% 為替レートと Home 債券残高から Foreign 債券残高を計算
+b_F_star_level_pie = - (N_val/M_val) * (b_H_level_pie ./ e_slash_star_level_pie);
+b_F_star_level_lin = - (N_val/M_val) * (b_H_level_lin ./ e_slash_star_level_lin);
+
+b_F_star_ss = - (N_val/M_val) * (b_H_ss_val / e_slash_star_ss_val);
+
+% 再度、偏差データとしての b_F_star を作成
+b_F_star_pie = b_F_star_level_pie - b_F_star_ss;
+b_F_star_lin = b_F_star_level_lin - b_F_star_ss;
+
+%% --- [10] 効用 (Utility) と厚生 (Welfare) の計算 ---
+
+% 1. 各国パラメータの準備
+theta_H_val = M_.params(strcmp('theta_H', M_.param_names));
+xi_H_val    = M_.params(strcmp('xi_H', M_.param_names));
+theta_F_val = M_.params(strcmp('theta_F', M_.param_names));
+xi_F_val    = M_.params(strcmp('xi_F', M_.param_names));
+
+% 2. 8パターン（Home/Foreign × Pie/Lin × With/Without Delta）の初期化
+Delta_H_pie = zeros(nperiods, 1); Delta_F_pie = zeros(nperiods, 1);
+Delta_H_lin = zeros(nperiods, 1); Delta_F_lin = zeros(nperiods, 1);
+
+utility_H_with_delta_pie = zeros(nperiods, 1); utility_F_with_delta_pie = zeros(nperiods, 1);
+utility_H_without_delta_pie = zeros(nperiods, 1); utility_F_without_delta_pie = zeros(nperiods, 1);
+utility_H_with_delta_lin = zeros(nperiods, 1); utility_F_with_delta_lin = zeros(nperiods, 1);
+utility_H_without_delta_lin = zeros(nperiods, 1); utility_F_without_delta_lin = zeros(nperiods, 1);
+
+% 伸縮価格モデル（Stage 1）ではインフレ変数がゼロになる場合があるため初期化
+if ~exist('pi_H_pie','var'), pi_H_pie = zeros(nperiods,1); end
+if ~exist('pi_F_star_pie','var'), pi_F_star_pie = zeros(nperiods,1); end
+if ~exist('pi_H_lin','var'), pi_H_lin = zeros(nperiods,1); end
+if ~exist('pi_F_star_lin','var'), pi_F_star_lin = zeros(nperiods,1); end
+
+% 3. 時系列ループ計算
+for t = 1:nperiods
+    if t == 1
+        DH_lag_p = 0; DF_lag_p = 0; DH_lag_l = 0; DF_lag_l = 0;
+    else
+        DH_lag_p = Delta_H_pie(t-1); DF_lag_p = Delta_F_pie(t-1);
+        DH_lag_l = Delta_H_lin(t-1); DF_lag_l = Delta_F_lin(t-1);
+    end
+    
+    % 価格分散項 Delta (Stage 1 では xi=0 のため常に 0 となるが、定義式を記述)
+    Delta_H_pie(t) = xi_H_val * DH_lag_p + 0.5 * (theta_H_val * xi_H_val / (1 - xi_H_val)) * (pi_H_pie(t)^2);
+    Delta_F_pie(t) = xi_F_val * DF_lag_p + 0.5 * (theta_F_val * xi_F_val / (1 - xi_F_val)) * (pi_F_star_pie(t)^2);
+    Delta_H_lin(t) = xi_H_val * DH_lag_l + 0.5 * (theta_H_val * xi_H_val / (1 - xi_H_val)) * (pi_H_lin(t)^2);
+    Delta_F_lin(t) = xi_F_val * DF_lag_l + 0.5 * (theta_F_val * xi_F_val / (1 - xi_F_val)) * (pi_F_star_lin(t)^2);
+
+    % --- パターンA: Deltaあり (with_delta) ---
+    utility_H_with_delta_pie(t) = c_H_W_pie(t) - phi_H_val*(l_H_ss_val^2)*(y_H_pie(t)-a_H_pie(t)) - phi_H_val*(l_H_ss_val^2)*Delta_H_pie(t);
+    utility_F_with_delta_pie(t) = c_F_W_pie(t) - phi_F_val*(l_F_ss_val^2)*(y_F_pie(t)-a_F_pie(t)) - phi_F_val*(l_F_ss_val^2)*Delta_F_pie(t);
+    utility_H_with_delta_lin(t) = c_H_W_lin(t) - phi_H_val*(l_H_ss_val^2)*(y_H_lin(t)-a_H_lin(t)) - phi_H_val*(l_H_ss_val^2)*Delta_H_lin(t);
+    utility_F_with_delta_lin(t) = c_F_W_lin(t) - phi_F_val*(l_F_ss_val^2)*(y_F_lin(t)-a_F_lin(t)) - phi_F_val*(l_F_ss_val^2)*Delta_F_lin(t);
+
+    % --- パターンB: Deltaなし (without_delta) ---
+    utility_H_without_delta_pie(t) = c_H_W_pie(t) - phi_H_val*(l_H_ss_val^2)*(y_H_pie(t)-a_H_pie(t));
+    utility_F_without_delta_pie(t) = c_F_W_pie(t) - phi_F_val*(l_F_ss_val^2)*(y_F_pie(t)-a_F_pie(t));
+    utility_H_without_delta_lin(t) = c_H_W_lin(t) - phi_H_val*(l_H_ss_val^2)*(y_H_lin(t)-a_H_lin(t));
+    utility_F_without_delta_lin(t) = c_F_W_lin(t) - phi_F_val*(l_F_ss_val^2)*(y_F_lin(t)-a_F_lin(t));
+end
+
+% 4. 割引現在価値の合計（生涯厚生 Welfare）
+disc_H = beta_H_ss_val.^(0:nperiods-1)'; 
+disc_F = beta_F_ss_val.^(0:nperiods-1)';
+
+welfares.welfare_H_with_delta_pie = sum(disc_H .* utility_H_with_delta_pie);
+welfares.welfare_H_with_delta_lin = sum(disc_H .* utility_H_with_delta_lin);
+welfares.welfare_H_without_delta_pie = sum(disc_H .* utility_H_without_delta_pie);
+welfares.welfare_H_without_delta_lin = sum(disc_H .* utility_H_without_delta_lin);
+
+welfares.welfare_F_with_delta_pie = sum(disc_F .* utility_F_with_delta_pie);
+welfares.welfare_F_with_delta_lin = sum(disc_F .* utility_F_with_delta_lin);
+welfares.welfare_F_without_delta_pie = sum(disc_F .* utility_F_without_delta_pie);
+welfares.welfare_F_without_delta_lin = sum(disc_F .* utility_F_without_delta_lin);
+
+% 全世界合計（Global Welfare）
+welfares.welfare_SUM_with_delta_pie = welfares.welfare_H_with_delta_pie + welfares.welfare_F_with_delta_pie;
+
+%% --- [11] その他の連結変数などの生成 ---
+% 為替レートと他変数との積・商の関係にある変数を対数近似（和・差）で計算
+lambda_H_slash_star_pie = e_slash_star_pie + lambda_H_pie; 
+lambda_H_slash_star_lin = e_slash_star_lin + lambda_H_lin;
+lambda_F_pie = lambda_H_slash_star_pie - e_slash_star_pie; 
+lambda_F_lin = lambda_F_slash_star_lin - e_slash_star_lin;
+
+% --- 【新規追加: 変数名を積の形に変更】 ---
+p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie; 
+p_H_bar_y_H_lin = p_H_bar_lin + y_H_lin;
+p_H_W_c_H_W_pie = p_H_W_pie + c_H_W_pie;
+p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin; 
+
+% --- 【新規追加: 変数名を商の形に変更】 ---
+p_H_W_slash_p_H_pie = p_H_W_pie - p_H_pie;
+p_H_W_slash_p_H_lin = p_H_W_lin - p_H_lin;
+
+% --- [12] 戻り値の整理 (Packaging) ---
+% who を使用してワークスペース上の関連変数を一括で構造体にパッキング
+vars = [who('*_pie'); who('*_lin'); who('Delta_H_*'); who('Delta_F_*'); who('utility_*')];
+for k = 1:length(vars)
+    irf_results.(vars{k}) = eval(vars{k});
+end
+
+% Dynare内部構造体の保持
+Mbase_ = M_;
+oobase_ = oo_;
+
+end
+
+================================================================================
+FILE: src\stage2\polt_stage2_model.mod
+================================================================================
+
+// src/stage2/polt_stage2_model.mod
+
+// Stage 2 専用の宣言ファイルを読み込む
+@#include "polt_stage2_model_declarations.inc"
+
+model;
+    // 共通数式ファイルを読み込む
+    @#include "../polt_model_equations_common.inc"
+
+    // --- IV. 潜在生産とギャップの累積 ---
+    // 外部からは1期目の初期ショック (eps_y_H_potential) のみを与え、
+    // モデル内部のAR(1)プロセスによって完全な事前予測パスを自己生成する
+    y_H_potential_gap = rho_potential * y_H_potential_gap(-1) + eps_y_H_potential;
+    y_H_potential = y_H_ss + y_H_potential_gap;
+
+    // 過去の生産ギャップの累積 (履歴効果 / コミットメント項)
+    gamma_H = gamma_H(-1) + (log(y_H(-1)) - log(y_H_potential(-1)));
+
+    // --- V. 金融政策ルール ---
+    // 外国は生産者物価インフレ目標 (IT PPI)
+    i_F = i_F_ss + phi_pi_F*(pi_F_star - pi_F_star_ss) + eps_i_F;
+
+    // 自国は潜在生産水準目標 (POLT)
+    i_H_notional = i_H_ss + phi_gap_H*(log(y_H) - log(y_H_potential)) + phi_level_H*gamma_H;
+    i_H = i_H_notional;
+end;
+
+steady_state_model;
+    beta_H = beta_H_ss; beta_F = beta_F_ss;
+    a_H = a_H_ss; a_F = a_F_ss;
+    tau_H = tau_H_ss; tau_F = tau_F_ss;
+    gamma_H = 0;
+    y_H_potential_gap = 0;
+    y_H = y_H_ss; y_F = y_F_ss;
+    y_H_potential = y_H_ss;
+    pi_H = pi_H_ss; pi_F_star = pi_F_star_ss;
+    
+    // 消費者物価インフレ率の定常状態
+    pi_H_W = pi_H_W_ss;
+    pi_F_W_star = pi_F_W_star_ss;
+
+    i_H = i_H_ss; i_F = i_F_ss; i_H_notional = i_H_ss;
+    b_H = 0;
+    
+    e_slash_star = 1;
+    
+    l_H = y_H / a_H; l_F = y_F / a_F;
+
+    // 命名規則に従い修正: star_bar の順序に統一
+    p_H_bar = 1; p_F_star_bar = 1; 
+    
+    p_F_bar = e_slash_star * p_F_star_bar; 
+    p_H_star_bar = p_H_bar / e_slash_star;
+    
+    p_H = (N^(1/(1-theta_H)))*p_H_bar; 
+    p_F_star = (M^(1/(1-theta_F)))*p_F_star_bar;
+    
+    // 理論的な消費者物価指数（生計費指数）
+    p_H_W = p_H^alpha_H * (e_slash_star*p_F_star)^(1-alpha_H);
+    p_F_W_star = p_F_star^alpha_F * (p_H/e_slash_star)^(1-alpha_F);
+
+    // 【重要】統計ベースの消費者物価指数 (値札ベース) の定常状態を追加
+    p_H_W_bar = p_H_bar^alpha_H * (e_slash_star*p_F_star_bar)^(1-alpha_H);
+    p_F_W_star_bar = p_F_star_bar^alpha_F * (p_H_bar/e_slash_star)^(1-alpha_F);
+    
+    c_H_W = (p_H/p_H_W)*y_H; c_F_W = (p_F_star/p_F_W_star)*y_F;
+    c_H_H = alpha_H * (p_H_W / p_H) * c_H_W; 
+    
+    c_H_F = (1-alpha_H) * (p_H_W / (e_slash_star*p_F_star)) * c_H_W;
+    c_F_F = alpha_F * (p_F_W_star / p_F_star) * c_F_W; 
+    c_F_H = (1-alpha_F) * (p_F_W_star / (p_H/e_slash_star)) * c_F_W;
+    
+    lambda_H = 1 / (p_H_W * c_H_W); lambda_F_slash_star = 1 / (p_F_W_star * c_F_W);
+    t_H = tau_H * p_H * y_H; t_F = tau_F * p_F_star * y_F;
+
+    // 命名規則に従い修正: star_tilde の順序に統一
+    p_H_tilde = p_H_bar; 
+    p_F_star_tilde = p_F_star_bar;
+    
+    v_H = (phi_H * N^2 * (y_H/a_H)^2 * p_H^(2*theta_H)) / (1 - beta_H*xi_H);
+    w_H = (lambda_H * N * (1-tau_H) * y_H * p_H^(theta_H)) / (1 - beta_H*xi_H);
+    v_F = (phi_F * M^2 * (y_F/a_F)^2 * p_F_star^(2*theta_F)) / (1 - beta_F*xi_F);
+    w_F = (lambda_F_slash_star * M * (1-tau_F) * y_F * p_F_star^(theta_F)) / (1 - beta_F*xi_F);
+    
+    Delta_H = 1; Delta_F = 1;
+end;
+
+// ★ 粘着価格パラメータの設定 (Stage 1 と異なり価格硬直性を有効にする)
+xi_H = 0.99;
+xi_F = 0.75;
+
+check;
+steady;
+// デフォルトはorder=2だが、occbinはorder=1しか使用しない
+stoch_simul(order=1, irf=0);
+
+================================================================================
+FILE: src\stage2\polt_stage2_model_declarations.inc
+================================================================================
+
+// src/stage2/polt_stage2_model_declarations.inc
+
+// --- 1. 内生変数の宣言 ---
+var y_H l_H c_H_W c_H_H c_H_F t_H p_H_bar p_F_bar p_H_W p_H_W_bar pi_H pi_H_W lambda_H b_H v_H w_H p_H_tilde beta_H a_H tau_H p_H gamma_H Delta_H
+    y_F l_F c_F_W c_F_F c_F_H t_F p_F_star_bar p_H_star_bar p_F_W_star p_F_W_star_bar pi_F_star pi_F_W_star lambda_F_slash_star v_F w_F p_F_star_tilde beta_F a_F tau_F p_F_star Delta_F
+    e_slash_star
+    i_H i_F i_H_notional
+    y_H_potential y_H_potential_gap; // Stage2用: Stage1から引き継ぐ潜在産出量のパス
+
+// --- 2. 外生ショック変数の宣言 ---
+varexo eps_beta_H eps_a_H eps_tau_H
+       eps_beta_F eps_a_F eps_tau_F eps_i_F
+       eps_y_H_potential;   // Stage2用 (Stage1の産出量データを外部から投入する)
+
+// --- 3. パラメータの宣言 ---
+parameters theta_H theta_F phi_H phi_F alpha_H alpha_F N M
+           xi_H xi_F
+           beta_H_ss rho_beta_H
+           beta_F_ss rho_beta_F
+           a_H_ss rho_a_H
+           a_F_ss rho_a_F
+           tau_H_ss rho_tau_H
+           tau_F_ss rho_tau_F
+           phi_gap_H phi_level_H rho_potential // Stage2用 (POLT反応係数)
+           phi_pi_F              // 外国 PPI インフレ目標用
+           y_H_ss pi_H_ss i_H_ss pi_H_W_ss
+           y_F_ss pi_F_star_ss i_F_ss pi_F_W_star_ss;
+
+// --- 4. パラメータのキャリブレーション ---
+beta_H_ss  = 0.995;
+rho_beta_H = 0.977;
+beta_F_ss  = 0.995;
+rho_beta_F = 0.9;
+theta_H    = 11.0;
+theta_F    = 11.0;
+tau_H_ss    = 0.2;
+rho_tau_H  = 0.9;
+tau_F_ss    = 0.2;
+rho_tau_F  = 0.9;
+phi_H      = 8/11;
+phi_F      = 8/11;
+a_H_ss     = 1.0;
+rho_a_H    = 0.95;
+a_F_ss     = 1.0;
+rho_a_F    = 0.95;
+alpha_H    = 0.85;
+alpha_F    = 0.85;
+xi_H       = 0.99; 
+xi_F       = 0.75;
+N          = 1.0;
+M          = 1.0;
+
+// 外国の政策パラメータ (PPI-IT)
+phi_pi_F   = 1.5;
+
+// 自国(H)の POLT (物価目標水準目標) パラメータ
+// MATLAB の solve_core から assignin された値を読み込む
+phi_gap_H   = phi_gap_H_value;
+phi_level_H = phi_level_H_value;
+rho_potential = rho_potential_value;
+
+// 定常状態の値
+pi_H_ss = 1.0;
+pi_F_star_ss = 1.0;
+pi_H_W_ss = 1.0;
+pi_F_W_star_ss = 1.0;
+i_H_ss = 1/beta_H_ss * pi_H_ss - 1;
+i_F_ss = 1/beta_F_ss * pi_F_star_ss - 1;
+y_H_ss = 1.0;
+y_F_ss = 1.0;
+
+================================================================================
+FILE: src\stage2\polt_stage2_model_zlb.mod
+================================================================================
+
+// src/stage2/polt_stage2_model_zlb.mod
+
+// Stage 2 専用の宣言ファイルを読み込む
+@#include "polt_stage2_model_declarations.inc"
+
+model;
+    // 共通数式ファイルを読み込む
+    @#include "../polt_model_equations_common.inc"
+    
+    // --- IV. ショックと追加のプロセス ---
+    // 外部からは1期目の初期ショック (eps_y_H_potential) のみを与え、
+    // モデル内部のAR(1)プロセスによって完全な事前予測パスを自己生成する
+    y_H_potential_gap = rho_potential * y_H_potential_gap(-1) + eps_y_H_potential;
+    y_H_potential = y_H_ss + y_H_potential_gap;
+
+    // 過去の産出量ギャップの累積 (履歴効果 / Make-up コミットメント)
+    // 実際の産出量 (y_H) と 目標となる自然産出量 (y_H_potential) の乖離を蓄積
+    gamma_H = gamma_H(-1) + (log(y_H(-1)) - log(y_H_potential(-1)));
+
+    // --- V. 金融政策ルール ---
+    // 外国は生産者物価インフレ目標 (IT PPI)
+    i_F = i_F_ss + phi_pi_F*(pi_F_star - pi_F_star_ss) + eps_i_F;
+    
+    // 自国は潜在生産水準目標 (POLT) 
+    i_H_notional = i_H_ss + phi_gap_H*(log(y_H)-log(y_H_potential)) + phi_level_H*gamma_H;
+    
+    // ZLB時は、実際の金利(i_H)をゼロに固定
+    i_H = 0;
+end;
+
+================================================================================
+FILE: src\stage2\polt_stage2_solve_core.m
+================================================================================
+
+function [welfares, irf_results, Mbase_, oobase_] = polt_stage2_solve_core(phi_gap_H_value, phi_level_H_value, settings)
+
+% src/stage2/polt_stage2_solve_core.m
+% =========================================================================
+% Stage 2: Sticky Price Model Simulation with OccBin (ZLB consideration)
+%
+% 計算エンジンの全ロジック（シミュレーション・変数展開・厚生計算）を記述。
+% =========================================================================
+
+global M_ oo_ options_;
+
+% --- [1] ディレクトリ管理 ---
+% 呼び出し元のディレクトリ（src フォルダ）のパスを保存
+root_dir = pwd;
+
+% この関数ファイルが存在する場所（src/stage2/）のパスを取得
+mpath = fileparts(mfilename('fullpath'));
+
+% 自分自身の場所（stage2/）に移動
+% これにより、Dynare のビルド補助ファイルが stage2 内に生成され、管理が容易になります
+cd(mpath);
+
+% --- [2] パラメータの橋渡し ---
+assignin('base', 'phi_gap_H_value', phi_gap_H_value);
+assignin('base', 'phi_level_H_value', phi_level_H_value);
+assignin('base', 'rho_potential_value', evalin('base', 'rho_potential_value'));
+
+% --- [3] OccBin ソルバーの実行 ---
+% solve_one_constraint.m を呼び出してシミュレーションを実行
+fprintf('OccBinソルバー (Stage 2) を実行中...\n');
+
+[zdatalinear, zdatapiecewise, zdatass, oobase_, Mbase_] = ...
+    solve_one_constraint(settings.modnam, settings.modnamstar, ...
+    settings.constraint, settings.constraint_relax, ...
+    settings.shockssequence, settings.irfshock, settings.nperiods, settings.maxiter);
+
+fprintf('ソルバーの実行が完了しました。\n');
+
+% --- [4] 呼び出し元のディレクトリ（src）に戻る ---
+cd(root_dir);
+
+% --- [5] 結果の展開 (偏差として取得) ---
+% OccBin の出力（zdatapiecewise, zdatalinear）を内生変数名に展開
+for i = 1:Mbase_.endo_nbr
+    % _pie: ZLB考慮ケース (Piecewise Linear)
+    eval([Mbase_.endo_names{i,:}, '_pie = zdatapiecewise(:, i);']);
+    % _lin: ZLB無視ケース (Pure Linear)
+    eval([Mbase_.endo_names{i,:}, '_lin = zdatalinear(:, i);']);
+end
+
+% 描画・保存用マッピング
+% settings.shockssequence の2列目が Stage 1 から引き継いだ y_potential パス
+y_H_potential_pie = settings.shockssequence(:, 2);
+y_H_potential_lin = settings.shockssequence(:, 2);
+
+%% --- [6] パラメータと定常状態の一括取得 ---
+% 計算に必要な定数情報をモデル構造体から抽出
+N_val         = Mbase_.params(strcmp('N', Mbase_.param_names));
+M_val         = Mbase_.params(strcmp('M', Mbase_.param_names));
+phi_H_val     = Mbase_.params(strcmp('phi_H', Mbase_.param_names));
+phi_F_val     = Mbase_.params(strcmp('phi_F', Mbase_.param_names));
+beta_H_ss_val = Mbase_.params(strcmp('beta_H_ss', Mbase_.param_names));
+beta_F_ss_val = Mbase_.params(strcmp('beta_F_ss', Mbase_.param_names));
+
+% 各変数の定常状態（Steady State）の値
+e_slash_star_ss_val = oobase_.dr.ys(strcmp('e_slash_star', Mbase_.endo_names));
+c_H_W_ss_val         = oobase_.dr.ys(strcmp('c_H_W', Mbase_.endo_names));
+l_H_ss_val           = oobase_.dr.ys(strcmp('l_H', Mbase_.endo_names));
+c_F_W_ss_val         = oobase_.dr.ys(strcmp('c_F_W', Mbase_.endo_names));
+l_F_ss_val           = oobase_.dr.ys(strcmp('l_F', Mbase_.endo_names));
+b_H_ss_val           = oobase_.dr.ys(strcmp('b_H', Mbase_.endo_names)); 
+
+%% --- [7] 追加変数の計算 (b_F_star の生成など) ---
+% 水準（Level）データの復元（偏差＋定常状態）
+e_slash_star_level_pie = e_slash_star_ss_val + e_slash_star_pie;
+e_slash_star_level_lin = e_slash_star_ss_val + e_slash_star_lin;
+
+b_H_level_pie = b_H_ss_val + b_H_pie;
+b_H_level_lin = b_H_ss_val + b_H_lin;
+
+% Home債券残高から Foreign債券残高を計算
+b_F_star_level_pie = - (N_val/M_val) * (b_H_level_pie ./ e_slash_star_level_pie);
+b_F_star_level_lin = - (N_val/M_val) * (b_H_level_lin ./ e_slash_star_level_lin);
+
+b_F_star_ss = - (N_val/M_val) * (b_H_ss_val / e_slash_star_ss_val);
+
+% 偏差データとしての b_F_star を再作成
+b_F_star_pie = b_F_star_level_pie - b_F_star_ss;
+b_F_star_lin = b_F_star_level_lin - b_F_star_ss;
+
+%% --- [8] 効用 (Utility) と厚生 (Welfare) の計算 ---
+
+% 1. 各国パラメータの準備
+theta_H_val = Mbase_.params(strcmp('theta_H', Mbase_.param_names));
+xi_H_val    = Mbase_.params(strcmp('xi_H', Mbase_.param_names));
+theta_F_val = Mbase_.params(strcmp('theta_F', Mbase_.param_names));
+xi_F_val    = Mbase_.params(strcmp('xi_F', Mbase_.param_names));
+
+nperiods = settings.nperiods;
+
+% 2. 8パターン（Home/Foreign × Pie/Lin × With/Without Delta）の初期化
+Delta_H_pie = zeros(nperiods, 1); Delta_F_pie = zeros(nperiods, 1);
+Delta_H_lin = zeros(nperiods, 1); Delta_F_lin = zeros(nperiods, 1);
+
+utility_H_with_delta_pie = zeros(nperiods, 1); utility_F_with_delta_pie = zeros(nperiods, 1);
+utility_H_without_delta_pie = zeros(nperiods, 1); utility_F_without_delta_pie = zeros(nperiods, 1);
+utility_H_with_delta_lin = zeros(nperiods, 1); utility_F_with_delta_lin = zeros(nperiods, 1);
+utility_H_without_delta_lin = zeros(nperiods, 1); utility_F_without_delta_lin = zeros(nperiods, 1);
+
+% 3. 時系列ループ計算
+for t = 1:nperiods
+    if t == 1
+        DH_lag_p = 0; DF_lag_p = 0; DH_lag_l = 0; DF_lag_l = 0;
+    else
+        DH_lag_p = Delta_H_pie(t-1); DF_lag_p = Delta_F_pie(t-1);
+        DH_lag_l = Delta_H_lin(t-1); DF_lag_l = Delta_F_lin(t-1);
+    end
+    
+    % 価格分散項 Delta の推移計算 (再帰式)
+    Delta_H_pie(t) = xi_H_val * DH_lag_p + 0.5 * (theta_H_val * xi_H_val / (1 - xi_H_val)) * (pi_H_pie(t)^2);
+    Delta_F_pie(t) = xi_F_val * DF_lag_p + 0.5 * (theta_F_val * xi_F_val / (1 - xi_F_val)) * (pi_F_star_pie(t)^2);
+    Delta_H_lin(t) = xi_H_val * DH_lag_l + 0.5 * (theta_H_val * xi_H_val / (1 - xi_H_val)) * (pi_H_lin(t)^2);
+    Delta_F_lin(t) = xi_F_val * DF_lag_l + 0.5 * (theta_F_val * xi_F_val / (1 - xi_F_val)) * (pi_F_star_lin(t)^2);
+
+    % --- Pie (ZLB考慮) の効用計算 ---
+    utility_H_with_delta_pie(t) = c_H_W_pie(t) - phi_H_val*(l_H_ss_val^2)*(y_H_pie(t)-a_H_pie(t)) - phi_H_val*(l_H_ss_val^2)*Delta_H_pie(t);
+    utility_F_with_delta_pie(t) = c_F_W_pie(t) - phi_F_val*(l_F_ss_val^2)*(y_F_pie(t)-a_F_pie(t)) - phi_F_val*(l_F_ss_val^2)*Delta_F_pie(t);
+    utility_H_without_delta_pie(t) = c_H_W_pie(t) - phi_H_val*(l_H_ss_val^2)*(y_H_pie(t)-a_H_pie(t));
+    utility_F_without_delta_pie(t) = c_F_W_pie(t) - phi_F_val*(l_F_ss_val^2)*(y_F_pie(t)-a_F_pie(t));
+    
+    % --- Lin (線形近似) の効用計算 ---
+    utility_H_with_delta_lin(t) = c_H_W_lin(t) - phi_H_val*(l_H_ss_val^2)*(y_H_lin(t)-a_H_lin(t)) - phi_H_val*(l_H_ss_val^2)*Delta_H_lin(t);
+    utility_F_with_delta_lin(t) = c_F_W_lin(t) - phi_F_val*(l_F_ss_val^2)*(y_F_lin(t)-a_F_lin(t)) - phi_F_val*(l_F_ss_val^2)*Delta_F_lin(t);
+    utility_H_without_delta_lin(t) = c_H_W_lin(t) - phi_H_val*(l_H_ss_val^2)*(y_H_lin(t)-a_H_lin(t));
+    utility_F_without_delta_lin(t) = c_F_W_lin(t) - phi_F_val*(l_F_ss_val^2)*(y_F_lin(t)-a_F_lin(t));
+end
+
+% 4. 生涯厚生（生涯累積割引効用）の合算
+disc_H = beta_H_ss_val.^(0:nperiods-1)'; 
+disc_F = beta_F_ss_val.^(0:nperiods-1)';
+
+welfares.welfare_H_with_delta_pie = sum(disc_H .* utility_H_with_delta_pie);
+welfares.welfare_H_with_delta_lin = sum(disc_H .* utility_H_with_delta_lin);
+welfares.welfare_H_without_delta_pie = sum(disc_H .* utility_H_without_delta_pie);
+welfares.welfare_H_without_delta_lin = sum(disc_H .* utility_H_without_delta_lin);
+
+welfares.welfare_F_with_delta_pie = sum(disc_F .* utility_F_with_delta_pie);
+welfares.welfare_F_with_delta_lin = sum(disc_F .* utility_F_with_delta_lin);
+welfares.welfare_F_without_delta_pie = sum(disc_F .* utility_F_without_delta_pie);
+welfares.welfare_F_without_delta_lin = sum(disc_F .* utility_F_without_delta_lin);
+
+% 全世界合計（Global Welfare）
+welfares.welfare_SUM_with_delta_pie = welfares.welfare_H_with_delta_pie + welfares.welfare_F_with_delta_pie;
+
+%% --- [9] その他の連結変数などの生成 ---
+% 対数線形近似モデルにおける積・商の関係を和・差で表現
+lambda_H_slash_star_pie = e_slash_star_pie + lambda_H_pie; 
+lambda_H_slash_star_lin = e_slash_star_lin + lambda_H_lin;
+lambda_F_pie = lambda_F_slash_star_pie - e_slash_star_pie; 
+lambda_F_lin = lambda_F_slash_star_lin - e_slash_star_lin;
+
+% --- 【新規追加: 変数名を積の形に変更】 ---
+p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie; 
+p_H_bar_y_H_lin = p_H_bar_lin + y_H_lin;
+p_H_W_c_H_W_pie = p_H_W_pie + c_H_W_pie;
+p_H_W_c_H_W_lin = p_H_W_lin + c_H_W_lin; 
+
+% --- 【新規追加: 変数名を商の形に変更】 ---
+p_H_W_slash_p_H_pie = p_H_W_pie - p_H_pie;
+p_H_W_slash_p_H_lin = p_H_W_lin - p_H_lin;
+
+% --- [10] 戻り値の整理 (Packaging) ---
+% who を使用して計算された全データを構造体にパッキングして返却
+vars = [who('*_pie'); who('*_lin'); who('Delta_H_*'); who('Delta_F_*'); who('utility_*')];
+for k = 1:length(vars)
+    irf_results.(vars{k}) = eval(vars{k});
+end
+
+% 出力構造体の保持
+Mbase_ = Mbase_;
+oobase_ = oobase_;
+
+end

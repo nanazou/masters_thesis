@@ -18,3 +18,62 @@
     \item YD-\(\hat{p}\),CD-\(\hat{p}\)曲線の切片：
           \(-\hat{\lambda}_t^H\)
 \end{itemize}
+
+\(a\)ショックの議論のために以下の式を用いる。
+ここで、遮断効果により自国金融政策および\(a_t^H\)は\(X_t, Z_t, \Omega_t\)に影響を与えない。
+さらに、他のショックは発生していないため所得税率も変動しない。
+したがって、これらの定常状態からの対数乖離はまとめて \(\hat{X}_t=\hat{Z}_t=\hat{\Omega}_t=\hat{\tau}_t^H=0\) となる。
+また、\(\beta\)ショックではないため主観的割引因子も一定であり、\(\beta_t^H=\beta_{ss}^H\) となることに注意する。
+
+YS-\(\pi\)曲線（差分形式）
+\eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_ys_pi_eq}
+    \hat{\pi}_t^H-\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]=\kappa^H(2\hat{y}_t^H-2\hat{a}_t^H)
+\end{equation}
+前方展開されたYS-\(\operatorname{E}[\hat{\pi}]\)曲線
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_ys_E_pi_H_lim_eq}
+    \operatorname{E}_t[\hat{\pi}_{t+1}^H]=\operatorname{E}_t\sum_{k=0}^{\infty}\left[(\beta_{ss}^H)^k\kappa^H(2\hat{y}_{t+1+k}^H-2\hat{a}_{t+1+k}^H)\right]
+\end{equation}
+YS-\(\hat{p}\)曲線
+\eqref{form:chapter5_two_plane_ys_derivation_p_H_modified_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_ys_p_eq}
+    \hat{p}_t^H=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\kappa^H(2\hat{y}_t^H-2\hat{a}_t^H)
+\end{equation}
+YD曲線
+\eqref{form:chapter5_two_plane_yd_connection_derivation_p_H_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_yd_eq}
+    p_t^H=\frac{1}{y_t^H}\times\frac{\alpha^H+(1-\alpha^F)\operatorname{E}_t[\mathcal{B}_t\Lambda_{\infty}]}{\lambda_t^H}
+\end{equation}
+CS-\(\pi\)曲線
+\eqref{form:chapter5_two_plane_cs_derivation_pi_H_W_modified_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_cs_pi_eq}
+    \hat{\pi}_t^{H\to W}=\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}-\frac{1-\alpha^H}{\alpha^H}\hat{c}_{t-1}^{H\to W}
+\end{equation}
+CS-\(\hat{p}\)曲線
+\eqref{form:chapter5_two_plane_cs_derivation_p_H_W_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_cs_p_eq}
+    \hat{p}_t^{H\to W}=\hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]-2\kappa^H\hat{a}_t^H+\left(\frac{2\kappa^H}{\alpha^H}+\frac{1-\alpha^H}{\alpha^H}\right)\hat{c}_t^{H\to W}
+\end{equation}
+CD曲線
+\eqref{form:chapter5_two_plane_cd_p_H_W_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_cd_eq}
+    p_t^{H\to W}=\frac{1}{c_t^{H\to W}}\times\frac{1}{\beta_{ss}^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]}
+\end{equation}
+自国コンティンジェント債券に関するオイラー方程式
+\eqref{form:chapter3_representative_household_euler_contingent_home_representative_lambda_H_i_H_eq}
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_euler_contingent_eq}
+    \lambda_t^H=\beta_{ss}^H(1+i_t^H)\operatorname{E}_t[\lambda_{t+1}^H]
+\end{equation}
+前方展開された自国コンティンジェント債券に関するオイラー方程式
+\begin{equation}
+\label{form:chapter5_a_shock_policies_overview_euler_contingent_lim_eq}
+    \lambda_t^H=\left(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})c_{ss}^{H\to W}}\right)\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{ss}^H(1+i_{t+j}^H)\right]
+\end{equation}

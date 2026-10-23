@@ -1,0 +1,197 @@
+"""
+【使用方法】
+1. このスクリプト（例: create_all_animations.py）をprojectsディレクトリ直下に配置してください。
+2. ターミナルを開き任意のカレントディレクトリで実行してください。
+   実行コマンド: python path/to/create_all_animations.py
+"""
+
+import os
+import shutil
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+
+# Windows標準の日本語フォントを指定
+plt.rcParams["font.family"] = "MS Gothic"
+
+# 比較する政策のリスト定義
+policies = [
+    {'key': 'clt',      'label': '総消費水準目標（CLT）'},
+    {'key': 'cplt',     'label': '消費者物価水準目標（CPLT）'},
+    {'key': 'it_cpi',   'label': '消費者物価インフレ目標（IT-CPI）'},
+    {'key': 'it_ppi',   'label': '生産者物価インフレ目標（IT-PPI）'},
+    {'key': 'nclt',     'label': '名目総消費水準目標（NCLT）'},
+    {'key': 'ngdplt',   'label': '名目GDP水準目標（NGDPLT）'},
+    {'key': 'olt',      'label': '生産水準目標（OLT）'},
+    {'key': 'polt',     'label': '潜在生産水準目標（POLT）'},
+    {'key': 'pplt',     'label': '生産者物価水準目標（PPLT）'},
+    {'key': 'tr_cpi',   'label': '消費者物価テイラールール（TR-CPI）'},
+    {'key': 'tr_ppi',   'label': '生産者物価テイラールール（TR-PPI）'},
+    {'key': 'flex_ppi', 'label': '完全伸縮価格（IT-PPI）'}
+]
+
+shocks = [
+    {'id': 'beta_shock', 'log_name': 'beta ショック（需要ショック）', 'plot_name': 'β ショック（需要ショック）'},
+    {'id': 'a_shock',    'log_name': 'a ショック（供給ショック）', 'plot_name': 'a ショック（供給ショック）'}
+]
+
+base_dir = os.path.dirname(os.path.abspath(__file__))
+
+# ---------------------------------------------------
+# まとめて保存するための animations フォルダを作成
+# ---------------------------------------------------
+animations_dir = os.path.join(base_dir, 'animations')
+os.makedirs(animations_dir, exist_ok=True)
+
+# 経済モデルのパラメータ設定
+kappa_H = 0.05
+alpha_H = 0.85
+MAX_FRAMES = 100
+
+# 曲線の傾き計算
+SLOPE_YS = 2 * kappa_H
+SLOPE_YD = -1.0
+SLOPE_CS = (2 * kappa_H) / alpha_H + (1 - alpha_H) / alpha_H
+SLOPE_CD = -1.0
+
+def get_auto_limits(data, num_frames, padding=0.2):
+    """データ自身の最小値と最大値を取得し、マージンを加える。
+       極端なズームイン（1e-9等）を防ぐため、最低でも 0.005 の余白を確保する。"""
+    d_min, d_max = np.min(data[:num_frames]), np.max(data[:num_frames])
+    
+    # 実際のデータの変動幅(padding)と、最低保証枠(0.005)を比べて、大きい方を採用する
+    margin = max((d_max - d_min) * padding, 0.005)
+    
+    return (d_min - margin, d_max + margin)
+
+# =========================================================================
+# --- メイン処理ループ ---
+# =========================================================================
+
+for shock in shocks:
+    shock_id = shock['id']
+    print(f"\n========== {shock['log_name']} のアニメーション作成を開始します ==========")
+
+    for policy in policies:
+        key = policy['key']
+        
+        # 添付バッチと同じパス設定の分岐
+        if key == 'flex_ppi':
+            csv_rel_path = os.path.join('polt_project', 'results', 'stage1', shock_id, 'data_for_plotting.csv')
+        elif key in ['polt', 'tr_ppi', 'tr_cpi']:
+            csv_rel_path = os.path.join(f'{key}_project', 'results', 'stage2', shock_id, 'data_for_plotting.csv')
+        else:
+            csv_rel_path = os.path.join(f'{key}_project', 'results', shock_id, 'data_for_plotting.csv')
+            
+        csv_path = os.path.normpath(os.path.join(base_dir, csv_rel_path))
+        
+        if not os.path.exists(csv_path):
+            print(f"  [スキップ] ファイルが見つかりません： {csv_path}")
+            continue
+
+        try:
+            df = pd.read_csv(csv_path, skipinitialspace=True)
+            df.columns = [col.strip() for col in df.columns]
+            
+            # Dynareの微小な計算誤差（1e-15等）を切り捨てて「0」と認識させる
+            df = df.round(10)
+            
+            y = df['y_H_lin'].values
+            p = df['p_H_lin'].values
+            c = df['c_H_W_lin'].values
+            pw = df['p_H_W_lin'].values
+
+            num_frames = min(MAX_FRAMES, len(df))
+
+            # 丸め処理後の実際のデータの変動幅をもとに各軸の描画範囲を自動決定する
+            # （変動が極端に小さい場合は get_auto_limits 関数内の 0.005 が適用される）
+            xlim_y = get_auto_limits(y, num_frames)
+            ylim_p = get_auto_limits(p, num_frames)
+            xlim_c = get_auto_limits(c, num_frames)
+            ylim_pw = get_auto_limits(pw, num_frames)
+
+            # 図の初期化
+            fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 6))
+            
+            line_ys, = ax1.plot([], [], color='red', label='YS Curve')
+            line_yd, = ax1.plot([], [], color='blue', label='YD Curve')
+            point_y_p, = ax1.plot([], [], 'ko', markersize=8, label='Equilibrium')
+            trace_y_p, = ax1.plot([], [], color='gray', linestyle='--', alpha=0.5)
+
+            line_cs, = ax2.plot([], [], color='red', label='CS Curve')
+            line_cd, = ax2.plot([], [], color='blue', label='CD Curve')
+            point_c_pw, = ax2.plot([], [], 'ko', markersize=8, label='Equilibrium')
+            trace_c_pw, = ax2.plot([], [], color='gray', linestyle='--', alpha=0.5)
+
+            # 軸の設定
+            ax1.set_xlim(xlim_y)
+            ax1.set_ylim(ylim_p)
+            ax1.set_title('生産・生産者物価平面 (YS-YD Curve)', fontsize=14)
+            ax1.set_xlabel('生産の乖離 ($y_t^H$)', fontsize=12)
+            ax1.set_ylabel('PPIの乖離 ($p_t^H$)', fontsize=12)
+            ax1.axhline(0, color='black', linewidth=0.5)
+            ax1.axvline(0, color='black', linewidth=0.5)
+            ax1.grid(True, linestyle=':', alpha=0.6)
+            ax1.legend()
+
+            ax2.set_xlim(xlim_c)
+            ax2.set_ylim(ylim_pw)
+            ax2.set_title('消費・消費者物価平面 (CS-CD Curve)', fontsize=14)
+            ax2.set_xlabel('総消費指数の乖離 ($c_t^{H \to W}$)', fontsize=12)
+            ax2.set_ylabel('CPIの乖離 ($p_t^{H \to W}$)', fontsize=12)
+            ax2.axhline(0, color='black', linewidth=0.5)
+            ax2.axvline(0, color='black', linewidth=0.5)
+            ax2.grid(True, linestyle=':', alpha=0.6)
+            ax2.legend()
+            
+            fig.tight_layout(rect=[0, 0, 1, 0.95])
+
+            def update(frame):
+                curr_y, curr_p = y[frame], p[frame]
+                
+                # 直線を描画するためのX座標の配列
+                x_vals_ax1 = np.linspace(xlim_y[0], xlim_y[1], 100)
+                ys_vals = SLOPE_YS * (x_vals_ax1 - curr_y) + curr_p
+                yd_vals = SLOPE_YD * (x_vals_ax1 - curr_y) + curr_p
+                
+                line_ys.set_data(x_vals_ax1, ys_vals)
+                line_yd.set_data(x_vals_ax1, yd_vals)
+                point_y_p.set_data([curr_y], [curr_p])
+                trace_y_p.set_data(y[:frame+1], p[:frame+1])
+                
+                curr_c, curr_pw = c[frame], pw[frame]
+                
+                x_vals_ax2 = np.linspace(xlim_c[0], xlim_c[1], 100)
+                cs_vals = SLOPE_CS * (x_vals_ax2 - curr_c) + curr_pw
+                cd_vals = SLOPE_CD * (x_vals_ax2 - curr_c) + curr_pw
+                
+                line_cs.set_data(x_vals_ax2, cs_vals)
+                line_cd.set_data(x_vals_ax2, cd_vals)
+                point_c_pw.set_data([curr_c], [curr_pw])
+                trace_c_pw.set_data(c[:frame+1], pw[:frame+1])
+
+                fig.suptitle(f"{policy['label']} ({shock['plot_name']}) - Time: $t={frame}$", fontsize=16)
+
+                return line_ys, line_yd, point_y_p, trace_y_p, line_cs, line_cd, point_c_pw, trace_c_pw
+
+            output_dir = os.path.dirname(csv_path)
+            output_filename = os.path.join(output_dir, 'animation.gif')
+            
+            print(f"  [{key}] アニメーションを作成中... -> {output_filename}")
+            
+            ani = FuncAnimation(fig, update, frames=num_frames, interval=100, blit=False)
+            ani.save(output_filename, writer='pillow', fps=10)
+            
+            plt.close(fig)
+
+            # --- 追加: animationsフォルダへのコピー＆リネーム処理 ---
+            renamed_filename = f"animation_{key}_{shock_id}.gif"
+            copy_dest = os.path.join(animations_dir, renamed_filename)
+            shutil.copy2(output_filename, copy_dest)
+            print(f"  [{key}] 完了: 一覧用フォルダにコピーしました -> {copy_dest}")
+
+        except Exception as e:
+            print(f"  [エラー] {key} の処理中にエラーが発生しました： {e}")
+            
+print("\n全ての処理が完了しました。")

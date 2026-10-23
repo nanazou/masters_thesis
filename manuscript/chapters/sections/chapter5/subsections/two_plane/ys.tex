@@ -125,6 +125,12 @@ YS-\(\hat{\pi}\)曲線
         &=\operatorname{E}_t\sum_{k=0}^{\infty}(\beta_{ss}^H)^k\kappa^H(2\hat{y}_{t+k}^H-2\hat{a}_{t+k}^H-\hat{X}_{t+k}-\hat{\tau}_{t+k}^H)
     \end{aligned}
 \end{equation}
+上式で\(t\)に\(t+1\)を代入して期待\(\operatorname{E}_t\)をとると、
+以下の前方展開されたYS-\(\operatorname{E}[\hat{\pi}]\)曲線が得られる。
+\begin{equation}
+\label{form:chapter5_two_plane_ys_forward_E_pi_H_lim_eq}
+    \operatorname{E}_t[\hat{\pi}_{t+1}^H]=\operatorname{E}_t\sum_{k=0}^{\infty}(\beta_{ss}^H)^k\kappa^H(2\hat{y}_{t+1+k}^H-2\hat{a}_{t+1+k}^H)
+\end{equation}
 
 \subsubsection{右上がりのYS-\(\hat{p}\)曲線と垂直なYS-\(\hat{p}\)曲線の幾何学的な関係}
 \label{sec:chapter5_two_plane_ys_potential}
@@ -147,10 +153,13 @@ YS-\(\hat{\pi}\)曲線
 \label{form:chapter5_two_plane_ys_potential_y_H_pot_eq}
     \hat{y}_t^H=\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H)
 \end{equation}
-この垂直なYS-\(\hat{p}\)曲線によって定まる産出\(\hat{y}_t^H\)を潜在産出と呼び
+この垂直なYS-\(\hat{p}\)曲線によって定まる生産\(\hat{y}_t^H\)を潜在生産と呼び
 \(\hat{y}_t^{H,pot}\)により表す。
-これら2つのYS-\(\hat{p}\)曲線は\(\hat{y}_t^H\)切片が
-\(\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H)\)で共通していることに注意する。
+これら2つのYS-\(\hat{p}\)曲線の交点を求めると、
+\((\hat{y}_t^H, \hat{p}_t^H)=\left(\hat{a}_t^H+\frac{1}{2}(\hat{X}_t+\hat{\tau}_t^H), \hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]\right)\)
+となることに注意する。
 遮断効果により自国金融政策および\(a_t^H\)は\(X_t\)に影響を与えないのであった。
 そのため特に\(a\)ショック時には\(\hat{X}_t=\hat{\tau}_t^H=0\)となる。
-このとき2つのYS-\(\hat{p}\)曲線の\(\hat{y}_t^H\)切片はともに\(\hat{a}_t^H\)となる。
+このとき交点は
+\((\hat{y}_t^H, \hat{p}_t^H)=\left(\hat{a}_t^H, \hat{p}_{t-1}^H+\beta_{ss}^H\operatorname{E}_t[\hat{\pi}_{t+1}^H]\right)\)
+となる。

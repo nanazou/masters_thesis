@@ -24,7 +24,7 @@
         厚生\(W^H\)と負の相関がある。
 \end{enumerate}
 そこで、各政策が厚生\(W^H\)に与える影響を考えるためにこれらの4つの変数に与える影響について順に議論していく。
-この議論のために用いる式を以下に再掲する。
+\(\beta\)ショックの議論のために以下の式を用いる。
 YS-\(\pi\)曲線（差分形式）
 \eqref{form:chapter5_two_plane_ys_derivation_pi_H_modified_eq}
 \begin{equation}
@@ -77,11 +77,5 @@ CD曲線
 自国コンティンジェント債券に関する前方展開されたオイラー方程式
 \begin{equation}
 \label{form:chapter5_beta_shock_policies_overview_euler_contingent_lim_eq}
-    \begin{aligned}
-        \lambda_t^H
-        &=(\lim_{k\to\infty}\lambda_{t+k}^H)\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
-        &=(\lim_{k\to\infty}\frac{1}{p_{t+k}^{H\to W}c_{t+k}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})(\lim_{k\to\infty}c_{t+k}^{H\to W})})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right] \\
-        &=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right]
-    \end{aligned}
+    \lambda_t^H=(\frac{1}{(\lim_{k\to\infty}p_{t+k}^{H\to W})c_{ss}^{H\to W}})\operatorname{E}_t\left[\prod_{j=0}^{\infty}\beta_{t+j}^H(1+i_{t+j}^H)\right]
 \end{equation}
