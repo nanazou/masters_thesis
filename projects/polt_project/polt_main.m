@@ -1,6 +1,6 @@
 % polt_main.m
 
-% POLT (Price Output Level Targeting) Comprehensive Execution Script
+% POLT (Potential Output Level Targeting) Comprehensive Execution Script
 %
 % 目的: 
 %   1. 需要ショック（Betaショック）に対する Stage 1 と Stage 2 を実行
@@ -25,7 +25,7 @@ cd(root_mpath);
 scenarios = {'beta', 'a'};
 
 fprintf('========================================================================\n');
-fprintf('        POLT (Price Output Level Targeting) 全自動シミュレーション開始\n');
+fprintf('        POLT (Potential Output Level Targeting) 全自動シミュレーション開始\n');
 fprintf('========================================================================\n');
 
 % シナリオ（Beta と A）のループを開始
@@ -42,7 +42,6 @@ for s = 1:length(scenarios)
     fprintf('\n>> Step 1: src/polt_stage1_main.m を実行しています (潜在産出量パスの計算)...\n');
     try
         % 'run' コマンドにより、現在のワークスペースの変数(shock_scenario)を維持したまま実行
-        % 修正: ファイル名を polt_stage1_main.m に指定
         run(fullfile(root_mpath, 'src', 'polt_stage1_main.m'));
     catch ME
         fprintf('\n[エラー発生] Stage 1 (%s) でエラーが発生しました:\n', shock_scenario);
@@ -53,8 +52,7 @@ for s = 1:length(scenarios)
     % --- Step 2: Stage 2 (Sticky Price + ZLB / Policy Simulation) の実行 ---
     fprintf('\n>> Step 2: src/polt_stage2_main.m を実行しています (政策シミュレーション)...\n');
     try
-        % Stage 1 で保存された 'potential_output.mat' が自動的にロードされます
-        % 修正: ファイル名を polt_stage2_main.m に指定
+        % Stage 1 で保存された潜在産出量データが自動的にロードされます
         run(fullfile(root_mpath, 'src', 'polt_stage2_main.m'));
     catch ME
         fprintf('\n[エラー発生] Stage 2 (%s) でエラーが発生しました:\n', shock_scenario);
@@ -71,7 +69,7 @@ fprintf('        全てのシミュレーション工程が正常に終了しま
 fprintf('========================================================================\n');
 fprintf('結果の確認先 (project_root基準):\n');
 fprintf('  - Stage 1 結果 (潜在産出量データ/グラフ):\n');
-fprintf('    results/stage1/[shock_scenario]/\n');
+fprintf('    results/stage1/[shock_folder]/\n');
 fprintf('  - Stage 2 結果 (最終IRFグラフ/CSV/厚生データ):\n');
-fprintf('    results/stage2/[shock_scenario]/\n');
+fprintf('    results/stage2/[shock_folder]/\n');
 fprintf('========================================================================\n');

@@ -8,8 +8,13 @@ clc;
 
 % --- パス設定 ---
 mpath = fileparts(mfilename('fullpath'));
+cd(mpath); % スクリプトの場所（Root）をカレントディレクトリに固定
 addpath(fullfile(mpath, 'src'));
 % addpath('C:\dynare\Occbin_update-master\toolkit_files');
+
+% 現在のプロジェクト名からポリシーキーを自動抽出 (例: ngdplt_project -> ngdplt)
+[~, proj_folder_name] = fileparts(mpath);
+policy_key = strrep(proj_folder_name, '_project', '');
 
 global M_ oo_;
 
@@ -29,7 +34,7 @@ search_mode = 'coarse';
 % --- 2. ショック・シナリオを選択 ---
 % 'beta' : 需要ショック (eps_beta_H = 0.02)
 % 'a'    : 供給ショック (eps_a_H = -0.1)
-shock_scenario = 'beta'; 
+shock_scenario = 'a'; 
 
 % --- フォルダ用ショック名の決定 ---
 if strcmp(shock_scenario, 'beta')
@@ -49,11 +54,15 @@ else
     error("Invalid shock_scenario. Choose 'beta' or 'a'.");
 end
 
-% --- 4. 粗い探索 (coarse mode) の設定 --- beta final
-%phi_gap_H_range_coarse   = 6.4:0.1:6.7;
-%phi_level_H_range_coarse = 13.6:0.1:14.0;
+% --- 4. 粗い探索 (coarse mode) の設定 --- a shock 広域確認用 (4 × 3 = 12点)
+phi_gap_H_range_coarse   = [0.001, 0.01, 0.1, 1.0];
+phi_level_H_range_coarse = [0, 0.001, 0.01];
 
-% --- 4. 粗い探索 (coarse mode) の設定 --- a final
+% --- 4. 粗い探索 (coarse mode) の設定（beta shock: 50万〜250万の等間隔 5×5） ---
+%phi_gap_H_range_coarse   = 500000:500000:2500000;
+%phi_level_H_range_coarse = 500000:500000:2500000;
+
+% --- 4. 粗い探索 (coarse mode) の設定 --- 旧 a final
 %phi_gap_H_range_coarse   = 6.4:0.1:6.6;
 %phi_level_H_range_coarse = 13:0.5:15;
 
@@ -66,17 +75,17 @@ end
 %fine_search_step_level_H   = 0.05;
 
 % --- 5. 詳細な探索 (fine mode) の設定 --- a final
-%center_phi_gap_H   = 6.50; 
-%center_phi_level_H = 13.9; 
-%fine_search_radius_gap_H   = 0.2; 
-%fine_search_step_gap_H     = 0.1; 
-%fine_search_radius_level_H = 0.1; 
-%fine_search_step_level_H   = 0.05;
+center_phi_gap_H   = 6.50; 
+center_phi_level_H = 13.9; 
+fine_search_radius_gap_H   = 0.2; 
+fine_search_step_gap_H     = 0.1; 
+fine_search_radius_level_H = 0.1; 
+fine_search_step_level_H   = 0.05;
 
 % ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 % --- 設定エリアここまで ---
 
-% --- [修正] 出力フォルダの定義と作成 ---
+% --- 出力フォルダの定義と作成 ---
 % 構成: results/optimal_params/[shock_folder]/ 直下にすべて出力
 base_res_dir = fullfile(mpath, 'results', 'optimal_params', shock_folder);
 if ~exist(base_res_dir, 'dir'), mkdir(base_res_dir); end
@@ -88,7 +97,7 @@ settings.modnamstar = 'ngdplt_model_zlb';
 settings.constraint = 'i_H_notional < -i_H_ss';
 settings.constraint_relax = 'i_H_notional > -i_H_ss';
 settings.irfshock = target_shock; 
-settings.shockssequence = [ shock_value; zeros(399, 1) ]; 
+settings.shockssequence = shock_value; 
 settings.nperiods = 400;
 settings.maxiter = 100;
 
@@ -101,7 +110,7 @@ if strcmp(search_mode, 'coarse')
     phi_level_H_range_final = phi_level_H_range_coarse;
     plot_title_prefix = 'Coarse Search';
 elseif strcmp(search_mode, 'fine')
-    fprintf('--- Starting FINE grid search around (gap_H=%.2f, level_H=%.2f) ---\n', center_phi_gap_H, center_phi_level_H);
+    fprintf('--- Starting FINE grid search around (gap_H=%.4g, level_H=%.4g) ---\n', center_phi_gap_H, center_phi_level_H);
     phi_gap_H_range_final   = (center_phi_gap_H - fine_search_radius_gap_H):fine_search_step_gap_H:(center_phi_gap_H + fine_search_radius_gap_H);
     phi_level_H_range_final = (center_phi_level_H - fine_search_radius_level_H):fine_search_step_level_H:(center_phi_level_H + fine_search_radius_level_H);
     phi_gap_H_range_final(phi_gap_H_range_final <= 0) = [];
@@ -132,13 +141,39 @@ for i = 1:length(phi_level_H_range_final)
         phi_gap_H_value = phi_gap_H_range_final(j);
         phi_level_H_value = phi_level_H_range_final(i);
 
-        fprintf('\nTrial (%d/%d): phi_gap_H = %.4f, phi_level_H = %.4f ... ', ...
+        fprintf('\nTrial (%d/%d): phi_gap_H = %.4g, phi_level_H = %.4g ... ', ...
             current_iteration, total_iterations, phi_gap_H_value, phi_level_H_value);
 
         % --- [計算核心 ngdplt_solve_core を呼び出す] ---
         try
-            % 接頭辞を統一したコアエンジンを呼び出し
-            res = ngdplt_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+            % 接頭辞を統一したコアエンジンを呼び出し (4つの戻り値を取得)
+            [res, irf_res, Mbase_, oobase_] = ngdplt_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+            % ▼▼▼【固有値判定: lambda > 0 (正の安定固有値のみ許可)】▼▼▼
+            % 安定固有値（絶対値 < 1）のなかに負の実部を持つもの（lambda < 0）があるか検査
+            stable_eigs = oobase_.dr.eigval(abs(oobase_.dr.eigval) < 1 - 1e-5);
+            if any(real(stable_eigs) < -1e-5)
+                error('Negative stable eigenvalue (lambda < 0) detected.');
+            end
+
+            % ▼▼▼【OccBinの未収束（サイクリング打ち切り）の厳密な検出】▼▼▼
+            % 収束していれば、ZLBバインド期(i_H_pie <= -i_H_ss + 1e-6)と
+            % i_H_notional_pie < -i_H_ss の期間が完全に一致する。
+            % maxiterに達して未収束で終わった点はこれが不一致になるため除外する。
+            i_H_ss_val = Mbase_.params(strcmp('i_H_ss', Mbase_.param_names));
+            zlb_actual   = (irf_res.i_H_pie <= -i_H_ss_val + 1e-6);
+            zlb_notional = (irf_res.i_H_notional_pie < -i_H_ss_val - 1e-6);
+            if any(zlb_actual ~= zlb_notional)
+                error('OccBin did not converge within maxiter (regime cycling).');
+            end
+
+            % フェイルセーフ：Non-ZLB金利の2周期チャタリング（振動）の検出
+            di_lin = diff(irf_res.i_H_lin);
+            zigzag_count = sum((di_lin(1:end-1) .* di_lin(2:end) < 0) & (abs(di_lin(1:end-1)) > 1e-6));
+            if zigzag_count > 10
+                error('Oscillating solution (zigzag chattering) detected.');
+            end
+            % ▲▲▲【固有値判定ここまで】▲▲▲
 
             % エンジンの命名規則 (with_delta_pie) に基づいて抽出
             welfare_H   = res.welfare_H_with_delta_pie;
@@ -198,8 +233,9 @@ final_results.max_welfare_SUM = max_welfare_SUM;
 final_results.welfare_H_at_SUM_opt = results_welfare_H_final(row_SUM, col_SUM);
 final_results.welfare_F_at_SUM_opt = results_welfare_F_final(row_SUM, col_SUM);
 
-% 全データの保存 (all_data.mat)
-save(fullfile(base_res_dir, 'all_data.mat'), ...
+% 全データの保存 (例: ngdplt_opt_all_data_a_shock.mat)
+all_data_filename = sprintf('%s_opt_all_data_%s.mat', policy_key, shock_folder);
+save(fullfile(base_res_dir, all_data_filename), ...
     'final_results', 'results_welfare_H_final', 'results_welfare_F_final', 'results_welfare_SUM_final', ...
     'phi_gap_H_range_final', 'phi_level_H_range_final');
 
@@ -208,13 +244,13 @@ save(fullfile(base_res_dir, 'all_data.mat'), ...
 % =========================================================================
 fprintf('\n--- NGDPLT Final Optimal Policy Results (Shock: %s) ---\n', shock_scenario);
 fprintf('1. Optimal for Home:\n');
-fprintf('   Parameters: phi_gap_H = %.4f, phi_level_H = %.4f\n', final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H);
+fprintf('   Parameters: phi_gap_H = %.4g, phi_level_H = %.4g\n', final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H);
 fprintf('   Resulting Welfare: Home = %.4f, Foreign = %.4f, Sum = %.4f\n\n', final_results.max_welfare_H, final_results.welfare_F_at_H_opt, final_results.welfare_SUM_at_H_opt);
 fprintf('2. Optimal for Foreign:\n');
-fprintf('   Parameters: phi_gap_H = %.4f, phi_level_H = %.4f\n', final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F);
+fprintf('   Parameters: phi_gap_H = %.4g, phi_level_H = %.4g\n', final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F);
 fprintf('   Resulting Welfare: Home = %.4f, Foreign = %.4f, Sum = %.4f\n\n', final_results.welfare_H_at_F_opt, final_results.max_welfare_F, final_results.welfare_SUM_at_F_opt);
 fprintf('3. Optimal for Global (Sum):\n');
-fprintf('   Parameters: phi_gap_H = %.4f, phi_level_H = %.4f\n', final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM);
+fprintf('   Parameters: phi_gap_H = %.4g, phi_level_H = %.4g\n', final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM);
 fprintf('   Resulting Welfare: Home = %.4f, Foreign = %.4f, Sum = %.4f\n', final_results.welfare_H_at_SUM_opt, final_results.welfare_F_at_SUM_opt, final_results.max_welfare_SUM);
 fprintf('--------------------------------------------------------------\n\n');
 
@@ -224,83 +260,131 @@ fprintf('--------------------------------------------------------------\n\n');
 fprintf('Plotting and saving results...\n');
 graphics_toolkit("gnuplot");
 
-title_pos_line1 = [0, 0.96, 1, 0.05];
-title_pos_line2 = [0, 0.91, 1, 0.05];
+title_pos_line1 = [0, 0.94, 1, 0.05];
+title_pos_line2 = [0, 0.89, 1, 0.05];
+
+% 政策名（大文字）と探索モードの簡潔な表記
+policy_name_upper = upper(policy_key);
+mode_label = [upper(search_mode(1)), lower(search_mode(2:end))]; % 'Coarse' or 'Fine'
+
+% 角での数字の衝突を防ぐため、X軸・Y軸の表示範囲の両端に8%の余白（パディング）を計算
+x_min = min(phi_gap_H_range_final);   x_max = max(phi_gap_H_range_final);
+y_min = min(phi_level_H_range_final); y_max = max(phi_level_H_range_final);
+dx = max(x_max - x_min, 1e-15);
+dy = max(y_max - y_min, 1e-15);
+x_lim_pad = [x_min - 0.08 * dx, x_max + 0.08 * dx];
+y_lim_pad = [y_min - 0.08 * dy, y_max + 0.08 * dy];
+
+% プロット用にエラー値 (-999) を NaN に置換した配列を用意 (Z軸の潰れ防止)
+plot_welfare_H   = results_welfare_H_final;   plot_welfare_H(plot_welfare_H <= -999)     = NaN;
+plot_welfare_F   = results_welfare_F_final;   plot_welfare_F(plot_welfare_F <= -999)     = NaN;
+plot_welfare_SUM = results_welfare_SUM_final; plot_welfare_SUM(plot_welfare_SUM <= -999) = NaN;
 
 % --- Graph 1: Home Welfare ---
 h_home = figure('Name', 'NGDPLT: Home Welfare', 'Visible', 'off');
-surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_H_final);
-colorbar; view(3); hold on;
+surf(phi_gap_H_range_final, phi_level_H_range_final, plot_welfare_H);
+colorbar; view(-37.5, 25); hold on;
+set(gca, 'Position', [0.16, 0.16, 0.62, 0.66], 'FontSize', 8);
+xlim(x_lim_pad); ylim(y_lim_pad);
+z_limits_H = zlim;
+dz_H = max(z_limits_H(2) - z_limits_H(1), 1e-6);
+zlim([z_limits_H(1) - 0.08 * dz_H, z_limits_H(2) + 0.08 * dz_H]);
+z_limits_H = zlim;
 plot3(final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H, ...
       'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
-z_limits_H = zlim;
 plot3([final_results.opt_phi_gap_H_H, final_results.opt_phi_gap_H_H], ...
       [final_results.opt_phi_level_H_H, final_results.opt_phi_level_H_H], ...
       [z_limits_H(1), final_results.max_welfare_H], 'k--', 'LineWidth', 1);
+% Z軸ラベル(Welfare)は数字との重なりを防ぐためZ軸の頂点上に横書きで配置
+text(x_lim_pad(1), y_lim_pad(2), z_limits_H(2) + 0.08 * dz_H, 'Welfare', ...
+     'HorizontalAlignment', 'center', 'FontSize', 10);
 hold off;
-xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
-line1_H = sprintf('%s: Optimal for Home (%s shock)', plot_title_prefix, shock_scenario);
-line2_H = sprintf('\\phi_{gap}^H=%.4f, \\phi_{level}^H=%.4f, Welfare=%.4f', ...
+xlabel(sprintf('\n\\phi_{gap}^H'), 'FontSize', 10);
+ylabel(sprintf('\n\\phi_{level}^H'), 'FontSize', 10);
+line1_H = sprintf('%s: Home Welfare (%s shock, %s)', policy_name_upper, shock_scenario, mode_label);
+line2_H = sprintf('\\phi_{gap}^H = %.4g, \\phi_{level}^H = %.4g, Welfare = %.4f', ...
                   final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H);
 annotation('textbox', title_pos_line1, 'String', line1_H, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 12);
 annotation('textbox', title_pos_line2, 'String', line2_H, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 10);
-print(h_home, fullfile(base_res_dir, 'graph_home.pdf'), '-dpdf');
+graph_home_filename = sprintf('%s_opt_graph_home_%s.pdf', policy_key, shock_folder);
+print(h_home, fullfile(base_res_dir, graph_home_filename), '-dpdf');
 close(h_home);
 
 % Home個別データ保存
 data_x = phi_gap_H_range_final; data_y = phi_level_H_range_final; data_z = results_welfare_H_final;
 opt_pt = [final_results.opt_phi_gap_H_H, final_results.opt_phi_level_H_H, final_results.max_welfare_H];
-save(fullfile(base_res_dir, 'data_for_plotting_home.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+mat_home_filename = sprintf('%s_opt_data_for_plotting_home_%s.mat', policy_key, shock_folder);
+save(fullfile(base_res_dir, mat_home_filename), 'data_x', 'data_y', 'data_z', 'opt_pt');
 
 % --- Graph 2: Foreign Welfare ---
 h_foreign = figure('Name', 'NGDPLT: Foreign Welfare', 'Visible', 'off');
-surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_F_final);
-colorbar; view(3); hold on;
+surf(phi_gap_H_range_final, phi_level_H_range_final, plot_welfare_F);
+colorbar; view(-37.5, 25); hold on;
+set(gca, 'Position', [0.16, 0.16, 0.62, 0.66], 'FontSize', 8);
+xlim(x_lim_pad); ylim(y_lim_pad);
+z_limits_F = zlim;
+dz_F = max(z_limits_F(2) - z_limits_F(1), 1e-6);
+zlim([z_limits_F(1) - 0.08 * dz_F, z_limits_F(2) + 0.08 * dz_F]);
+z_limits_F = zlim;
 plot3(final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F, final_results.max_welfare_F, ...
       'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
-z_limits_F = zlim;
 plot3([final_results.opt_phi_gap_H_F, final_results.opt_phi_gap_H_F], ...
       [final_results.opt_phi_level_H_F, final_results.opt_phi_level_H_F], ...
       [z_limits_F(1), final_results.max_welfare_F], 'k--', 'LineWidth', 1);
+text(x_lim_pad(1), y_lim_pad(2), z_limits_F(2) + 0.08 * dz_F, 'Welfare', ...
+     'HorizontalAlignment', 'center', 'FontSize', 10);
 hold off;
-xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
-line1_F = sprintf('%s: Optimal for Foreign (%s shock)', plot_title_prefix, shock_scenario);
-line2_F = sprintf('\\phi_{gap}^H=%.4f, \\phi_{level}^H=%.4f, Welfare=%.4f', ...
+xlabel(sprintf('\n\\phi_{gap}^H'), 'FontSize', 10);
+ylabel(sprintf('\n\\phi_{level}^H'), 'FontSize', 10);
+line1_F = sprintf('%s: Foreign Welfare (%s shock, %s)', policy_name_upper, shock_scenario, mode_label);
+line2_F = sprintf('\\phi_{gap}^H = %.4g, \\phi_{level}^H = %.4g, Welfare = %.4f', ...
                   final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F, final_results.max_welfare_F);
 annotation('textbox', title_pos_line1, 'String', line1_F, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 12);
 annotation('textbox', title_pos_line2, 'String', line2_F, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 10);
-print(h_foreign, fullfile(base_res_dir, 'graph_foreign.pdf'), '-dpdf');
+graph_foreign_filename = sprintf('%s_opt_graph_foreign_%s.pdf', policy_key, shock_folder);
+print(h_foreign, fullfile(base_res_dir, graph_foreign_filename), '-dpdf');
 close(h_foreign);
 
 % Foreign個別データ保存
 data_z = results_welfare_F_final;
 opt_pt = [final_results.opt_phi_gap_H_F, final_results.opt_phi_level_H_F, final_results.max_welfare_F];
-save(fullfile(base_res_dir, 'data_for_plotting_foreign.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+mat_foreign_filename = sprintf('%s_opt_data_for_plotting_foreign_%s.mat', policy_key, shock_folder);
+save(fullfile(base_res_dir, mat_foreign_filename), 'data_x', 'data_y', 'data_z', 'opt_pt');
 
 % --- Graph 3: Global (Sum) Welfare ---
 h_global = figure('Name', 'NGDPLT: Global Welfare', 'Visible', 'off');
-surf(phi_gap_H_range_final, phi_level_H_range_final, results_welfare_SUM_final);
-colorbar; view(3); hold on;
+surf(phi_gap_H_range_final, phi_level_H_range_final, plot_welfare_SUM);
+colorbar; view(-37.5, 25); hold on;
+set(gca, 'Position', [0.16, 0.16, 0.62, 0.66], 'FontSize', 8);
+xlim(x_lim_pad); ylim(y_lim_pad);
+z_limits_G = zlim;
+dz_G = max(z_limits_G(2) - z_limits_G(1), 1e-6);
+zlim([z_limits_G(1) - 0.08 * dz_G, z_limits_G(2) + 0.08 * dz_G]);
+z_limits_G = zlim;
 plot3(final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM, ...
       'r*', 'MarkerSize', 12, 'LineWidth', 1.5);
-z_limits_G = zlim;
 plot3([final_results.opt_phi_gap_H_SUM, final_results.opt_phi_gap_H_SUM], ...
       [final_results.opt_phi_level_H_SUM, final_results.opt_phi_level_H_SUM], ...
       [z_limits_G(1), final_results.max_welfare_SUM], 'k--', 'LineWidth', 1);
+text(x_lim_pad(1), y_lim_pad(2), z_limits_G(2) + 0.08 * dz_G, 'Welfare', ...
+     'HorizontalAlignment', 'center', 'FontSize', 10);
 hold off;
-xlabel('\phi_{gap}^H'); ylabel('\phi_{level}^H'); zlabel('Welfare');
-line1_G = sprintf('%s: Optimal for Global (Sum) (%s shock)', plot_title_prefix, shock_scenario);
-line2_G = sprintf('\\phi_{gap}^H=%.4f, \\phi_{level}^H=%.4f, Welfare=%.4f', ...
+xlabel(sprintf('\n\\phi_{gap}^H'), 'FontSize', 10);
+ylabel(sprintf('\n\\phi_{level}^H'), 'FontSize', 10);
+line1_G = sprintf('%s: Global Welfare (%s shock, %s)', policy_name_upper, shock_scenario, mode_label);
+line2_G = sprintf('\\phi_{gap}^H = %.4g, \\phi_{level}^H = %.4g, Welfare = %.4f', ...
                   final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM);
 annotation('textbox', title_pos_line1, 'String', line1_G, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 12);
 annotation('textbox', title_pos_line2, 'String', line2_G, 'EdgeColor', 'none', 'HorizontalAlignment', 'center', 'FontSize', 10);
-print(h_global, fullfile(base_res_dir, 'graph_global.pdf'), '-dpdf');
+graph_global_filename = sprintf('%s_opt_graph_global_%s.pdf', policy_key, shock_folder);
+print(h_global, fullfile(base_res_dir, graph_global_filename), '-dpdf');
 close(h_global);
 
 % Global個別データ保存
 data_z = results_welfare_SUM_final;
 opt_pt = [final_results.opt_phi_gap_H_SUM, final_results.opt_phi_level_H_SUM, final_results.max_welfare_SUM];
-save(fullfile(base_res_dir, 'data_for_plotting_global.mat'), 'data_x', 'data_y', 'data_z', 'opt_pt');
+mat_global_filename = sprintf('%s_opt_data_for_plotting_global_%s.mat', policy_key, shock_folder);
+save(fullfile(base_res_dir, mat_global_filename), 'data_x', 'data_y', 'data_z', 'opt_pt');
 
 fprintf('\n====================================================\n');
 fprintf('NGDPLT Policy optimization has finished for %s.\n', shock_scenario);

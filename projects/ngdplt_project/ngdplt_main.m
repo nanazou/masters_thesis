@@ -10,6 +10,10 @@ mpath = fileparts(mfilename('fullpath'));
 addpath(fullfile(mpath, 'src'));
 % addpath('C:\dynare\Occbin_update-master\toolkit_files');
 
+% 現在のプロジェクト名からポリシーキーを自動抽出 (例: ngdplt_project -> ngdplt)
+[~, proj_folder_name] = fileparts(mpath);
+policy_key = strrep(proj_folder_name, '_project', '');
+
 global M_ oo_;
 
 %% --- 共通シミュレーション設定 ---
@@ -22,36 +26,41 @@ settings.constraint_relax = 'i_H_notional > -i_H_ss';
 settings.nperiods = 400;
 settings.maxiter = 100;
 
-% ▼▼▼【計算に使用するパラメータ設定 (NGDPLT用)】▼▼▼
-phi_gap_H_value = 6.5;
-phi_level_H_value = 13.8;
-% ▲▲▲【設定完了】▲▲▲
-
 %% --- シナリオ定義 ---
 % 1: beta_shock (需要ショック), 2: a_shock (供給ショック)
 scenarios = struct();
 
+% ▼▼▼【計算に使用するパラメータとシナリオ設定 (NGDPLT用)】▼▼▼
 % シナリオ1: Beta Shock
-scenarios(1).name = 'beta_shock';
-scenarios(1).irfshock = 'eps_beta_H';
-scenarios(1).shock_val = 0.02; % 正のショック(割引因子上昇=需要減退)
+scenarios(1).name        = 'beta_shock';
+scenarios(1).irfshock    = 'eps_beta_H';
+scenarios(1).shock_val   = 0.02; % 正のショック(割引因子上昇=需要減退)
+scenarios(1).phi_gap_H   = 1000000;
+scenarios(1).phi_level_H = 1000000;
 
 % シナリオ2: A Shock
-scenarios(2).name = 'a_shock';
-scenarios(2).irfshock = 'eps_a_H';
-scenarios(2).shock_val = -0.1; % 負のショック(生産性低下)
+scenarios(2).name        = 'a_shock';
+scenarios(2).irfshock    = 'eps_a_H';
+scenarios(2).shock_val   = -0.1; % 負のショック(生産性低下)
+scenarios(2).phi_gap_H   = 1000000;
+scenarios(2).phi_level_H = 1000000;
+% ▲▲▲【設定完了】▲▲▲
 
 %% --- ループ実行開始 ---
 for s_idx = 1:length(scenarios)
     
     % --- 現在のシナリオ設定の読み込み ---
     current_scen = scenarios(s_idx);
+    phi_gap_H_value   = current_scen.phi_gap_H;
+    phi_level_H_value = current_scen.phi_level_H;
+
     fprintf('\n====================================================\n');
     fprintf('NGDPLT シナリオ実行中: %s (%s = %.2f)\n', current_scen.name, current_scen.irfshock, current_scen.shock_val);
+    fprintf('使用パラメータ: phi_gap_H = %.4f, phi_level_H = %.4f\n', phi_gap_H_value, phi_level_H_value);
     fprintf('====================================================\n');
 
-    % 設定構造体の更新
-    settings.shockssequence = [ current_scen.shock_val; zeros(settings.nperiods-1, 1) ];
+    % 設定構造体の更新 (スカラー値を渡して高速化)
+    settings.shockssequence = current_scen.shock_val;
     settings.irfshock = current_scen.irfshock;
     
     % --- 出力先フォルダの設定 (results > [shock] 直下に変更) ---
@@ -60,6 +69,23 @@ for s_idx = 1:length(scenarios)
 
     % --- 【核心】ngdplt_solve_core.m の呼び出し ---
     [welfares, irf_results, Mbase_, oobase_] = ngdplt_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+    % --- 固有値・収束・振動の診断チェック ---
+    stable_eigs = oobase_.dr.eigval(abs(oobase_.dr.eigval) < 1 - 1e-5);
+    if any(real(stable_eigs) < -1e-5)
+        warning('[%s] Negative stable eigenvalue (lambda < 0) detected!', current_scen.name);
+    end
+    i_H_ss_val = Mbase_.params(strcmp('i_H_ss', Mbase_.param_names));
+    zlb_actual   = (irf_results.i_H_pie <= -i_H_ss_val + 1e-6);
+    zlb_notional = (irf_results.i_H_notional_pie < -i_H_ss_val - 1e-6);
+    if any(zlb_actual ~= zlb_notional)
+        warning('[%s] OccBin did not converge within maxiter (regime cycling)!', current_scen.name);
+    end
+    di_lin = diff(irf_results.i_H_lin);
+    zigzag_count = sum((di_lin(1:end-1) .* di_lin(2:end) < 0) & (abs(di_lin(1:end-1)) > 1e-6));
+    if zigzag_count > 10
+        warning('[%s] Oscillating solution (zigzag chattering) detected!', current_scen.name);
+    end
 
     % 取得した厚生変数を個別に展開
     welfare_H_with_delta_pie = welfares.welfare_H_with_delta_pie;
@@ -80,7 +106,7 @@ for s_idx = 1:length(scenarios)
     %% --- グラフの描画 ---
     fprintf('グラフを作成し、PDFに保存中 (%s)...\n', current_scen.name);
 
-% 表示変数のリスト (chi_H および 統計ベース物価指数を補完)
+    % 表示変数のリスト (chi_H および 統計ベース物価指数を補完)
     var_list = { ...
         'e_slash_star', ...
         'lambda_H', ...
@@ -121,9 +147,10 @@ for s_idx = 1:length(scenarios)
         'Delta_H', 'Delta_F', ...
     };
 
-    % gnuplotを使用してPDFを出力
+    % gnuplotを使用してPDFを出力 (例: ngdplt_graphs_beta_shock.pdf)
     graphics_toolkit("gnuplot");
-    output_filename = fullfile(output_root_folder, 'graphs.pdf');
+    pdf_filename = sprintf('%s_graphs_%s.pdf', policy_key, current_scen.name);
+    output_filename = fullfile(output_root_folder, pdf_filename);
     if isfile(output_filename), delete(output_filename); end
 
     plots_per_page = 6;
@@ -132,7 +159,7 @@ for s_idx = 1:length(scenarios)
     num_vars = length(var_list);
     nperiods = settings.nperiods;
     irfshock = settings.irfshock;
-    shockssequence = settings.shockssequence;
+    shockssequence = [ settings.shockssequence(:); zeros(nperiods - length(settings.shockssequence(:)), 1) ];
 
     for i = 1:plots_per_page:num_vars
         h = figure('Visible', 'off', 'PaperType', 'a4', 'PaperOrientation', 'landscape', 'PaperUnits', 'centimeters');
@@ -335,8 +362,9 @@ for s_idx = 1:length(scenarios)
     vars_to_save{end+1} = 'welfare_F_without_delta_pie';
     vars_to_save{end+1} = 'welfare_F_without_delta_lin';
 
-    % Output フォルダを介さず直下の data_for_plotting.mat に保存
-    full_save_path = fullfile(output_root_folder, 'data_for_plotting.mat');
+    % results/[shock]/ 直下に保存 (例: ngdplt_data_for_plotting_beta_shock.mat)
+    mat_filename = sprintf('%s_data_for_plotting_%s.mat', policy_key, current_scen.name);
+    full_save_path = fullfile(output_root_folder, mat_filename);
 
     save(full_save_path, vars_to_save{:});
     fprintf('データ保存完了: %s\n', full_save_path);
@@ -357,8 +385,9 @@ for s_idx = 1:length(scenarios)
             end
         end
         
-        % 保存パスの構成 (results/[shock]/data_for_plotting.csv)
-        csv_save_path = fullfile(output_root_folder, 'data_for_plotting.csv');
+        % 保存パスの構成 (例: results/[shock]/ngdplt_data_for_plotting_beta_shock.csv)
+        csv_filename = sprintf('%s_data_for_plotting_%s.csv', policy_key, current_scen.name);
+        csv_save_path = fullfile(output_root_folder, csv_filename);
 
         fid = fopen(csv_save_path, 'w');
         if fid == -1, error('CSVファイルを開けませんでした'); end
@@ -370,11 +399,13 @@ for s_idx = 1:length(scenarios)
         
         dlmwrite(csv_save_path, data_matrix, '-append', 'delimiter', ',', 'precision', '%.8g');
         
-        % --- 厚生データのテキスト保存 ---
-        scalar_save_path = fullfile(output_root_folder, 'data_for_plotting_welfare.txt');
+        % --- 厚生データのテキスト保存 (例: ngdplt_data_for_plotting_welfare_beta_shock.txt) ---
+        txt_filename = sprintf('%s_data_for_plotting_welfare_%s.txt', policy_key, current_scen.name);
+        scalar_save_path = fullfile(output_root_folder, txt_filename);
         fid_scalar = fopen(scalar_save_path, 'w');
         if fid_scalar ~= -1
-            fprintf(fid_scalar, 'Welfare Calculations (%s):\n\n', current_scen.name);
+            fprintf(fid_scalar, 'Welfare Calculations (%s):\n', current_scen.name);
+            fprintf(fid_scalar, 'Parameters: phi_gap_H = %.4f, phi_level_H = %.4f\n\n', phi_gap_H_value, phi_level_H_value);
             
             fprintf(fid_scalar, '--- with Price Dispersion Cost (Delta included) ---\n');
             fprintf(fid_scalar, 'welfare_H_with_delta_pie (ZLB): %.8f\n', S.welfare_H_with_delta_pie);
@@ -402,13 +433,9 @@ for s_idx = 1:length(scenarios)
                 mkdir(central_data_folder);
             end
             
-            % 現在のプロジェクト名からポリシーキーを自動抽出 (例: clt_project -> clt)
-            [~, proj_folder_name] = fileparts(mpath);
-            policy_key = strrep(proj_folder_name, '_project', '');
-            
-            % コピー先のファイル名を生成 (例: data_for_plotting_clt_beta_shock.csv)
-            dest_csv_name = sprintf('data_for_plotting_%s_%s.csv', policy_key, current_scen.name);
-            dest_txt_name = sprintf('data_for_plotting_welfare_%s_%s.txt', policy_key, current_scen.name);
+            % コピー先のファイル名 (プランAの命名規則に統一)
+            dest_csv_name = csv_filename;
+            dest_txt_name = txt_filename;
             
             % 該当フォルダへファイルをコピー
             copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));

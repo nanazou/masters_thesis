@@ -1,0 +1,85 @@
+================================================================================
+最適パラメータ探索スクリプト (*_find_optimal_params.m) における改修まとめ
+================================================================================
+
+1. シミュレーションの高速化（400回ループの解消）
+--------------------------------------------------------------------------------
+【改修前の問題点】
+`settings.shockssequence = [ shock_value; zeros(399, 1) ];` のように400×1のベクトルを
+渡していたため、OccBinの `solve_one_constraint.m` 内部で `nshocks_ = 400` と判定され、
+2期目以降はショックがゼロであるにもかかわらず、400期分のレジーム判定と後ろ向き帰納法
+（`mkdatap_anticipated.m`）の反復計算が毎期繰り返されていた。
+
+【改修内容】
+`settings.shockssequence = shock_value;` （1×1のスカラー値）に変更。
+
+【数理的・プログラム的根拠】
+ショックが1期目のみに発生する場合、`ishock_ = 1` の計算時点で1期目から400期目までの
+完全予見パス（区分線形解）はすでに一括で求まっている。`shockssequence` をスカラーにする
+ことで、`solve_one_constraint.m` のループは1回で終了し、2期目〜400期目のパスは同関数内の
+`zdatapiecewise_(ishock_+1:end,:) = zdatalinear_(2:nperiods_-ishock_+1,:);` によって
+自動的に補完される。計算結果は完全に一致したまま、計算時間を約1/400に短縮できる。
+（※なお、`*_main.m` については1回のみの実行であり、ショックのグラフ描画でベクトル長を
+参照しているため、従来の400×1ベクトルのままとする。）
+
+
+2. 不適切解（振動解・OccBin未収束解）を除外する3段階フィルターの導入
+--------------------------------------------------------------------------------
+【改修前の問題点】
+1) 政策反応係数（`phi_gap_H`, `phi_level_H`）が大きすぎる領域では、Blanchard-Kahn条件を
+   満たしていても状態遷移行列の安定固有値（|λ| < 1）の実部が負（λ < 0）となり、
+   1期ごとに符号が反転する非現実的なのこぎり波（2周期のオーバーシュート振動）が発生する。
+2) OccBinの `solve_one_constraint.m` は、レジームの推測が収束せず上限回数（`maxiter`）に
+   達してもエラー（exception）を投げず、コンソールにメッセージを表示するだけで未収束の
+   壊れたパスをそのまま返してしまう。
+これらを除外せずに厚生を計算すると、振動や未収束による異常値が「最大厚生（最適値）」として
+誤って選出されてしまう。
+
+【改修内容】
+`*_solve_core` から4つの戻り値 `[res, irf_res, Mbase_, oobase_]` をすべて受け取り、
+`try` ブロック内で以下の3段階の検査を実施。いずれかに抵触した場合は `error()` を投げて
+`catch` ブロックへ移行させ、厚生を `-999` として最適解候補から除外する。
+
+  (1) 負の安定固有値（λ < 0）の検出
+      `oobase_.dr.eigval` から安定固有値（絶対値 < 1）を抽出し、実部が負
+      （`real(stable_eigs) < -1e-5`）のものが含まれる場合はエラーとする。
+
+  (2) OccBinの未収束（レジーム・サイクリング打ち切り）の厳密な検出
+      均衡に収束していれば、「実現金利がZLBに張り付いている期間（`i_H_pie <= -i_H_ss + 1e-6`）」
+      と「Notional金利がZLBを下回っている期間（`i_H_notional_pie < -i_H_ss - 1e-6`）」は
+      完全に一致する。両者が1期でも不一致であれば、上限回数到達による未収束と判定しエラーとする。
+
+  (3) 2周期チャタリング（ジグザグ振動）のフェイルセーフ検出
+      Non-ZLB（線形解）の金利階差 `diff(irf_res.i_H_lin)` の符号反転回数をカウントし、
+      10回を超えて振動している場合はエラーとする。
+
+
+3. 適用対象コード（`*_find_optimal_params.m` への反映箇所）
+--------------------------------------------------------------------------------
+(A) 設定構造体（Simulation Settings Structure）:
+    settings.shockssequence = shock_value;
+
+(B) メインループ内のコア関数呼び出しと判定（Main Calculation Loop）:
+    [res, irf_res, Mbase_, oobase_] = cplt_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+    % 1. 固有値判定: lambda > 0 (正の安定固有値のみ許可)
+    stable_eigs = oobase_.dr.eigval(abs(oobase_.dr.eigval) < 1 - 1e-5);
+    if any(real(stable_eigs) < -1e-5)
+        error('Negative stable eigenvalue (lambda < 0) detected.');
+    end
+
+    % 2. OccBinの未収束（サイクリング打ち切り）の厳密な検出
+    i_H_ss_val = Mbase_.params(strcmp('i_H_ss', Mbase_.param_names));
+    zlb_actual   = (irf_res.i_H_pie <= -i_H_ss_val + 1e-6);
+    zlb_notional = (irf_res.i_H_notional_pie < -i_H_ss_val - 1e-6);
+    if any(zlb_actual ~= zlb_notional)
+        error('OccBin did not converge within maxiter (regime cycling).');
+    end
+
+    % 3. フェイルセーフ：Non-ZLB金利の2周期チャタリング（振動）の検出
+    di_lin = diff(irf_res.i_H_lin);
+    zigzag_count = sum((di_lin(1:end-1) .* di_lin(2:end) < 0) & (abs(di_lin(1:end-1)) > 1e-6));
+    if zigzag_count > 10
+        error('Oscillating solution (zigzag chattering) detected.');
+    end
+================================================================================

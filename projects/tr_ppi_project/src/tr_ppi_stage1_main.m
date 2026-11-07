@@ -15,6 +15,11 @@ mpath = fileparts(mfilename('fullpath'));
 addpath(fullfile(mpath, 'stage1'));
 % addpath('C:\dynare\Occbin_update-master\toolkit_files');
 
+% プロジェクト名からポリシーキーを自動抽出 (例: tr_ppi_project -> tr_ppi)
+proj_dir = fileparts(mpath);
+[~, proj_folder_name] = fileparts(proj_dir);
+policy_key = strrep(proj_folder_name, '_project', '');
+
 global M_ oo_ options_;
 
 % 外部（統合メインスクリプト）から shock_scenario が指定されていない場合のデフォルト値
@@ -79,8 +84,9 @@ end
 % 伸縮的価格モデルなので y_H_pie がそのまま潜在産出量 (偏差) となる
 eps_y_H_potential = y_H_pie; 
 
-% Stage 2 が直接参照するファイル名で保存
-save_path_potential = fullfile(output_root_folder, 'potential_output.mat');
+% Stage 2 が直接参照するファイル名で保存 (例: tr_ppi_stage1_potential_output_beta_shock.mat)
+pot_filename = sprintf('%s_stage1_potential_output_%s.mat', policy_key, shock_folder);
+save_path_potential = fullfile(output_root_folder, pot_filename);
 save(save_path_potential, 'eps_y_H_potential');
 
 fprintf('Stage 1 潜在産出量を保存しました: %s\n', save_path_potential);
@@ -130,8 +136,9 @@ fprintf('グラフを作成し、PDFに保存中...\n');
 
 graphics_toolkit("gnuplot");
 
-% 出力ファイル名の設定 (results > stage1 > [shock] > graphs.pdf)
-output_filename = fullfile(output_root_folder, 'graphs.pdf'); 
+% 出力ファイル名の設定 (例: results > stage1 > [shock] > tr_ppi_stage1_graphs_beta_shock.pdf)
+pdf_filename = sprintf('%s_stage1_graphs_%s.pdf', policy_key, shock_folder);
+output_filename = fullfile(output_root_folder, pdf_filename); 
 
 if isfile(output_filename), delete(output_filename); end
 
@@ -193,6 +200,26 @@ for i = 1:plots_per_page:num_vars
             latex_title = 'p^{H \to W} c^{H \to W}';
         elseif strcmp(var_name, 'p_H_W_slash_p_H') 
             latex_title = 'p^{H \to W} / p^H';
+        elseif strcmp(var_name, 'pi_H_W')
+            latex_title = '\pi^{H \to W}';
+        elseif strcmp(var_name, 'pi_F_W_star')
+            latex_title = '\pi^{F \to W*}';
+        elseif strcmp(var_name, 'c_H_W')
+            latex_title = 'c^{H \to W}';
+        elseif strcmp(var_name, 'c_F_W')
+            latex_title = 'c^{F \to W*}';
+        elseif strcmp(var_name, 'p_H_W')
+            latex_title = 'p^{H \to W}';
+        elseif strcmp(var_name, 'p_F_W_star')
+            latex_title = 'p^{F \to W*}';
+        elseif strcmp(var_name, 'c_H_H')
+            latex_title = 'c^{H \to H}';
+        elseif strcmp(var_name, 'c_F_H')
+            latex_title = 'c^{F \to H}';
+        elseif strcmp(var_name, 'c_H_F')
+            latex_title = 'c^{H \to F*}';
+        elseif strcmp(var_name, 'c_F_F')
+            latex_title = 'c^{F \to F*}';
         elseif strcmp(var_name, 'p_H_tilde')
             latex_title = '\tilde{p}^H';
         elseif strcmp(var_name, 'p_F_star_tilde')
@@ -212,10 +239,14 @@ for i = 1:plots_per_page:num_vars
             end
         elseif strcmp(var_name, 'lambda_H_slash_star')
             latex_title = '\lambda^{H/*}';
+        elseif strcmp(var_name, 'lambda_H')
+            latex_title = '\lambda^H';
         elseif strcmp(var_name, 'lambda_F')
             latex_title = '\lambda^F';
         elseif strcmp(var_name, 'lambda_F_slash_star')
             latex_title = '\lambda^{F/*}';
+        elseif strcmp(var_name, 'pi_H')
+            latex_title = '\pi^H';
         elseif strcmp(var_name, 'pi_F_star')
             latex_title = '\pi^{F*}';
         elseif strcmp(var_name, 'b_F_star')
@@ -248,6 +279,7 @@ for i = 1:plots_per_page:num_vars
                 superscript = strjoin(parts(2:end), '_');
                 superscript = strrep(superscript, '_', '\rightarrow'); 
                 superscript = strrep(superscript, '\rightarrowstar', '*'); 
+                superscript = strrep(superscript, 'star', '*'); 
                 latex_title = [base '^{' superscript '}'];
             else
                 latex_title = base;
@@ -305,8 +337,9 @@ w_list = {'welfare_H_with_delta_pie','welfare_H_with_delta_lin','welfare_F_with_
           'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin'};
 vars_to_save = [vars_to_save, w_list];
 
-% 簡潔な名前 (data_for_plotting.mat) で保存
-full_save_path = fullfile(output_root_folder, 'data_for_plotting.mat');
+% プランAの命名規則で保存 (例: tr_ppi_stage1_data_for_plotting_beta_shock.mat)
+mat_filename = sprintf('%s_stage1_data_for_plotting_%s.mat', policy_key, shock_folder);
+full_save_path = fullfile(output_root_folder, mat_filename);
 save(full_save_path, vars_to_save{:});
 fprintf('全てのデータが "%s" に保存されました。\n', full_save_path);
 
@@ -326,7 +359,9 @@ try
         end
     end
     
-    csv_save_path = fullfile(output_root_folder, 'data_for_plotting.csv');
+    % 例: tr_ppi_stage1_data_for_plotting_beta_shock.csv
+    csv_filename = sprintf('%s_stage1_data_for_plotting_%s.csv', policy_key, shock_folder);
+    csv_save_path = fullfile(output_root_folder, csv_filename);
     fid = fopen(csv_save_path, 'w');
     if fid == -1, error('CSVファイルを開けませんでした: %s', csv_save_path); end
     fprintf(fid, '%s', header{1}); 
@@ -335,8 +370,9 @@ try
     fclose(fid);
     dlmwrite(csv_save_path, data_matrix, '-append', 'delimiter', ',', 'precision', '%.8g');
     
-    % --- [8] 厚生データのテキスト保存 ---
-    scalar_save_path = fullfile(output_root_folder, 'data_for_plotting_welfare.txt');
+    % --- [8] 厚生データのテキスト保存 (例: tr_ppi_stage1_data_for_plotting_welfare_beta_shock.txt) ---
+    txt_filename = sprintf('%s_stage1_data_for_plotting_welfare_%s.txt', policy_key, shock_folder);
+    scalar_save_path = fullfile(output_root_folder, txt_filename);
     fid_scalar = fopen(scalar_save_path, 'w');
     if fid_scalar ~= -1
         fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 1 Flex - Scenario: %s):\n\n', shock_scenario);

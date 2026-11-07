@@ -50,7 +50,7 @@ for s = 1:length(scenarios)
     % --- Step 2: Stage 2 (Sticky Price + ZLB / Policy Simulation) の実行 ---
     fprintf('\n>> Step 2: src/tr_ppi_stage2_main.m を実行しています (政策シミュレーション)...\n');
     try
-        % Stage 1 で保存された 'potential_output.mat' が自動的にロードされます
+        % Stage 1 で保存された潜在産出量データが自動的にロードされます
         run(fullfile(root_mpath, 'src', 'tr_ppi_stage2_main.m'));
     catch ME
         fprintf('\n[エラー発生] Stage 2 (%s) でエラーが発生しました:\n', shock_scenario);
@@ -67,7 +67,7 @@ fprintf('         全てのシミュレーション工程が正常に終了し�
 fprintf('========================================================================\n');
 fprintf('結果の確認先 (project_root基準):\n');
 fprintf('  - Stage 1 結果 (潜在産出量データ/グラフ):\n');
-fprintf('    results/stage1/[shock_scenario]/\n');
+fprintf('    results/stage1/[shock_folder]/\n');
 fprintf('  - Stage 2 結果 (最終IRFグラフ/CSV/厚生データ):\n');
-fprintf('    results/stage2/[shock_scenario]/\n');
+fprintf('    results/stage2/[shock_folder]/\n');
 fprintf('========================================================================\n');

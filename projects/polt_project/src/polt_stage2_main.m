@@ -15,23 +15,29 @@ mpath = fileparts(mfilename('fullpath'));
 addpath(fullfile(mpath, 'stage2'));
 % addpath('C:\dynare\Occbin_update-master\toolkit_files');
 
+% プロジェクト名からポリシーキーを自動抽出 (例: polt_project -> polt)
+proj_dir = fileparts(mpath);
+[~, proj_folder_name] = fileparts(proj_dir);
+policy_key = strrep(proj_folder_name, '_project', '');
+
 global M_ oo_ options_;
 
 if ~exist('shock_scenario', 'var')
     shock_scenario = 'beta'; 
 end
 
+% ▼▼▼【計算に使用するショック別パラメータ設定 (POLT STAGE2用)】▼▼▼
 if strcmp(shock_scenario, 'beta')
-    shock_folder = 'beta_shock';
+    shock_folder      = 'beta_shock';
+    phi_gap_H_value   = 1000000;
+    phi_level_H_value = 1000000;
 elseif strcmp(shock_scenario, 'a')
-    shock_folder = 'a_shock';
+    shock_folder      = 'a_shock';
+    phi_gap_H_value   = 1000000;
+    phi_level_H_value = 1000000;
 else
     error("Invalid shock_scenario. Choose 'beta' or 'a'.");
 end
-
-% ▼▼▼【計算に使用するパラメータ設定 (POLT STAGE2用)】▼▼▼
-phi_gap_H_value   = 0.20;
-phi_level_H_value = 0.06;
 % ▲▲▲【設定完了】▲▲▲
 
 % 出力パスを project_root/results/stage2/[shock] 直下に設定
@@ -40,8 +46,9 @@ output_root_folder = fullfile(mpath, '..', 'results', 'stage2', shock_folder);
 if ~exist(output_root_folder, 'dir'), mkdir(output_root_folder); end
 
 %% --- [2] Stage 1 データの読み込み ---
-% Stage 1 の成果物 (results/stage1/[shock]/potential_output.mat) を参照
-stage1_file = fullfile(mpath, '..', 'results', 'stage1', shock_folder, 'potential_output.mat');
+% Stage 1 の成果物 (例: results/stage1/[shock]/polt_stage1_potential_output_beta_shock.mat) を参照
+pot_filename = sprintf('%s_stage1_potential_output_%s.mat', policy_key, shock_folder);
+stage1_file = fullfile(mpath, '..', 'results', 'stage1', shock_folder, pot_filename);
 
 if ~exist(stage1_file, 'file')
     error('Stage 1 の結果ファイルが見つかりません: %s\n先に polt_stage1_main.m を実行してください。', stage1_file);
@@ -74,10 +81,12 @@ elseif strcmp(shock_scenario, 'a')
     primary_shock_magnitude = -0.1;
 end
 
-% ショックシーケンスの構築
+% ショックシーケンスの構築 (1×2行ベクトルにして400回ループを回避し高速化)
+settings.shockssequence = [primary_shock_magnitude, eps_y_H_potential_vec(1)]; % ★1期目のみ(1×2)に変更
+
+% グラフ描画用に400×2のショック行列も保持
 shockssequence = zeros(settings.nperiods, 2);
-shockssequence(1, 1) = primary_shock_magnitude;
-shockssequence(1, 2) = eps_y_H_potential_vec(1); % ★1期目のみに変更
+shockssequence(1, :) = settings.shockssequence;
 
 % ★減衰パラメータの定義を追加
 if strcmp(shock_scenario, 'beta')
@@ -86,11 +95,27 @@ elseif strcmp(shock_scenario, 'a')
     assignin('base', 'rho_potential_value', 0.950);
 end
 
-settings.shockssequence = shockssequence;
-
 %% --- [4] 【核心】stage2/polt_stage2_solve_core.m の呼び出し ---
 fprintf('Stage 2 (Sticky Price + ZLB) シミュレーションを開始します...\n');
+fprintf('使用パラメータ: phi_gap_H = %.4f, phi_level_H = %.4f\n', phi_gap_H_value, phi_level_H_value);
 [welfares, irf_results, Mbase_, oobase_] = polt_stage2_solve_core(phi_gap_H_value, phi_level_H_value, settings);
+
+% --- 固有値・収束・振動の診断チェック ---
+stable_eigs = oobase_.dr.eigval(abs(oobase_.dr.eigval) < 1 - 1e-5);
+if any(real(stable_eigs) < -1e-5)
+    warning('[%s] Negative stable eigenvalue (lambda < 0) detected!', shock_scenario);
+end
+i_H_ss_val = Mbase_.params(strcmp('i_H_ss', Mbase_.param_names));
+zlb_actual   = (irf_results.i_H_pie <= -i_H_ss_val + 1e-6);
+zlb_notional = (irf_results.i_H_notional_pie < -i_H_ss_val - 1e-6);
+if any(zlb_actual ~= zlb_notional)
+    warning('[%s] OccBin did not converge within maxiter (regime cycling)!', shock_scenario);
+end
+di_lin = diff(irf_results.i_H_lin);
+zigzag_count = sum((di_lin(1:end-1) .* di_lin(2:end) < 0) & (abs(di_lin(1:end-1)) > 1e-6));
+if zigzag_count > 10
+    warning('[%s] Oscillating solution (zigzag chattering) detected!', shock_scenario);
+end
 
 % 取得した厚生変数を個別に展開
 welfare_H_with_delta_pie = welfares.welfare_H_with_delta_pie;
@@ -152,8 +177,9 @@ end
 
 graphics_toolkit("gnuplot");
 
-% 出力ファイル名の設定 (results > stage2 > [shock] > graphs.pdf)
-output_filename = fullfile(output_root_folder, 'graphs.pdf'); 
+% 出力ファイル名の設定 (例: results > stage2 > [shock] > polt_graphs_beta_shock.pdf)
+pdf_filename = sprintf('%s_graphs_%s.pdf', policy_key, shock_folder);
+output_filename = fullfile(output_root_folder, pdf_filename); 
 
 if isfile(output_filename), delete(output_filename); end
 
@@ -222,6 +248,26 @@ for i = 1:plots_per_page:num_vars
             latex_title = 'p^{H \to W} c^{H \to W}';
         elseif strcmp(var_name, 'p_H_W_slash_p_H') 
             latex_title = 'p^{H \to W} / p^H';
+        elseif strcmp(var_name, 'pi_H_W')
+            latex_title = '\pi^{H \to W}';
+        elseif strcmp(var_name, 'pi_F_W_star')
+            latex_title = '\pi^{F \to W*}';
+        elseif strcmp(var_name, 'c_H_W')
+            latex_title = 'c^{H \to W}';
+        elseif strcmp(var_name, 'c_F_W')
+            latex_title = 'c^{F \to W*}';
+        elseif strcmp(var_name, 'p_H_W')
+            latex_title = 'p^{H \to W}';
+        elseif strcmp(var_name, 'p_F_W_star')
+            latex_title = 'p^{F \to W*}';
+        elseif strcmp(var_name, 'c_H_H')
+            latex_title = 'c^{H \to H}';
+        elseif strcmp(var_name, 'c_F_H')
+            latex_title = 'c^{F \to H}';
+        elseif strcmp(var_name, 'c_H_F')
+            latex_title = 'c^{H \to F*}';
+        elseif strcmp(var_name, 'c_F_F')
+            latex_title = 'c^{F \to F*}';
         elseif strcmp(var_name, 'p_H_tilde')
             latex_title = '\tilde{p}^H';
         elseif strcmp(var_name, 'p_F_star_tilde')
@@ -241,16 +287,16 @@ for i = 1:plots_per_page:num_vars
             end
         elseif strcmp(var_name, 'lambda_H_slash_star')
             latex_title = '\lambda^{H/*}';
+        elseif strcmp(var_name, 'lambda_H')
+            latex_title = '\lambda^H';
         elseif strcmp(var_name, 'lambda_F')
             latex_title = '\lambda^F';
         elseif strcmp(var_name, 'lambda_F_slash_star')
             latex_title = '\lambda^{F/*}';
+        elseif strcmp(var_name, 'pi_H')
+            latex_title = '\pi^H';
         elseif strcmp(var_name, 'pi_F_star')
             latex_title = '\pi^{F*}';
-        elseif strcmp(var_name, 'pi_H_W')
-            latex_title = '\pi^{H \to W}';
-        elseif strcmp(var_name, 'pi_F_W_star')
-            latex_title = '\pi^{F \to W*}';
         elseif strcmp(var_name, 'b_F_star')
             latex_title = 'b^{F*}';
         elseif strcmp(var_name, 'y_H_potential')
@@ -319,7 +365,8 @@ for i = 1:plots_per_page:num_vars
         end
     end
     
-    if i == 1
+    page_num = floor((i-1) / plots_per_page) + 1;
+    if page_num == 1
         print(h, output_filename, '-dpdf');
     else
         print(h, output_filename, '-dpdf', '-append');
@@ -346,8 +393,9 @@ w_list = {'welfare_H_with_delta_pie','welfare_H_with_delta_lin','welfare_F_with_
           'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin'};
 vars_to_save = [vars_to_save, w_list];
 
-% 成果物フォルダ直下に保存
-full_save_path = fullfile(output_root_folder, 'data_for_plotting.mat');
+% 成果物フォルダ直下に保存 (例: polt_data_for_plotting_beta_shock.mat)
+mat_filename = sprintf('%s_data_for_plotting_%s.mat', policy_key, shock_folder);
+full_save_path = fullfile(output_root_folder, mat_filename);
 save(full_save_path, vars_to_save{:});
 fprintf('全てのデータが "%s" に保存されました。\n', full_save_path);
 
@@ -366,7 +414,9 @@ try
         end
     end
     
-    csv_save_path = fullfile(output_root_folder, 'data_for_plotting.csv');
+    % 例: polt_data_for_plotting_beta_shock.csv
+    csv_filename = sprintf('%s_data_for_plotting_%s.csv', policy_key, shock_folder);
+    csv_save_path = fullfile(output_root_folder, csv_filename);
     fid = fopen(csv_save_path, 'w');
     if fid == -1, error('CSVファイルを開けませんでした: %s', csv_save_path); end
     fprintf(fid, '%s', header{1}); 
@@ -375,11 +425,13 @@ try
     fclose(fid);
     dlmwrite(csv_save_path, data_matrix, '-append', 'delimiter', ',', 'precision', '%.8g');
     
-    % --- [8] 厚生データのテキスト保存 ---
-    scalar_save_path = fullfile(output_root_folder, 'data_for_plotting_welfare.txt');
+    % --- [8] 厚生データのテキスト保存 (例: polt_data_for_plotting_welfare_beta_shock.txt) ---
+    txt_filename = sprintf('%s_data_for_plotting_welfare_%s.txt', policy_key, shock_folder);
+    scalar_save_path = fullfile(output_root_folder, txt_filename);
     fid_scalar = fopen(scalar_save_path, 'w');
     if fid_scalar ~= -1
-        fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 2 Sticky - Scenario: %s):\n\n', shock_scenario);
+        fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 2 Sticky - Scenario: %s):\n', shock_scenario);
+        fprintf(fid_scalar, 'Parameters: phi_gap_H = %.4f, phi_level_H = %.4f\n\n', phi_gap_H_value, phi_level_H_value);
         fprintf(fid_scalar, '--- with Price Dispersion Cost (Delta included) ---\n');
         fprintf(fid_scalar, 'welfare_H_with_delta_pie (ZLB): %.8f\n', S.welfare_H_with_delta_pie);
         fprintf(fid_scalar, 'welfare_H_with_delta_lin (Non-ZLB): %.8f\n', S.welfare_H_with_delta_lin);
@@ -396,9 +448,7 @@ try
         % =========================================================
         % projects フォルダ直下の data_for_plotting フォルダへコピー
         % =========================================================
-        % polt_stage2_main.m の場所 (src/stage2) から projects 階層まで遡る
-        src_dir = fileparts(mpath);          % .../polt_project/src
-        proj_dir = fileparts(src_dir);       % .../polt_project
+        % polt_stage2_main.m の場所 (src) から projects 階層まで遡る
         projects_root = fileparts(proj_dir); % .../projects
         
         central_data_folder = fullfile(projects_root, 'data_for_plotting');
@@ -406,13 +456,9 @@ try
             mkdir(central_data_folder);
         end
         
-        % プロジェクト名からポリシーキーを自動抽出 (例: polt_project -> polt)
-        [~, proj_folder_name] = fileparts(proj_dir);
-        policy_key = strrep(proj_folder_name, '_project', '');
-        
-        % コピー先のファイル名を生成 (例: data_for_plotting_polt_beta_shock.csv)
-        dest_csv_name = sprintf('data_for_plotting_%s_%s.csv', policy_key, shock_folder);
-        dest_txt_name = sprintf('data_for_plotting_welfare_%s_%s.txt', policy_key, shock_folder);
+        % コピー先のファイル名 (プランAの命名規則に統一)
+        dest_csv_name = csv_filename;
+        dest_txt_name = txt_filename;
         
         % 該当フォルダへファイルをコピー
         copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));

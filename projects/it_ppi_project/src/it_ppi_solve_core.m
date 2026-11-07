@@ -191,8 +191,8 @@ welfares.welfare_SUM_with_delta_pie = welfares.welfare_H_with_delta_pie + welfar
 % 対数線形近似における積・商の関係（和・差）を計算します
 lambda_H_slash_star_pie = e_slash_star_pie + lambda_H_pie;
 lambda_H_slash_star_lin = e_slash_star_lin + lambda_H_lin;
-lambda_F_pie = lambda_H_slash_star_pie - e_slash_star_pie;
-lambda_F_lin = lambda_H_slash_star_lin - e_slash_star_lin;
+lambda_F_pie = lambda_F_slash_star_pie - e_slash_star_pie;
+lambda_F_lin = lambda_F_slash_star_lin - e_slash_star_lin;
 
 % --- 【新規追加: 変数名を積の形に変更】 ---
 p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie;

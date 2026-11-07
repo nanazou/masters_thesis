@@ -196,8 +196,9 @@ welfares.welfare_SUM_with_delta_pie = welfare_H_with_delta_pie + welfare_F_with_
 %% --- その他の連結変数などの生成 ---
 lambda_H_slash_star_pie = e_slash_star_pie + lambda_H_pie;
 lambda_H_slash_star_lin = e_slash_star_lin + lambda_H_lin;
-lambda_F_pie = lambda_H_slash_star_pie - e_slash_star_pie;
-lambda_F_lin = lambda_H_slash_star_lin - e_slash_star_lin;
+% 【バグ修正】外国の限界効用 lambda_F_slash_star から e_slash_star を引くように修正
+lambda_F_pie = lambda_F_slash_star_pie - e_slash_star_pie;
+lambda_F_lin = lambda_F_slash_star_lin - e_slash_star_lin;
 
 % --- 【新規追加: 変数名を積の形に変更】 ---
 p_H_bar_y_H_pie = p_H_bar_pie + y_H_pie;

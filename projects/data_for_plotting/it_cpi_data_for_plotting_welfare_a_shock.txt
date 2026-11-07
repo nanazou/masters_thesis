@@ -1,0 +1,14 @@
+Welfare Calculations (a_shock):
+Parameter: phi_pi_H = 20000.0000
+
+--- with Price Dispersion Cost (Delta included) ---
+welfare_H_with_delta_pie (ZLB): -1.36539507
+welfare_H_with_delta_lin (Non-ZLB): -1.36539507
+welfare_F_with_delta_pie (ZLB): -0.04489271
+welfare_F_with_delta_lin (Non-ZLB): -0.04489271
+
+--- without Price Dispersion Cost (Delta = 0) ---
+welfare_H_without_delta_pie (ZLB): -1.36508241
+welfare_H_without_delta_lin (Non-ZLB): -1.36508241
+welfare_F_without_delta_pie (ZLB): -0.04489271
+welfare_F_without_delta_lin (Non-ZLB): -0.04489271
