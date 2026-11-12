@@ -1,5 +1,5 @@
 Welfare Calculations (beta_shock):
-Parameters: phi_gap_H = 0.0200, phi_level_H = 1.20000000
+Parameters: phi_gap_H = 0.02, phi_level_H = 1.2 (Auto-loaded from clt_opt_all_data.mat)
 
 --- with Price Dispersion Cost (Delta included) ---
 welfare_H_with_delta_pie (ZLB): -1.23340184

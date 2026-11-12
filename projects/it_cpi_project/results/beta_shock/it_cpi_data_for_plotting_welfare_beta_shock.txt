@@ -1,5 +1,5 @@
 Welfare Calculations (beta_shock):
-Parameter: phi_pi_H = 20000.0000
+Parameter: phi_pi_H = 20000 (Auto-loaded from it_cpi_opt_all_data.mat)
 
 --- with Price Dispersion Cost (Delta included) ---
 welfare_H_with_delta_pie (ZLB): -2.48972301

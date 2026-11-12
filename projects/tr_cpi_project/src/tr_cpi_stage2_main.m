@@ -25,17 +25,27 @@ if ~exist('shock_scenario', 'var')
     shock_scenario = 'beta'; 
 end
 
-% ▼▼▼【計算に使用するショック別パラメータ設定 (TR CPI STAGE2用)】▼▼▼
+% ▼▼▼【計算に使用するショック別フォルダ・パラメータ設定 (TR CPI STAGE2用)】▼▼▼
 if strcmp(shock_scenario, 'beta')
-    shock_folder   = 'beta_shock';
-    phi_pi_H_value = 150;
-    phi_y_H_value  = 1;
+    shock_folder = 'beta_shock';
 elseif strcmp(shock_scenario, 'a')
-    shock_folder   = 'a_shock';
-    phi_pi_H_value = 150;
-    phi_y_H_value  = 1;
+    shock_folder = 'a_shock';
 else
     error("Invalid shock_scenario. Choose 'beta' or 'a'.");
+end
+
+% 親スクリプト (tr_cpi_main.m) から phi_pi_H_custom, phi_y_H_custom が渡されている場合はそれを使用
+if exist('phi_pi_H_custom', 'var') && exist('phi_y_H_custom', 'var')
+    phi_pi_H_value = phi_pi_H_custom;
+    phi_y_H_value  = phi_y_H_custom;
+    if ~exist('param_source_str', 'var')
+        param_source_str = 'Passed from tr_cpi_main.m';
+    end
+else
+    % このスクリプトを単体で直接実行した場合のフォールバック
+    phi_pi_H_value   = 150;
+    phi_y_H_value    = 1.0;
+    param_source_str = 'Default in tr_cpi_stage2_main.m';
 end
 % ▲▲▲【設定完了】▲▲▲
 
@@ -43,8 +53,6 @@ end
 output_root_folder = fullfile(mpath, '..', 'results', 'stage2', shock_folder);
 
 if ~exist(output_root_folder, 'dir'), mkdir(output_root_folder); end
-
-% ▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲▲
 
 %% --- [2] Stage 1 データの読み込み ---
 % Stage 1 の成果物 (例: results/stage1/[shock]/tr_cpi_stage1_potential_output_beta_shock.mat) を参照
@@ -97,7 +105,7 @@ end
 
 %% --- [4] 【核心】stage2/tr_cpi_stage2_solve_core.m の呼び出し ---
 fprintf('Stage 2 (Sticky Price + ZLB) シミュレーションを開始します...\n');
-fprintf('使用パラメータ: phi_pi_H = %.12f, phi_y_H = %.12f\n', phi_pi_H_value, phi_y_H_value);
+fprintf('使用パラメータ: phi_pi_H = %.6g, phi_y_H = %.8g (%s)\n', phi_pi_H_value, phi_y_H_value, param_source_str);
 [welfares, irf_results, Mbase_, oobase_] = tr_cpi_stage2_solve_core(phi_pi_H_value, phi_y_H_value, settings);
 
 % --- 固有値・収束・振動の診断チェック ---
@@ -118,12 +126,12 @@ if zigzag_count > 10
 end
 
 % 取得した厚生変数を個別に展開
-welfare_H_with_delta_pie = welfares.welfare_H_with_delta_pie;
-welfare_H_with_delta_lin = welfares.welfare_H_with_delta_lin;
+welfare_H_with_delta_pie    = welfares.welfare_H_with_delta_pie;
+welfare_H_with_delta_lin    = welfares.welfare_H_with_delta_lin;
 welfare_H_without_delta_pie = welfares.welfare_H_without_delta_pie;
 welfare_H_without_delta_lin = welfares.welfare_H_without_delta_lin;
-welfare_F_with_delta_pie = welfares.welfare_F_with_delta_pie;
-welfare_F_with_delta_lin = welfares.welfare_F_with_delta_lin;
+welfare_F_with_delta_pie    = welfares.welfare_F_with_delta_pie;
+welfare_F_with_delta_lin    = welfares.welfare_F_with_delta_lin;
 welfare_F_without_delta_pie = welfares.welfare_F_without_delta_pie;
 welfare_F_without_delta_lin = welfares.welfare_F_without_delta_lin;
 
@@ -134,48 +142,48 @@ for k = 1:length(fnames)
 end
 
 %% --- [5] グラフの描画 ---
-fprintf('グラフを作成し、PDFに保存中...\n');
+fprintf('グラフを作成し、PDFに保存中 (%s)...\n', shock_folder);
 
 % 表示変数のリスト (統計ベース指数および全ショック変数を網羅 / Stage 2に存在しない gamma_H を除外)
-    var_list = { ...
-        'e_slash_star', ... 
-        'lambda_H', ...
-        'lambda_H_slash_star', ...
-        'lambda_F_slash_star', ...
-        'lambda_F', ...
-        'utility_H_with_delta', 'utility_F_with_delta', ...
-        'utility_H_without_delta', 'utility_F_without_delta', ... 
-        'p_H', 'p_F_star', ...
-        'i_H_notional', ...
-        'i_H', 'i_F', ...
-        'c_H_W', 'c_F_W', ...
-        'c_H_H', 'c_F_H', ...
-        'c_H_F', 'c_F_F', ...
-        'y_H', 'y_F', ...
-        'l_H', 'l_F', ...
-        'p_H_W', 'p_F_W_star', ...
-        'p_H_W_bar', 'p_F_W_star_bar', ... % 統計ベースのCPI
-        'p_H_bar', 'p_F_star_bar', ...
-        'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
-        'pi_H', 'pi_F_star', ...
-        'pi_H_W', 'pi_F_W_star', ...
-        'p_H_tilde', 'p_F_star_tilde', ...
-        'v_H', 'v_F', ...
-        'w_H', 'w_F', ...
-        'p_F_bar', 'p_H_star_bar', ...
-        't_H', 't_F', ...
-        'b_H', 'b_F_star', ... 
-        'beta_H', 'beta_F', ...
-        'a_H', 'a_F', ...
-        'tau_H', 'tau_F', ...
-        'y_H_potential', ...
-        'eps_beta_H', 'eps_beta_F', ...
-        'eps_a_H', 'eps_a_F', ...
-        'eps_tau_H', 'eps_tau_F', ...
-        'eps_i_H', 'eps_i_F', ...
-        'eps_y_H_potential', ...
-        'Delta_H', 'Delta_F', ...
-    };
+var_list = { ...
+    'e_slash_star', ... 
+    'lambda_H', ...
+    'lambda_H_slash_star', ...
+    'lambda_F_slash_star', ...
+    'lambda_F', ...
+    'utility_H_with_delta', 'utility_F_with_delta', ...
+    'utility_H_without_delta', 'utility_F_without_delta', ... 
+    'p_H', 'p_F_star', ...
+    'i_H_notional', ...
+    'i_H', 'i_F', ...
+    'c_H_W', 'c_F_W', ...
+    'c_H_H', 'c_F_H', ...
+    'c_H_F', 'c_F_F', ...
+    'y_H', 'y_F', ...
+    'l_H', 'l_F', ...
+    'p_H_W', 'p_F_W_star', ...
+    'p_H_W_bar', 'p_F_W_star_bar', ... % 統計ベースのCPI
+    'p_H_bar', 'p_F_star_bar', ...
+    'p_H_bar_y_H', 'p_H_W_c_H_W', 'p_H_W_slash_p_H', ...
+    'pi_H', 'pi_F_star', ...
+    'pi_H_W', 'pi_F_W_star', ...
+    'p_H_tilde', 'p_F_star_tilde', ...
+    'v_H', 'v_F', ...
+    'w_H', 'w_F', ...
+    'p_F_bar', 'p_H_star_bar', ...
+    't_H', 't_F', ...
+    'b_H', 'b_F_star', ... 
+    'beta_H', 'beta_F', ...
+    'a_H', 'a_F', ...
+    'tau_H', 'tau_F', ...
+    'y_H_potential', ...
+    'eps_beta_H', 'eps_beta_F', ...
+    'eps_a_H', 'eps_a_F', ...
+    'eps_tau_H', 'eps_tau_F', ...
+    'eps_i_H', 'eps_i_F', ...
+    'eps_y_H_potential', ...
+    'Delta_H', 'Delta_F', ...
+};
 
 graphics_toolkit("gnuplot");
 
@@ -192,19 +200,41 @@ num_vars = length(var_list);
 nperiods = settings.nperiods;
 irfshock = settings.irfshock;
 
+% ポリシー表示名とページ上部共通ヘッダー文字列の作成
+if strcmp(policy_key, 'tr_cpi')
+    policy_display_tex = 'TR_{CPI}';
+else
+    policy_display_tex = strrep(upper(policy_key), '_', '\_');
+end
+
+if strcmp(shock_folder, 'beta_shock')
+    scen_label_tex = '\beta shock';
+elseif strcmp(shock_folder, 'a_shock')
+    scen_label_tex = 'a shock';
+else
+    scen_label_tex = strrep(shock_folder, '_', ' ');
+end
+page_header_str = sprintf('%s (%s):   \\phi_{\\pi}^H = %.6g,   \\phi_{y}^H = %.8g', ...
+    policy_display_tex, scen_label_tex, phi_pi_H_value, phi_y_H_value);
+
 for i = 1:plots_per_page:num_vars
     h = figure('Visible', 'off', 'PaperType', 'a4', 'PaperOrientation', 'landscape', 'PaperUnits', 'centimeters');
     
     graph_width = 25;
-    graph_height = 18;
+    graph_height = 17.5;
     left_margin = (29.7 - graph_width) / 2;
-    bottom_margin = (21.0 - graph_height) / 2;
+    bottom_margin = (21.0 - graph_height) / 2 - 0.4;
     set(h, 'PaperPosition', [left_margin, bottom_margin, graph_width, graph_height]);
     
+    ax_list = [];
+    j_list  = [];
+
     for j = 1:plots_per_page
         plot_index = i + j - 1;
         if plot_index > num_vars, break; end
-        subplot(rows, cols, j);
+        ax = subplot(rows, cols, j);
+        ax_list(end+1) = ax;
+        j_list(end+1)  = j;
         
         var_name = var_list{plot_index};
         
@@ -228,8 +258,10 @@ for i = 1:plots_per_page:num_vars
         grid on;
         xlim([0, nperiods]);
         
-        % --- タイトル生成ロジック (一切の要約・省略なし) ---
-        if strncmp(var_name, 'eps_', 4)
+        % --- タイトル生成ロジック (_{bar}, _{tilde} で確実に全文字を下付き化) ---
+        if strcmp(var_name, 'eps_y_H_potential')
+            latex_title = '\epsilon^{y^{H,pot}}';
+        elseif strncmp(var_name, 'eps_', 4)
             parts = strsplit(var_name, '_');
             middle = parts{2};
             tex_middle = middle; 
@@ -245,47 +277,54 @@ for i = 1:plots_per_page:num_vars
                 latex_title = ['\epsilon_{', tex_middle, '}'];
             end
         elseif strcmp(var_name, 'p_H_bar_y_H') 
-            latex_title = '\bar{p}^H y^H';
+            latex_title = 'p_{bar}^{H} y^{H}';
         elseif strcmp(var_name, 'p_H_W_c_H_W') 
-            latex_title = 'p^{H \to W} c^{H \to W}';
+            latex_title = 'p^{H \rightarrow W} c^{H \rightarrow W}';
         elseif strcmp(var_name, 'p_H_W_slash_p_H') 
-            latex_title = 'p^{H \to W} / p^H';
+            latex_title = 'p^{H \rightarrow W} / p^{H}';
         elseif strcmp(var_name, 'pi_H_W')
-            latex_title = '\pi^{H \to W}';
+            latex_title = '\pi^{H \rightarrow W}';
         elseif strcmp(var_name, 'pi_F_W_star')
-            latex_title = '\pi^{F \to W*}';
+            latex_title = '\pi^{F \rightarrow W*}';
         elseif strcmp(var_name, 'c_H_W')
-            latex_title = 'c^{H \to W}';
+            latex_title = 'c^{H \rightarrow W}';
         elseif strcmp(var_name, 'c_F_W')
-            latex_title = 'c^{F \to W*}';
+            latex_title = 'c^{F \rightarrow W*}';
         elseif strcmp(var_name, 'p_H_W')
-            latex_title = 'p^{H \to W}';
+            latex_title = 'p^{H \rightarrow W}';
         elseif strcmp(var_name, 'p_F_W_star')
-            latex_title = 'p^{F \to W*}';
+            latex_title = 'p^{F \rightarrow W*}';
+        elseif strcmp(var_name, 'p_H_W_bar')
+            latex_title = 'p_{bar}^{H \rightarrow W}';
+        elseif strcmp(var_name, 'p_F_W_star_bar')
+            latex_title = 'p_{bar}^{F \rightarrow W*}';
         elseif strcmp(var_name, 'c_H_H')
-            latex_title = 'c^{H \to H}';
+            latex_title = 'c^{H \rightarrow H}';
         elseif strcmp(var_name, 'c_F_H')
-            latex_title = 'c^{F \to H}';
+            latex_title = 'c^{F \rightarrow H}';
         elseif strcmp(var_name, 'c_H_F')
-            latex_title = 'c^{H \to F*}';
+            latex_title = 'c^{H \rightarrow F*}';
         elseif strcmp(var_name, 'c_F_F')
-            latex_title = 'c^{F \to F*}';
+            latex_title = 'c^{F \rightarrow F*}';
         elseif strcmp(var_name, 'p_H_tilde')
-            latex_title = '\tilde{p}^H';
+            latex_title = 'p_{tilde}^{H}';
         elseif strcmp(var_name, 'p_F_star_tilde')
-            latex_title = '\tilde{p}^{F*}';
+            latex_title = 'p_{tilde}^{F*}';
         elseif strcmp(var_name, 'i_H_notional')
             latex_title = 'i^{H,notional}';
         elseif endsWith(var_name, '_bar')
+            % p_H_bar, p_F_star_bar, p_F_bar, p_H_star_bar
             temp_name = regexprep(var_name, '_bar$', '');
             parts = strsplit(temp_name, '_');
             base = parts{1}; 
             if length(parts) > 1
-                superscript = strjoin(parts(2:end), ''); 
+                superscript = strjoin(parts(2:end), '_'); 
+                superscript = strrep(superscript, '_', '\rightarrow');
+                superscript = strrep(superscript, '\rightarrowstar', '*');
                 superscript = strrep(superscript, 'star', '*'); 
-                latex_title = [base, '\_bar^{', superscript, '}'];
+                latex_title = [base, '_{bar}^{', superscript, '}'];
             else
-                latex_title = [base, '\_bar'];
+                latex_title = [base, '_{bar}'];
             end
         elseif strcmp(var_name, 'lambda_H_slash_star')
             latex_title = '\lambda^{H/*}';
@@ -338,34 +377,56 @@ for i = 1:plots_per_page:num_vars
             end
         end
         
-        set(gca, 'FontSize', 8);
-        title(latex_title, 'Interpreter', 'tex');
+        set(ax, 'FontSize', 8);
+        title(ax, latex_title, 'Interpreter', 'tex', 'FontSize', 10);
 
         if plot_index == 1
-            legend('ZLB (OccBin)', 'Non-ZLB', 'Location', 'northeast');
+            legend('ZLB', 'Non-ZLB', 'Location', 'northeast');
         end
         
         % 厚生値のグラフ内表示
         if strcmp(var_name, 'utility_H_with_delta')
-            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            xlim_vals = get(ax, 'XLim'); ylim_vals = get(ax, 'YLim');
             x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
-            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            y_pos_top    = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
             y_pos_bottom = ylim_vals(1) + 0.05 * (ylim_vals(2) - ylim_vals(1));
             text_H_pie_str = sprintf('Welfare (with Delta, ZLB): %.4f', welfare_H_with_delta_pie);
             text_H_lin_str = sprintf('Welfare (with Delta, Non-ZLB): %.4f', welfare_H_with_delta_lin);
-            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
-            text(x_pos, y_pos_top, text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red',  'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_top,    text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
         elseif strcmp(var_name, 'utility_H_without_delta')
-            xlim_vals = get(gca, 'XLim'); ylim_vals = get(gca, 'YLim');
+            xlim_vals = get(ax, 'XLim'); ylim_vals = get(ax, 'YLim');
             x_pos = xlim_vals(1) + 0.05 * (xlim_vals(2) - xlim_vals(1));
-            y_pos_top = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
+            y_pos_top    = ylim_vals(1) + 0.15 * (ylim_vals(2) - ylim_vals(1));
             y_pos_bottom = ylim_vals(1) + 0.05 * (ylim_vals(2) - ylim_vals(1));
             text_H_pie_str = sprintf('Welfare (without Delta, ZLB): %.4f', welfare_H_without_delta_pie);
             text_H_lin_str = sprintf('Welfare (without Delta, Non-ZLB): %.4f', welfare_H_without_delta_lin);
-            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
-            text(x_pos, y_pos_top, text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_bottom, text_H_lin_str, 'Color', 'red',  'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
+            text(x_pos, y_pos_top,    text_H_pie_str, 'Color', 'blue', 'FontSize', 7, 'FontWeight', 'bold', 'Interpreter', 'tex');
         end
     end
+
+    % 全サブプロットを作成し終えた後に、一括で高さを少し縮めてヘッダーとの間隔を広げる
+    for k = 1:length(ax_list)
+        pos = get(ax_list(k), 'Position');
+        if j_list(k) <= 3
+            pos(2) = pos(2) - 0.025;
+            pos(4) = pos(4) * 0.90;
+        else
+            pos(2) = pos(2) - 0.015;
+            pos(4) = pos(4) * 0.90;
+        end
+        set(ax_list(k), 'Position', pos);
+    end
+
+    % ページ上部ヘッダーの描画
+    annotation(h, 'textbox', [0.13, 0.955, 0.80, 0.04], ...
+        'String', page_header_str, ...
+        'EdgeColor', 'none', ...
+        'HorizontalAlignment', 'left', ...
+        'FontSize', 12, ...
+        'FontWeight', 'bold', ...
+        'Interpreter', 'tex');
     
     page_num = floor((i-1) / plots_per_page) + 1;
     if page_num == 1
@@ -377,7 +438,7 @@ for i = 1:plots_per_page:num_vars
 end
 
 %% --- [6] データの保存 (.mat) ---
-fprintf('全てのシミュレーション結果を.matファイルに保存中...\n');
+fprintf('全てのシミュレーション結果を.matファイルに保存中 (%s)...\n', shock_folder);
 
 vars_to_save = {};
 for i = 1:length(var_list)
@@ -390,9 +451,10 @@ for i = 1:length(var_list)
     end
 end
 
-% 厚生変数の追加
+% 厚生変数・使用パラメータの追加
 w_list = {'welfare_H_with_delta_pie','welfare_H_with_delta_lin','welfare_F_with_delta_pie','welfare_F_with_delta_lin',...
-          'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin'};
+          'welfare_H_without_delta_pie','welfare_H_without_delta_lin','welfare_F_without_delta_pie','welfare_F_without_delta_lin',...
+          'phi_pi_H_value','phi_y_H_value'};
 vars_to_save = [vars_to_save, w_list];
 
 % 成果物フォルダ直下に保存 (例: tr_cpi_data_for_plotting_beta_shock.mat)
@@ -402,13 +464,13 @@ save(full_save_path, vars_to_save{:});
 fprintf('全てのデータが "%s" に保存されました。\n', full_save_path);
 
 %% --- [7] CSVへの書き出し ---
-fprintf('CSVファイルへの書き出しを開始します...\n');
+fprintf('CSVファイルへの書き出しを開始します (%s)...\n', shock_folder);
 try
     S = load(full_save_path);
     header = {}; data_matrix = []; 
     for i = 1:length(vars_to_save)
         vn = vars_to_save{i};
-        if ~strncmp(vn, 'welfare_', 8)
+        if ~strncmp(vn, 'welfare_', 8) && ~strncmp(vn, 'phi_', 4)
             if isfield(S, vn) && isvector(S.(vn)) && length(S.(vn)) == nperiods
                 header{end+1} = vn;
                 data_matrix = [data_matrix, S.(vn)(:)]; 
@@ -432,8 +494,9 @@ try
     scalar_save_path = fullfile(output_root_folder, txt_filename);
     fid_scalar = fopen(scalar_save_path, 'w');
     if fid_scalar ~= -1
-        fprintf(fid_scalar, 'Welfare (Utility) Calculations (Stage 2 Sticky - Scenario: %s):\n', shock_scenario);
-        fprintf(fid_scalar, 'Parameters: phi_pi_H = %.12f, phi_y_H = %.12f\n\n', phi_pi_H_value, phi_y_H_value);
+        fprintf(fid_scalar, 'Welfare Calculations (%s):\n', shock_folder);
+        fprintf(fid_scalar, 'Parameters: phi_pi_H = %.6g, phi_y_H = %.8g (%s)\n\n', ...
+            phi_pi_H_value, phi_y_H_value, param_source_str);
         fprintf(fid_scalar, '--- with Price Dispersion Cost (Delta included) ---\n');
         fprintf(fid_scalar, 'welfare_H_with_delta_pie (ZLB): %.8f\n', S.welfare_H_with_delta_pie);
         fprintf(fid_scalar, 'welfare_H_with_delta_lin (Non-ZLB): %.8f\n', S.welfare_H_with_delta_lin);
@@ -450,7 +513,6 @@ try
         % =========================================================
         % projects フォルダ直下の data_for_plotting フォルダへコピー
         % =========================================================
-        % tr_cpi_stage2_main.m の場所 (src) から projects 階層まで遡る
         projects_root = fileparts(proj_dir); % .../projects
         
         central_data_folder = fullfile(projects_root, 'data_for_plotting');
@@ -458,15 +520,10 @@ try
             mkdir(central_data_folder);
         end
         
-        % コピー先のファイル名 (プランAの命名規則に統一)
-        dest_csv_name = csv_filename;
-        dest_txt_name = txt_filename;
+        copyfile(csv_save_path, fullfile(central_data_folder, csv_filename));
+        copyfile(scalar_save_path, fullfile(central_data_folder, txt_filename));
         
-        % 該当フォルダへファイルをコピー
-        copyfile(csv_save_path, fullfile(central_data_folder, dest_csv_name));
-        copyfile(scalar_save_path, fullfile(central_data_folder, dest_txt_name));
-        
-        fprintf('一覧用フォルダにコピーしました: %s, %s\n', dest_csv_name, dest_txt_name);
+        fprintf('一覧用フォルダにコピーしました: %s, %s\n', csv_filename, txt_filename);
         % =========================================================
     end
 catch ME
